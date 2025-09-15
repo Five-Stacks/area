@@ -1,0 +1,16 @@
+name: Require production as source
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  check-source:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify base branch
+        run: |
+          if [[ "${{ github.head_ref }}" != "production" ]]; then
+            echo "❌ Only PRs from 'production' can be merged into 'main'."
+            exit 1
+          fi
