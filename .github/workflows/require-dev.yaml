@@ -11,6 +11,6 @@ jobs:
       - name: Verify base branch
         run: |
           if [[ "${{ github.head_ref }}" != "dev" ]]; then
-            echo "❌ Only PRs from 'dev' can be merged into 'main'."
+            echo "::error title=Illegal-pull-request-source::All pull requests to the main branch must come from the dev branch."
             exit 1
           fi
