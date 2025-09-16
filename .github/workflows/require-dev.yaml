@@ -1,4 +1,4 @@
-name: Require production as source
+name: Require dev as source
 
 on:
   pull_request:
@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Verify base branch
         run: |
-          if [[ "${{ github.head_ref }}" != "production" ]]; then
-            echo "❌ Only PRs from 'production' can be merged into 'main'."
+          if [[ "${{ github.head_ref }}" != "dev" ]]; then
+            echo "❌ Only PRs from 'dev' can be merged into 'main'."
             exit 1
           fi
