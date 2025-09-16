@@ -2,15 +2,21 @@ name: Require dev as source
 
 on:
   pull_request:
-    branches: [ main ]
+    types: [opened, synchronize, reopened]
+    branches: [main]
 
 jobs:
   check-source:
     runs-on: ubuntu-latest
     steps:
-      - name: Verify base branch
+      - name: Check PR source branch
         run: |
-          if [[ "${{ github.head_ref }}" != "dev" ]]; then
+          echo "PR base branch: ${{ github.base_ref }}"
+          echo "PR source branch: ${{ github.head_ref }}"
+
+          if [[ "${GITHUB_HEAD_REF}" != "dev" ]]; then
             echo "::error title=Illegal-pull-request-source::All pull requests to the main branch must come from the dev branch."
             exit 1
+          else
+            echo "✅ PR source branch is correct (dev)."
           fi
