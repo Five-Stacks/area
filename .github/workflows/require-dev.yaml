@@ -1,5 +1,7 @@
 name: Require dev as source
 
+# This workflow is run on every pull requests on main.
+# It aims to blocks any of said PRs wich doesn't comes from the dev branch
 on:
   pull_request:
     types: [opened, synchronize, reopened]
@@ -10,13 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check PR source branch
-        run: |
-          echo "PR base branch: ${{ github.base_ref }}"
-          echo "PR source branch: ${{ github.head_ref }}"
-
-          if [[ "${GITHUB_HEAD_REF}" != "dev" ]]; then
-            echo "::error title=Illegal-pull-request-source::All pull requests to the main branch must come from the dev branch."
-            exit 1
-          else
-            echo "✅ PR source branch is correct (dev)."
-          fi
+        if: ${{ (github.base_ref == main) && (runner.os != 'dev') }}
+        run:
+          echo "::error title=Illegal-pull-request-source::All pull requests to the main branch must come from the dev branch."
+          exit 1
