@@ -36,12 +36,6 @@ POSTGRES_PASSWORD=yourpassword
 POSTGRES_DB=yourdb
 ```
 
-Create a `.env` file at the  of the web folder with the following variables:
-
-```
-PORT=yourport
-```
-
 ## API & Endpoints
 
 - Backend: [http://localhost:8080](http://localhost:8080)
