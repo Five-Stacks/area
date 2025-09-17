@@ -16,9 +16,13 @@ This document defines how branches and pull requests (PRs) must be handled.
 > `dev` is the only source branch allowed for PRs targeting `main`
 
 ### PR Title & Description
-- Include the linked Jira story at the start of the title.
 - Use a descriptive title explaining the change.
-- Include a short summary, testing notes, and any relevant other Jira stories or tasks in the description.
+- Include a short summary, Jira stories or tasks, List of changes/features/fixes and how you tested the feature in the description.
+
+> [!TIP]
+> You can take a look in the templates located in .github/PULL_REQUEST_TEMPLATE/******.md
+>
+> These can be used in the github website directly as template when creating your PR.
 
 ### Review Requirements
 At least 2 reviewers must be selected:
