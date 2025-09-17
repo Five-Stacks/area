@@ -37,6 +37,11 @@ If new commits are pushed, all reviews will be stalled thus requiring all review
 - All status checks (CI, linters, unit tests, etc) must pass before being able to merge.
 - If new commits are pushed, all status checks will be relaunched.
 
+### Merging message
+The only method authorized is Squash & Merge.
+
+The message must start from the [🔀 gitmoji](https://gitmoji.dev/) and resume the pull request content (you can use the title).
+
 ## Changing PR Base Branch
 Avoid changing the base branch off a PR after creation.
 
