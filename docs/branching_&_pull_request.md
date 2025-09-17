@@ -8,7 +8,7 @@ This document defines how branches and pull requests (PRs) must be handled.
 ## Branching Strategy
 - `main`: Production branch. Updated weekly with the latest stable version of the apps.
 - `dev`: Integration branch. All features and fixes must be merged here before going to `main`.
-- **Feature/Bugfix branches**: Branches off `dev` for new work. Use clear names, e.g., `feature/login-ui`, `bugfix/payment-crash`.
+- **Feature/Bugfix branches**: Branches off `dev` for new work. Use clear names, e.g., `add login-ui`, `fix payment-crash`.
 - **Hotfix branches**: Only for urgent fixes that must go directly to `main`. Must follow the hotfix procedure below.
 
 ## Pull Request
