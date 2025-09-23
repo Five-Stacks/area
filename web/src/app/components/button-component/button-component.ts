@@ -1,18 +1,18 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component, inject, Inject, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'area-button',
+  selector: 'app-area-button',
   imports: [],
   templateUrl: './button-component.html',
   styleUrl: './button-component.css'
 })
 export class ButtonComponent {
-  constructor(private router: Router) {}
+  router = inject(Router);
 
-  @Input() label: string = 'Click Me';
-  @Input() disabled: boolean = false;
-  @Input() onClick?: () => void = () => { };
+  @Input() label = 'Click Me';
+  @Input() disabled = false;
+  @Input() onClick?: () => void;
   @Input() path?: string|null = null;
 
   onClickHandler() {

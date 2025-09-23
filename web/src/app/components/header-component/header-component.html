@@ -1,18 +1,26 @@
-<img
-    src="/assets/logo.png"
-    alt="Area Logo"
+<button
     (click)="navigateToHome()"
-    class="logo"
-/>
-<area-button
+    (keyup.enter)="navigateToHome()"
+    class="logo-btn"
+    aria-label="Go to Home"
+    tabindex="0"
+    style="background: none; border: none; padding: 0;"
+>
+    <img
+        src="/assets/logo.png"
+        alt="Area Logo"
+        class="logo"
+    />
+</button>
+<app-area-button
     [label]="'EXPLORE'"
     [path]="'/explorer'"
-></area-button>
-<area-button
+></app-area-button>
+<app-area-button
     [label]="'LOG IN'"
     [path]="'/sign-in'"
-></area-button>
-<area-button-full
+></app-area-button>
+<app-area-button-full
     [label]="'GET STARTED'"
     [path]="'/sign-up'"
-></area-button-full>
+></app-area-button-full>
