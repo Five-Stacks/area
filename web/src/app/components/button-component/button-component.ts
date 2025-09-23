@@ -2,7 +2,7 @@ import { Component, Inject, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-button-component',
+  selector: 'area-button',
   imports: [],
   templateUrl: './button-component.html',
   styleUrl: './button-component.css'

@@ -2,13 +2,13 @@ import { Component, Inject, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-button-full-component',
+  selector: 'area-button-full',
   imports: [],
   templateUrl: './button-component-full.html',
   styleUrl: './button-component-full.css'
 })
 export class ButtonFullComponent {
-  router = Inject(Router);
+  constructor(private router: Router) {}
 
   @Input() label: string = 'Click Me';
   @Input() disabled: boolean = false;
