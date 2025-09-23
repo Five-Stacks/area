@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { HeaderDashBoardComponent } from '../../components/header-component-dashboard/header-component-dashboard';
 
 @Component({
   selector: 'app-settings-page',
-  imports: [],
+  imports: [HeaderDashBoardComponent],
   templateUrl: './settings-page.html',
   styleUrl: './settings-page.css'
 })

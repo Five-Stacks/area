@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { HeaderDashBoardComponent } from '../../../components/header-component-dashboard/header-component-dashboard';
 
 @Component({
   selector: 'app-area-details-page',
-  imports: [],
+  imports: [HeaderDashBoardComponent],
   templateUrl: './area-details-page.html',
   styleUrl: './area-details-page.css'
 })
