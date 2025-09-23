@@ -1,9 +1,15 @@
 <div class="sign-in-page">
     <div class="sign-in-form">
-        <img src="assets/LogoVertical.png" alt="Area Logo" width="200" height="200">
-        <h1>LOG IN</h1>
+        <img src="assets/LogoVertical.png" alt="Area Logo" width="200" height="200" [routerLink]="'/'" class="logo"/>
+        <h1 class="title-form">LOG IN</h1>
         <app-text-field-component [label]="'Email'"></app-text-field-component>
         <app-text-field-component [label]="'Password'"></app-text-field-component>
         <app-area-button-full [label]="'LOG IN'" [onClick]="handleSignIn"></app-area-button-full>
+        <div class="or-separator">
+            <hr>
+            <span>or</span>
+            <hr>
+        </div>
+        <p>New to Area? <a [routerLink]="'/sign-up'">Sign up here.</a></p>
     </div>
 </div>

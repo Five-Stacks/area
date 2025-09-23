@@ -16,3 +16,45 @@ h1 {
     gap: 20px;
     width: 365px;
 }
+
+.logo:hover {
+    cursor: pointer;
+}
+
+.or-separator {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+    hr {
+        width: 100%;
+        border: none;
+        border-top: 3px solid var(--line-color);
+        margin-top: 10px;
+    }
+    span {
+        font-size: 20px;
+        font-weight: 800;
+        color: var(--line-color);
+    }
+}
+
+p {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--black-color);
+
+    a {
+        color: var(--blue-color);
+        text-decoration: underline;
+        font-weight: 700;
+    }
+    a:hover {
+        cursor: pointer;
+        color: var(--blue-hover-color);
+    }
+}
+
+.title-form {
+    margin-bottom: 0;
+}

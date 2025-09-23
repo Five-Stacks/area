@@ -13,3 +13,7 @@ button {
 
     box-shadow: 2px 6px 9px 0px var(--blue-shadow-color);
 }
+button:hover {
+    cursor: pointer;
+    background-color: var(--blue-hover-color);
+}
