@@ -1,10 +1,9 @@
 import { Component, inject, Input } from '@angular/core';
-import { ButtonComponent } from '../button-component/button-component';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-area-button-icon',
-  imports: [ButtonComponent],
+  imports: [],
   templateUrl: './button-with-icon-component.html',
   styleUrl: './button-with-icon-component.css'
 })

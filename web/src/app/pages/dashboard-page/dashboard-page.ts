@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { ButtonFullComponent } from '../../components/button-component-full/button-component-full';
-import { ButtonWithIconComponent } from '../../components/button-with-icon-component/button-with-icon-component';
+import { ButtonFullComponent } from '../../components/Buttons/button-component-full/button-component-full';
+import { ButtonWithIconComponent } from '../../components/Buttons/button-with-icon-component/button-with-icon-component';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 

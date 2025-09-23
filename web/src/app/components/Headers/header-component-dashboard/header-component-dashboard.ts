@@ -1,6 +1,6 @@
 import { Component, inject, Input } from '@angular/core';
-import { ButtonComponent } from '../button-component/button-component';
-import { ButtonFullComponent } from '../button-component-full/button-component-full';
+import { ButtonComponent } from '../../Buttons/button-component/button-component';
+import { ButtonFullComponent } from '../../Buttons/button-component-full/button-component-full';
 import { Router } from '@angular/router';
 
 @Component({

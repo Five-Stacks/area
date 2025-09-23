@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HeaderDashBoardComponent } from '../../../components/header-component-dashboard/header-component-dashboard';
+import { HeaderDashBoardComponent } from '../../../components/Headers/header-component-dashboard/header-component-dashboard';
 
 @Component({
   selector: 'app-area-creation-page',
