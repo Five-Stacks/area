@@ -56,7 +56,7 @@ const config: Config = {
       title: 'Blackpink in your AREA',
       logo: {
         alt: 'Blackpink AREA Logo',
-        src: 'img/logo.svg',
+        src: 'img/favicon.ico',
       },
       items: [
         {
