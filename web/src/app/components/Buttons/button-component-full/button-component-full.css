@@ -1,3 +1,15 @@
+:host {
+    display: block;
+    width: 100%;
+}
 button {
-    background-color: aqua;
+    background-color: var(--blue-color);
+    border: none;
+    border-radius: 100px;
+    padding: 14px;
+    width: 100%;
+    color: var(--white-color);
+    font-size: 20px;
+
+    box-shadow: 2px 6px 9px 0px var(--blue-shadow-color);
 }
