@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-button-full-component',
@@ -7,7 +8,20 @@ import { Component, Input } from '@angular/core';
   styleUrl: './button-component-full.css'
 })
 export class ButtonFullComponent {
+  router = Inject(Router);
+
   @Input() label: string = 'Click Me';
   @Input() disabled: boolean = false;
-  @Input() onClick: () => void = () => { };
+  @Input() onClick?: () => void = () => { };
+  @Input() path?: string|null = null;
+
+  onClickHandler() {
+    if (this.disabled) return;
+    if (this.onClick) {
+      this.onClick();
+    }
+    if (this.path) {
+      this.router.navigate([this.path]);
+    }
+  }
 }

@@ -1,11 +1,13 @@
 <p>welcome-page works!</p>
 <app-button-component
     [label]="'EXPLORE'"
-    [disabled]="false"
-    [onClick]="handleButtonClick"
+    [path]="'/explore'"
+></app-button-component>
+<app-button-component
+    [label]="'LOG IN'"
+    [path]="'/login'"
 ></app-button-component>
 <app-button-full-component
     [label]="'GET STARTED'"
-    [disabled]="false"
-    [onClick]="handleButtonClick"
+    [path]="'/signup'"
 ></app-button-full-component>
