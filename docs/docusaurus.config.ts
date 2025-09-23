@@ -61,9 +61,21 @@ const config: Config = {
       items: [
         {
           type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
+          sidebarId: 'gettingStartedSidebar',
           position: 'left',
-          label: 'Tutorial',
+          label: 'Getting Started',
+        },
+        {
+          type: 'docSidebar',
+          sidebarId: 'guidesSidebar',
+          position: 'left',
+          label: 'Guides',
+        },
+        {
+          type: 'docSidebar',
+          sidebarId: 'apiSidebar',
+          position: 'left',
+          label: 'API References',
         }
       ],
     },
@@ -71,11 +83,19 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Docs',
+          title: 'Sections',
           items: [
             {
-              label: 'Docs',
-              to: '/',
+              label: 'Getting Started',
+              to: '/getting-started/',
+            },
+            {
+              label: 'Guides',
+              to: '/guides/',
+            },
+            {
+              label: 'API References',
+              to: '/api/',
             },
           ],
         },

@@ -1,6 +1,6 @@
 ---
-title: Homepage
-slug: /
+title: Introduction
+slug: /getting-started/
 sidebar_position: 1
 ---
 
