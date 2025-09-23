@@ -1,4 +1,4 @@
-import { Component, inject, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonComponent } from '../button-component/button-component';
 import { ButtonFullComponent } from '../button-component-full/button-component-full';
 import { Router } from '@angular/router';
