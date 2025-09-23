@@ -17,11 +17,11 @@ export const routes: Routes = [
     { path: 'explorer', component: ExplorerPage },
     { path: 'sign-in', component: SignInPage },
     { path: 'sign-up', component: SignUpPage },
-    { path: '**', component: ErrorPage },
     { path: 'dashboard', component: DashboardPage },
     { path: 'area/details/:id', component: AreaDetailsPage },
     { path: 'area/edition/:id', component: AreaEditionPage },
     { path: 'area/creation', component: AreaCreationPage },
     { path: 'services-manager', component: ServiceManagementPage },
     { path: 'settings', component: SettingsPage },
+    { path: '**', component: ErrorPage },
 ];
