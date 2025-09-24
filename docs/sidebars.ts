@@ -8,7 +8,7 @@ const sidebars: SidebarsConfig = {
       collapsible: false,
       items: [
         'getting-started/intro',
-        // 'getting-started/contributing',
+        'getting-started/contributing',
       ],
     },
   ],
