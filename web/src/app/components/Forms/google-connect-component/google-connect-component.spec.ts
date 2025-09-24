@@ -8,7 +8,7 @@ describe('GoogleConnectComponent', () => {
 
   // Mock the global google object before tests run
   beforeAll(() => {
-    (window as any).google = {
+    (window as unknown as Window & { google: { accounts: { id: { initialize: jasmine.Spy, renderButton: jasmine.Spy, prompt: jasmine.Spy } } } }).google = {
       accounts: {
         id: {
           initialize: jasmine.createSpy('initialize'),
@@ -20,7 +20,9 @@ describe('GoogleConnectComponent', () => {
   });
 
   afterAll(() => {
-    delete (window as any).google;
+    if ('google' in window) {
+      delete (window as { google?: unknown }).google;
+    }
   });
 
   beforeEach(async () => {
