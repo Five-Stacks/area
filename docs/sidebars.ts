@@ -7,7 +7,7 @@ const sidebars: SidebarsConfig = {
       label: '🚀 Getting Started',
       collapsible: false,
       items: [
-        'getting-started/intro',
+        'getting-started/welcome',
         'getting-started/contributing',
       ],
     },

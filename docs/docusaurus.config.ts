@@ -87,15 +87,15 @@ const config: Config = {
           items: [
             {
               label: 'Getting Started',
-              to: '/getting-started/',
+              to: '/getting-started/welcome',
             },
             {
               label: 'Guides',
-              to: '/guides/',
+              to: '/guides/installation',
             },
             {
               label: 'API References',
-              to: '/api/',
+              to: '/api/overview',
             },
           ],
         },
