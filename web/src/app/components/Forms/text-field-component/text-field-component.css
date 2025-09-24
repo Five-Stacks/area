@@ -21,3 +21,12 @@ input:focus {
     outline: none;
     border-color: var(--line-color);
 }
+
+.hint-text {
+    color: var(--red-color);
+    font-size: 12px;
+    margin-top: 4px;
+    margin-left: 4px;
+    font-weight: 500;
+    font-style: italic;
+}
