@@ -8,6 +8,7 @@ passport.use(new GitHubStrategy({
   },
   function(accessToken, refreshToken, profile, done) {
     // Here you would typically find or create a user in your database
+    return done(null, profile);
   }
 ));
 

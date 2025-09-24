@@ -7,6 +7,7 @@ passport.use(new SpotifyStrategy({
     callbackURL: "http://127.0.0.1:8080/auth/spotify/callback"
 }, (accessToken, refreshToken, profile, done) => {
     // Handle user authentication and profile retrieval
+    return done(null, profile);
 }));
 
 export default passport;

@@ -8,6 +8,7 @@ passport.use(new DiscordStrategy({
     scope: ['identify', 'email']
 }, (accessToken, refreshToken, profile, done) => {
     // Handle user authentication and profile retrieval
+    return done(null, profile);
 }));
 
 export default passport;
