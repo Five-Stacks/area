@@ -5,9 +5,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./server:/usr/src/app
-      - .env:/usr/src/app/.env
-      - server_node_modules:/usr/src/app/node_modules
+      - /usr/src/app/node_modules
     depends_on:
       - db
     command: npm run dev
