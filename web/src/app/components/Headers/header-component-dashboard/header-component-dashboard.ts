@@ -1,11 +1,10 @@
 import { Component, inject, Input } from '@angular/core';
-import { ButtonComponent } from '../button-component/button-component';
-import { ButtonFullComponent } from '../button-component-full/button-component-full';
+import { ButtonFullComponent } from '../../Buttons/button-component-full/button-component-full';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-area-header-dashboard',
-  imports: [ButtonComponent, ButtonFullComponent],
+  imports: [ButtonFullComponent],
   templateUrl: './header-component-dashboard.html',
   styleUrl: './header-component-dashboard.css'
 })

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from '../../components/header-component/header-component';
+import { HeaderComponent } from '../../components/Headers/header-component/header-component';
 
 @Component({
   selector: 'app-explorer-page',

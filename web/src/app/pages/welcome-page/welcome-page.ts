@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ButtonFullComponent } from '../../components/button-component-full/button-component-full';
-import { HeaderComponent } from '../../components/header-component/header-component';
+import { ButtonFullComponent } from '../../components/Buttons/button-component-full/button-component-full';
+import { HeaderComponent } from '../../components/Headers/header-component/header-component';
 
 @Component({
   selector: 'app-welcome-page',
