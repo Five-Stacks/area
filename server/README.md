@@ -18,10 +18,11 @@ server/
   └── src/
       ├── app.js         # Express app setup
       ├── server.js      # Entry point, starts the server on port 8080
-      ├── routes/        # Route definitions, connect endpoints to controllers
+      ├── config/        # Dotenv and Sequelize configuration files
       ├── controllers/   # Request/response logic for each route
       ├── middleware/    # Auth, logging, error handlers, parsers
-      ├── database/      # DB queries, schema, connection logic
+      ├── models/        # ORM models and database connection logic
+      ├── routes/        # Route definitions, connect endpoints to controllers
       ├── services/      # Business logic, external API, reusable app logic
       └── utils/         # Small helpers, formatting, generic utilities
 ```
@@ -32,6 +33,15 @@ server/
   `npm start`
 - Start in development (with auto-reload):
   `npm run dev`
+
+## Environment Variables
+
+Create a `.env` file at the root with the following variables:
+
+```
+POSTGRES_URL=postgres://user:password@localhost:5432/dbname
+JWT_SECRET=yoursecret
+```
 
 ## Module System
 

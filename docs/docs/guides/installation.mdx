@@ -1,0 +1,98 @@
+---
+id: installation
+title: Installation
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+## Local dev setup
+
+### Step 1: Install docker & docker-compose
+
+<Tabs>
+    <TabItem value="APT" label="Ubuntu / Debian" default>
+    ```bash title="Using apt"
+    # Update packages
+    sudo apt update
+
+    # Install Docker
+    sudo apt install -y docker.io
+
+    # Enable & start Docker
+    sudo systemctl enable docker
+    sudo systemctl start docker
+
+    # Install Docker Compose
+    sudo apt install -y docker-compose
+    ```
+    </TabItem>
+    <TabItem value="DNF" label="Fedora / RHEL / CentOS">
+    ```bash title="Using dnf or yay"
+    # Install Docker
+    sudo dnf install -y docker
+
+    # Enable & start Docker
+    sudo systemctl enable docker
+    sudo systemctl start docker
+
+    # Install Docker Compose
+    sudo dnf install -y docker-compose
+    ```
+    </TabItem>
+    <TabItem value="Pacman" label="Arch Linux / Manjaro">
+    ```bash title="Using pacman"
+    # Install Docker
+    sudo pacman -Syu docker
+
+    # Enable & start Docker
+    sudo systemctl enable docker
+    sudo systemctl start docker
+
+    # Install Docker Compose
+    sudo pacman -S docker-compose
+    ```
+    </TabItem>
+    <TabItem value="Homebrew" label="macOS">
+    ```bash title="Using homebrew"
+    # Install Docker Desktop
+    # Docker Compose comes with it
+    brew install --cask docker
+    ```
+    </TabItem>
+    <TabItem value="Chocolatey" label="Windows">
+    ```powershell title="Using chocolatey"
+    # Install Docker Desktop
+    # Docker Compose comes with it
+    choco install docker-desktop
+```
+    </TabItem>
+</Tabs>
+
+### Step 2: Clone the repository
+
+```bash
+git clone https://github.com/Five-Stacks/area.git
+```
+
+### Step 3: Launch the app
+
+```bash
+docker-compose up
+```
+
+This will launch a couple of things :
+- Backend server & database.
+- Frontend web app, accessible on http://localhost:8081.
+- Frontend mobile app, download on http://localhost:8082,
+  QR code available to download it directly on your phone if it is on the same network as your pc running the app.
+
+## Local build
+
+There is actually no easy way to build a packaged app for web & mobile apps.
+
+## Server deployment
+
+There is actually no easy way to deploy the app on a server.
+
+Kubernetes setup may be included at later date.

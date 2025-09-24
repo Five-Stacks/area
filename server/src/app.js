@@ -1,5 +1,8 @@
 /* Import modules */
 import express from 'express';
+import cookieParser from 'cookie-parser';
+import authRouter from './routes/auth.js';
+import notFound from './middleware/notFound.js';
 import { fileURLToPath } from 'url';
 
 /* Environment variables */
@@ -10,19 +13,13 @@ import path from 'path';
 import passport from 'passport';
 import session from 'express-session';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-await dotenv.config({ path: path.resolve(__dirname, "../.env") });
-
-const { default: router } = await import('./routes/authRoutes.js');
-
 /* App initialization */
 const app = express();
 
 /* Middleware setup */
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 /* Define routes */
 app.get('/', (req, res) => {
@@ -41,12 +38,10 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/auth', router);
+app.use('/api/auth', authRouter);
 
-/* 404 handler */
-app.use((req, res) => {
-  res.status(404).send('Sorry, we could not find that!');
-});
+/* 404 Middleware */
+app.use(notFound);
 
 /* Export application */
 export default app;

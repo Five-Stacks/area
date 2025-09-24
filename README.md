@@ -23,7 +23,7 @@ This monorepo contains the code for an automation platform inspired by IFTTT/Zap
 For live code updates, use:
 
 ```
-docker-compose -f docker-compose-dev.yml up
+docker-compose -f docker-compose.dev.yml up
 ```
 
 ## Environment Variables

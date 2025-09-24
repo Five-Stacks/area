@@ -6,6 +6,7 @@ services:
       - "8080:8080"
     volumes:
       - /usr/src/app/node_modules
+      - profile_pictures:/usr/src/app/uploads
     depends_on:
       - db
     command: npm run dev
@@ -46,9 +47,11 @@ services:
     ports:
       - "5432:5432"
     volumes:
+      - ./area.sql:/docker-entrypoint-initdb.d/area.sql
       - pgdata:/var/lib/postgresql/data
 
 volumes:
+  profile_pictures:
   shared_mobile_web:
   server_node_modules:
   pgdata:
