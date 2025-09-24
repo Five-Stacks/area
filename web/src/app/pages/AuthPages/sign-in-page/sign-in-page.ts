@@ -24,9 +24,7 @@ export class SignInPage {
   isLoading = false;
   errorMessage = '';
 
-  handleSignIn = () => {
-    console.log('Sign In', this.email, this.password);
-    
+  handleSignIn = () => {    
     // Reset previous errors
     this.hintEmail = '';
     this.hintPassword = '';

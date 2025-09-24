@@ -52,4 +52,14 @@ export class AdminAuthService {
       })
     );
   }
+
+  register(email: string, password: string, name: string): Observable<boolean> {
+    return this.http.post<{ success: boolean }>(`${this.apiUrl}/auth/register`, { email, password, name }, { withCredentials: true }).pipe(
+      map(response => response.success),
+      catchError(error => {
+        console.error('Registration error:', error);
+        return of(false);
+      })
+    );
+  }
 }

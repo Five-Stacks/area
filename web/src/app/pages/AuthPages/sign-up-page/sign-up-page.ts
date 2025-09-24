@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ButtonFullComponent } from '../../../components/Buttons/button-component-full/button-component-full';
 import { TextFieldComponent } from '../../../components/Forms/text-field-component/text-field-component';
 import { TextFieldHideComponent } from '../../../components/Forms/text-field-hide-component/text-field-hide-component';
 import { GoogleConnectComponent } from '../../../components/Forms/google-connect-component/google-connect-component';
+import { AdminAuthService } from '../../../services/admin-auth.service';
 
 @Component({
   selector: 'app-sign-up-page',
@@ -13,6 +14,8 @@ import { GoogleConnectComponent } from '../../../components/Forms/google-connect
 })
 export class SignUpPage {
   private router = inject(Router);
+  private adminAuthService = inject(AdminAuthService);
+  private route = inject(ActivatedRoute);
 
   email = '';
   password = '';
@@ -22,19 +25,40 @@ export class SignUpPage {
   hintPassword = '';
   hintName = '';
   hintConfirmPassword = '';
+  isLoading = false;
+  errorMessage = '';
 
-  handleSignIn = () => {
-    if (!this.email || !this.password || !this.name || !this.confirmPassword) {
+  handleSignIn = () => {    
+    // Reset previous errors
+    this.hintEmail = '';
+    this.hintPassword = '';
+    this.errorMessage = '';
+
+    // Validate inputs
+    if (!this.email || !this.password) {
       this.hintEmail = this.email ? '' : 'Email is required';
       this.hintPassword = this.password ? '' : 'Password is required';
-      this.hintName = this.name ? '' : 'Name is required';
-      this.hintConfirmPassword = this.confirmPassword ? '' : 'Confirm Password is required';
       return;
     }
-    if (this.password !== this.confirmPassword) {
-      this.hintConfirmPassword = 'Passwords do not match';
-      return;
-    }
-    this.router.navigate(['/dashboard']);
+
+    this.isLoading = true;
+
+    // Use the authentication service
+    this.adminAuthService.register(this.email, this.password, this.name).subscribe({
+      next: (success) => {
+        this.isLoading = false;
+        if (success) {
+          // Registration successful, navigate to login or dashboard
+          this.router.navigate(['/dashboard']);
+        } else {
+          this.errorMessage = 'Registration failed. Please try again.';
+        }
+      },
+      error: (error) => {
+        this.isLoading = false;
+        console.error('Registration error:', error);
+        this.errorMessage = 'Registration failed. Please try again.';
+      }
+    });
   };
 }
