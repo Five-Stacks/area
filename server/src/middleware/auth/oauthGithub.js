@@ -13,5 +13,5 @@ passport.use(new GitHubStrategy({
 ));
 
 export const githubAuthOptions = {
-  scope: ['user:email', 'repo']
+  scope: ['user:email', 'repo', 'read:org', 'read:user', 'user:follow', 'notifications', 'gist', 'workflow', 'admin:repo_hook', 'write:repo_hook']
 };
