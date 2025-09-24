@@ -10,3 +10,14 @@ passport.use(new SpotifyStrategy({
 }));
 
 export default passport;
+
+export const spotifyAuthOptions = {
+    scope: [
+        'user-read-email',
+        'user-read-private',
+        'playlist-read-private',
+        'playlist-modify-private',
+        'user-read-playback-state',
+        'user-modify-playback-state'
+    ]
+};

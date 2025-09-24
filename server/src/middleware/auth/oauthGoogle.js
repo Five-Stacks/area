@@ -9,3 +9,9 @@ passport.use(new GoogleStrategy({
     // Handle user authentication and profile retrieval
     return done(null, profile);
 }));
+
+export const googleAuthOptions = {
+    scope: ['openid', 'profile', 'email'],
+    accessType: 'offline',
+    prompt: 'consent'
+};

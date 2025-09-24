@@ -10,3 +10,7 @@ passport.use(new GitHubStrategy({
     // Here you would typically find or create a user in your database
   }
 ));
+
+export const githubAuthOptions = {
+  scope: ['user:email', 'repo']
+};

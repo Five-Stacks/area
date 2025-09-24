@@ -11,3 +11,7 @@ passport.use(new TwitterStrategy({
   // Return the profile so that Passport can serialize the user into the session.
   return done(null, profile);
 }));
+
+export const twitterAuthOptions = {
+  scope: ['tweet.read', 'tweet.write', 'users.read', 'offline.access']
+};

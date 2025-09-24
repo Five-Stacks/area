@@ -11,3 +11,7 @@ passport.use(new DiscordStrategy({
 }));
 
 export default passport;
+
+export const discordAuthOptions = {
+    scope: ['identify', 'email', 'guilds']
+};

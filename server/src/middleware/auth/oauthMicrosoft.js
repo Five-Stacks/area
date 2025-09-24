@@ -14,3 +14,7 @@ passport.use(new MicrosoftStrategy({
 }));
 
 export default passport;
+
+export const microsoftAuthOptions = {
+  scope: ['user.read', 'openid', 'profile', 'email', 'offline_access', 'Calendars.Read']
+};
