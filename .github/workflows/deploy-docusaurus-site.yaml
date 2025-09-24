@@ -3,11 +3,15 @@ name: Deploy Docusaurus site
 on:
   push:
     branches:
-      - dev
+      - Hotfix/Docusaurus-CI
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: docs
 
     steps:
       - name: Checkout repository
