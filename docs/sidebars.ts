@@ -9,7 +9,6 @@ const sidebars: SidebarsConfig = {
       items: [
         'getting-started/welcome',
         'getting-started/architecture',
-        'getting-started/contributing',
       ],
     },
   ],
@@ -21,6 +20,7 @@ const sidebars: SidebarsConfig = {
       collapsible: false,
       items: [
         'guides/installation',
+        'guides/contributing',
         // 'guides/deployment',
       ],
     },
