@@ -33,7 +33,15 @@ const sidebars: SidebarsConfig = {
       collapsible: false,
       items: [
         'api/overview',
-        // 'api/endpoints',
+        {
+          type: 'category',
+          label: 'Authentication',
+          items: [
+            'api/auth/register',
+            'api/auth/login',
+            'api/auth/logout',
+          ]
+        }
       ],
     },
   ],
