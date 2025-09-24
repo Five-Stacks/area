@@ -7,7 +7,7 @@ import { GoogleConnectComponent } from '../../../components/Forms/google-connect
 import { ButtonFullComponent } from '../../../components/Buttons/button-component-full/button-component-full';
 import { provideRouter, RouterLink } from '@angular/router';
 
-describe('SignUpPage (with real child components)', () => {
+describe('SignUpPage', () => {
   let fixture: ComponentFixture<SignUpPage>;
   let component: SignUpPage;
 
