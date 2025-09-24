@@ -6,6 +6,23 @@ describe('GoogleConnectComponent', () => {
   let component: GoogleConnectComponent;
   let fixture: ComponentFixture<GoogleConnectComponent>;
 
+  // Mock the global google object before tests run
+  beforeAll(() => {
+    (window as any).google = {
+      accounts: {
+        id: {
+          initialize: jasmine.createSpy('initialize'),
+          renderButton: jasmine.createSpy('renderButton'),
+          prompt: jasmine.createSpy('prompt')
+        }
+      }
+    };
+  });
+
+  afterAll(() => {
+    delete (window as any).google;
+  });
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [GoogleConnectComponent]
