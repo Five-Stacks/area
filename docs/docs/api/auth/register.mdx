@@ -1,0 +1,36 @@
+---
+id: register
+title: Register
+---
+
+## POST `/api/auth/register`
+
+Create a new user account.
+
+### Request Body
+
+```json
+{
+  "email": "user@example.com",
+  "password": "yourpassword",
+  "name": "John Doe"
+}
+```
+
+### Response
+
+- **201 Created**
+  ```json
+  { "message": "User registered successfully" }
+  ```
+- **Error Codes**
+  - `400`: All fields are required
+  - `409`: User already exists
+
+### Example
+
+```bash
+curl -X POST http://localhost:8080/api/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"email":"user@example.com","password":"yourpassword","name":"John Doe"}'
+```
