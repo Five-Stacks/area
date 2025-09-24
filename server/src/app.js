@@ -1,5 +1,8 @@
 /* Import modules */
 import express from 'express';
+import cookieParser from 'cookie-parser';
+import authRouter from './routes/auth.js';
+import notFound from './middleware/notFound.js';
 
 /* App initialization */
 const app = express();
@@ -7,16 +10,13 @@ const app = express();
 /* Middleware setup */
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 /* Define routes */
-app.get('/', (req, res) => {
-  res.send('Hello, World!');
-});
+app.use('/api/auth', authRouter);
 
-/* 404 handler */
-app.use((req, res) => {
-  res.status(404).send('Sorry, we could not find that!');
-});
+/* 404 Middleware */
+app.use(notFound);
 
 /* Export application */
 export default app;

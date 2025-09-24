@@ -1,0 +1,37 @@
+---
+id: login
+title: Login
+---
+
+## POST `/api/auth/login`
+
+Authenticate an existing user.
+
+### Request Body
+
+```json
+{
+  "email": "user@example.com",
+  "password": "yourpassword"
+}
+```
+
+### Response
+
+- **200 OK**
+  ```json
+  { "message": "User login successful" }
+  ```
+  - Sets a `token` cookie for authentication.
+
+- **Error Codes**
+  - `400`: Email and password are required
+  - `401`: Invalid email or password
+
+### Example
+
+```bash
+curl -X POST http://localhost:8080/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"user@example.com","password":"yourpassword"}'
+```
