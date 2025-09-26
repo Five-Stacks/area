@@ -37,7 +37,7 @@
 
     initializeGoogleSignIn() {
       google.accounts.id.initialize({
-        client_id: '43660149375-ep3sc75ahad24u1v543h704ntpvsfro3.apps.googleusercontent.com',
+        client_id: 'XXXX.apps.googleusercontent.com',
         callback: (response:
           { credential: string }
         ) => this.handleCredentialResponse(response)
