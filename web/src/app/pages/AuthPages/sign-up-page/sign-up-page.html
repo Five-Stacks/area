@@ -1,0 +1,45 @@
+<div class="sign-in-page">
+  <div class="sign-in-form">
+    <img src="assets/LogoVertical.png" alt="Area Logo" width="200" height="200" [routerLink]="'/'" class="logo"/>
+    <h1 class="title-form">SIGN UP</h1>
+
+    <app-text-field-component
+      [label]="'Name'"
+      [(value)]="name"
+      (valueChange)="name = $event"
+      [hint]="hintName">
+    </app-text-field-component>
+
+    <app-text-field-component
+      [label]="'Email'"
+      [(value)]="email"
+      (valueChange)="email = $event"
+      [hint]="hintEmail">
+    </app-text-field-component>
+
+    <app-text-field-hide-component
+      [label]="'Password'"
+      [(value)]="password"
+      (valueChange)="password = $event"
+      [hint]="hintPassword">
+    </app-text-field-hide-component>
+    <app-text-field-hide-component
+      [label]="'Confirm Password'"
+      [(value)]="confirmPassword"
+      (valueChange)="confirmPassword = $event"
+      [hint]="hintConfirmPassword">
+    </app-text-field-hide-component>
+
+    <app-area-button-full
+        [label]="'SIGN UP'"
+        [onClick]="handleSignIn">
+    </app-area-button-full>
+
+    <div class="or-separator">
+      <hr><span>or</span><hr>
+    </div>
+
+    <app-google-sign-in></app-google-sign-in>
+    <p class="login-mention">Already on Area? <a [routerLink]="'/sign-in'">Log in here.</a></p>
+  </div>
+</div>

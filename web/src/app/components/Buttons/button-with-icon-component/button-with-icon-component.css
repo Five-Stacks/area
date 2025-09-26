@@ -1,0 +1,10 @@
+.button-with-icon {
+    background: none;
+    border: none;
+}
+.button-with-icon:hover {
+    cursor: pointer;
+    h2 {
+        text-decoration: underline;
+    }
+}
