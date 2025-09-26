@@ -9,6 +9,8 @@ const router = express.Router();
 router.post('/register', authController.register);
 router.post('/login', authController.login);
 router.post('/logout', authController.logout);
+router.get('/isConnected', authController.isConnected);
+router.get('/isAdmin', authController.isAdmin);
 
 /* Export router */
 export default router;
