@@ -32,12 +32,29 @@ export class SignUpPage {
     // Reset previous errors
     this.hintEmail = '';
     this.hintPassword = '';
+    this.hintName = '';
+    this.hintConfirmPassword = '';
     this.errorMessage = '';
 
     // Validate inputs
-    if (!this.email || !this.password) {
-      this.hintEmail = this.email ? '' : 'Email is required';
-      this.hintPassword = this.password ? '' : 'Password is required';
+    let hasError = false;
+    if (!this.email) {
+      this.hintEmail = 'Email is required';
+      hasError = true;
+    }
+    if (!this.password) {
+      this.hintPassword = 'Password is required';
+      hasError = true;
+    }
+    if (!this.name) {
+      this.hintName = 'Name is required';
+      hasError = true;
+    }
+    if (this.confirmPassword !== this.password) {
+      this.hintConfirmPassword = 'Passwords do not match';
+      hasError = true;
+    }
+    if (hasError) {
       return;
     }
 
