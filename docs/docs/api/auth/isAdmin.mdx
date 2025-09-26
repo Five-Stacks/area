@@ -1,0 +1,35 @@
+---
+id: isAdmin
+title: Is Admin
+---
+
+## GET `/api/auth/isAdmin`
+
+Check if the current user is authenticated and has the `admin` role.
+
+### Response
+
+- **200 OK**
+  ```json
+  { "success": true, "isAdmin": true }
+  ```
+  - The user is authenticated and is an admin.
+
+- **200 OK**
+  ```json
+  { "success": true, "isAdmin": false }
+  ```
+  - The user is authenticated but is not an admin.
+
+- **401 Unauthorized**
+  ```json
+  { "success": false, "isAdmin": false }
+  ```
+  - The user is not authenticated or the token is invalid/expired.
+
+### Example
+
+```bash
+curl -X GET http://localhost:8080/api/auth/isAdmin \
+  --cookie "token=your_jwt_token"
+```
