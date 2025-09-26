@@ -1,13 +1,17 @@
 /* Import modules */
 import express from 'express';
 import cookieParser from 'cookie-parser';
+import corsSetup from './config/cors.js';
 import authRouter from './routes/auth.js';
 import notFound from './middleware/notFound.js';
 
 /* App initialization */
 const app = express();
 
-/* Middleware setup */
+/* CORS configuration */
+app.use(corsSetup);
+
+/* Body parsers */
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
