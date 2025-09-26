@@ -46,6 +46,10 @@ const login = async (req, res) => {
 
 /* Controller for user logout */
 const logout = (req, res) => {
+    const token = req.cookies.token;
+    if (!token) {
+        return res.status(401).json({ success: false, message: 'Not authenticated' });
+    }
     res.clearCookie('token');
     res.status(200).json({ success: true, message: 'User logged out successfully' });
 };
