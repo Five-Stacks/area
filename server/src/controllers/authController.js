@@ -50,5 +50,37 @@ const logout = (req, res) => {
     res.status(200).json({ message: 'User logged out successfully' });
 };
 
+/* Controller to check if user is connected */
+const isConnected = (req, res) => {
+    const token = req.cookies.token;
+    if (!token) {
+        return res.status(401).json({ connected: false });
+    }
+    try {
+        jwt.verify(token, process.env.JWT_SECRET);
+        return res.status(200).json({ connected: true });
+    } catch (err) {
+        return res.status(401).json({ connected: false });
+    }
+};
+
+/* Controller to check if user is admin */
+const isAdmin = async (req, res) => {
+    const token = req.cookies.token;
+    if (!token) {
+        return res.status(401).json({ isAdmin: false });
+    }
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findByPk(decoded.userId);
+        if (user && user.role === 'admin') {
+            return res.status(200).json({ isAdmin: true });
+        }
+        return res.status(200).json({ isAdmin: false });
+    } catch (err) {
+        return res.status(401).json({ isAdmin: false });
+    }
+};
+
 /* Exported controllers */
-export default { register, login, logout };
+export default { register, login, logout, isConnected, isAdmin };
