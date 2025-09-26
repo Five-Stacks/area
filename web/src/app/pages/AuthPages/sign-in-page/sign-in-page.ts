@@ -5,10 +5,11 @@ import { TextFieldComponent } from '../../../components/Forms/text-field-compone
 import { TextFieldHideComponent } from '../../../components/Forms/text-field-hide-component/text-field-hide-component';
 import { GoogleConnectComponent } from '../../../components/Forms/google-connect-component/google-connect-component';
 import { AdminAuthService } from '../../../services/admin-auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-sign-in-page',
-  imports: [ButtonFullComponent, TextFieldComponent, RouterLink, TextFieldHideComponent, GoogleConnectComponent],
+  imports: [ButtonFullComponent, TextFieldComponent, RouterLink, TextFieldHideComponent, GoogleConnectComponent, CommonModule],
   templateUrl: './sign-in-page.html',
   styleUrls: ['./sign-in-page.css'],
 })
@@ -24,7 +25,7 @@ export class SignInPage {
   isLoading = false;
   errorMessage = '';
 
-  handleSignIn = () => {    
+  handleSignIn = () => {
     // Reset previous errors
     this.hintEmail = '';
     this.hintPassword = '';

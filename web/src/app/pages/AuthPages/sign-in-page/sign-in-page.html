@@ -17,10 +17,13 @@
       [hint]="hintPassword">
     </app-text-field-hide-component>
 
-    <app-area-button-full
+    <div class="button-container">
+      <app-area-button-full
         [label]="'LOG IN'"
         [onClick]="handleSignIn">
-    </app-area-button-full>
+      </app-area-button-full>
+      <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+    </div>
 
 
     <div class="or-separator">

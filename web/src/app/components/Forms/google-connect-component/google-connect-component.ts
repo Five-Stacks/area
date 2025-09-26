@@ -25,7 +25,7 @@
   @Component({
     selector: 'app-google-sign-in',
     templateUrl: './google-connect-component.html',
-    styleUrls: ['./google-connect-component.css'], 
+    styleUrls: ['./google-connect-component.css'],
     imports: [],
   })
   export class GoogleConnectComponent implements OnInit {
@@ -37,7 +37,7 @@
 
     initializeGoogleSignIn() {
       google.accounts.id.initialize({
-        client_id: '278900625018-0lc0u85dmq4iqi98j6pcujc8e5ae1cv3.apps.googleusercontent.com',
+        client_id: '43660149375-ep3sc75ahad24u1v543h704ntpvsfro3.apps.googleusercontent.com',
         callback: (response:
           { credential: string }
         ) => this.handleCredentialResponse(response)
