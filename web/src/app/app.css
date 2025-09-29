@@ -13,6 +13,7 @@
     --form-border-color: #EFF2F9;
     --form-text-color: #20252b2B;
     --blue-shadow-color: rgba(106, 116, 201, 0.33);
+    --blue-shadow-color-light: rgba(106, 116, 201, 0.1);
 }
 
 main {

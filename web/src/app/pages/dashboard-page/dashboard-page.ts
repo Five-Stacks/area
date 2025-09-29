@@ -3,23 +3,47 @@ import { ButtonFullComponent } from '../../components/Buttons/button-component-f
 import { ButtonWithIconComponent } from '../../components/Buttons/button-with-icon-component/button-with-icon-component';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { TextFieldComponent } from '../../components/Forms/text-field-component/text-field-component';
 
 @Component({
   selector: 'app-dashboard-page',
-  imports: [ButtonFullComponent, ButtonWithIconComponent, CommonModule],
+  imports: [ButtonFullComponent, ButtonWithIconComponent, CommonModule, TextFieldComponent],
   templateUrl: './dashboard-page.html',
   styleUrl: './dashboard-page.css'
 })
 export class DashboardPage {
   private router = inject(Router);
 
-
-  listAreas = [
-    { name: 'Area 1', id: 1 },
-    { name: 'Area 2', id: 2 },
-    { name: 'Area 3', id: 3 },
-    { name: 'Area 4', id: 4 },
-    { name: 'Area 5', id: 5 },
+  listAreas : {
+    id: number
+    name: string
+    AppsIcons: string[]
+    active: boolean
+  }[] = [
+    {
+      id: 1,
+      name: 'Area 1',
+      AppsIcons: ['assets/icons/slack-icon.svg', 'assets/icons/discord-icon.svg', 'assets/icons/github-icon.svg'],
+      active: true
+    },
+    {
+      id: 2,
+      name: 'Area 2',
+      AppsIcons: ['assets/icons/slack-icon.svg', 'assets/icons/discord-icon.svg', 'assets/icons/github-icon.svg'],
+      active: false
+    },
+    {
+      id: 3,
+      name: 'Area 3',
+      AppsIcons: ['assets/icons/slack-icon.svg', 'assets/icons/discord-icon.svg', 'assets/icons/github-icon.svg'],
+      active: true
+    },
+    {
+      id: 4,
+      name: 'Area 4',
+      AppsIcons: ['assets/icons/slack-icon.svg', 'assets/icons/discord-icon.svg', 'assets/icons/github-icon.svg'],
+      active: false
+    }
   ];
 
   onDetailsArea(areaId: number) {
