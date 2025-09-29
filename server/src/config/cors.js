@@ -1,0 +1,13 @@
+/* Import modules */
+import cors from 'cors';
+
+/* CORS middleware */
+const corsSetup = cors({
+    origin: 'http://localhost:8081',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    credentials: true,
+    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization'],
+});
+
+/* Export CORS middleware */
+export default corsSetup;

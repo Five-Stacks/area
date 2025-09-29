@@ -1,0 +1,29 @@
+---
+id: isConnected
+title: Is Connected
+---
+
+## GET `/api/auth/isConnected`
+
+Check if the current user is authenticated (has a valid session cookie).
+
+### Response
+
+- **200 OK**
+  ```json
+  { "success": true, "connected": true }
+  ```
+  - The user is authenticated.
+
+- **401 Unauthorized**
+  ```json
+  { "success": false, "connected": false }
+  ```
+  - The user is not authenticated or the token is invalid/expired.
+
+### Example
+
+```bash
+curl -X GET http://localhost:8080/api/auth/isConnected \
+  --cookie "token=your_jwt_token"
+```

@@ -1,28 +1,17 @@
 /* Import modules */
 import express from 'express';
 import cookieParser from 'cookie-parser';
+import corsSetup from './config/cors.js';
 import authRouter from './routes/auth.js';
 import notFound from './middleware/notFound.js';
 
 /* App initialization */
 const app = express();
 
-/* CORS middleware */
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:8081');
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+/* CORS configuration */
+app.use(corsSetup);
 
-  // Handle preflight requests
-  if (req.method === 'OPTIONS') {
-    res.sendStatus(200);
-  } else {
-    next();
-  }
-});
-
-/* Middleware setup */
+/* Body parsers */
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
