@@ -25,7 +25,8 @@ export class TextFieldComponent {
 
   @Input() value = '';
   @Output() valueChange = new EventEmitter<string>();
-  
+  @Input() type = 'text';
+
   onInput(v: string) {
     this.valueChange.emit(v);
   }
