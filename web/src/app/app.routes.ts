@@ -23,7 +23,7 @@ export const routes: Routes = [
     { path: 'area/details/:id', component: AreaDetailsPage, canActivate: [authGuard] },
     { path: 'area/edition/:id', component: AreaEditionPage, canActivate: [authGuard] },
     { path: 'area/creation', component: AreaCreationPage, canActivate: [authGuard] },
-    { path: 'services-manager', component: ServiceManagementPage, canActivate: [adminGuard] },
+    { path: 'services-manager', component: ServiceManagementPage, canActivate: [authGuard] },
     { path: 'settings', component: SettingsPage, canActivate: [authGuard] },
     { path: '**', component: ErrorPage },
 ];
