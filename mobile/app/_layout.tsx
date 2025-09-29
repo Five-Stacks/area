@@ -1,5 +1,10 @@
 import { Stack } from "expo-router";
 
 export default function RootLayout() {
-  return <Stack />;
+  var isConnected:boolean = true;
+  return <Stack>
+    {isConnected ?
+      (<Stack.Screen name="(tabs)" />)
+      : (<Stack.Screen name="(auth)" />)}
+  </Stack>;
 }
