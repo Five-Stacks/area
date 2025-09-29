@@ -1,26 +1,18 @@
 # Node
 node_modules/
-server/node_modules/
-web/node_modules/
-mobile/node_modules/
+package-lock.json
 
 # Angular
-web/.angular/
+.angular/
 
 # React Native
-mobile/.expo/
+.expo/
 
 # Environment files
 .env
-server/.env
-web/.env
-mobile/.env
 
 # Build output
 dist/
-web/dist/
-server/dist/
-mobile/dist/
 
 # Logs
 *.log

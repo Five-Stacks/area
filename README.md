@@ -23,7 +23,7 @@ This monorepo contains the code for an automation platform inspired by IFTTT/Zap
 For live code updates, use:
 
 ```
-docker-compose -f docker-compose-dev.yml up
+docker-compose -f docker-compose.dev.yml up
 ```
 
 ## Environment Variables
@@ -44,8 +44,16 @@ POSTGRES_DB=yourdb
   - Download Android APK: `/client.apk`
 
 ## Documentation
-- See `docs/HOWTOCONTRIBUTE.md` for contribution guidelines.
-- See `docs/` for architecture diagrams and further documentation.
+You can read the docusaurus documentation at [https://five-stacks.github.io/area/](https://five-stacks.github.io/area/).
+Alternatively, you can read the documentation (written under mdx format) by going to the `docs/` directory and running the documentation at home:
+
+```bash Build & run the doc
+cd docs/
+npm ci
+npm start
+```
+
+Then, you can access it at [http://localhost:3000/area/](http://localhost:3000/area/).
 
 ## Ports
 - Backend API: [http://localhost:8080](http://localhost:8080)
