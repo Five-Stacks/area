@@ -9,6 +9,10 @@ jobs:
   format:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: mobile
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -20,17 +24,19 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        working-directory: mobile
         run: npm ci
 
       - name: Run Prettier (check mode)
-        working-directory: mobile
         run: npx prettier . --write
 
   lint:
     needs: format
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: mobile
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -42,13 +48,10 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        working-directory: mobile
         run: npm ci
 
       - name: Run ESLint
-        working-directory: mobile
         run: npm run lint
 
       - name: Run Prettier (check mode)
-        working-directory: mobile
         run: npx prettier --check .
