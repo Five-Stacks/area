@@ -33,25 +33,38 @@ export class DashboardPage {
     {
       id: 1,
       name: 'Area 1',
-      AppsIcons: ['assets/icons/github-icon.svg'],
+      AppsIcons: [
+        'https://www.svgrepo.com/show/438428/date-round.svg'],
       active: true
     },
     {
       id: 2,
       name: 'Area 2',
-      AppsIcons: ['assets/icons/slack-icon.svg', 'assets/icons/discord-icon.svg', 'assets/icons/github-icon.svg'],
+      AppsIcons: [
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png',
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png',
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png',
+          'https://www.svgrepo.com/show/438428/date-round.svg'
+        ],
       active: false
     },
     {
       id: 3,
       name: 'Area 3',
-      AppsIcons: ['assets/icons/slack-icon.svg', 'assets/icons/github-icon.svg'],
+      AppsIcons: [
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png',
+        'https://www.svgrepo.com/show/438428/date-round.svg'
+      ],
       active: true
     },
     {
       id: 4,
       name: 'Area 4',
-      AppsIcons: ['assets/icons/slack-icon.svg', 'assets/icons/discord-icon.svg', 'assets/icons/github-icon.svg'],
+      AppsIcons: [
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png',
+        'https://www.svgrepo.com/show/438428/date-round.svg'
+      ],
       active: false
     }
   ];
@@ -62,6 +75,18 @@ export class DashboardPage {
 
   onEditionArea(areaId: number) {
     this.router.navigate(['/area/edition', areaId]);
+  }
+
+  getIconsArea(areaId: number): string[] {
+    const area = this.listAreas.find(a => a.id === areaId);
+    if (!area) return [];
+    if (area.AppsIcons.length > 3) {
+      let newIcons = [];
+      newIcons = area.AppsIcons.slice(0, 2);
+      newIcons.push('https://static.thenounproject.com/png/683450-200.png');
+      return newIcons;
+    }
+    return area.AppsIcons;
   }
 
   selectArea(areaId: number) {

@@ -62,8 +62,8 @@
                         <svg *ngIf="area.selected" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
                     </div>
                     <h2>{{ area.name }}</h2>
-                    <div class="apps-icons">
-                        <img *ngFor="let icon of area.AppsIcons" [src]="icon" alt="App Icon" class="app-icon" />
+                    <div [class]="area.AppsIcons.length == 1 ? 'apps-icons-single' : 'apps-icons'">
+                        <img *ngFor="let icon of getIconsArea(area.id)" [src]="icon" alt="App Icon" class="app-icon" />
                     </div>
                     <div class="status-indicator"
                          [style.background-color]="area.active ? 'var(--green-color)' : 'var(--red-color)'"
