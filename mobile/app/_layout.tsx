@@ -1,5 +1,5 @@
 import { Stack } from "expo-router";
-import {useFonts} from "expo-font";
+import { useFonts } from "expo-font";
 import { SplashScreen } from "expo-router";
 import { useEffect } from "react";
 
@@ -7,13 +7,13 @@ import { useEffect } from "react";
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  var isConnected:boolean = false;
+  var isConnected: boolean = false;
 
   const [fontsLoaded] = useFonts({
     "Inter-Thin": require("@/assets/fonts/Inter-Thin.ttf"),
     "Inter-Regular": require("@/assets/fonts/Inter-Regular.ttf"),
     "Inter-Medium": require("@/assets/fonts/Inter-Medium.ttf"),
-    "Inter-Bold": require("@/assets/fonts/Inter-Bold.ttf")
+    "Inter-Bold": require("@/assets/fonts/Inter-Bold.ttf"),
   });
 
   useEffect(() => {
@@ -22,9 +22,13 @@ export default function RootLayout() {
     }
   }, [fontsLoaded]);
 
-  return <Stack>
-    {isConnected ?
-      (<Stack.Screen name="(tabs)" />)
-      : (<Stack.Screen name="(auth)" />)}
-  </Stack>;
+  return (
+    <Stack>
+      {isConnected ? (
+        <Stack.Screen name="(tabs)" />
+      ) : (
+        <Stack.Screen name="(auth)" />
+      )}
+    </Stack>
+  );
 }

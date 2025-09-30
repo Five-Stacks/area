@@ -1,10 +1,6 @@
 import { globalColors } from "@/src/styles/global";
 import React, { useState, useRef, useEffect } from "react";
-import {
-  TouchableWithoutFeedback,
-  Animated,
-  StyleSheet,
-} from "react-native";
+import { TouchableWithoutFeedback, Animated, StyleSheet } from "react-native";
 
 type ToggleProps = {
   value?: boolean;
@@ -12,7 +8,11 @@ type ToggleProps = {
   onValueChange?: (newValue: boolean) => void;
 };
 
-const Toggle: React.FC<ToggleProps> = ({ value = false, onValueChange, width = 80 }) => {
+const Toggle: React.FC<ToggleProps> = ({
+  value = false,
+  onValueChange,
+  width = 80,
+}) => {
   const [isOn, setIsOn] = useState(value);
   const anim = useRef(new Animated.Value(value ? 1 : 0)).current;
 
@@ -44,9 +44,14 @@ const Toggle: React.FC<ToggleProps> = ({ value = false, onValueChange, width = 8
 
   return (
     <TouchableWithoutFeedback onPress={toggle}>
-      <Animated.View style={[styles.track, { backgroundColor }, {width: width}]}>
+      <Animated.View
+        style={[styles.track, { backgroundColor }, { width: width }]}
+      >
         <Animated.View
-          style={[styles.thumb, { transform: [{ translateX: circlePosition }] }]}
+          style={[
+            styles.thumb,
+            { transform: [{ translateX: circlePosition }] },
+          ]}
         />
       </Animated.View>
     </TouchableWithoutFeedback>

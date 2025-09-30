@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 type CheckboxProps = {
-    label: string; // text to display
-    initialValue?: boolean; // optional starting state
-    onChange?: (value: boolean) => void; // callback when toggled
-  };
-  
+  label: string; // text to display
+  initialValue?: boolean; // optional starting state
+  onChange?: (value: boolean) => void; // callback when toggled
+};
 
-const Checkbox: React.FC<CheckboxProps> = ({ label, initialValue = false, onChange }: CheckboxProps) => {
+const Checkbox: React.FC<CheckboxProps> = ({
+  label,
+  initialValue = false,
+  onChange,
+}: CheckboxProps) => {
   const [checked, setChecked] = useState(initialValue);
 
   const toggleCheckbox = () => {

@@ -11,8 +11,12 @@ export default function Index() {
       }}
     >
       <Text>Login screen</Text>
-      <Link href={"/register"} style={{color: "blue"}}>Register</Link>
-      <Link href={"/dashboard"} style={{color: "blue"}}>Login</Link>
+      <Link href={"/register"} style={{ color: "blue" }}>
+        Register
+      </Link>
+      <Link href={"/dashboard"} style={{ color: "blue" }}>
+        Login
+      </Link>
     </View>
   );
 }

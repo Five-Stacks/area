@@ -1,4 +1,8 @@
-import { globalColors, globalTextSize, globalTextStyle } from "@/src/styles/global";
+import {
+  globalColors,
+  globalTextSize,
+  globalTextStyle,
+} from "@/src/styles/global";
 import React from "react";
 import {
   TouchableOpacity,
@@ -29,7 +33,9 @@ const StylizedButton: React.FC<StylizedButtonProps> = ({
     <TouchableOpacity style={[styles.button, style]} onPress={onPress}>
       <View style={styles.content}>
         {leftElement && <View style={styles.side}>{leftElement}</View>}
-        <Text style={[globalTextStyle.medium, globalTextSize.h3, styles.label]}>{label}</Text>
+        <Text style={[globalTextStyle.medium, globalTextSize.h3, styles.label]}>
+          {label}
+        </Text>
         {rightElement && <View style={styles.side}>{rightElement}</View>}
       </View>
     </TouchableOpacity>
@@ -43,7 +49,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     height: 54,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   content: {
     flexDirection: "row",
