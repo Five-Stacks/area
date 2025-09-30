@@ -1,0 +1,33 @@
+select {
+    padding: 14px 40px 14px 14px; /* Add space for arrow */
+    border: 4px solid var(--form-border-color);
+    border-radius: 10px;
+    height: 60px;
+    box-sizing: border-box;
+    font-weight: 540;
+    font-size: 20px;
+    width: 100%;
+    color: var(--form-text-color); /* Change text color */
+    appearance: none; /* Remove default arrow */
+    background:
+        url("data:image/svg+xml;utf8,<svg rotate='90' fill='none' stroke='black' stroke-width='3' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path d='M8 4l8 8-8 8'/></svg>") 
+        no-repeat right 16px center/24px 24px;
+    /* Adjust right and size as needed */
+}
+select option {
+    color: var(--line-color);
+}
+
+select:focus {
+    outline: none;
+    border-color: var(--line-color);
+}
+
+select:hover {
+    border-color: var(--line-color);
+    cursor: pointer;
+}
+
+.your-class {
+    color: var(--black-color);
+}
