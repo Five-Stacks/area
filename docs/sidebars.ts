@@ -43,6 +43,17 @@ const sidebars: SidebarsConfig = {
             'api/auth/isConnected',
             'api/auth/isAdmin',
           ]
+        },
+        {
+            type: 'category',
+            label: 'OAuth',
+            items: [
+                'api/oauth/github',
+                'api/oauth/discord',
+                'api/oauth/spotify',
+                'api/oauth/microsoft',
+                'api/oauth/twitter',
+            ]
         }
       ],
     },

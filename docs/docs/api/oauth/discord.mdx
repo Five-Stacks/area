@@ -1,0 +1,34 @@
+id: api/oauth/discord
+title: Discord OAuth
+---
+
+## GET `/api/oauth/discord`
+
+Initiate the Discord OAuth login/link flow. Redirects the user to Discord's authorization page.
+
+- Authentication: Requires the user to be authenticated (session cookie / JWT) because the OAuth account is linked to an existing user.
+- Optional `redirect_to` query param will be encoded into `state` and restored after callback.
+
+### Response
+
+- **302 Found (Redirect)** — Redirects to Discord's consent page.
+
+### Example
+
+```bash
+curl -i -X GET "http://localhost:8080/api/oauth/discord?redirect_to=/services" \
+  --cookie "token=your_jwt_token"
+```
+
+
+## GET `/api/oauth/discord/callback`
+
+Discord will call this callback after the user authorizes. The server restores the `redirect_to` from `state` and redirects the user there. Failure redirects to `/login`.
+
+### Response
+
+- **302 Found (Redirect)** — Success -> restored `redirect_to` (or `/`); Failure -> `/login`.
+
+### Notes
+
+- Scopes requested: `identify`, `email`, and optionally `guilds` depending on provider config.
