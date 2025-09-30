@@ -6,7 +6,7 @@ import { OAuthAccount } from '../../models/oauthAccountsModel.js';
 passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: "http://localhost:8080/auth/github/callback",
+    callbackURL: "http://localhost:8080/api/oauth/github/callback",
     passReqToCallback: true
   },
   async function(req, accessToken, refreshToken, profile, done) {

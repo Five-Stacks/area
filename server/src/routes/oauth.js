@@ -37,8 +37,7 @@ router.get('/discord', passport.authenticate('discord', discordAuthOptions));
 router.get('/discord/callback',
   passport.authenticate('discord', { failureRedirect: '/login' }),
   (req, res) => {
-    // Successful authentication, redirect home.
-    res.redirect('/');
+    // Successful authentication
   }
 );
 
@@ -49,8 +48,7 @@ router.get('/spotify', passport.authenticate('spotify', spotifyAuthOptions));
 router.get('/spotify/callback',
   passport.authenticate('spotify', { failureRedirect: '/login' }),
   (req, res) => {
-    // Successful authentication, redirect home.
-    res.redirect('/');
+    // Successful authentication
   }
 );
 
@@ -61,8 +59,7 @@ router.get('/microsoft', passport.authenticate('microsoft', microsoftAuthOptions
 router.get('/microsoft/callback',
   passport.authenticate('microsoft', { failureRedirect: '/login' }),
   (req, res) => {
-    // Successful authentication, redirect home.
-    res.redirect('/');
+    // Successful authentication
   }
 );
 
@@ -74,16 +71,14 @@ router.get('/github', passport.authenticate('github', githubAuthOptions));
 router.get('/github/callback',
   passport.authenticate('github', { failureRedirect: '/login' }),
   (req, res) => {
-    // Successful authentication, redirect home.
-    res.redirect('/');
+    // Successful authentication
   }
 );
 
 router.get('/twitter', passport.authenticate('twitter', twitterAuthOptions));
 
 router.get('/twitter/callback', (req, res, next) => {
-    // Successful authentication, redirect home.
-    res.redirect('/');
+    // Successful authentication
 });
 
 export default router;

@@ -10,6 +10,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 
 /* Oauth2 setup */
+import oauth from './routes/oauth.js';
 import passport from 'passport';
 import session from 'express-session';
 
@@ -39,6 +40,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/api/auth', authRouter);
+app.use('/api/oauth', oauth);
 
 /* 404 Middleware */
 app.use(notFound);

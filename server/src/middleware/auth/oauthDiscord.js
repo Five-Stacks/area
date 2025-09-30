@@ -6,7 +6,7 @@ import { OAuthAccount } from '../../models/oauthAccountsModel.js';
 passport.use(new DiscordStrategy({
     clientID: process.env.DISCORD_CLIENT_ID,
     clientSecret: process.env.DISCORD_CLIENT_SECRET,
-    callbackURL: "http://localhost:8080/auth/discord/callback",
+    callbackURL: "http://localhost:8080/api/oauth/discord/callback",
     scope: ['identify', 'email'],
     passReqToCallback: true
 }, async (req, accessToken, refreshToken, profile, done) => {
