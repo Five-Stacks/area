@@ -1,0 +1,132 @@
+.area-details-container {
+    background: var(--gray-color);
+    background-image: url('/assets/BgPoints.png');
+    background-repeat: repeat;
+    background-size: 250px;
+    height: 100%;
+}
+
+.bottom {
+    padding-top: 150px;
+    padding-left: 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 100px;
+}
+
+.trigger-area, .action-card  {
+    transition: box-shadow 0.3s, transform 0.3s;
+    z-index: 0;
+    position: relative;
+
+    .action-details {
+        display: grid;
+        grid-template-columns: auto 10fr 1fr;
+        align-items: flex-start;
+        height: 25px;
+    }
+    width: 500px;
+    height: 80px;
+    background: var(--white-color);
+    box-shadow: 0px 7px 49px 3px var(--blue-shadow-color-medium);
+    border-radius: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    border: 2px solid transparent;
+
+    h3 {
+        font-size: 22px;
+        margin-top: 0px;
+    }
+    img {
+        margin-top: 4px;
+        margin-right: 15px;
+    }
+
+    .status-text {
+        font-size: 14px;
+        color: var(--gray-text-color);
+        margin-top: 0px;
+        width: 140px;
+        background: var(--gray-color);
+        border-radius: 50px;
+        text-align: center;
+        padding: 3px;
+        margin-top: 10px;
+
+        h4 {
+            margin: 0;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 5px;
+        }
+    }
+}
+
+.action-card:hover, .trigger-area:hover {
+    cursor: pointer;
+    box-shadow: 0px 7px 49px 3px var(--blue-shadow-color);
+    transform: translateY(-2px);
+}
+.action-card:hover {
+    border: 2px solid var(--red-color);
+}
+.trigger-area:hover {
+    border: 2px solid var(--blue-color);
+}
+
+
+.action-card .status-text {
+    background-color: var(--red-color-light);
+    h4 {
+        color: var(--red-color-dark);
+    }
+}
+
+.trigger-area .status-text {
+    background-color: var(--blue-color-light);
+    h4 {
+        color: var(--blue-color);
+    }
+}
+
+hr {
+    content: '';
+    position: absolute;
+    width: 3px;
+    opacity: 0.5;
+    height: 100px;
+    background: var(--blue-color);
+    border: none;
+    right: 270px;
+    top: 93%;
+    z-index: -10000;
+}
+
+img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    margin-top: -5px;
+}
+
+.edit-button {
+    width: auto;
+    display: flex;
+    justify-content: right;
+
+    svg {
+        fill: var(--line-color);
+        transition: fill 0.3s, transform 0.3s;
+    }
+    &:hover {
+        cursor: pointer;
+        svg {
+            fill: var(--black-color);
+            transform: scale(1.1);
+        }
+    }
+}

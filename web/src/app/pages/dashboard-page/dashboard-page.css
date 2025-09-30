@@ -184,6 +184,11 @@
         margin-top: 20px;
         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
+    a:hover svg {
+        fill: var(--black-color);
+        transform: scale(1.1);
+        cursor: pointer;
+    }
 }
 
 .app-icon {
