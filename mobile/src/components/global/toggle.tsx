@@ -23,7 +23,7 @@ const Toggle: React.FC<ToggleProps> = ({
       duration: 200,
       useNativeDriver: false,
     }).start();
-  }, [isOn]);
+  }, [isOn, anim]);
 
   const toggle = () => {
     const newValue = !isOn;
