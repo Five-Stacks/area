@@ -63,8 +63,12 @@
                     </div>
                     <h2>{{ area.name }}</h2>
                     <h2>Apps</h2>
-                    <div class="status-indicator" [ngClass]="area.active ? 'active' : 'inactive'" (click)="changeStatus(area.id)">
-                        <div class="status-dot"></div>
+                    <div class="status-indicator" 
+                         [style.background-color]="area.active ? 'var(--green-color)' : 'var(--red-color)'" 
+                         (click)="changeStatus(area.id)">
+                        <div class="status-dot" 
+                             [style.transform]="'translateX(' + (area.active ? '47px' : '0px') + ')'">
+                        </div>
                     </div>
                 </div>
             </div>

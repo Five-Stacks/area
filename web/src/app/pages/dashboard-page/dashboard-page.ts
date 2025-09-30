@@ -21,6 +21,7 @@ export class DashboardPage {
     AppsIcons: string[]
     active: boolean
     selected?: boolean
+    isToggling?: boolean
   }[] = [
     {
       id: 1,
@@ -64,9 +65,15 @@ export class DashboardPage {
   }
 
   changeStatus(areaId: number) {
-    this.listAreas = this.listAreas.map(area => ({
-      ...area,
-      active: area.id === areaId ? !area.active : area.active
-    }));
+    const area = this.listAreas.find(a => a.id === areaId);
+    if (area && !area.isToggling) {
+      area.isToggling = true;
+
+      // Délai pour permettre l'animation CSS
+      setTimeout(() => {
+        area.active = !area.active;
+        area.isToggling = false;
+      }, 150); // La moitié de la durée de l'animation CSS (300ms)
+    }
   }
 }

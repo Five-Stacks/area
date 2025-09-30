@@ -157,6 +157,8 @@
     margin: auto;
     margin-right: 20px;
     margin-left: 10px;
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
 
     .status-dot {
         width: 27px;
@@ -167,18 +169,6 @@
         margin-left: 4px;
         margin-top: 4px;
         margin-right: 4px;
-    }
-
-    &.active {
-        background-color: var(--green-color);
-        .status-dot {
-            float: right;
-        }
-    }
-    &.inactive {
-        background-color: var(--red-color);
-        .status-dot {
-            float: left;
-        }
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 }
