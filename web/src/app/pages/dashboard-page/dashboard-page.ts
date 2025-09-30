@@ -20,6 +20,7 @@ export class DashboardPage {
     name: string
     AppsIcons: string[]
     active: boolean
+    selected?: boolean
   }[] = [
     {
       id: 1,
@@ -53,5 +54,19 @@ export class DashboardPage {
 
   onEditionArea(areaId: number) {
     this.router.navigate(['/area/edition', areaId]);
+  }
+
+  selectArea(areaId: number) {
+    this.listAreas = this.listAreas.map(area => ({
+      ...area,
+      selected: area.id === areaId ? !area.selected : area.selected
+    }));
+  }
+
+  changeStatus(areaId: number) {
+    this.listAreas = this.listAreas.map(area => ({
+      ...area,
+      active: area.id === areaId ? !area.active : area.active
+    }));
   }
 }
