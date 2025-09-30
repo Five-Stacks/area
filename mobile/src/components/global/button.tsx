@@ -29,7 +29,7 @@ const StylizedButton: React.FC<StylizedButtonProps> = ({
     <TouchableOpacity style={[styles.button, style]} onPress={onPress}>
       <View style={styles.content}>
         {leftElement && <View style={styles.side}>{leftElement}</View>}
-        <Text style={[globalTextStyle.medium, globalTextSize.h2, styles.label]}>{label}</Text>
+        <Text style={[globalTextStyle.medium, globalTextSize.h3, styles.label]}>{label}</Text>
         {rightElement && <View style={styles.side}>{rightElement}</View>}
       </View>
     </TouchableOpacity>
@@ -38,15 +38,17 @@ const StylizedButton: React.FC<StylizedButtonProps> = ({
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: "#4A90E2",
-    borderRadius: 8,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
+    backgroundColor: globalColors.button,
+    borderRadius: 100000,
+    paddingHorizontal: 25,
+    height: 54,
+    justifyContent: "center",
+    alignItems: "center"
   },
   content: {
     flexDirection: "row",
-    alignItems: "center",
     justifyContent: "center",
+    alignItems: "center",
   },
   label: {
     color: globalColors.invertedText,
