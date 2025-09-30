@@ -2,13 +2,20 @@ import { Component, inject } from '@angular/core';
 import { ButtonFullComponent } from '../../components/Buttons/button-component-full/button-component-full';
 import { ButtonWithIconComponent } from '../../components/Buttons/button-with-icon-component/button-with-icon-component';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { TextFieldComponent } from '../../components/Forms/text-field-component/text-field-component';
 import { OptionsFieldComponent } from '../../components/Forms/options-field-component/options-field-component';
 
 @Component({
   selector: 'app-dashboard-page',
-  imports: [ButtonFullComponent, ButtonWithIconComponent, CommonModule, TextFieldComponent, OptionsFieldComponent],
+  imports: [
+    ButtonFullComponent,
+    ButtonWithIconComponent,
+    CommonModule,
+    TextFieldComponent,
+    OptionsFieldComponent,
+    RouterLink
+  ],
   templateUrl: './dashboard-page.html',
   styleUrl: './dashboard-page.css'
 })
@@ -26,7 +33,7 @@ export class DashboardPage {
     {
       id: 1,
       name: 'Area 1',
-      AppsIcons: ['assets/icons/slack-icon.svg', 'assets/icons/discord-icon.svg', 'assets/icons/github-icon.svg'],
+      AppsIcons: ['assets/icons/github-icon.svg'],
       active: true
     },
     {
@@ -38,7 +45,7 @@ export class DashboardPage {
     {
       id: 3,
       name: 'Area 3',
-      AppsIcons: ['assets/icons/slack-icon.svg', 'assets/icons/discord-icon.svg', 'assets/icons/github-icon.svg'],
+      AppsIcons: ['assets/icons/slack-icon.svg', 'assets/icons/github-icon.svg'],
       active: true
     },
     {

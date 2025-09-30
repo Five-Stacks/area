@@ -97,7 +97,7 @@
 
 .area-card-header {
     display: grid;
-    grid-template-columns: 4fr 1fr 1fr;
+    grid-template-columns: 10fr 1.5fr 2fr;
     gap: 10px;
     margin-bottom: 10px;
 
@@ -118,7 +118,7 @@
     margin-right: 20px;
 
     display: grid;
-    grid-template-columns: auto 4fr 1fr 1fr;
+    grid-template-columns: auto 7fr 1fr 1fr auto;
 
     h2 {
         margin-left: 10px;
@@ -169,6 +169,19 @@
         margin-left: 4px;
         margin-top: 4px;
         margin-right: 4px;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+}
+
+.see-more {
+    a svg {
+        fill: var(--line-color);
+        width: 30px;
+        height: 30px;
+        margin: auto;
+        display: block;
+        margin-right: 20px;
+        margin-top: 20px;
         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 }
