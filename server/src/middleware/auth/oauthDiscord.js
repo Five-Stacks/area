@@ -2,6 +2,9 @@ import passport from "passport";
 import { Strategy as DiscordStrategy } from "passport-discord";
 import { User } from '../../models/userModel.js';
 import { OAuthAccount } from '../../models/oauthAccountsModel.js';
+import { UserService } from '../../models/userServiceModel.js';
+import { Service } from '../../models/serviceModel.js';
+
 
 passport.use(new DiscordStrategy({
     clientID: process.env.DISCORD_CLIENT_ID,
@@ -36,33 +39,15 @@ passport.use(new DiscordStrategy({
                 access_token: accessToken,
                 refresh_token: refreshToken
             });
-            return done(null, currentUser);
-        }
-
-        const email = Array.isArray(profile.email) ? profile.email : (profile.email || null);
-        let user = null;
-        if (email) {
-            user = await User.findOne({ where: { email } });
-        }
-
-        if (!user) {
-            const name = profile.username || profile.displayName || 'DiscordUser';
-            user = await User.create({
-                email: email || null,
-                name,
-                is_verified: !!email
+            await UserService.create({
+                user_id: currentUser.id,
+                service_id: (await Service.findOne({ where: { name: provider } })).id,
+                oauth_account_id: oauthAccount.id
             });
+            return done(null, currentUser);
+        } else {
+            return done(new Error('User not authenticated'));
         }
-
-        await OAuthAccount.create({
-            user_id: user.id,
-            provider,
-            provider_user_id: providerUserId,
-            access_token: accessToken,
-            refresh_token: refreshToken
-        });
-
-        return done(null, user);
     } catch (err) {
         return done(err);
     }

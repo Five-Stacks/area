@@ -11,6 +11,7 @@ import { discordAuthOptions } from '../middleware/auth/oauthDiscord.js';
 import { spotifyAuthOptions } from '../middleware/auth/oauthSpotify.js';
 import { microsoftAuthOptions } from '../middleware/auth/oauthMicrosoft.js';
 import { twitterAuthOptions } from '../middleware/auth/oauthTwitter.js';
+import { verifyToken } from '../middleware/auth/verifyToken.js';
 
 oauth();
 
@@ -20,7 +21,7 @@ router.get('/', (req, res) => {
 
 // Google OAuth routes
 
-router.get('/google', passport.authenticate('google', googleAuthOptions));
+router.get('/google', verifyToken, passport.authenticate('google', googleAuthOptions));
 
 router.get('/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
@@ -32,53 +33,58 @@ router.get('/google/callback',
 
 // Discord OAuth routes
 
-router.get('/discord', passport.authenticate('discord', discordAuthOptions));
+router.get('/discord', verifyToken, passport.authenticate('discord', discordAuthOptions));
 
 router.get('/discord/callback',
   passport.authenticate('discord', { failureRedirect: '/login' }),
   (req, res) => {
     // Successful authentication
+    res.redirect('/');
   }
 );
 
 // Spotify OAuth routes
 
-router.get('/spotify', passport.authenticate('spotify', spotifyAuthOptions));
+router.get('/spotify', verifyToken, passport.authenticate('spotify', spotifyAuthOptions));
 
 router.get('/spotify/callback',
   passport.authenticate('spotify', { failureRedirect: '/login' }),
   (req, res) => {
     // Successful authentication
+    res.redirect('/');
   }
 );
 
 // Microsoft OAuth routes
 
-router.get('/microsoft', passport.authenticate('microsoft', microsoftAuthOptions));
+router.get('/microsoft', verifyToken, passport.authenticate('microsoft', microsoftAuthOptions));
 
 router.get('/microsoft/callback',
   passport.authenticate('microsoft', { failureRedirect: '/login' }),
   (req, res) => {
     // Successful authentication
+    res.redirect('/');
   }
 );
 
 
 // Github OAuth routes
 
-router.get('/github', passport.authenticate('github', githubAuthOptions));
+router.get('/github', verifyToken, passport.authenticate('github', githubAuthOptions));
 
 router.get('/github/callback',
   passport.authenticate('github', { failureRedirect: '/login' }),
   (req, res) => {
     // Successful authentication
+    res.redirect('/');
   }
 );
 
-router.get('/twitter', passport.authenticate('twitter', twitterAuthOptions));
+router.get('/twitter', verifyToken, passport.authenticate('twitter', twitterAuthOptions));
 
 router.get('/twitter/callback', (req, res, next) => {
     // Successful authentication
+    res.redirect('/');
 });
 
 export default router;

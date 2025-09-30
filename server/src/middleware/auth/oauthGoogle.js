@@ -2,6 +2,8 @@ import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { User } from '../../models/userModel.js';
 import { OAuthAccount } from '../../models/oauthAccountsModel.js';
+import { UserService } from '../../models/userServiceModel.js';
+import { Service } from '../../models/serviceModel.js';
 
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
@@ -40,38 +42,15 @@ passport.use(new GoogleStrategy({
                 access_token: accessToken,
                 refresh_token: refreshToken
             });
-            return done(null, currentUser);
-        }
-
-        // Otherwise, try to find a local user by email
-        const email = Array.isArray(profile.emails) && profile.emails.length ? profile.emails[0].value : null;
-        let user = null;
-
-        if (email) {
-            user = await User.findOne({ where: { email } });
-        }
-
-        // If no user, create one (minimal fields). Assumption: provider email is verified.
-        if (!user) {
-            const name = profile.displayName || (profile.name && `${profile.name.givenName || ''} ${profile.name.familyName || ''}`).trim() || 'Unnamed';
-            user = await User.create({
-                email: email || null,
-                name,
-                is_verified: !!email // assume verified if email present
+            await UserService.create({
+                user_id: currentUser.id,
+                service_id: (await Service.findOne({ where: { name: provider } })).id,
+                oauth_account_id: oauthAccount.id
             });
+            return done(null, currentUser);
+        } else {
+            return done(new Error('User not authenticated'));
         }
-
-        // Create the OAuthAccount linked to the user
-        await OAuthAccount.create({
-            user_id: user.id,
-            provider,
-            provider_user_id: providerUserId,
-            access_token: accessToken,
-            refresh_token: refreshToken
-        });
-
-        // Return the persisted user so serializeUser stores only user.id
-        return done(null, user);
     } catch (err) {
         return done(err);
     }

@@ -2,6 +2,8 @@ import passport from 'passport';
 import { Strategy as TwitterStrategy } from '@superfaceai/passport-twitter-oauth2';
 import { User } from '../../models/userModel.js';
 import { OAuthAccount } from '../../models/oauthAccountsModel.js';
+import { UserService } from '../../models/userServiceModel.js';
+import { Service } from '../../models/serviceModel.js';
 
 passport.use(new TwitterStrategy({
   clientID: process.env.TWITTER_CLIENT_ID,
@@ -35,33 +37,15 @@ passport.use(new TwitterStrategy({
         access_token: token,
         refresh_token: tokenSecret
       });
+      await UserService.create({
+            user_id: currentUser.id,
+            service_id: (await Service.findOne({ where: { name: provider } })).id,
+            oauth_account_id: oauthAccount.id
+        });
       return done(null, currentUser);
+    } else {
+        return done(new Error('User not authenticated'));
     }
-
-    const email = Array.isArray(profile.emails) && profile.emails.length ? profile.emails[0].value : (profile.email || null);
-    let user = null;
-    if (email) {
-      user = await User.findOne({ where: { email } });
-    }
-
-    if (!user) {
-      const name = profile.displayName || (profile.username || 'TwitterUser');
-      user = await User.create({
-        email: email || null,
-        name,
-        is_verified: !!email
-      });
-    }
-
-    await OAuthAccount.create({
-      user_id: user.id,
-      provider,
-      provider_user_id: providerUserId,
-      access_token: token,
-      refresh_token: tokenSecret
-    });
-
-    return done(null, user);
   } catch (err) {
     return done(err);
   }

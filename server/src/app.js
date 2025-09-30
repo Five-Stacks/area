@@ -2,18 +2,11 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import corsSetup from './config/cors.js';
+import passportSetup from './config/passport.js';
 import authRouter from './routes/auth.js';
+import oauthRouter from './routes/oauth.js';
 import notFound from './middleware/notFound.js';
-import { fileURLToPath } from 'url';
-
-/* Environment variables */
-import dotenv from 'dotenv';
-import path from 'path';
-
-/* Oauth2 setup */
-import oauth from './routes/oauth.js';
-import passport from 'passport';
-import session from 'express-session';
+import servicesSetup from './config/services.js';
 
 /* App initialization */
 const app = express();
@@ -26,25 +19,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-/* Define routes */
-app.get('/', (req, res) => {
-  res.send('Hello, World!');
-});
+/* Passport configuration */
+app.use(passportSetup());
 
 /* Use auth routes */
-
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false,
-  cookie: { secure: false }
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
-
 app.use('/api/auth', authRouter);
-app.use('/api/oauth', oauth);
+app.use('/api/oauth', oauthRouter);
 
 /* 404 Middleware */
 app.use(notFound);
