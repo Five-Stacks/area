@@ -11,14 +11,18 @@
                 <app-text-field-component
                     [label]="'Search area...'"
                     [type]="'text'"
+                    [(value)]="searchTerm"
+                    (valueChange)="searchTerm = $event"
                 ></app-text-field-component>
                 <app-options-field-component
                     [label]="'All Apps'"
-                    [options]="['All Apps', 'App1', 'App2', 'App3']"
+                    [options]="listApps"
+                    (valueChange)="appsFilter = $event"
                 ></app-options-field-component>
                 <app-options-field-component
                     [label]="'All Status'"
-                    [options]="['All Status', 'Active', 'Inactive']"
+                    [options]="listStatus"
+                    (valueChange)="statusFilter = $event"
                 ></app-options-field-component>
             </div>
         </div>
@@ -57,13 +61,13 @@
                     <h3>Apps:</h3>
                     <h3>Status:</h3>
                 </div>
-                <div *ngFor="let area of listAreas" class="area-card">
+                <div *ngFor="let area of getFilteredAreas()" class="area-card">
                     <div class="button-area-selection" (click)="selectArea(area.id)">
                         <svg *ngIf="area.selected" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
                     </div>
                     <h2>{{ area.name }}</h2>
                     <div [class]="area.AppsIcons.length == 1 ? 'apps-icons-single' : 'apps-icons'">
-                        <img *ngFor="let icon of getIconsArea(area.id)" [src]="icon" alt="App Icon" class="app-icon" />
+                        <img *ngFor="let icon of getIconsArea(area.id)" [src]="icon.url" alt="App Icon" class="app-icon" />
                     </div>
                     <div class="status-indicator"
                          [style.background-color]="area.active ? 'var(--green-color)' : 'var(--red-color)'"

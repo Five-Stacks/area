@@ -28,7 +28,7 @@ export class SignUpPage {
   isLoading = false;
   errorMessage = '';
 
-  handleSignIn = () => {    
+  handleSignIn = () => {
     // Reset previous errors
     this.hintEmail = '';
     this.hintPassword = '';
