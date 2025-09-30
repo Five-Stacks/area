@@ -8,7 +8,7 @@ type CheckboxProps = {
   };
   
 
-const Checkbox = ({ label, initialValue = false, onChange }: CheckboxProps) => {
+const Checkbox: React.FC<CheckboxProps> = ({ label, initialValue = false, onChange }: CheckboxProps) => {
   const [checked, setChecked] = useState(initialValue);
 
   const toggleCheckbox = () => {

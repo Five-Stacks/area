@@ -13,7 +13,7 @@ type InputProps = {
 }
 
 
-const Input = ({ value, onChangeText, placeholder, secureTextEntry }: InputProps) => {
+const Input: React.FC<InputProps> = ({ value, onChangeText, placeholder, secureTextEntry }: InputProps) => {
     const { inputStyle, containerStyle } = styles;
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 

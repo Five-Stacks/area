@@ -7,7 +7,7 @@ type DropdownProps = {
   };
   
 
-const Dropdown = ({ placeholder, options }: DropdownProps) => {
+const Dropdown: React.FC<DropdownProps> = ({ placeholder, options }: DropdownProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedValue, setSelectedValue] = useState<string | null>(null);
   
