@@ -1,13 +1,12 @@
-import { Stack } from "expo-router";
+import { Stack, SplashScreen } from "expo-router";
 import { useFonts } from "expo-font";
-import { SplashScreen } from "expo-router";
 import { useEffect } from "react";
 
 // Prevent the splash screen from auto loading before all elements are loaded
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  var isConnected: boolean = false;
+  let isConnected: boolean = false;
 
   const [fontsLoaded] = useFonts({
     "Inter-Thin": require("@/assets/fonts/Inter-Thin.ttf"),

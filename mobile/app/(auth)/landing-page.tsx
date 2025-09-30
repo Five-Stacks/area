@@ -1,6 +1,5 @@
 import { Text, View } from "react-native";
-import { Link, useNavigation } from "expo-router";
-import { globalTextSize, globalTextStyle } from "@/src/styles/global";
+import { useNavigation } from "expo-router";
 import StylizedButton from "@/src/components/global/button";
 
 export default function Index() {
