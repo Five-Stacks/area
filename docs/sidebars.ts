@@ -40,6 +40,8 @@ const sidebars: SidebarsConfig = {
             'api/auth/register',
             'api/auth/login',
             'api/auth/logout',
+            'api/auth/isConnected',
+            'api/auth/isAdmin',
           ]
         }
       ],

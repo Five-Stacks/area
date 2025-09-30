@@ -1,0 +1,19 @@
+<button
+    (click)="navigateToHome()"
+    (keyup.enter)="navigateToHome()"
+    class="logo-btn"
+    aria-label="Go to Home"
+    tabindex="0"
+    style="background: none; border: none; padding: 0;"
+>
+    <img
+        src="/assets/logo.png"
+        alt="Area Logo"
+        class="logo"
+    />
+    <h2 class="logo-text">{{ title }}</h2>
+</button>
+<app-area-button-full
+    [label]="'X'"
+    [path]="'/dashboard'"
+></app-area-button-full>

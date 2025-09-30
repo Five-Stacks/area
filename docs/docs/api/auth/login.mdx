@@ -20,13 +20,19 @@ Authenticate an existing user.
 
 - **200 OK**
   ```json
-  { "message": "User login successful" }
+  { "success": true, "message": "User login successful" }
   ```
   - Sets a `token` cookie for authentication.
 
 - **Error Codes**
   - `400`: Email and password are required
+    ```json
+    { "success": false, "message": "Email and password are required" }
+    ```
   - `401`: Invalid email or password
+    ```json
+    { "success": false, "message": "Invalid email or password" }
+    ```
 
 ### Example
 

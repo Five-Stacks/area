@@ -11,9 +11,14 @@ Log out the current user.
 
 - **200 OK**
   ```json
-  { "message": "User logged out successfully" }
+  { "success": true, "message": "User logged out successfully" }
   ```
   - Clears the authentication cookie.
+
+- **401 Unauthorized**
+  ```json
+  { "success": false, "message": "Not authenticated" }
+  ```
 
 ### Example
 
