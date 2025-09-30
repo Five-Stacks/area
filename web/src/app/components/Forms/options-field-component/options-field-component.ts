@@ -1,8 +1,9 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-options-field-component',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './options-field-component.html',
   styleUrl: './options-field-component.css'
 })

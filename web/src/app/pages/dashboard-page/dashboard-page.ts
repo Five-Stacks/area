@@ -4,10 +4,11 @@ import { ButtonWithIconComponent } from '../../components/Buttons/button-with-ic
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { TextFieldComponent } from '../../components/Forms/text-field-component/text-field-component';
+import { OptionsFieldComponent } from '../../components/Forms/options-field-component/options-field-component';
 
 @Component({
   selector: 'app-dashboard-page',
-  imports: [ButtonFullComponent, ButtonWithIconComponent, CommonModule, TextFieldComponent],
+  imports: [ButtonFullComponent, ButtonWithIconComponent, CommonModule, TextFieldComponent, OptionsFieldComponent],
   templateUrl: './dashboard-page.html',
   styleUrl: './dashboard-page.css'
 })

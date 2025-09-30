@@ -12,14 +12,14 @@
                     [label]="'Search area...'"
                     [type]="'text'"
                 ></app-text-field-component>
-                <app-text-field-component
+                <app-options-field-component
                     [label]="'All Apps'"
-                    [type]="'text'"
-                ></app-text-field-component>
-                <app-text-field-component
+                    [options]="['All Apps', 'App1', 'App2', 'App3']"
+                ></app-options-field-component>
+                <app-options-field-component
                     [label]="'All Status'"
-                    [type]="'text'"
-                ></app-text-field-component>
+                    [options]="['All Status', 'Active', 'Inactive']"
+                ></app-options-field-component>
             </div>
         </div>
     </div>
