@@ -56,6 +56,9 @@ const styles = StyleSheet.create({
     marginTop: 5,
     backgroundColor: "#fff",
     elevation: 5,
+    position: "absolute",
+    width: "100%",
+    top: 50,
   },
   dropdownButton: {
     padding: 10,
