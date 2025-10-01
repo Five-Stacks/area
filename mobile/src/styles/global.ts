@@ -45,6 +45,9 @@ export const globalTextStyle = StyleSheet.create({
 });
 
 export const globalTextSize = StyleSheet.create({
+  small: {
+    fontSize: 14,
+  },
   regular: {
     fontSize: 16,
   },
