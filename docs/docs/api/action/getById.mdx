@@ -1,0 +1,30 @@
+---
+id: getById
+title: Get Action By ID
+---
+
+## GET `/api/action/:id`
+
+Retrieve a specific action by its ID.
+
+### Response
+
+- **200 OK**
+  ```json
+  { "success": true, "data": { /* action object */ } }
+  ```
+- **404 Not Found**
+  ```json
+  { "success": false, "error": "Action not found" }
+  ```
+- **500 Internal Server Error**
+  ```json
+  { "success": false, "error": "Internal Server Error" }
+  ```
+
+### Example
+
+```bash
+curl -X GET http://localhost:8080/api/action/1 \
+  --cookie "token=your_jwt_token"
+```

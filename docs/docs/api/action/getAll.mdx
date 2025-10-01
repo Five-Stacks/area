@@ -1,0 +1,26 @@
+---
+id: getAll
+title: Get All Actions
+---
+
+## GET `/api/action/`
+
+Retrieve all available actions.
+
+### Response
+
+- **200 OK**
+  ```json
+  { "success": true, "data": [ /* array of actions */ ] }
+  ```
+- **500 Internal Server Error**
+  ```json
+  { "success": false, "error": "Internal Server Error" }
+  ```
+
+### Example
+
+```bash
+curl -X GET http://localhost:8080/api/action/ \
+  --cookie "token=your_jwt_token"
+```

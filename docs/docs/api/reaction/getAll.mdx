@@ -1,0 +1,26 @@
+---
+id: getAll
+title: Get All Reactions
+---
+
+## GET `/api/reaction/`
+
+Retrieve all available reactions.
+
+### Response
+
+- **200 OK**
+  ```json
+  { "success": true, "data": [ /* array of reactions */ ] }
+  ```
+- **500 Internal Server Error**
+  ```json
+  { "success": false, "error": "Internal Server Error" }
+  ```
+
+### Example
+
+```bash
+curl -X GET http://localhost:8080/api/reaction/ \
+  --cookie "token=your_jwt_token"
+```

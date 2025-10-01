@@ -1,0 +1,36 @@
+---
+id: updateById
+title: Update Area By ID
+---
+
+## PUT `/api/area/:id`
+
+Update an area by its ID (for the current user).
+
+### Request Body
+- `action_id` (optional): ID of the action
+- `reaction_id` (optional): ID of the reaction
+- `config` (optional): Configuration object
+- `is_active` (optional): Boolean
+
+### Response
+- **200 OK**
+  ```json
+  { "success": true, "data": { /* updated area object */ } }
+  ```
+- **404 Not Found**
+  ```json
+  { "success": false, "error": "Area not found" }
+  ```
+- **500 Internal Server Error**
+  ```json
+  { "success": false, "error": "Internal Server Error" }
+  ```
+
+### Example
+```bash
+curl -X PUT http://localhost:8080/api/area/1 \
+  -H "Content-Type: application/json" \
+  --cookie "token=your_jwt_token" \
+  -d '{"is_active":false}'
+```

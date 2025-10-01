@@ -1,0 +1,24 @@
+---
+id: getAllCurrentUser
+title: Get All Areas (Current User)
+---
+
+## GET `/api/area/`
+
+Retrieve all areas for the current user.
+
+### Response
+- **200 OK**
+  ```json
+  { "success": true, "data": [ /* array of areas */ ] }
+  ```
+- **500 Internal Server Error**
+  ```json
+  { "success": false, "error": "Internal Server Error" }
+  ```
+
+### Example
+```bash
+curl -X GET http://localhost:8080/api/area/ \
+  --cookie "token=your_jwt_token"
+```
