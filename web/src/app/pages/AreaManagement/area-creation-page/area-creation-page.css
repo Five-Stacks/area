@@ -259,3 +259,33 @@ img {
 .step.active {
     border-bottom: 3px solid var(--blue-color);
 }
+
+.validity-button {
+    border-top: 2px solid var(--gray-color);
+    padding: 15px 0;
+
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    app-area-button-full {
+        width: 80%;
+        button {
+            font-size: 18px;
+        }
+    }
+}
+
+.form-content {
+    display: grid;
+    grid-template-rows: 10fr auto;
+}
+
+.form-section {
+    overflow-y: auto;
+    padding: 0px 20px;
+    h2 {
+        margin: 0px;
+        padding: 0px;
+    }
+    height: 505px;
+}

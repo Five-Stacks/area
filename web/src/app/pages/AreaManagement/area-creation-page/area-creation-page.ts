@@ -6,6 +6,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { ButtonComponent } from '../../../components/Buttons/button-component/button-component';
+import { ButtonFullComponent } from '../../../components/Buttons/button-component-full/button-component-full';
 
 @Component({
   selector: 'app-area-creation-page',
@@ -15,7 +17,9 @@ import { MatInputModule } from '@angular/material/input';
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatInputModule],
+    MatInputModule,
+    ButtonFullComponent
+  ],
   templateUrl: './area-creation-page.html',
   styleUrl: './area-creation-page.css'
 })
@@ -84,6 +88,17 @@ export class AreaCreationPage {
     } else {
       // If the action with the given idArea is not found, insert first
       this.area.actions.unshift(newAction);
+    }
+  }
+
+  nextStep = () => {
+    if (this.step < 3)
+      this.step += 1;
+    else {
+      // save area
+      this.idEditing = -1;
+      this.isEditing = false;
+      this.step = 1;
     }
   }
 }
