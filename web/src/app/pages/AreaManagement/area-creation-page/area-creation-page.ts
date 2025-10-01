@@ -30,7 +30,7 @@ export class AreaCreationPage {
     active?: boolean;
   } = {
     trigger: {},
-    actions: []
+    actions: [{}]
   };
 
   editTrigger(areaId: number) {

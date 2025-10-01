@@ -57,6 +57,11 @@
         margin-top: 4px;
         margin-right: 15px;
     }
+    svg {
+        margin-top: 2px;
+        margin-right: 10px;
+        fill: var(--line-color);
+    }
 
     .status-text {
         font-size: 14px;
@@ -76,6 +81,11 @@
             padding: 5px;
         }
     }
+}
+
+.toConfigure {
+    opacity: 0.2;
+    font-style: italic;
 }
 
 .action-card:last-child::after {
