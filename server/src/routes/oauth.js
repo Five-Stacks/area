@@ -48,10 +48,12 @@ router.get('/google', verifyToken, (req, res, next) => {
   const options = { ...googleAuthOptions };
   const state = redirectTo ? buildState(redirectTo) : undefined;
   if (state) options.state = state;
+  console.log("body is", req.body);
   passport.authenticate('google', options)(req, res, next);
 });
 
 router.get('/google/callback',
+  verifyToken,
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
     const redirectTo = extractRedirectFromState(req);
@@ -70,6 +72,7 @@ router.get('/discord', verifyToken, (req, res, next) => {
 });
 
 router.get('/discord/callback',
+  verifyToken,
   passport.authenticate('discord', { failureRedirect: '/login' }),
   (req, res) => {
     const redirectTo = extractRedirectFromState(req);
@@ -88,6 +91,7 @@ router.get('/spotify', verifyToken, (req, res, next) => {
 });
 
 router.get('/spotify/callback',
+  verifyToken,
   passport.authenticate('spotify', { failureRedirect: '/login' }),
   (req, res) => {
     const redirectTo = extractRedirectFromState(req);
@@ -106,6 +110,7 @@ router.get('/microsoft', verifyToken, (req, res, next) => {
 });
 
 router.get('/microsoft/callback',
+  verifyToken,
   passport.authenticate('microsoft', { failureRedirect: '/login' }),
   (req, res) => {
     const redirectTo = extractRedirectFromState(req);
@@ -125,6 +130,7 @@ router.get('/github', verifyToken, (req, res, next) => {
 });
 
 router.get('/github/callback',
+  verifyToken,
   passport.authenticate('github', { failureRedirect: '/login' }),
   (req, res) => {
     const redirectTo = extractRedirectFromState(req);
