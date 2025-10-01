@@ -110,6 +110,15 @@
     }
 }
 
+.action-card-add {
+    h3 {
+        opacity: 0.2;
+    }
+    .action-details {
+        grid-template-columns: 10fr 1fr;
+    }
+}
+
 .trigger-area .status-text {
     background-color: var(--blue-color-light);
     h4 {
