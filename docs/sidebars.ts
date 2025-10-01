@@ -21,7 +21,6 @@ const sidebars: SidebarsConfig = {
       items: [
         'guides/installation',
         'guides/contributing',
-        // 'guides/deployment',
       ],
     },
   ],
