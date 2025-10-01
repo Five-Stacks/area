@@ -1,16 +1,18 @@
 import { Component, inject } from '@angular/core';
 import { HeaderDashBoardComponent } from '../../../components/Headers/header-component-dashboard/header-component-dashboard';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
+import { TextFieldComponent } from '../../../components/Forms/text-field-component/text-field-component';
 
 @Component({
   selector: 'app-area-details-page',
-  imports: [HeaderDashBoardComponent, CommonModule, RouterLink],
+  imports: [HeaderDashBoardComponent, CommonModule, TextFieldComponent],
   templateUrl: './area-details-page.html',
   styleUrl: './area-details-page.css'
 })
 export class AreaDetailsPage {
-  private router = inject(Router);
+  isEditing: boolean = false;
+  idEditing: number = -1; // 1, 2, ... for actions
+  nameArea: string = '';
 
   area : {
     id: number;
@@ -22,6 +24,7 @@ export class AreaDetailsPage {
       urlImage: string;
     };
     actions: {
+      id: number;
       name: string;
       type: string;
       urlImage: string;
@@ -37,19 +40,22 @@ export class AreaDetailsPage {
       urlImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png'
     },
     actions: [
-      { name: 'Post Tweet', type: 'icon', urlImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
-      { name: 'Post Tweet', type: 'icon', urlImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
-      { name: 'Post Tweet', type: 'icon', urlImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
-      { name: 'Post Tweet', type: 'icon', urlImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
-      { name: 'Post Tweet', type: 'icon', urlImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
-      { name: 'Post Tweet', type: 'icon', urlImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
-      { name: 'Post Tweet', type: 'icon', urlImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
-      { name: 'Date', type: 'date', urlImage: 'https://www.svgrepo.com/show/438428/date-round.svg' }
+      { id: 1, name: 'Post Tweet', type: 'icon', urlImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
+      { id: 2, name: 'Send Email', type: 'icon', urlImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Mail_%28iOS%29.svg/1200px-Mail_%28iOS%29.svg.png' },
+      { id: 3, name: 'Turn on Light', type: 'icon', urlImage: 'https://cdn-icons-png.flaticon.com/512/69/69172.png' },
+      { id: 4, name: 'Log to Console', type: 'icon', urlImage: 'https://images.icon-icons.com/2248/PNG/512/console_icon_138727.png' },
+      { id: 5, name: 'Create Calendar Event', type: 'icon', urlImage: 'https://icons.veryicon.com/png/o/miscellaneous/face-monochrome-icon/calendar-249.png' }
     ],
     active: true
   };
 
-  editTrigger() {
-    this.router.navigate(['/area/edition', this.area.id]);
+  editTrigger(areaId: number) {
+    if (this.isEditing && this.idEditing === areaId) {
+      this.isEditing = false;
+      this.idEditing = -1;
+    } else {
+      this.isEditing = true;
+      this.idEditing = areaId;
+    }
   }
 }
