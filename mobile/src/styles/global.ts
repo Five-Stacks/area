@@ -12,6 +12,7 @@ export const globalColors = {
   button: "#6A74C9",
   buttonOn: "#74B9A9",
   buttonOff: "#F7DADE",
+  shadow: "#000000",
 };
 
 const globalFontFamilly = {

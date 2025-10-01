@@ -1,21 +1,31 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ViewStyle,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 type DropdownProps = {
   placeholder: string;
   options: string[];
+  style?: ViewStyle;
+  onValueChange?: (item: string) => void;
 };
 
 const Dropdown: React.FC<DropdownProps> = ({
   placeholder,
   options,
+  style,
+  onValueChange,
 }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
 
   return (
-    <View style={styles.containerDropdown}>
+    <View style={style}>
       {/* Main button */}
       <TouchableOpacity
         style={styles.dropdownButton}
@@ -37,8 +47,10 @@ const Dropdown: React.FC<DropdownProps> = ({
               key={index}
               style={styles.item}
               onPress={() => {
+                console.log("Pressed");
                 setSelectedValue(item);
                 setIsOpen(false);
+                onValueChange?.(item);
               }}
             >
               <Text>{item}</Text>
@@ -51,10 +63,6 @@ const Dropdown: React.FC<DropdownProps> = ({
 };
 
 const styles = StyleSheet.create({
-  containerDropdown: {
-    width: 200,
-    marginTop: 20,
-  },
   dropdown: {
     borderWidth: 1,
     borderColor: "#ccc",
@@ -74,7 +82,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 5,
-    backgroundColor: "#f9f9f9",
   },
   item: {
     padding: 10,

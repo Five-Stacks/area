@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Pressable, TextInput, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import {
@@ -7,11 +7,13 @@ import {
   globalTextStyle,
 } from "@/src/styles/global";
 
-export default function SearchBar({
-  onSearch,
-}: {
+type SearchBarProps = {
   onSearch?: (text: string) => void;
-}) {
+};
+
+const SearchBar: React.FC<SearchBarProps> = ({
+  onSearch = (text: string) => null,
+}: SearchBarProps) => {
   const [query, setQuery] = useState("");
   const inputRef = useRef<TextInput>(null);
 
@@ -44,7 +46,7 @@ export default function SearchBar({
       />
     </Pressable>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -55,7 +57,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 10,
     paddingHorizontal: 8,
-    margin: 10,
   },
   input: {
     flex: 1,
@@ -64,3 +65,5 @@ const styles = StyleSheet.create({
     marginLeft: 6,
   },
 });
+
+export default SearchBar;
