@@ -1,16 +1,20 @@
-import passport from "passport";
-import session from "express-session";
+import express from 'express';
+import passport from 'passport';
+import session from 'express-session';
 
-app.use(session({
+const router = express.Router();
+
+// Session and passport middlewares mounted on a router so the caller can use
+router.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   cookie: { secure: false }
 }));
 
-app.use(passport.initialize());
-app.use(passport.session());
+router.use(passport.initialize());
+router.use(passport.session());
 
 export default function passportSetup() {
-  return passport;
+  return router;
 }

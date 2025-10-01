@@ -11,7 +11,7 @@ import { discordAuthOptions } from '../middleware/auth/oauthDiscord.js';
 import { spotifyAuthOptions } from '../middleware/auth/oauthSpotify.js';
 import { microsoftAuthOptions } from '../middleware/auth/oauthMicrosoft.js';
 import { twitterAuthOptions } from '../middleware/auth/oauthTwitter.js';
-import { verifyToken } from '../middleware/auth/verifyToken.js';
+import verifyToken from '../middleware/verifyToken.js';
 
 oauth();
 
