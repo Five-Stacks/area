@@ -61,25 +61,27 @@
                     <h3>Apps:</h3>
                     <h3>Status:</h3>
                 </div>
-                <div *ngFor="let area of getFilteredAreas()" class="area-card">
-                    <div class="button-area-selection" (click)="selectArea(area.id)">
-                        <svg *ngIf="area.selected" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
-                    </div>
-                    <h2>{{ area.name }}</h2>
-                    <div [class]="area.AppsIcons.length == 1 ? 'apps-icons-single' : 'apps-icons'">
-                        <img *ngFor="let icon of getIconsArea(area.id)" [src]="icon.url" alt="App Icon" class="app-icon" />
-                    </div>
-                    <div class="status-indicator"
-                         [style.background-color]="area.active ? 'var(--green-color)' : 'var(--red-color)'"
-                         (click)="changeStatus(area.id)">
-                        <div class="status-dot"
-                             [style.transform]="'translateX(' + (area.active ? '47px' : '0px') + ')'">
+                <div class="areas-cards">
+                    <div *ngFor="let area of getFilteredAreas()" class="area-card">
+                        <div class="button-area-selection" (click)="selectArea(area.id)">
+                            <svg *ngIf="area.selected" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
                         </div>
-                    </div>
-                    <div class="see-more">
-                        <a [routerLink]="['/area/details', area.id]">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400Z"/></svg>
-                        </a>
+                        <h2>{{ area.name }}</h2>
+                        <div [class]="area.AppsIcons.length == 1 ? 'apps-icons-single' : 'apps-icons'">
+                            <img *ngFor="let icon of getIconsArea(area.id)" [src]="icon.url" alt="App Icon" class="app-icon" />
+                        </div>
+                        <div class="status-indicator"
+                            [style.background-color]="area.active ? 'var(--green-color)' : 'var(--red-color)'"
+                            (click)="changeStatus(area.id)">
+                            <div class="status-dot"
+                                [style.transform]="'translateX(' + (area.active ? '47px' : '0px') + ')'">
+                            </div>
+                        </div>
+                        <div class="see-more">
+                            <a [routerLink]="['/area/details', area.id]">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400Z"/></svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

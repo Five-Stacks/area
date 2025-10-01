@@ -14,11 +14,12 @@
     flex-direction: column;
     align-items: center;
     gap: 100px;
+    height: 80%;
+    overflow-y: auto;
 }
 
 .trigger-area, .action-card  {
     transition: box-shadow 0.3s, transform 0.3s;
-    z-index: 0;
     position: relative;
 
     .action-details {
@@ -28,7 +29,7 @@
         height: 25px;
     }
     width: 500px;
-    height: 80px;
+    height: 100px;
     background: var(--white-color);
     box-shadow: 0px 7px 49px 3px var(--blue-shadow-color-medium);
     border-radius: 10px;
@@ -56,6 +57,7 @@
         text-align: center;
         padding: 3px;
         margin-top: 10px;
+        margin-bottom: 10px;
 
         h4 {
             margin: 0;
@@ -103,7 +105,6 @@ hr {
     border: none;
     right: 270px;
     top: 93%;
-    z-index: -10000;
 }
 
 img {

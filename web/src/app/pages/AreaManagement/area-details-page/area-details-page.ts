@@ -38,6 +38,12 @@ export class AreaDetailsPage {
     },
     actions: [
       { name: 'Post Tweet', type: 'icon', urlImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
+      { name: 'Post Tweet', type: 'icon', urlImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
+      { name: 'Post Tweet', type: 'icon', urlImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
+      { name: 'Post Tweet', type: 'icon', urlImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
+      { name: 'Post Tweet', type: 'icon', urlImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
+      { name: 'Post Tweet', type: 'icon', urlImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
+      { name: 'Post Tweet', type: 'icon', urlImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
       { name: 'Date', type: 'date', urlImage: 'https://www.svgrepo.com/show/438428/date-round.svg' }
     ],
     active: true

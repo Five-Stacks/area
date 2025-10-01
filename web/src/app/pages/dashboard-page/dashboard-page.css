@@ -191,6 +191,12 @@
     }
 }
 
+.areas-cards {
+    height: 70vh;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
 .app-icon {
     width: 30px;
     height: 30px;

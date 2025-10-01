@@ -77,6 +77,76 @@ export class DashboardPage {
         { name: 'Date', url: 'https://www.svgrepo.com/show/438428/date-round.svg' }
       ],
       active: false
+    },
+    {
+      id: 5,
+      name: 'Area 5',
+      AppsIcons: [
+        { name: 'Google', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png' },
+        { name: 'X', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
+        { name: 'Date', url: 'https://www.svgrepo.com/show/438428/date-round.svg' }
+      ],
+      active: false
+    },
+    {
+      id: 6,
+      name: 'Area 6',
+      AppsIcons: [
+        { name: 'Google', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png' },
+        { name: 'X', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
+        { name: 'Date', url: 'https://www.svgrepo.com/show/438428/date-round.svg' }
+      ],
+      active: false
+    },
+    {
+      id: 7,
+      name: 'Area 7',
+      AppsIcons: [
+        { name: 'Google', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png' },
+        { name: 'X', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
+        { name: 'Date', url: 'https://www.svgrepo.com/show/438428/date-round.svg' }
+      ],
+      active: false
+    },
+    {
+      id: 8,
+      name: 'Area 8',
+      AppsIcons: [
+        { name: 'Google', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png' },
+        { name: 'X', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
+        { name: 'Date', url: 'https://www.svgrepo.com/show/438428/date-round.svg' }
+      ],
+      active: false
+    },
+    {
+      id: 9,
+      name: 'Area 9',
+      AppsIcons: [
+        { name: 'Google', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png' },
+        { name: 'X', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
+        { name: 'Date', url: 'https://www.svgrepo.com/show/438428/date-round.svg' }
+      ],
+      active: false
+    },
+    {
+      id: 10,
+      name: 'Area 10',
+      AppsIcons: [
+        { name: 'Google', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png' },
+        { name: 'X', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
+        { name: 'Date', url: 'https://www.svgrepo.com/show/438428/date-round.svg' }
+      ],
+      active: false
+    },
+    {
+      id: 11,
+      name: 'Area 11',
+      AppsIcons: [
+        { name: 'Google', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png' },
+        { name: 'X', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
+        { name: 'Date', url: 'https://www.svgrepo.com/show/438428/date-round.svg' }
+      ],
+      active: false
     }
   ];
 
