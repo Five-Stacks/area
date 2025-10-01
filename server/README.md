@@ -41,27 +41,6 @@ Create a `.env` file at the root with the following variables:
 ```
 POSTGRES_URL=postgres://user:password@localhost:5432/dbname
 JWT_SECRET=yoursecret
-```
-
-## Module System
-
-- Uses ECMAScript Modules (ESM):
-  Import syntax: `import express from 'express';`
-  (instead of CommonJS: `const express = require('express')`)
-
-## Docker
-
-The server can be built and run using Docker.
-See the root [README.md](../README.md) for instructions.
-
-## .env file
-
-The server uses a `.env` file for configuration.
-The `.env` file should be filled with the following variables:
-
-```sh
-# Session secret used to sign session cookies or tokens
-SESSION_SECRET=your_session_or_jwt_secret_here
 
 # Google OAuth
 GOOGLE_CLIENT_ID=your_google_client_id
@@ -88,3 +67,13 @@ MICROSOFT_CLIENT_ID=your_microsoft_client_id
 MICROSOFT_CLIENT_SECRET=your_microsoft_client_secret
 ```
 
+## Module System
+
+- Uses ECMAScript Modules (ESM):
+  Import syntax: `import express from 'express';`
+  (instead of CommonJS: `const express = require('express')`)
+
+## Docker
+
+The server can be built and run using Docker.
+See the root [README.md](../README.md) for instructions.
