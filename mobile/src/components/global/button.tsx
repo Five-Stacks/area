@@ -12,6 +12,7 @@ import {
   GestureResponderEvent,
   StyleProp,
   ViewStyle,
+  TextStyle,
 } from "react-native";
 
 type StylizedButtonProps = {
@@ -20,6 +21,7 @@ type StylizedButtonProps = {
   leftElement?: React.ReactNode;
   rightElement?: React.ReactNode;
   style?: StyleProp<ViewStyle>;
+  styleLabel?: StyleProp<TextStyle>;
 };
 
 const StylizedButton: React.FC<StylizedButtonProps> = ({
@@ -28,12 +30,13 @@ const StylizedButton: React.FC<StylizedButtonProps> = ({
   leftElement,
   rightElement,
   style,
+  styleLabel,
 }) => {
   return (
     <TouchableOpacity style={[styles.button, style]} onPress={onPress}>
       <View style={styles.content}>
         {leftElement && <View style={styles.side}>{leftElement}</View>}
-        <Text style={[globalTextStyle.medium, globalTextSize.h3, styles.label]}>
+        <Text style={[globalTextStyle.medium, globalTextSize.h3, styles.label, styleLabel]}>
           {label}
         </Text>
         {rightElement && <View style={styles.side}>{rightElement}</View>}
