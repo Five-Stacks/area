@@ -5,6 +5,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
+      - ./server:/usr/src/app
       - /usr/src/app/node_modules
       - profile_pictures:/usr/src/app/uploads
     depends_on:
@@ -53,5 +54,4 @@ services:
 volumes:
   profile_pictures:
   shared_mobile_web:
-  server_node_modules:
   pgdata:
