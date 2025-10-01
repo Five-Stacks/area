@@ -14,9 +14,10 @@ export default function Index() {
       <Link href={"/register"} style={{ color: "blue" }}>
         Register
       </Link>
-      <Link href={"/dashboard"} style={{ color: "blue" }}>
+      <Link href={"/home"} style={{ color: "blue" }}>
         Login
       </Link>
     </View>
   );
 }
+

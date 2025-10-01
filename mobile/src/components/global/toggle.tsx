@@ -39,7 +39,7 @@ const Toggle: React.FC<ToggleProps> = ({
 
   const circlePosition = anim.interpolate({
     inputRange: [0, 1],
-    outputRange: [2, width - 32], // left padding values
+    outputRange: [1, width - 30], // left padding values
   });
 
   return (

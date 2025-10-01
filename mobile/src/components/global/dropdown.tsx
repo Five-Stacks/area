@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 type DropdownProps = {
   placeholder: string;
@@ -21,6 +22,13 @@ const Dropdown: React.FC<DropdownProps> = ({
         onPress={() => setIsOpen(!isOpen)}
       >
         <Text>{selectedValue || placeholder}</Text>
+
+        <Ionicons
+          name={isOpen ? "chevron-up" : "chevron-down"}
+          size={20}
+          color="gray"
+        />
+
       </TouchableOpacity>
 
       {/* Options list */}
@@ -53,14 +61,17 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 5,
-    marginTop: 5,
     backgroundColor: "#fff",
     elevation: 5,
     position: "absolute",
     width: "100%",
-    top: 50,
+    top: 41,
+    zIndex: 1000,
   },
   dropdownButton: {
+    flexDirection: "row",          // text + icon in a row
+    justifyContent: "space-between", // push text left, icon right
+    alignItems: "center",          // center vertically
     padding: 10,
     borderWidth: 1,
     borderColor: "#ccc",

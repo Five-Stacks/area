@@ -3,7 +3,7 @@ import { View, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 type InputProps = {
-  onChangeText: (text: string) => void;
+  onChangeText?: (text: string) => void;
   value?: string;
   placeholder?: string;
   secureTextEntry?: boolean;
