@@ -2,7 +2,7 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import corsSetup from './config/cors.js';
-import authRouter from './routes/auth.js';
+import authRouter from './routes/authRoute.js';
 import notFound from './middleware/notFound.js';
 
 /* App initialization */
