@@ -1,11 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { HeaderDashBoardComponent } from '../../../components/Headers/header-component-dashboard/header-component-dashboard';
 import { CommonModule } from '@angular/common';
-import { TextFieldComponent } from '../../../components/Forms/text-field-component/text-field-component';
 
 @Component({
   selector: 'app-area-details-page',
-  imports: [HeaderDashBoardComponent, CommonModule, TextFieldComponent],
+  imports: [HeaderDashBoardComponent, CommonModule],
   templateUrl: './area-details-page.html',
   styleUrl: './area-details-page.css'
 })
