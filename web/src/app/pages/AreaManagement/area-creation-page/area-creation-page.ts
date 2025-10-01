@@ -22,7 +22,7 @@ export class AreaCreationPage {
       urlImage?: string;
     };
     actions: {
-      id?: number;
+      id: number;
       name?: string;
       type?: string;
       urlImage?: string;
@@ -30,7 +30,7 @@ export class AreaCreationPage {
     active?: boolean;
   } = {
     trigger: {},
-    actions: [{id: 1}, {id: 2}, {id: 3}]
+    actions: [{id: 1}],
   };
 
   editTrigger(areaId: number) {
@@ -43,6 +43,15 @@ export class AreaCreationPage {
     }
   }
 
-  addAction() {
+  addNewEmptyActionAfter(idArea: number) {
+    const newAction = { id: this.area.actions.length + 1 };
+    // Find the index of the action with the given idArea and insert the new action after it
+    const index = this.area.actions.findIndex(action => action.id === idArea);
+    if (index !== -1) {
+      this.area.actions.splice(index + 1, 0, newAction);
+    } else {
+      // If the action with the given idArea is not found, insert first
+      this.area.actions.unshift(newAction);
+    }
   }
 }
