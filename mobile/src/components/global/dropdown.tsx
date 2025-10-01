@@ -28,9 +28,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           size={20}
           color="gray"
         />
-
       </TouchableOpacity>
-
       {/* Options list */}
       {isOpen && (
         <View style={styles.dropdown}>
@@ -69,9 +67,9 @@ const styles = StyleSheet.create({
     zIndex: 1000,
   },
   dropdownButton: {
-    flexDirection: "row",          // text + icon in a row
-    justifyContent: "space-between", // push text left, icon right
-    alignItems: "center",          // center vertically
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     padding: 10,
     borderWidth: 1,
     borderColor: "#ccc",

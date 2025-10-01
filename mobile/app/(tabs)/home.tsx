@@ -22,7 +22,10 @@ export default function Index() {
       <Input placeholder="Enter text" secureTextEntry={true} />
       <Input placeholder="Password" secureTextEntry={false} />
       <Checkbox label="Accept Terms and Conditions" />
-      <StylizedButton label="Press Me" onPress={() => alert("Button Pressed!")} />
+      <StylizedButton
+        label="Press Me"
+        onPress={() => alert("Button Pressed!")}
+      />
       <Toggle
         width={60}
         value={false}
