@@ -11,7 +11,9 @@ export default function Index() {
       }}
     >
       <Text>Register screen</Text>
-      <Link href={"/login"} style={{color: "blue"}}>GOTO Login</Link>
+      <Link href={"/login"} style={{ color: "blue" }}>
+        GOTO Login
+      </Link>
     </View>
   );
 }
