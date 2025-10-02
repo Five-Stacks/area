@@ -48,7 +48,6 @@ router.get('/google', verifyToken, (req, res, next) => {
   const options = { ...googleAuthOptions };
   const state = redirectTo ? buildState(redirectTo) : undefined;
   if (state) options.state = state;
-  console.log("body is", req.body);
   passport.authenticate('google', options)(req, res, next);
 });
 
