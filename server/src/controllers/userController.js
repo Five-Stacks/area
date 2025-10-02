@@ -48,7 +48,7 @@ const getAllUsers = async (req, res) => {
         const users = await User.findAll({ attributes: { exclude: ['password_hash'] } });
         res.status(200).json({ success: true, users });
     } catch (error) {
-        console.error({ success: false, error: 'Error fetching users:' });
+        console.error('Error fetching users:', error);
         res.status(500).json({ success: false, error: 'Internal server error' });
     }
 };
@@ -65,7 +65,7 @@ const getUserById = async (req, res) => {
         if (!user) {
             return res.status(404).json({ success: false, error: 'User not found' });
         }
-        res.json(user);
+    res.status(200).json({ success: true, user });
     } catch (error) {
         console.error('Error fetching user:', error);
         res.status(500).json({ success: false, error: 'Internal server error' });
@@ -79,8 +79,10 @@ const updateUser = async (req, res) => {
         return res.status(403).json({ success: false, error: 'Forbidden' });
     }
 
-    req.body.password_hash = await bcrypt.hash(req.body.password, 10);
-    delete req.body.password;
+    if (req.body.password) {
+        req.body.password_hash = await bcrypt.hash(req.body.password, 10);
+        delete req.body.password;
+    }
 
     try {
         const user = await User.findByPk(req.params.id);
