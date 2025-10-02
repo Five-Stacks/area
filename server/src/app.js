@@ -30,5 +30,8 @@ app.use('/api/oauth', oauthRouter);
 /* 404 Middleware */
 app.use(notFound);
 
+/* Initialize services */
+servicesSetup();
+
 /* Export application */
 export default app;
