@@ -184,9 +184,18 @@ export class AreaCreationPage {
   ];
 
   isButtonClickable(): boolean {
-    if (this.step === 1) {
-      if (this.serviceChosen != '' && this.serviceChosen != 'Choose Reaction') return true;
+    if (this.step === 1)
+      if (this.serviceChosen != '' && this.serviceChosen != 'Choose Service') return true;
+    if (this.step === 2)
+      if (this.reactionChosen != '' && this.reactionChosen != 'Choose Reaction') return true;
+    if (this.step === 3) {
+      for (let response of this.ActionsResponses) {
+        if (response.response === '' || response.response == null)
+          return false;
+      }
+      return true;
     }
+    if (this.step === 4) return true;
     return false;
   }
 
@@ -235,6 +244,7 @@ export class AreaCreationPage {
   }
 
   nextStep = () => {
+    if (this.isButtonClickable() === false) return;
     if (this.step < 4) {
       this.step += 1;
       this.onNewStep(this.step);
@@ -249,10 +259,15 @@ export class AreaCreationPage {
   onNewStep = (step: number) => {
     if (step == 2) {
       this.reactionsList = ['Choose Reaction'];
-      this.reactionsList.push(...this.reactions.map(reaction => reaction.name));
+      const reaction = this.reactions.find(reaction => reaction.name === this.serviceChosen);
+      reaction?.reaction_list.forEach(reaction => {
+        if (!this.reactionsList.includes(reaction.name))
+          this.reactionsList.push(reaction.name);
+      });
     }
     if (step == 3) {
       const reaction = this.reactions.find(reaction => reaction.name === this.serviceChosen)?.reaction_list.find(reaction => reaction.name === this.reactionChosen);
+      console.log(reaction);
       this.actionsList = reaction ? reaction.config.fields : [];
       this.ActionsResponses = new Array(this.actionsList.length).fill(null).map((_, index) => ({
         response: '',

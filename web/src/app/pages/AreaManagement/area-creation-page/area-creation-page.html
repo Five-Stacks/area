@@ -134,6 +134,7 @@
                     ></app-area-button-full>
                     <app-area-button-full
                         [label]=" step === 4 ? 'FINISH' : 'NEXT' "
+                        [disabled]="isButtonClickable() === false"
                         [onClick]="nextStep"
                     ></app-area-button-full>
                 </div>
