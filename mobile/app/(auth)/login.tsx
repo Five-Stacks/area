@@ -3,42 +3,53 @@ import { Link, router } from "expo-router";
 import StylizedButton from "@/src/components/global/button";
 import Input from "@/src/components/global/textinput";
 import OrDivider from "@/src/components/auth/login/separator";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import GoogleLogo from "@/assets/images/google.png";
 import AreaLogo from "@/assets/images/logo.png";
 
 export default function Index() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  // ✅ Auto-login if token exists
+  useEffect(() => {
+    async function checkToken() {
+      const token = await AsyncStorage.getItem("token");
+      if (token) {
+        router.replace("/home"); // navigate straight to home if logged in
+      }
+    }
+    checkToken();
+  }, []);
+
+  // ✅ Handle login
   async function handleLogin() {
     try {
-      const response = await fetch("http://localhost:8080/api/auth/login", {
+      const response = await fetch("http://10.84.107.233:8080/api/auth/mobile-login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
-  
+
       const data = await response.json();
-  
+
       if (!response.ok) {
         alert(data.error || "Login failed");
         return;
       }
-  
-      // ✅ Save token (assuming backend returns it in JSON, not cookie)
-      // If you kept cookies, you'll need a library like react-native-cookies
-      // But JSON token is much easier in mobile
+
+      // Store token in AsyncStorage
       await AsyncStorage.setItem("token", data.token);
-  
+
       // Navigate to home
       router.replace("/home");
     } catch (error) {
+      console.error("Login error:", error);
       alert("Something went wrong. Try again.");
     }
   }
-  
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
   return (
     <View
@@ -66,15 +77,19 @@ export default function Index() {
         onChangeText={setPassword}
       />
 
-      <StylizedButton style={styles.loginbutton}
+      <StylizedButton
+        style={styles.loginbutton}
         label="Login"
-        onPress={() => handleLogin()}
+        onPress={handleLogin} // ✅ Call the handleLogin function
       />
+
       <OrDivider />
-      <StylizedButton style={styles.googleButton}
+
+      <StylizedButton
+        style={styles.googleButton}
         label="Sign in with Google"
         styleLabel={styles.googleButtonLabel}
-        onPress={handleLogin}
+        onPress={handleLogin} // You can replace with Google auth later
         leftElement={
           <Image
             source={GoogleLogo}
@@ -82,6 +97,7 @@ export default function Index() {
           />
         }
       />
+
       <Text>Don't have an account?</Text>
       <Link href={"/register"} style={{ color: "blue" }}>
         Sign up here.
