@@ -1,7 +1,10 @@
 import { Text, View } from "react-native";
-import { Link } from "expo-router";
+import { useNavigation } from "expo-router";
+import StylizedButton from "@/src/components/global/button";
 
 export default function Index() {
+  const navigation = useNavigation();
+
   return (
     <View
       style={{
@@ -11,7 +14,10 @@ export default function Index() {
       }}
     >
       <Text>Landing page</Text>
-      <Link href={"/login"} style={{color: "blue"}}>GOTO login</Link>
+      <StylizedButton
+        label="Log In"
+        onPress={() => navigation.navigate("login")}
+      />
     </View>
   );
 }

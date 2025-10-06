@@ -1,0 +1,44 @@
+---
+id: getById
+title: Get Area Execution By Area ID
+---
+
+## GET `/api/areaExecution/:id`
+
+Retrieve all executions for a specific area by its ID (for the current user).
+
+### Response
+- **200 OK**
+  ```json
+  { "success": true, "data": [ /* array of area executions for the area */ ] }
+  ```
+- **404 Not Found**
+  ```json
+  { "success": false, "error": "Area not found" }
+  ```
+  or
+  ```json
+  { "success": false, "error": "Area Execution not found" }
+  ```
+- **500 Internal Server Error**
+  ```json
+  { "success": false, "error": "Internal Server Error" }
+  ```
+
+### AreaExecution object
+
+```json
+{
+  "id": 1,
+  "area_id": 1,
+  "executed_at": "2024-06-10T12:00:00.000Z",
+  "status": "success",
+  "log": "Execution log"
+}
+```
+
+### Example
+```bash
+curl -X GET http://localhost:8080/api/areaExecution/1 \
+  --cookie "token=your_jwt_token"
+```

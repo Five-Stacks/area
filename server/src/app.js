@@ -2,7 +2,11 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import corsSetup from './config/cors.js';
-import authRouter from './routes/auth.js';
+import authRouter from './routes/authRoute.js';
+import actionRouter from './routes/actionRoute.js';
+import reactionRouter from './routes/reactionRoute.js';
+import areaRouter from './routes/areaRoute.js';
+import areaExecutionRouter from './routes/areaExecutionRoute.js';
 import userRouter from './routes/userRoute.js';
 import notFound from './middleware/notFound.js';
 
@@ -19,6 +23,10 @@ app.use(cookieParser());
 
 /* Define routes */
 app.use('/api/auth', authRouter);
+app.use('/api/action', actionRouter);
+app.use('/api/reaction', reactionRouter);
+app.use('/api/area', areaRouter);
+app.use('/api/areaExecution', areaExecutionRouter);
 app.use('/api/users', userRouter);
 
 /* 404 Middleware */

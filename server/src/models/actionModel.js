@@ -20,6 +20,9 @@ const Action = sequelize.define('Action', {
     },
     description: {
         type: DataTypes.TEXT
+    },
+    config: {
+        type: DataTypes.JSONB
     }
 }, {
     tableName: 'actions',
