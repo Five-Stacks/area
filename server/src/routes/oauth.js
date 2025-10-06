@@ -1,5 +1,6 @@
 import express from 'express';
 import passport from 'passport';
+import jwt from 'jsonwebtoken';
 
 const router = express.Router();
 
@@ -15,9 +16,13 @@ import verifyToken from '../middleware/verifyToken.js';
 
 oauth();
 
-function buildState(redirectTo) {
+function buildState(payload) {
   try {
-    return encodeURIComponent(JSON.stringify({ redirect_to: redirectTo }));
+    let obj;
+    if (typeof payload === 'string') obj = { redirect_to: payload };
+    else if (payload && typeof payload === 'object') obj = payload;
+    else return undefined;
+    return encodeURIComponent(JSON.stringify(obj));
   } catch (e) {
     return undefined;
   }
@@ -35,6 +40,25 @@ function extractRedirectFromState(req) {
   } catch (e) {
   }
   return '/';
+}
+
+function restoreUserFromState(req, res, next) {
+  const state = req && req.query && req.query.state;
+  if (!state) return next();
+  try {
+    const parsed = JSON.parse(decodeURIComponent(state));
+    const token = parsed && parsed.token;
+    if (token) {
+      try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = decoded;
+      } catch (e) {
+        return res.redirect('/login');
+      }
+    }
+  } catch (e) {
+  }
+  return next();
 }
 
 router.get('/', (req, res) => {
@@ -84,13 +108,15 @@ router.get('/discord/callback',
 router.get('/spotify', verifyToken, (req, res, next) => {
   const redirectTo = req.body?.redirect_to || req.query?.redirect_to;
   const options = { ...spotifyAuthOptions };
-  const state = redirectTo ? buildState(redirectTo) : undefined;
+  const token = req.cookies?.token;
+  const statePayload = token ? { redirect_to: redirectTo || '/', token } : (redirectTo ? redirectTo : undefined);
+  const state = statePayload ? buildState(statePayload) : undefined;
   if (state) options.state = state;
   passport.authenticate('spotify', options)(req, res, next);
 });
 
 router.get('/spotify/callback',
-  verifyToken,
+  restoreUserFromState,
   passport.authenticate('spotify', { failureRedirect: '/login' }),
   (req, res) => {
     const redirectTo = extractRedirectFromState(req);
