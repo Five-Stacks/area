@@ -34,7 +34,7 @@
 
     .action-details {
         display: grid;
-        grid-template-columns: auto 10fr 1fr;
+        grid-template-columns: auto 10fr;
         align-items: flex-start;
         height: 25px;
         opacity: 1;
@@ -86,7 +86,7 @@
 }
 
 .action-card .action-details {
-    grid-template-columns: auto 10fr 1fr 1fr;
+    grid-template-columns: auto 10fr 1fr;
 }
 
 .toConfigure {
@@ -332,4 +332,11 @@ img {
         margin-bottom: 10px;
     }
     height: 505px;
+}
+
+.create-area-button {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    width: 200px;
 }

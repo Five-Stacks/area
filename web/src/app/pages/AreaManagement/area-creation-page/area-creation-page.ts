@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ButtonFullComponent } from '../../../components/Buttons/button-component-full/button-component-full';
 import { OptionsFieldComponent } from '../../../components/Forms/options-field-component/options-field-component';
 import { TextFieldComponent } from '../../../components/Forms/text-field-component/text-field-component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-area-creation-page',
@@ -27,6 +28,8 @@ import { TextFieldComponent } from '../../../components/Forms/text-field-compone
   styleUrl: './area-creation-page.css'
 })
 export class AreaCreationPage {
+  private router = inject(Router);
+
   isEditing = false;
   idEditingTrigger = -1; // 1, 2, ... for actions
   idEditingAction = -1; // 1, 2, ... for actions
@@ -409,10 +412,6 @@ export class AreaCreationPage {
 
   onSaveArea = () => {
     // save area
-    this.idEditingTrigger = -1;
-    this.isEditing = false;
-    this.step = 1;
-
     this.area.name = this.nameArea;
     if (this.idEditingTrigger !== -1) {
       this.area.trigger = {
@@ -430,6 +429,10 @@ export class AreaCreationPage {
         urlImage: `/assets/icons/${this.serviceChosen.toLowerCase()}.png`,
       };
     }
+    this.idEditingTrigger = -1;
+    this.isEditing = false;
+    this.step = 1;
+
     this.nameArea = '';
     this.serviceChosen = '';
     this.reactionChosen = '';
@@ -449,7 +452,6 @@ export class AreaCreationPage {
     }
     if (step == 3) {
       const reaction = this.reactions.find(reaction => reaction.name === this.serviceChosen)?.reaction_list.find(reaction => reaction.name === this.reactionChosen);
-      console.log(reaction);
       this.actionsList = reaction ? reaction.config.fields : [];
       this.ActionsResponses = new Array(this.actionsList.length).fill(null).map((_, index) => ({
         response: '',
@@ -471,7 +473,6 @@ export class AreaCreationPage {
     }
     if (step == 3) {
       const reaction = this.actions.find(reaction => reaction.name === this.serviceChosen)?.reaction_list.find(reaction => reaction.name === this.reactionChosen);
-      console.log(reaction);
       this.actionsList = reaction ? reaction.config.fields : [];
       this.ActionsResponses = new Array(this.actionsList.length).fill(null).map((_, index) => ({
         response: '',
@@ -480,6 +481,28 @@ export class AreaCreationPage {
       }));
       this.actionChosen = reaction ? 1 : -1;
     }
+  }
+
+  isFormValid() {
+    // Check if the form is valid
+    for (const action of this.area.actions)
+      if (!action.name) return false;
+    if (!this.area.trigger.name)
+      return false;
+    return true;
+  }
+
+  openPopupName() {
+    // Open the popup for selecting the area name
+  }
+
+  createAll() {
+    // Check all fields are filled and create the area int the backend
+    if (!this.isFormValid())
+      return;
+    this.area.active = true;
+    this.router.navigate(['/dashboard']);
+    // Call backend to create area
   }
 
   optionsServices : string[] = [];
