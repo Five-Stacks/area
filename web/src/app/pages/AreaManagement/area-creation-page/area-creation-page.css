@@ -163,6 +163,12 @@ img {
     }
 }
 
+.actionEdition {
+    .headers {
+        background: var(--red-color-light);
+    }
+}
+
 
 .edition-form {
     width: 500px;

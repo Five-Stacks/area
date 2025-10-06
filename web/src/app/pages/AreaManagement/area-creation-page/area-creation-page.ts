@@ -28,7 +28,8 @@ import { TextFieldComponent } from '../../../components/Forms/text-field-compone
 })
 export class AreaCreationPage {
   isEditing = false;
-  idEditing = -1; // 1, 2, ... for actions
+  idEditingTrigger = -1; // 1, 2, ... for actions
+  idEditingAction = -1; // 1, 2, ... for actions
   nameArea = '';
 
   step = 1;
@@ -188,6 +189,127 @@ export class AreaCreationPage {
     }
   ];
 
+  
+  actions : {
+    name: string;
+    reaction_list: {
+      name: string;
+      config: {
+        fields: {
+          id: number;
+          title: string;
+          name: string;
+          options_field?: { values: string[]; };
+          input_field?: { placeholder: string; };
+        }[]
+      }
+    } [];
+  }[] = [
+    {
+      name: 'GitHub',
+      reaction_list: [
+        {
+          name: 'Create Issue',
+          config: {
+            fields: [
+              {
+                id: 1,
+                title: 'Choose your Repository',
+                name: 'Repository',
+                input_field: { placeholder: 'user/repo' }
+              },
+              {
+                id: 2,
+                title: 'Issue Title',
+                name: 'Title',
+                input_field: { placeholder: 'Issue title' }
+              },
+              {
+                id: 3,
+                title: 'Issue Body',
+                name: 'Body',
+                input_field: { placeholder: 'Issue body' }
+              }
+            ]
+          }
+        },
+        {
+          name: 'New Commit',
+          config: {
+            fields: [
+              {
+                id: 1,
+                title: 'Choose your Repository',
+                name: 'Repository',
+                input_field: { placeholder: 'user/repo' }
+              },
+              {
+                id: 2,
+                title: 'Branch',
+                name: 'Branch',
+                input_field: { placeholder: 'main' }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      name: 'Discord',
+      reaction_list: [
+        {
+          name: 'Send Message',
+          config: {
+            fields: [
+              {
+                id: 1,
+                title: 'Channel ID',
+                name: 'ChannelID',
+                input_field: { placeholder: '123456789012345678' }
+              },
+              {
+                id: 2,
+                title: 'Message Content',
+                name: 'Content',
+                input_field: { placeholder: 'Hello, World!' }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      name: 'Gmail',
+      reaction_list: [
+        {
+          name: 'Send Email',
+          config: {
+            fields: [
+              {
+                id: 1,
+                title: 'Recipient Email',
+                name: 'To',
+                input_field: { placeholder: 'recipient@example.com' }
+              },
+              {
+                id: 2,
+                title: 'Email Subject',
+                name: 'Subject',
+                input_field: { placeholder: 'Subject' }
+              },
+              {
+                id: 3,
+                title: 'Email Body',
+                name: 'Body',
+                input_field: { placeholder: 'Email body' }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ];
+
   isButtonClickable(): boolean {
     if (this.step === 1)
       if (this.serviceChosen != '' && this.serviceChosen != 'Choose Service') return true;
@@ -205,22 +327,34 @@ export class AreaCreationPage {
   }
 
   editAction(actionId: number) {
-    if (this.isEditing && this.idEditing === actionId) {
+    if (this.isEditing && this.idEditingAction === actionId) {
       this.isEditing = false;
-      this.idEditing = -1;
+      this.idEditingAction = -1;
+      this.idEditingTrigger = -1;
     } else {
+      if (this.isEditing)
+        this.idEditingTrigger = -1;
       this.isEditing = true;
-      this.idEditing = actionId;
+      this.idEditingAction = actionId;
+      this.optionsServices = ['Choose Action Service'];
+      this.actions.forEach(action => {
+        if (!this.optionsServices.includes(action.name))
+          this.optionsServices.push(action.name);
+      });
     }
   }
 
   editTrigger(triggerId: number) {
-    if (this.isEditing && this.idEditing === triggerId) {
+    if (this.isEditing && this.idEditingTrigger === triggerId) {
       this.isEditing = false;
-      this.idEditing = -1;
+      this.idEditingTrigger = -1;
+      this.idEditingTrigger = -1;
     } else {
+      if (this.isEditing && this.idEditingAction === triggerId) {
+        this.idEditingAction = -1;
+      }
       this.isEditing = true;
-      this.idEditing = triggerId;
+      this.idEditingTrigger = triggerId;
       this.optionsServices = ['Choose Service'];
       this.reactions.forEach(reaction => {
         if (!this.optionsServices.includes(reaction.name))
@@ -244,7 +378,10 @@ export class AreaCreationPage {
   previousStep = () => {
     if (this.step > 1) {
       this.step -= 1;
-      this.onNewStep(this.step);
+      if (this.idEditingTrigger !== -1)
+        this.onNewStepTrigger(this.step);
+      else if (this.idEditingAction !== -1)
+        this.onNewStepAction(this.step);
     }
   }
 
@@ -252,7 +389,10 @@ export class AreaCreationPage {
     if (this.isButtonClickable() === false) return;
     if (this.step < 4) {
       this.step += 1;
-      this.onNewStep(this.step);
+      if (this.idEditingTrigger !== -1)
+        this.onNewStepTrigger(this.step);
+      else if (this.idEditingAction !== -1)
+        this.onNewStepAction(this.step);
     } else {
       this.onSaveArea();
     }
@@ -260,19 +400,27 @@ export class AreaCreationPage {
 
   onSaveArea = () => {
     // save area
-    this.idEditing = -1;
+    this.idEditingTrigger = -1;
     this.isEditing = false;
     this.step = 1;
 
     this.area.name = this.nameArea;
-    this.area.trigger = {
-      name: this.reactions.find(reaction => reaction.name === this.serviceChosen)?.reaction_list.find(reaction => reaction.name === this.reactionChosen)?.name,
-      urlImage: `/assets/icons/${this.serviceChosen.toLowerCase()}.png`,
-      serviceChosen: this.serviceChosen,
-      actionChosenId: this.actionChosen,
-      datas_form: this.ActionsResponses
-    };
-    console.log('Area saved:', this.area);
+    if (this.idEditingTrigger !== -1) {
+      this.area.trigger = {
+        name: this.reactions.find(reaction => reaction.name === this.serviceChosen)?.reaction_list.find(reaction => reaction.name === this.reactionChosen)?.name,
+        urlImage: `/assets/icons/${this.serviceChosen.toLowerCase()}.png`,
+        serviceChosen: this.serviceChosen,
+        actionChosenId: this.actionChosen,
+        datas_form: this.ActionsResponses
+      };
+    } else {
+      this.area.actions[this.idEditingAction - 1] = {
+        id: this.idEditingAction,
+        name: this.reactions.find(reaction => reaction.name === this.serviceChosen)?.reaction_list.find(reaction => reaction.name === this.reactionChosen)?.name,
+        type: 'action',
+        urlImage: `/assets/icons/${this.serviceChosen.toLowerCase()}.png`,
+      };
+    }
     this.nameArea = '';
     this.serviceChosen = '';
     this.reactionChosen = '';
@@ -281,7 +429,7 @@ export class AreaCreationPage {
     this.ActionsResponses = [];
   }
 
-  onNewStep = (step: number) => {
+  onNewStepTrigger = (step: number) => {
     if (step == 2) {
       this.reactionsList = ['Choose Reaction'];
       const reaction = this.reactions.find(reaction => reaction.name === this.serviceChosen);
@@ -303,6 +451,27 @@ export class AreaCreationPage {
     }
   }
 
+  onNewStepAction = (step: number) => {
+    if (step == 2) {
+      this.reactionsList = ['Choose Reaction'];
+      const reaction = this.actions.find(reaction => reaction.name === this.serviceChosen);
+      reaction?.reaction_list.forEach(reaction => {
+        if (!this.reactionsList.includes(reaction.name))
+          this.reactionsList.push(reaction.name);
+      });
+    }
+    if (step == 3) {
+      const reaction = this.actions.find(reaction => reaction.name === this.serviceChosen)?.reaction_list.find(reaction => reaction.name === this.reactionChosen);
+      console.log(reaction);
+      this.actionsList = reaction ? reaction.config.fields : [];
+      this.ActionsResponses = new Array(this.actionsList.length).fill(null).map((_, index) => ({
+        response: '',
+        fieldId: this.actionsList[index].id,
+        fieldName: this.actionsList[index].name
+      }));
+      this.actionChosen = reaction ? 1 : -1;
+    }
+  }
 
   optionsServices : string[] = [];
   serviceChosen  = '';
