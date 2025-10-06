@@ -32,14 +32,14 @@ passport.use(new GitHubStrategy({
       if (req && req.user) {
         const currentUser = req.user;
         oauthAccount = await OAuthAccount.create({
-          user_id: currentUser.id,
+          user_id: currentUser.userId,
           provider,
           provider_user_id: providerUserId,
           access_token: accessToken,
           refresh_token: refreshToken
         });
         await UserService.create({
-            user_id: currentUser.id,
+            user_id: currentUser.userId,
             service_id: (await Service.findOne({ where: { name: provider } })).id,
             oauth_account_id: oauthAccount.id
         });
