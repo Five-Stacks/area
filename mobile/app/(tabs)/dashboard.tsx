@@ -1,4 +1,4 @@
-import SearchModule from "@/src/components/auth/landing-page/searchModule";
+import SearchModule from "@/src/components/tabs/dashboard/searchModule";
 import { globalColors } from "@/src/styles/global";
 import { ScrollView, StyleSheet, View } from "react-native";
 
