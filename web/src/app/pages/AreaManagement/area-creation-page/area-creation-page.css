@@ -191,6 +191,13 @@ img {
     }
 }
 
+.trigger-area.trigger-edit {
+    border: 2px solid var(--blue-color);
+}
+
+.action-card.action-edit {
+    border: 2px solid var(--red-color);
+}
 
 .edition-form {
     width: 500px;

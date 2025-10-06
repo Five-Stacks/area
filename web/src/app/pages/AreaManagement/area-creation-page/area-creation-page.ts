@@ -350,9 +350,8 @@ export class AreaCreationPage {
       this.idEditingTrigger = -1;
       this.idEditingTrigger = -1;
     } else {
-      if (this.isEditing && this.idEditingAction === triggerId) {
+      if (this.isEditing)
         this.idEditingAction = -1;
-      }
       this.isEditing = true;
       this.idEditingTrigger = triggerId;
       this.optionsServices = ['Choose Service'];

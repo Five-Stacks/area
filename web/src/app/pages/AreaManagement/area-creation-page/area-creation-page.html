@@ -3,7 +3,7 @@
     <div class="bottom" [class.disabled]="isEditing === false">
         <div class="left-part">
             <div>
-                <div class="trigger-area" (click)="editTrigger(0)" tabindex="0" (keydown.enter)="editTrigger(0)">
+                <div class="trigger-area" (click)="editTrigger(0)" tabindex="0" (keydown.enter)="editTrigger(0)" [class.trigger-edit]="idEditingTrigger === 0">
                     <div class="action-details">
                         <hr class="lastHr"/>
                         <hr class="secondHr"/>
@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div *ngFor="let action of area.actions">
-                <div class="action-card" (click)="editAction(action.id)" tabindex="0" (keydown.enter)="editAction(action.id)">
+                <div class="action-card" (click)="editAction(action.id)" tabindex="0" (keydown.enter)="editAction(action.id)" [class.action-edit]="idEditingAction === action.id">
                     <div class="action-details">
                         <hr class="lastHr"/>
                         <hr class="secondHr" *ngIf="action.id !== area.actions[area.actions.length - 1]?.id"/>
