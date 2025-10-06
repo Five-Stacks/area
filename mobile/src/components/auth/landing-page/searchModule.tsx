@@ -15,7 +15,11 @@ type SearchModuleProps = {
 };
 
 const SearchModule: React.FC<SearchModuleProps> = ({ onQueryChange }) => {
-  const [, setSearchBuffer] = useState<SearchModuleValues>({});
+  const [, setSearchBuffer] = useState<SearchModuleValues>({
+    query: "",
+    service: undefined,
+    status: undefined,
+  });
 
   return (
     <View style={styles.container}>
@@ -35,7 +39,10 @@ const SearchModule: React.FC<SearchModuleProps> = ({ onQueryChange }) => {
           style={styles.dropdown}
           onValueChange={(selectedService) => {
             setSearchBuffer((prev) => {
-              const updated = { ...prev, service: selectedService };
+              let updated;
+              if (selectedService === "All Services")
+                updated = { ...prev, service: undefined };
+              else updated = { ...prev, service: selectedService };
               onQueryChange(updated);
               return updated;
             });

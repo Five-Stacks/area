@@ -7,7 +7,7 @@ import "react-native-screens";
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  let isConnected: boolean = false;
+  let isConnected: boolean = true;
 
   const [fontsLoaded, error] = useFonts({
     "Inter-Thin": require("@/assets/fonts/Inter-Thin.ttf"),
@@ -31,9 +31,9 @@ export default function RootLayout() {
   return (
     <Stack>
       {isConnected ? (
-        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       ) : (
-        <Stack.Screen name="(auth)" />
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
       )}
     </Stack>
   );
