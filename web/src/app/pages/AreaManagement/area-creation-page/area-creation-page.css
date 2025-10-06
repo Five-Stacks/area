@@ -85,6 +85,10 @@
     }
 }
 
+.action-card .action-details {
+    grid-template-columns: auto 10fr 1fr 1fr;
+}
+
 .toConfigure {
     opacity: 0.2;
     font-style: italic;
@@ -158,6 +162,24 @@ img {
         cursor: pointer;
         svg {
             fill: var(--black-color);
+            transform: scale(1.1);
+        }
+    }
+}
+
+.delete-button {
+    width: auto;
+    display: flex;
+    justify-content: right;
+
+    svg {
+        fill: var(--red-color);
+        transition: fill 0.3s, transform 0.3s;
+    }
+    &:hover {
+        cursor: pointer;
+        svg {
+            fill: var(--red-color-dark);
             transform: scale(1.1);
         }
     }

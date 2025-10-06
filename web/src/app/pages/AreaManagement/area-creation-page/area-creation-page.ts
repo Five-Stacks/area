@@ -398,6 +398,16 @@ export class AreaCreationPage {
     }
   }
 
+  deleteAction(actionId: number) {
+    if (this.area.actions.length > 1) {
+      this.area.actions = this.area.actions.filter(action => action.id !== actionId);
+      // Reassign IDs to maintain sequential order
+      this.area.actions.forEach((action, index) => {
+        action.id = index + 1;
+      });
+    }
+  }
+
   onSaveArea = () => {
     // save area
     this.idEditingTrigger = -1;
