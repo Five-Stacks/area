@@ -20,6 +20,9 @@ const Reaction = sequelize.define('Reaction', {
     },
     description: {
         type: DataTypes.TEXT
+    },
+    config: {
+        type: DataTypes.JSONB
     }
 }, {
     tableName: 'reactions',
