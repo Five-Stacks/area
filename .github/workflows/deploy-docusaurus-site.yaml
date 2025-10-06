@@ -1,5 +1,4 @@
-# .github/workflows/deploy-docs.yml
-name: Deploy production Docusaurus
+name: 🚀 Docusaurus Deploy
 
 on:
   push:
@@ -12,21 +11,31 @@ jobs:
     defaults:
       run:
         working-directory: docs
+
     permissions:
       contents: write
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm ci
-      - run: npm run build
-      - uses: peaceiris/actions-gh-pages@v3
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build docs
+        run: npm run build
+
+      - name: Deploy production docs
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: ./docs/build
-          commit_message: "🚀 Deploy docs from dev at ${{ github.sha }}"
+          commit_message: "🚀 Deploy production docs from dev at ${{ github.sha }}"

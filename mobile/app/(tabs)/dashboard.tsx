@@ -1,6 +1,7 @@
 import SearchModule from "@/src/components/tabs/dashboard/searchModule";
-import { globalColors } from "@/src/styles/global";
-import { ScrollView, StyleSheet, View } from "react-native";
+import AreaCard from "@/src/components/tabs/dashboard/areaCard";
+import { FlatList, ScrollView, StyleSheet, View } from "react-native";
+import Area from "@/src/types/area";
 
 export default function Dashboard() {
   return (
@@ -10,7 +11,15 @@ export default function Dashboard() {
           console.log(searchValues);
         }}
       />
-      <ScrollView style={styles.content} />
+      <ScrollView style={styles.content}>
+        <FlatList
+          data={AreaList}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => <AreaCard area={item} />}
+          ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+          contentContainerStyle={{ paddingBottom: 20 }}
+        />
+      </ScrollView>
     </View>
   );
 }
@@ -18,11 +27,68 @@ export default function Dashboard() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: globalColors.highlightBackground,
     marginTop: 30,
   },
   content: {
     flex: 1,
-    padding: 16,
+    padding: 14,
+    gap: 100,
   },
 });
+
+const AreaList: Area[] = [
+  {
+    id: 1,
+    user_id: 1,
+    action_id: 1,
+    reaction_ids: [1, 2, 3],
+    config: {},
+    is_active: true,
+    created_at: new Date(),
+  },
+  {
+    id: 2,
+    user_id: 1,
+    action_id: 2,
+    reaction_ids: [2, 3],
+    config: {},
+    is_active: true,
+    created_at: new Date(),
+  },
+  {
+    id: 3,
+    user_id: 1,
+    action_id: 3,
+    reaction_ids: [1, 3],
+    config: {},
+    is_active: false,
+    created_at: new Date(),
+  },
+  {
+    id: 4,
+    user_id: 1,
+    action_id: 1,
+    reaction_ids: [1, 2, 3],
+    config: {},
+    is_active: true,
+    created_at: new Date(),
+  },
+  {
+    id: 5,
+    user_id: 1,
+    action_id: 2,
+    reaction_ids: [2, 3],
+    config: {},
+    is_active: true,
+    created_at: new Date(),
+  },
+  {
+    id: 6,
+    user_id: 1,
+    action_id: 3,
+    reaction_ids: [1, 3],
+    config: {},
+    is_active: true,
+    created_at: new Date(),
+  },
+];
