@@ -48,8 +48,14 @@ export class AreaCreationPage {
     description?: string;
     trigger: {
       name?: string;
-      type?: string;
       urlImage?: string;
+      serviceChosen?: string;
+      actionChosenId?: number;
+      datas_form?: {
+        fieldId: number;
+        fieldName: string;
+        response: string;
+      }[];
     };
     actions: {
       id: number;
@@ -249,11 +255,31 @@ export class AreaCreationPage {
       this.step += 1;
       this.onNewStep(this.step);
     } else {
-      // save area
-      this.idEditing = -1;
-      this.isEditing = false;
-      this.step = 1;
+      this.onSaveArea();
     }
+  }
+
+  onSaveArea = () => {
+    // save area
+    this.idEditing = -1;
+    this.isEditing = false;
+    this.step = 1;
+
+    this.area.name = this.nameArea;
+    this.area.trigger = {
+      name: this.reactions.find(reaction => reaction.name === this.serviceChosen)?.reaction_list.find(reaction => reaction.name === this.reactionChosen)?.name,
+      urlImage: `/assets/icons/${this.serviceChosen.toLowerCase()}.png`,
+      serviceChosen: this.serviceChosen,
+      actionChosenId: this.actionChosen,
+      datas_form: this.ActionsResponses
+    };
+    console.log('Area saved:', this.area);
+    this.nameArea = '';
+    this.serviceChosen = '';
+    this.reactionChosen = '';
+    this.actionChosen = -1;
+    this.actionsList = [];
+    this.ActionsResponses = [];
   }
 
   onNewStep = (step: number) => {

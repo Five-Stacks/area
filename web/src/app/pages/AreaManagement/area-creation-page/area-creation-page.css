@@ -37,6 +37,8 @@
         grid-template-columns: auto 10fr 1fr;
         align-items: flex-start;
         height: 25px;
+        opacity: 1;
+        font-style: normal;
     }
     width: 500px;
     height: 80px;
