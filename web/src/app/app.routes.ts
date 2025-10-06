@@ -10,7 +10,6 @@ import { AreaCreationPage } from './pages/AreaManagement/area-creation-page/area
 import { ServiceManagementPage } from './pages/service-management-page/service-management-page';
 import { SettingsPage } from './pages/settings-page/settings-page';
 import { authGuard } from './guards/auth.guard';
-import { adminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
     { path: '', component: WelcomePage },

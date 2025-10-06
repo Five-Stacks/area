@@ -1,9 +1,9 @@
 <app-area-header-dashboard [title]="'CREATE'"></app-area-header-dashboard>
 <div class="area-details-container">
-    <div class="bottom" [class.disabled]="isEditing == false">
+    <div class="bottom" [class.disabled]="isEditing === false">
         <div class="left-part">
             <div>
-                <div class="trigger-area" (click)="editTrigger(0)">
+                <div class="trigger-area" (click)="editTrigger(0)" tabindex="0" (keydown.enter)="editTrigger(0)">
                     <div class="action-details">
                         <hr class="lastHr"/>
                         <hr class="secondHr"/>
@@ -16,7 +16,7 @@
                     </div>
                     <div class="status-text"><h4>TRIGGER</h4></div>
                 </div>
-                <div class="add-component" (click)="addNewEmptyActionAfter(-1)">
+                <div class="add-component" (click)="addNewEmptyActionAfter(-1)" tabindex="0" (keydown.enter)="addNewEmptyActionAfter(-1)">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
                 </div>
             </div>
@@ -34,7 +34,7 @@
                     </div>
                 <div class="status-text"><h4>ACTION</h4></div>
             </div>
-            <div class="add-component" (click)="addNewEmptyActionAfter(action.id)">
+            <div class="add-component" (click)="addNewEmptyActionAfter(action.id)" tabindex="0" (keydown.enter)="addNewEmptyActionAfter(action.id)">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
             </div>
         </div>

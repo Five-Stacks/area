@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { HeaderDashBoardComponent } from '../../../components/Headers/header-component-dashboard/header-component-dashboard';
 import { CommonModule } from '@angular/common';
 
@@ -9,9 +9,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './area-details-page.css'
 })
 export class AreaDetailsPage {
-  isEditing: boolean = false;
-  idEditing: number = -1; // 1, 2, ... for actions
-  nameArea: string = '';
+  isEditing = false;
+  idEditing = -1; // 1, 2, ... for actions
+  nameArea = '';
 
   area : {
     id: number;

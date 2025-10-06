@@ -6,7 +6,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ButtonComponent } from '../../../components/Buttons/button-component/button-component';
 import { ButtonFullComponent } from '../../../components/Buttons/button-component-full/button-component-full';
 import { OptionsFieldComponent } from '../../../components/Forms/options-field-component/options-field-component';
 import { TextFieldComponent } from '../../../components/Forms/text-field-component/text-field-component';
@@ -28,11 +27,11 @@ import { TextFieldComponent } from '../../../components/Forms/text-field-compone
   styleUrl: './area-creation-page.css'
 })
 export class AreaCreationPage {
-  isEditing: boolean = false;
-  idEditing: number = -1; // 1, 2, ... for actions
-  nameArea: string = '';
+  isEditing = false;
+  idEditing = -1; // 1, 2, ... for actions
+  nameArea = '';
 
-  step: number = 1;
+  step = 1;
 
   private _formBuilder = inject(FormBuilder);
 
@@ -195,7 +194,7 @@ export class AreaCreationPage {
     if (this.step === 2)
       if (this.reactionChosen != '' && this.reactionChosen != 'Choose Reaction') return true;
     if (this.step === 3) {
-      for (let response of this.ActionsResponses) {
+      for (const response of this.ActionsResponses) {
         if (response.response === '' || response.response == null)
           return false;
       }
@@ -306,10 +305,10 @@ export class AreaCreationPage {
 
 
   optionsServices : string[] = [];
-  serviceChosen : string = '';
+  serviceChosen  = '';
   reactionsList : string[] = [];
-  reactionChosen : string = '';
-  actionChosen : number = -1;
+  reactionChosen  = '';
+  actionChosen  = -1;
   actionsList : {
           id: number;
           title: string;
