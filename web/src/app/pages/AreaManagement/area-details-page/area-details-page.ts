@@ -1,18 +1,17 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { HeaderDashBoardComponent } from '../../../components/Headers/header-component-dashboard/header-component-dashboard';
 import { CommonModule } from '@angular/common';
-import { TextFieldComponent } from '../../../components/Forms/text-field-component/text-field-component';
 
 @Component({
   selector: 'app-area-details-page',
-  imports: [HeaderDashBoardComponent, CommonModule, TextFieldComponent],
+  imports: [HeaderDashBoardComponent, CommonModule],
   templateUrl: './area-details-page.html',
   styleUrl: './area-details-page.css'
 })
 export class AreaDetailsPage {
-  isEditing: boolean = false;
-  idEditing: number = -1; // 1, 2, ... for actions
-  nameArea: string = '';
+  isEditing = false;
+  idEditing = -1; // 1, 2, ... for actions
+  nameArea = '';
 
   area : {
     id: number;

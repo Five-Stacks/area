@@ -13,7 +13,7 @@
                 </div>
                 <div class="status-text"><h4>TRIGGER</h4></div>
             </div>
-            <div *ngFor="let action of area.actions" class="action-card" (click)="editTrigger(action.id)">
+            <div *ngFor="let action of area.actions" class="action-card" (click)="editTrigger(action.id)" tabindex="0" (keydown.enter)="editTrigger(action.id)">
                 <hr *ngIf="action !== area.actions[area.actions.length - 1]" />
                 <div class="action-details">
                     <img [src]="action.urlImage" alt="Action Icon" class="action-icon" />

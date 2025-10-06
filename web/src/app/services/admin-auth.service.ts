@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
@@ -8,9 +8,8 @@ import { map, catchError } from 'rxjs/operators';
 })
 export class AdminAuthService {
   private apiUrl = 'http://localhost:8080/api'; // Adjust based on your server config
+  private http: HttpClient = inject(HttpClient);
 
-  constructor(private http: HttpClient) {
-  }
 
   isAdmin(): Observable<boolean> {
     return this.http.get<{ isAdmin: boolean }>(`${this.apiUrl}/auth/is-admin`, { withCredentials: true }).pipe(

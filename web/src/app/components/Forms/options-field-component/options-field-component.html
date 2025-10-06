@@ -1,5 +1,7 @@
-<select [value]="selectedOption" (change)="onOptionChange($event)"
-    [ngClass]="{'your-class': selectedOption != label}">
+<select
+  [value]="selectedOption"
+  (change)="onOptionChange($event)"
+  [ngClass]="{'your-class': selectedOption !== ''}">
   <option *ngFor="let option of options" [value]="option">
     {{ option }}
   </option>

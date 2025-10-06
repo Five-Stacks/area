@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ButtonFullComponent } from '../../components/Buttons/button-component-full/button-component-full';
 import { ButtonWithIconComponent } from '../../components/Buttons/button-with-icon-component/button-with-icon-component';
 import { CommonModule } from '@angular/common';
@@ -19,10 +19,10 @@ import { OptionsFieldComponent } from '../../components/Forms/options-field-comp
   templateUrl: './dashboard-page.html',
   styleUrl: './dashboard-page.css'
 })
-export class DashboardPage {
-  searchTerm: string = '';
-  appsFilter: string = 'All Apps';
-  statusFilter: string = 'All Status'
+export class DashboardPage implements OnInit {
+  searchTerm = '';
+  appsFilter = 'All Apps';
+  statusFilter = 'All Status'
 
   listApps: string[] = ['All Apps'];
   listStatus: string[] = ['All Status', 'Active', 'Inactive'];
@@ -158,7 +158,10 @@ export class DashboardPage {
     this.router.navigate(['/area/edition', areaId]);
   }
 
-  getIconsArea(areaId: number): any[] {
+  getIconsArea(areaId: number): {
+    name: string
+    url: string
+  }[] {
     const area = this.listAreas.find(a => a.id === areaId);
     if (!area) return [];
     if (area.AppsIcons.length > 3) {
@@ -177,7 +180,17 @@ export class DashboardPage {
     }));
   }
 
-  getFilteredAreas() : any[] {
+  getFilteredAreas() : {
+    id: number
+    name: string
+    AppsIcons: {
+      name: string
+      url: string
+    }[]
+    active: boolean
+    selected?: boolean
+    isToggling?: boolean
+  }[] {
     let filtered = this.listAreas;
     if (this.searchTerm)
       filtered = filtered.filter(area => area.name.toLowerCase().includes(this.searchTerm.toLowerCase()));
