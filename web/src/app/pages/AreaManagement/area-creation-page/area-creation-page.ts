@@ -192,7 +192,6 @@ export class AreaCreationPage {
     }
   ];
 
-  
   actions : {
     name: string;
     reaction_list: {
@@ -314,8 +313,10 @@ export class AreaCreationPage {
   ];
 
   isButtonClickable(): boolean {
-    if (this.step === 1)
+    if (this.step === 1 && this.idEditingTrigger !== -1)
       if (this.serviceChosen != '' && this.serviceChosen != 'Choose Service') return true;
+    if (this.step === 1 && this.idEditingAction !== -1)
+      if (this.serviceChosen != '' && this.serviceChosen != 'Choose Action Service') return true;
     if (this.step === 2)
       if (this.reactionChosen != '' && this.reactionChosen != 'Choose Reaction') return true;
     if (this.step === 3) {
@@ -329,14 +330,38 @@ export class AreaCreationPage {
     return false;
   }
 
+  openPopupName() {
+    console.log('Opening name popup');
+    let popup = document.querySelector('.popup-overlay');
+    if (popup)
+      popup.classList.remove('disabled-popup');
+  }
+
+  closePopupName() {
+    let popup = document.querySelector('.popup-overlay');
+    if (popup)
+      popup.classList.add('disabled-popup');
+  }
+
+  confirmPopupName() {
+    // If the name is empty, do nothing
+    if (!this.nameArea || this.nameArea.trim() === '') return;
+    // set area name and create
+    this.area.name = this.nameArea.trim();
+    this.createAll();
+    this.closePopupName();
+  }
+
   editAction(actionId: number) {
     if (this.isEditing && this.idEditingAction === actionId) {
       this.isEditing = false;
       this.idEditingAction = -1;
       this.idEditingTrigger = -1;
+      this.step = 1;
     } else {
       if (this.isEditing)
         this.idEditingTrigger = -1;
+      this.step = 1;
       this.isEditing = true;
       this.idEditingAction = actionId;
       this.optionsServices = ['Choose Action Service'];
@@ -352,9 +377,11 @@ export class AreaCreationPage {
       this.isEditing = false;
       this.idEditingTrigger = -1;
       this.idEditingTrigger = -1;
+      this.step = 1;
     } else {
       if (this.isEditing)
         this.idEditingAction = -1;
+      this.step = 1;
       this.isEditing = true;
       this.idEditingTrigger = triggerId;
       this.optionsServices = ['Choose Service'];
@@ -490,10 +517,6 @@ export class AreaCreationPage {
     if (!this.area.trigger.name)
       return false;
     return true;
-  }
-
-  openPopupName() {
-    // Open the popup for selecting the area name
   }
 
   createAll() {

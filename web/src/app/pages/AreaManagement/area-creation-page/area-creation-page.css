@@ -340,3 +340,65 @@ img {
     left: 30px;
     width: 200px;
 }
+
+/* Popup modal styles */
+.popup-overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+.popup-modal {
+    width: 420px;
+    background: var(--white-color);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.popup-modal h3 {
+    margin: 0;
+}
+.popup-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+}
+.btn-cancel {
+    background: transparent;
+    border: 1px solid var(--line-color);
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+.btn-cancel:hover {
+    cursor: pointer;
+    background: var(--gray-color);
+}
+.btn-create {
+    color: var(--white-color);
+    background: var(--blue-color);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+.btn-create:disabled {
+    background: var(--gray-color);
+    color: var(--line-color);
+    cursor: not-allowed;
+}
+.btn-create:hover:enabled {
+    background: var(--blue-hover-color);
+    cursor: pointer;
+}
+.disabled-popup {
+    display: none;
+}

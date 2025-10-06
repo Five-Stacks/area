@@ -79,7 +79,7 @@
                         <app-options-field-component
                             [label]="'Options'"
                             [options]="optionsServices"
-                            [selectedOption]="optionsServices[0]"
+                            [selectedOption]="''"
                             (valueChange)="serviceChosen = $event"
                         ></app-options-field-component>
                     </div>
@@ -88,7 +88,7 @@
                         <app-options-field-component
                             [label]="'Reaction'"
                             [options]="reactionsList"
-                            [selectedOption]="'Options'"
+                            [selectedOption]="''"
                             (valueChange)="reactionChosen = $event"
                         ></app-options-field-component>
                     </div>
@@ -99,7 +99,7 @@
                                 *ngIf="action.options_field"
                                 [label]="action.name"
                                 [options]="action.options_field.values"
-                                [selectedOption]="action.options_field.values[0]"
+                                [selectedOption]="''"
                                 (valueChange)="ActionsResponses[action.id - 1].response = $event"
                             ></app-options-field-component>
                             <app-text-field-component
@@ -146,4 +146,21 @@
         [onClick]="openPopupName"
         [disabled]="isFormValid() === false"
     ></app-area-button-full>
+</div>
+
+<!-- Name popup modal -->
+<div class="popup-overlay disabled-popup">
+    <div class="popup-modal">
+        <h3>Enter AREA name</h3>
+        <p>Please provide a name for your AREA before creating it.</p>
+        <app-text-field-component
+            [label]="'Area Name'"
+            (valueChange)="nameArea = $event"
+        ></app-text-field-component>
+
+        <div class="popup-actions">
+            <button class="btn-cancel" (click)="closePopupName()">Cancel</button>
+            <button class="btn-create" (click)="confirmPopupName()" [disabled]="nameArea.length < 1 || !nameArea">Create</button>
+        </div>
+    </div>
 </div>
