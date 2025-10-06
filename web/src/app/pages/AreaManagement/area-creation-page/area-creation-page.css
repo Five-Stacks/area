@@ -261,13 +261,15 @@ img {
 }
 
 .validity-button {
+    display: flex;
     border-top: 2px solid var(--gray-color);
-    padding: 15px 0;
+    padding: 15px 0px;
 
     width: 100%;
     display: flex;
     justify-content: center;
     app-area-button-full {
+        margin: 0 20px;
         width: 80%;
         button {
             font-size: 18px;
@@ -286,6 +288,11 @@ img {
     h2 {
         margin: 0px;
         padding: 0px;
+        color: var(--blue-color);
+    }
+    h4 {
+        margin-top: 5px;
+        margin-bottom: 10px;
     }
     height: 505px;
 }
