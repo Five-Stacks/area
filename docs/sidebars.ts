@@ -21,7 +21,6 @@ const sidebars: SidebarsConfig = {
       items: [
         'guides/installation',
         'guides/contributing',
-        // 'guides/deployment',
       ],
     },
   ],
@@ -42,6 +41,17 @@ const sidebars: SidebarsConfig = {
             'api/auth/logout',
             'api/auth/isConnected',
             'api/auth/isAdmin',
+          ]
+        },
+        {
+          type: 'category',
+          label: 'Users management',
+          items: [
+            'api/users/createUser',
+            'api/users/deleteById',
+            'api/users/getAll',
+            'api/users/getById',
+            'api/users/updateById',
           ]
         }
       ],
