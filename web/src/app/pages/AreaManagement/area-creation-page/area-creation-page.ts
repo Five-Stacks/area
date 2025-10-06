@@ -88,48 +88,43 @@ export class AreaCreationPage {
     } [];
   }[] = [
     {
-      name: 'GitHub',
+      name: 'Gmail',
       reaction_list: [
         {
-          name: 'Created Issue',
+          name: 'New Email Received',
           config: {
             fields: [
               {
                 id: 1,
-                title: 'Choose your Repository',
-                name: 'Repository',
-                input_field: { placeholder: 'user/repo' }
-              },
-              {
-                id: 2,
-                title: 'Issue Title',
-                name: 'Title',
-                input_field: { placeholder: 'Issue title' }
-              },
-              {
-                id: 3,
-                title: 'Issue Body',
-                name: 'Body',
-                input_field: { placeholder: 'Issue body' }
+                title: 'Label',
+                name: 'Label',
+                input_field: { placeholder: 'inbox' }
               }
             ]
           }
         },
         {
-          name: 'New Commit',
+          name: 'New Email From',
           config: {
             fields: [
               {
                 id: 1,
-                title: 'Choose your Repository',
-                name: 'Repository',
-                input_field: { placeholder: 'user/repo' }
-              },
+                title: 'Sender Email',
+                name: 'From',
+                input_field: { placeholder: 'sender@example.com' }
+              }
+            ]
+          }
+        },
+        {
+          name: 'New Spam Email',
+          config: {
+            fields: [
               {
-                id: 2,
-                title: 'Branch',
-                name: 'Branch',
-                input_field: { placeholder: 'main' }
+                id: 1,
+                title: 'Sender Email',
+                name: 'From',
+                input_field: { placeholder: 'sender@example.com' }
               }
             ]
           }
@@ -137,53 +132,36 @@ export class AreaCreationPage {
       ]
     },
     {
-      name: 'Discord',
+      name: 'Calendar',
       reaction_list: [
         {
-          name: 'Send Message',
+          name: 'Each Day',
           config: {
             fields: [
               {
                 id: 1,
-                title: 'Channel ID',
-                name: 'ChannelID',
-                input_field: { placeholder: '123456789012345678' }
-              },
-              {
-                id: 2,
-                title: 'Message Content',
-                name: 'Content',
-                input_field: { placeholder: 'Hello, World!' }
+                title: 'Time',
+                name: 'Time',
+                input_field: { placeholder: '14:00' }
               }
             ]
           }
-        }
-      ]
-    },
-    {
-      name: 'Gmail',
-      reaction_list: [
+        },
         {
-          name: 'Send Email',
+          name: 'Each Week',
           config: {
             fields: [
               {
                 id: 1,
-                title: 'Recipient Email',
-                name: 'To',
-                input_field: { placeholder: 'recipient@example.com' }
+                title: 'Day of the Week',
+                name: 'Day',
+                options_field: { values: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] }
               },
               {
                 id: 2,
-                title: 'Email Subject',
-                name: 'Subject',
-                input_field: { placeholder: 'Subject' }
-              },
-              {
-                id: 3,
-                title: 'Email Body',
-                name: 'Body',
-                input_field: { placeholder: 'Email body' }
+                title: 'Time',
+                name: 'Time',
+                input_field: { placeholder: '14:00' }
               }
             ]
           }
