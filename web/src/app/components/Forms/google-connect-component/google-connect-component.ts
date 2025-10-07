@@ -9,12 +9,5 @@ import { Router } from '@angular/router';
   imports: [],
 })
 export class GoogleConnectComponent {
-  private apiService = inject(ApiService);
-  private route = inject(Router);
 
-  connectGoogle() {
-    this.apiService.get('/Oauth/google/login').subscribe((response) => {
-      this.route.navigate(['/dashboard']);
-    });
-  }
 }
