@@ -1,0 +1,50 @@
+---
+id: add
+title: Add Area
+---
+
+## POST `/api/area/`
+
+Create a new area for the current user.
+
+### Request Body
+- `action_id` (required): ID of the action
+- `reaction_id` (required): ID of the reaction
+- `config` (optional): Configuration object
+- `is_active` (optional): Boolean
+
+### Response
+- **201 Created**
+  ```json
+  { "success": true, "data": { /* area object */ } }
+  ```
+- **400 Bad Request**
+  ```json
+  { "success": false, "error": "Action ID and Reaction ID are required" }
+  ```
+- **500 Internal Server Error**
+  ```json
+  { "success": false, "error": "Internal Server Error" }
+  ```
+
+### Area object
+
+```json
+{
+  "id": 1,
+  "user_id": 1,
+  "action_id": 1,
+  "reaction_id": 2,
+  "config": {},
+  "is_active": true,
+  "created_at": "2024-06-10T12:00:00.000Z"
+}
+```
+
+### Example
+```bash
+curl -X POST http://localhost:8080/api/area/ \
+  -H "Content-Type: application/json" \
+  --cookie "token=your_jwt_token" \
+  -d '{"action_id":1,"reaction_id":2,"config":{},"is_active":true}'
+```

@@ -53,6 +53,52 @@ const sidebars: SidebarsConfig = {
                 'api/oauth/microsoft',
                 'api/oauth/twitter',
             ]
+        },
+        {
+          type: 'category',
+          label: 'Users management',
+          items: [
+            'api/users/createUser',
+            'api/users/deleteById',
+            'api/users/getAll',
+            'api/users/getById',
+            'api/users/updateById',
+          ]
+        },
+        {
+          type: 'category',
+          label: 'Action',
+          items: [
+            'api/action/getAll',
+            'api/action/getById',
+          ]
+        },
+        {
+          type: 'category',
+          label: 'Reaction',
+          items: [
+            'api/reaction/getAll',
+            'api/reaction/getById',
+          ]
+        },
+        {
+          type: 'category',
+          label: 'Area',
+          items: [
+            'api/area/add',
+            'api/area/getAllCurrentUser',
+            'api/area/getById',
+            'api/area/updateById',
+            'api/area/deleteById',
+          ]
+        },
+        {
+          type: 'category',
+          label: 'Area Execution',
+          items: [
+            'api/areaExecution/getAllCurrentUser',
+            'api/areaExecution/getById',
+          ]
         }
       ],
     },

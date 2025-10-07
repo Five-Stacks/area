@@ -4,7 +4,12 @@ import './config/dotenv.js';
 import cookieParser from 'cookie-parser';
 import corsSetup from './config/cors.js';
 import passportSetup from './config/passport.js';
-import authRouter from './routes/auth.js';
+import authRouter from './routes/authRoute.js';
+import actionRouter from './routes/actionRoute.js';
+import reactionRouter from './routes/reactionRoute.js';
+import areaRouter from './routes/areaRoute.js';
+import areaExecutionRouter from './routes/areaExecutionRoute.js';
+import userRouter from './routes/userRoute.js';
 import oauthRouter from './routes/oauth.js';
 import notFound from './middleware/notFound.js';
 import servicesSetup from './config/services.js';
@@ -25,6 +30,11 @@ app.use(passportSetup());
 
 /* Use auth routes */
 app.use('/api/auth', authRouter);
+app.use('/api/action', actionRouter);
+app.use('/api/reaction', reactionRouter);
+app.use('/api/area', areaRouter);
+app.use('/api/areaExecution', areaExecutionRouter);
+app.use('/api/users', userRouter);
 app.use('/api/oauth', oauthRouter);
 
 /* 404 Middleware */
