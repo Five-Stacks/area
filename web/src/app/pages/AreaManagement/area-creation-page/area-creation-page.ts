@@ -295,10 +295,6 @@ export class AreaCreationPage {
     }
   ];
 
-  ngOnInit() {
-
-  }
-
   isButtonClickable(): boolean {
     if (this.step === 1 && this.idEditingTrigger !== -1)
       if (this.serviceChosen != '' && this.serviceChosen != 'Choose Service') return true;
