@@ -105,7 +105,13 @@ export class DashboardPage implements OnInit {
         area.active = !area.active;
         area.isToggling = false;
 
-        this.apiService.put(`area/${areaId}`, { is_active: area!.active }).subscribe();
+        this.apiService.put(`area/${areaId}`, { is_active: area!.active }).subscribe({
+          error: () => {
+            // Revert the UI change
+            area.active = !area.active;
+            alert('Failed to update area status. Please try again.');
+          }
+        });
       }, 150);
     }
   }
