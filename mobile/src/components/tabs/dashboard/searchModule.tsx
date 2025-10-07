@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import SearchBar from "@/src/components/global/searchBar";
-import Dropdown from "@/src/components/global/dropdown";
 import { globalColors } from "@/src/styles/global";
+import StylizedDropdown, { StylizedDropdownItem } from "../../global/dropdowns";
 
 type SearchModuleValues = {
   query?: string;
@@ -24,8 +24,8 @@ const SearchModule: React.FC<SearchModuleProps> = ({ onQueryChange }) => {
   return (
     <View style={styles.container}>
       <SearchBar
-        onSearch={(query) => {
-          setSearchBuffer((prev) => {
+        onSearch={(query: any) => {
+          setSearchBuffer((prev: any) => {
             const updated = { ...prev, query };
             onQueryChange(updated);
             return updated;
@@ -33,12 +33,12 @@ const SearchModule: React.FC<SearchModuleProps> = ({ onQueryChange }) => {
         }}
       />
       <View style={styles.filters}>
-        <Dropdown
-          options={services}
+        <StylizedDropdown
+          data={servicesDropdownData}
           placeholder="All Service"
           style={styles.dropdown}
-          onValueChange={(selectedService) => {
-            setSearchBuffer((prev) => {
+          onValueChange={(selectedService: string) => {
+            setSearchBuffer((prev: any) => {
               let updated;
               if (selectedService === "All Services")
                 updated = { ...prev, service: undefined };
@@ -48,12 +48,12 @@ const SearchModule: React.FC<SearchModuleProps> = ({ onQueryChange }) => {
             });
           }}
         />
-        <Dropdown
-          options={["All Status", "On", "Off"]}
+        <StylizedDropdown
+          data={stateDropdownData}
           placeholder="All Status"
           style={styles.dropdown}
-          onValueChange={(selectedStatus) => {
-            setSearchBuffer((prev) => {
+          onValueChange={(selectedStatus: any) => {
+            setSearchBuffer((prev: any) => {
               let updated;
               switch (selectedStatus) {
                 case "All Status":
@@ -103,7 +103,18 @@ const styles = StyleSheet.create({
   },
 });
 
+const stateDropdownData: StylizedDropdownItem[] = [
+  {label: "All status", value: "all"},
+  {label: "On", value: "on"},
+  {label: "Off", value: "off"},
+];
+
 // Placeholders
-const services = ["All Services", "google", "timer", "discord"];
+const servicesDropdownData: StylizedDropdownItem[] = [
+  {label: "No service", value: "none"},
+  {label: "Discord", value: "discord"},
+  {label: "Google", value: "google"},
+  {label: "Clock", value: "clock"},
+];
 
 export default SearchModule;
