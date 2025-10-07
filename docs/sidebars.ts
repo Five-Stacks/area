@@ -44,6 +44,17 @@ const sidebars: SidebarsConfig = {
           ]
         },
         {
+            type: 'category',
+            label: 'OAuth',
+            items: [
+                'api/oauth/github',
+                'api/oauth/discord',
+                'api/oauth/spotify',
+                'api/oauth/microsoft',
+                'api/oauth/twitter',
+            ]
+        },
+        {
           type: 'category',
           label: 'Users management',
           items: [

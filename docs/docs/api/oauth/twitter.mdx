@@ -1,0 +1,34 @@
+id: api/oauth/twitter
+title: Twitter OAuth
+---
+
+## GET `/api/oauth/twitter`
+
+Start Twitter OAuth login/link flow. Redirects the user to Twitter's authorization page.
+
+- Authentication: Requires the user to be authenticated (session cookie / JWT) so that the Twitter account can be linked to the existing user.
+- Optional `redirect_to` query param will be encoded into `state` and restored after callback.
+
+### Response
+
+- **302 Found (Redirect)** — Redirects to Twitter's auth URL.
+
+### Example
+
+```bash
+curl -i -X GET "http://localhost:8080/api/oauth/twitter?redirect_to=/services" \
+  --cookie "token=your_jwt_token"
+```
+
+
+## GET `/api/oauth/twitter/callback`
+
+Callback endpoint for Twitter. On success the server restores `redirect_to` from `state` and redirects the user. The implementation may differ for OAuth2 vs OAuth1 flows; in this project it uses an OAuth2-compatible strategy.
+
+### Response
+
+- **302 Found (Redirect)** — Success -> restored `redirect_to` (or `/`); Failure -> `/login`.
+
+### Notes
+
+- Scopes requested include `tweet.read`, `tweet.write`, `users.read`, and `offline.access` for refresh tokens.
