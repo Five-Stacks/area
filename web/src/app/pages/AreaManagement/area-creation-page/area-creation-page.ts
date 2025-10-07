@@ -66,6 +66,7 @@ export class AreaCreationPage {
       id: number;
       name?: string;
       type?: string;
+      serviceChosen?: string;
       urlImage?: string;
       datas_form?: {
         fieldId: number;
@@ -253,7 +254,8 @@ export class AreaCreationPage {
         name: this.reactionChosen,
         type: 'action',
         urlImage: `/assets/icons/${this.serviceChosen.toLowerCase()}.png`,
-        datas_form: this.ActionsResponses
+        datas_form: this.ActionsResponses,
+        serviceChosen: this.serviceChosen
       };
     }
     this.idEditingTrigger = -1;
@@ -389,11 +391,13 @@ export class AreaCreationPage {
       config: {
         name: this.area.name,
         trigger: {
+          service_name: this.area.trigger.serviceChosen,
           name: this.area.trigger.name,
           datas_form: this.area.trigger.datas_form,
           reactionChosenId: this.area.trigger.actionChosenId
         },
         action: {
+          service_name: this.area.actions[0].serviceChosen,
           name: this.area.actions[0].name,
           datas_form: this.area.actions[0].datas_form,
         }

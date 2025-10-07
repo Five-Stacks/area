@@ -41,54 +41,7 @@ export class DashboardPage implements OnInit {
     active: boolean
     selected?: boolean
     isToggling?: boolean
-  }[] = [
-    { id: 1, name: 'Work', AppsIcons: [
-      { name: 'Gmail', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/2560px-Gmail_icon_%282020%29.svg.png' },
-      { name: 'Facebook', url: 'https://images.icon-icons.com/1043/PNG/512/social_media_icons_flat_shadow_set_512x512_0000_facebook_icon-icons.com_76449.png' },
-      { name: 'Discord', url: 'https://images-eds-ssl.xboxlive.com/image?url=4rt9.lXDC4H_93laV1_eHHFT949fUipzkiFOBH3fAiZZUCdYojwUyX2aTonS1aIwMrx6NUIsHfUHSLzjGJFxxsG72wAo9EWJR4yQWyJJaDaK1XdUso6cUMpI9hAdPUU_FNs11cY1X284vsHrnWtRw7oqRpN1m9YAg21d_aNKnIo-&format=source&h=210' },
-      { name: 'GitHub', url: 'https://upload.wikimedia.org/wikipedia/commons/c/c2/GitHub_Invertocat_Logo.svg' }
-    ], active: true
-    },
-    { id: 2, name: 'Social', AppsIcons: [
-      { name: 'Facebook', url: 'https://images.icon-icons.com/1043/PNG/512/social_media_icons_flat_shadow_set_512x512_0000_facebook_icon-icons.com_76449.png' },
-      { name: 'Twitter', url: 'https://static.vecteezy.com/system/resources/previews/031/737/206/non_2x/twitter-new-logo-twitter-icons-new-twitter-logo-x-2023-x-social-media-icon-free-png.png' },
-      { name: 'Instagram', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/2048px-Instagram_icon.png' }
-    ], active: false
-    },
-    { id: 3, name: 'Delete Email each Monday 9pm', AppsIcons: [
-      { name: 'Gmail', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/2560px-Gmail_icon_%282020%29.svg.png' },
-      { name: 'Calendar', url: 'https://icons.veryicon.com/png/o/miscellaneous/face-monochrome-icon/calendar-249.png' }
-    ], active: true
-    },
-    { id: 4, name: 'Send tweet on discord message received', AppsIcons: [
-      { name: 'Discord', url: 'https://images-eds-ssl.xboxlive.com/image?url=4rt9.lXDC4H_93laV1_eHHFT949fUipzkiFOBH3fAiZZUCdYojwUyX2aTonS1aIwMrx6NUIsHfUHSLzjGJFxxsG72wAo9EWJR4yQWyJJaDaK1XdUso6cUMpI9hAdPUU_FNs11cY1X284vsHrnWtRw7oqRpN1m9YAg21d_aNKnIo-&format=source&h=210' },
-      { name: 'Twitter', url: 'https://static.vecteezy.com/system/resources/previews/031/737/206/non_2x/twitter-new-logo-twitter-icons-new-twitter-logo-x-2023-x-social-media-icon-free-png.png' }
-    ], active: false
-    },
-    { id: 5, name: 'GitHub to Discord', AppsIcons: [
-      { name: 'GitHub', url: 'https://upload.wikimedia.org/wikipedia/commons/c/c2/GitHub_Invertocat_Logo.svg' },
-      { name: 'Discord', url: 'https://images-eds-ssl.xboxlive.com/image?url=4rt9.lXDC4H_93laV1_eHHFT949fUipzkiFOBH3fAiZZUCdYojwUyX2aTonS1aIwMrx6NUIsHfUHSLzjGJFxxsG72wAo9EWJR4yQWyJJaDaK1XdUso6cUMpI9hAdPUU_FNs11cY1X284vsHrnWtRw7oqRpN1m9YAg21d_aNKnIo-&format=source&h=210' }
-    ], active: true
-    },
-    { id: 6, name: 'AREA 1', AppsIcons: [
-      { name: 'Gmail', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/2560px-Gmail_icon_%282020%29.svg.png' },
-      { name: 'Facebook', url: 'https://images.icon-icons.com/1043/PNG/512/social_media_icons_flat_shadow_set_512x512_0000_facebook_icon-icons.com_76449.png' },
-      { name: 'Discord', url: 'https://images-eds-ssl.xboxlive.com/image?url=4rt9.lXDC4H_93laV1_eHHFT949fUipzkiFOBH3fAiZZUCdYojwUyX2aTonS1aIwMrx6NUIsHfUHSLzjGJFxxsG72wAo9EWJR4yQWyJJaDaK1XdUso6cUMpI9hAdPUU_FNs11cY1X284vsHrnWtRw7oqRpN1m9YAg21d_aNKnIo-&format=source&h=210' },
-      { name: 'GitHub', url: 'https://upload.wikimedia.org/wikipedia/commons/c/c2/GitHub_Invertocat_Logo.svg' }
-    ], active: true
-    },
-    { id: 7, name: 'AREA 2', AppsIcons: [
-      { name: 'Facebook', url: 'https://images.icon-icons.com/1043/PNG/512/social_media_icons_flat_shadow_set_512x512_0000_facebook_icon-icons.com_76449.png' },
-      { name: 'Twitter', url: 'https://static.vecteezy.com/system/resources/previews/031/737/206/non_2x/twitter-new-logo-twitter-icons-new-twitter-logo-x-2023-x-social-media-icon-free-png.png' },
-      { name: 'Instagram', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/2048px-Instagram_icon.png' }
-    ], active: false
-    },
-    { id: 8, name: 'AREA 3', AppsIcons: [
-      { name: 'Gmail', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/2560px-Gmail_icon_%282020%29.svg.png' },
-      { name: 'Calendar', url: 'https://icons.veryicon.com/png/o/miscellaneous/face-monochrome-icon/calendar-249.png' }
-    ], active: true
-    }
-  ];
+  }[] = [];
 
   onDetailsArea(areaId: number) {
     this.router.navigate(['/area/details', areaId]);
@@ -156,20 +109,35 @@ export class DashboardPage implements OnInit {
   }
 
   ngOnInit() {
-    // this.apiService.get('area/').subscribe(data => {
-    //   if (data) {
-    //     this.listAreas = data.data;
+    this.apiService.get('area/').subscribe(data => {
+      if (data) {
+        console.log(data.data);
 
-    //     // Initialize listApps based on the unique app names from listAreas
-    //     const appSet = new Set<string>();
-    //     this.listAreas.forEach(area => {
-    //       area.AppsIcons.forEach(app => {
-    //         appSet.add(app.name);
-    //       });
-    //     });
-    //     this.listApps = ['All Apps', ...Array.from(appSet)];
-    //   }
-    // });
+        // Initialize listApps based on the unique app names from listAreas
+        const appSet = new Set<string>();
+        data.data.forEach((area : any) => {
+          console.log(area);
+          this.listAreas.push({
+            id: area.id,
+            name: area.config.name,
+            AppsIcons: area.config ? [
+              ...area.config.trigger ? [{
+                name: area.config.trigger.name,
+                url: `/assets/icons/${area.config.trigger.service_name.toLowerCase()}.png`
+              }] : [],
+              ...area.config.action ? [{
+                name: area.config.action.name,
+                url: `/assets/icons/${area.config.action.service_name.toLowerCase()}.png`
+              }] : []
+            ] : [],
+            active: area.is_active,
+            selected: false,
+            isToggling: false
+          });
+        });
+        this.listApps = ['All Apps', ...Array.from(appSet)];
+      }
+    });
 
     // Initialize listApps based on the unique app names from listAreas
     const appSet = new Set<string>();
