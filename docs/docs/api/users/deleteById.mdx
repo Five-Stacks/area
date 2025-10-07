@@ -1,0 +1,39 @@
+
+---
+id: deleteUserById
+title: Delete User By ID
+---
+
+## DELETE `/api/users/:id`
+
+Delete a user by ID. Admins can delete any user. Non-admin users can delete only their own account.
+
+### Response
+
+- **200 OK**
+	```json
+	{ "success": true, "message": "User deleted successfully" }
+	```
+
+- **403 Forbidden**
+	```json
+	{ "success": false, "error": "Forbidden" }
+	```
+
+- **404 Not Found**
+	```json
+	{ "success": false, "error": "User not found" }
+	```
+
+- **500 Internal Server Error**
+	```json
+	{ "success": false, "error": "Internal server error" }
+	```
+
+### Example
+
+```bash
+curl -X DELETE http://localhost:8080/api/users/1 \
+	--cookie "token=your_jwt_token"
+```
+
