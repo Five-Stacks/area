@@ -12,10 +12,7 @@ export default function Index() {
       }}
     >
       <Text>Landing page</Text>
-      <StylizedButton
-        label="Log In"
-        onPress={() => router.push("/login")}
-      />
+      <StylizedButton label="Log In" onPress={() => router.push("/login")} />
     </View>
   );
 }

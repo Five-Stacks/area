@@ -1,4 +1,4 @@
-import { Text, View , StyleSheet, Image } from "react-native";
+import { Text, View, StyleSheet, Image } from "react-native";
 import { Link, router } from "expo-router";
 import StylizedButton from "@/src/components/global/button";
 import Input from "@/src/components/global/textinput";
@@ -32,27 +32,26 @@ export default function Index() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
-  
+
       const data = await response.json();
       console.log("LOGIN RESPONSE:", data);
-  
+
       if (!response.ok) {
         alert(data.error || `Login failed (${response.status})`);
         return;
       }
-  
+
       if (!data.success) {
         alert("No token received from server.");
         return;
       }
-  
+
       router.replace("/home");
     } catch (error) {
       console.error("Login error:", error);
       alert("Something went wrong. Try again.");
     }
   }
-  
 
   return (
     <View
@@ -62,10 +61,7 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Image
-        source={AreaLogo}
-        style={styles.logo}
-      />
+      <Image source={AreaLogo} style={styles.logo} />
       <Text>Log in</Text>
       <Input
         placeholder="Email"
@@ -101,7 +97,7 @@ export default function Index() {
         }
       />
 
-      <Text>Don't have an account?</Text>
+      <Text>Don&apos;t have an account?</Text>
       <Link href={"/register"} style={{ color: "blue" }}>
         Sign up here.
       </Link>
@@ -114,7 +110,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     borderWidth: 1,
     borderColor: "#DDDDDD",
-    width: '70%',
+    width: "70%",
   },
   googleButtonLabel: {
     color: "#000000",
@@ -122,15 +118,15 @@ const styles = StyleSheet.create({
   loginbutton: {
     marginTop: 10,
     marginBottom: 10,
-    width: '70%',
+    width: "70%",
   },
   input: {
     marginBottom: 10,
-    width: '80%',
+    width: "80%",
   },
   logo: {
-    width: '80%',
-    resizeMode: 'contain',
+    width: "80%",
+    resizeMode: "contain",
     marginBottom: 20,
   },
 });

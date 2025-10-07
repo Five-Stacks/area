@@ -36,7 +36,14 @@ const StylizedButton: React.FC<StylizedButtonProps> = ({
     <TouchableOpacity style={[styles.button, style]} onPress={onPress}>
       <View style={styles.content}>
         {leftElement && <View style={styles.side}>{leftElement}</View>}
-        <Text style={[globalTextStyle.medium, globalTextSize.h3, styles.label, styleLabel]}>
+        <Text
+          style={[
+            globalTextStyle.medium,
+            globalTextSize.h3,
+            styles.label,
+            styleLabel,
+          ]}
+        >
           {label}
         </Text>
         {rightElement && <View style={styles.side}>{rightElement}</View>}

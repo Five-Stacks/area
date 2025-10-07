@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     marginVertical: 16,
   },
   line: {
-    width: '40%',
+    width: "40%",
     height: 1,
     backgroundColor: "#ccc", // or any color you want
   },

@@ -26,34 +26,33 @@ export default function Register() {
       Alert.alert("Missing fields", "Please fill in all fields.");
       return;
     }
-  
+
     try {
       const response = await fetch(`${API_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),
       });
-  
+
       let data;
       try {
         data = await response.json();
       } catch {
         throw new Error("Invalid response from server");
       }
-  
+
       console.log("REGISTER RESPONSE:", data);
-  
+
       if (!response.ok) {
         Alert.alert("Registration failed", data.error || "Try again.");
         return;
       }
-      router.replace("/home");  
+      router.replace("/home");
     } catch (err) {
       console.error("Register error:", err);
       Alert.alert("Error", "Could not connect to server.");
     }
   }
-  
 
   return (
     <View style={styles.container}>
@@ -61,16 +60,8 @@ export default function Register() {
 
       <Text style={styles.title}>Create an Account</Text>
 
-      <Input
-        placeholder="Name"
-        value={name}
-        onChangeText={setName}
-      />
-      <Input
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-      />
+      <Input placeholder="Name" value={name} onChangeText={setName} />
+      <Input placeholder="Email" value={email} onChangeText={setEmail} />
       <Input
         placeholder="Password"
         secureTextEntry
