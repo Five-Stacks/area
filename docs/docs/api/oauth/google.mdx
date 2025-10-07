@@ -1,0 +1,43 @@
+id: api/oauth/google
+title: Google OAuth
+---
+
+## GET `/api/oauth/google`
+
+Initiate the Google OAuth2 login/link flow. This endpoint redirects the user to Google's consent page.
+
+- Authentication: Requires the user to be authenticated (session cookie / JWT) because the server may link the OAuth account to the currently logged-in user.
+- Optional parameter: `redirect_to` — path on the client to redirect back to after the OAuth flow completes. When provided, it is encoded into the `state` parameter and restored after callback.
+
+### Response
+
+- **302 Found (Redirect)**
+  - Redirects to Google's consent page.
+
+### Example
+
+```bash
+curl -i -X GET "http://localhost:8080/api/oauth/google?redirect_to=/dashboard" \
+  --cookie "token=your_jwt_token"
+```
+
+
+## GET `/api/oauth/google/callback`
+
+The OAuth callback endpoint used by Google. After successful authentication the server will redirect the user to the original `redirect_to` value (if valid) or to `/`.
+
+- On failure the route redirects to `/login`.
+
+### Response
+
+- **302 Found (Redirect)**
+  - Successful: Redirects to the restored `redirect_to` path (or `/`).
+  - Failure: Redirects to `/login`.
+
+### Notes
+
+- The server uses a URL-safe encoded JSON in the `state` parameter to preserve the `redirect_to` value. Example `state` value:
+
+```js
+encodeURIComponent(JSON.stringify({ redirect_to: '/dashboard' }))
+```

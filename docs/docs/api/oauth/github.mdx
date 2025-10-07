@@ -1,0 +1,34 @@
+id: api/oauth/github
+title: GitHub OAuth
+---
+
+## GET `/api/oauth/github`
+
+Initiate the GitHub OAuth login/link flow. Redirects the user to GitHub's authorization page.
+
+- Authentication: Requires the user to be authenticated (session cookie / JWT) because the server links the provider to an existing user.
+- Optional `redirect_to` query param will be encoded into `state` and restored after callback.
+
+### Response
+
+- **302 Found (Redirect)** — Redirects to GitHub's authorization URL.
+
+### Example
+
+```bash
+curl -i -X GET "http://localhost:8080/api/oauth/github?redirect_to=/profile" \
+  --cookie "token=your_jwt_token"
+```
+
+
+## GET `/api/oauth/github/callback`
+
+The callback endpoint GitHub calls after user authorizes. On success the server will redirect back to the original `redirect_to` or `/`. On failure it redirects to `/login`.
+
+### Response
+
+- **302 Found (Redirect)** — Success -> original `redirect_to` (or `/`); Failure -> `/login`.
+
+### Notes
+
+- Scopes requested by the server include email and repo-related scopes; see server config for details.

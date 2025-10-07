@@ -1,0 +1,54 @@
+
+---
+id: updateUserById
+title: Update User By ID
+---
+
+## PUT `/api/users/:id`
+
+Update an existing user. Admins can update any user. Non-admin users can update only their own record. If a `password` field is provided it will be hashed and stored as `password_hash`.
+
+### Request Body
+
+Send only the fields you want to update. Example:
+
+```json
+{
+	"name": "New Name",
+	"email": "newemail@example.com",
+	"password": "newpassword",
+	"role": "admin"
+}
+```
+
+### Response
+
+- **200 OK**
+	```json
+	{ "success": true, "message": "User updated successfully" }
+	```
+
+- **403 Forbidden**
+	```json
+	{ "success": false, "error": "Forbidden" }
+	```
+
+- **404 Not Found**
+	```json
+	{ "success": false, "error": "User not found" }
+	```
+
+- **500 Internal Server Error**
+	```json
+	{ "success": false, "error": "Internal server error" }
+	```
+
+### Example
+
+```bash
+curl -X PUT http://localhost:8080/api/users/1 \
+	-H "Content-Type: application/json" \
+	--cookie "token=your_jwt_token" \
+	-d '{"name":"New Name","password":"newpassword"}'
+```
+

@@ -1,0 +1,36 @@
+
+---
+id: getAllUsers
+title: Get All Users
+---
+
+## GET `/api/users`
+
+Retrieve a list of all users. Only accessible to authenticated users with the `admin` role.
+
+### Response
+
+- **200 OK**
+	```json
+	{ "success": true, "users": [ { "id": 1, "name": "Jane", "email": "jane@example.com", "role": "user" } ] }
+	```
+	- Returns an array of users. Password hashes are excluded from the response.
+
+- **403 Forbidden**
+	```json
+	{ "success": false, "error": "Forbidden" }
+	```
+	- The authenticated user is not an admin.
+
+- **500 Internal Server Error**
+	```json
+	{ "success": false, "error": "Internal server error" }
+	```
+
+### Example
+
+```bash
+curl -X GET http://localhost:8080/api/users \
+	--cookie "token=your_jwt_token"
+```
+

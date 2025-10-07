@@ -41,6 +41,30 @@ Create a `.env` file at the root with the following variables:
 ```
 POSTGRES_URL=postgres://user:password@localhost:5432/dbname
 JWT_SECRET=yoursecret
+
+# Google OAuth
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+
+# Discord OAuth
+DISCORD_CLIENT_ID=your_discord_client_id
+DISCORD_CLIENT_SECRET=your_discord_client_secret
+
+# Spotify OAuth
+SPOTIFY_CLIENT_ID=your_spotify_client_id
+SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
+
+# GitHub OAuth
+GITHUB_CLIENT_ID=your_github_client_id
+GITHUB_CLIENT_SECRET=your_github_client_secret
+
+# Twitter OAuth (OAuth 2.0)
+TWITTER_CLIENT_ID=your_twitter_client_id
+TWITTER_CLIENT_SECRET=your_twitter_client_secret
+
+# Microsoft OAuth
+MICROSOFT_CLIENT_ID=your_microsoft_client_id
+MICROSOFT_CLIENT_SECRET=your_microsoft_client_secret
 ```
 
 ## Module System
