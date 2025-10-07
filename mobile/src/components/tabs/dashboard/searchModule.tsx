@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import SearchBar from "@/src/components/global/searchBar";
 import { globalColors } from "@/src/styles/global";
 import StylizedDropdown, { StylizedDropdownItem } from "../../global/dropdowns";
@@ -40,7 +40,7 @@ const SearchModule: React.FC<SearchModuleProps> = ({ onQueryChange }) => {
           onValueChange={(selectedService: string) => {
             setSearchBuffer((prev: any) => {
               let updated;
-              if (selectedService === "All Services")
+              if (selectedService === "all")
                 updated = { ...prev, service: undefined };
               else updated = { ...prev, service: selectedService };
               onQueryChange(updated);
@@ -56,13 +56,13 @@ const SearchModule: React.FC<SearchModuleProps> = ({ onQueryChange }) => {
             setSearchBuffer((prev: any) => {
               let updated;
               switch (selectedStatus) {
-                case "All Status":
+                case "all":
                   updated = { ...prev, status: undefined };
                   break;
-                case "On":
+                case "on":
                   updated = { ...prev, status: true };
                   break;
-                case "Off":
+                case "off":
                   updated = { ...prev, status: false };
                   break;
                 default:
@@ -104,17 +104,20 @@ const styles = StyleSheet.create({
 });
 
 const stateDropdownData: StylizedDropdownItem[] = [
-  {label: "All status", value: "all"},
-  {label: "On", value: "on"},
-  {label: "Off", value: "off"},
+  { label: "All status", value: "all" },
+  { label: "On", value: "on" },
+  { label: "Off", value: "off" },
 ];
 
 // Placeholders
 const servicesDropdownData: StylizedDropdownItem[] = [
-  {label: "No service", value: "none"},
-  {label: "Discord", value: "discord"},
-  {label: "Google", value: "google"},
-  {label: "Clock", value: "clock"},
+  { label: "All services", value: "all" },
+  { label: "Github", value: "github" },
+  { label: "Google", value: "google" },
+  { label: "Discord", value: "discord" },
+  { label: "Spotify", value: "spotify" },
+  { label: "Twitter", value: "twitter" },
+  { label: "Microsoft", value: "microsoft" },
 ];
 
 export default SearchModule;

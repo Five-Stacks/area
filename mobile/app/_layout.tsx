@@ -10,7 +10,7 @@ SplashScreen.preventAutoHideAsync();
 const queryClient = new QueryClient();
 
 export default function RootLayout() {
-  let isConnected: boolean = true;
+  let isConnected: boolean = false;
 
   const [fontsLoaded, error] = useFonts({
     "Inter-Thin": require("@/assets/fonts/Inter-Thin.ttf"),

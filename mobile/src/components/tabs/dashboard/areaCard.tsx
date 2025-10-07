@@ -1,13 +1,17 @@
-import React from "react";
+import React, { JSX } from "react";
 import { StyleSheet, View, TouchableHighlight, Image } from "react-native";
 import Checkbox from "../../global/checkmark";
 import Toggle from "../../global/toggle";
 import { globalColors } from "@/src/styles/global";
 import Area from "@/src/types/area";
 
-import googleIcon from "@/assets/images/googleIcon.png";
 import clockIcon from "@/assets/images/clockIcon.png";
-import discordIcon from "@/assets/images/discordIcon.png";
+import githubLogo from "@/assets/images/githubLogo.png";
+import googleLogo from "@/assets/images/googleLogo.png";
+import discordLogo from "@/assets/images/discordLogo.png";
+import spotifyLogo from "@/assets/images/SpotifyLogo.png";
+import twitterLogo from "@/assets/images/TwitterLogo.png";
+import microsoftLogo from "@/assets/images/MicrosoftLogo.png";
 import dotdotdotIcon from "@/assets/images/dotdotdotIcon.png";
 
 type AreaCardProps = {
@@ -18,15 +22,21 @@ const AreaCard: React.FC<AreaCardProps> = ({ area }) => {
   return (
     <TouchableHighlight style={styles.container} underlayColor="#333">
       <View style={styles.content}>
-        {/* Top row */}
         <View style={styles.topRow}>
-          <Checkbox label="Incroyable nom" />
+          <Checkbox label={`AREA #${area.id}`} />
         </View>
 
-        {/* Bottom row */}
         <View style={styles.bottomRow}>
           <View style={styles.bottomLeft}>
-            {area.reaction_ids.map((value, index) => {
+            <Image
+              style={styles.serviceIcon}
+              source={matchServiceToIcon(area.reaction_id)}
+            />
+            <Image
+              style={styles.serviceIcon}
+              source={matchServiceToIcon(area.action_id)}
+            />
+            {/* {area.reaction_id.map((value, index) => {
               if (index < 2) {
                 return (
                   <Image
@@ -46,8 +56,7 @@ const AreaCard: React.FC<AreaCardProps> = ({ area }) => {
                   />
                 );
               }
-            })}
-            {/* Left bottom content (e.g. icons) */}
+            })} */}
           </View>
           <View style={styles.bottomRight}>
             <Toggle width={65} value={area.is_active} />
@@ -94,6 +103,25 @@ const styles = StyleSheet.create({
   },
 });
 
-const serviceIcons: number[] = [googleIcon, clockIcon, discordIcon];
+function matchServiceToIcon(id: number): any {
+  switch (id) {
+    case 1:
+      return googleLogo;
+    case 2:
+      return githubLogo;
+    case 3:
+      return discordLogo;
+    case 4:
+      return spotifyLogo;
+    case 5:
+      return twitterLogo;
+    case 6:
+      return microsoftLogo;
+    case 7:
+      return clockIcon;
+    default:
+      return dotdotdotIcon;
+  }
+}
 
 export default AreaCard;
