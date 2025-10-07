@@ -88,7 +88,92 @@ export class AreaCreationPage {
         }[]
       }
     } [];
-  }[] = [];
+  }[] = [
+    { name: 'GitHub',
+      reaction_list: [
+        {
+          name: 'New Issue',
+          config: {
+            fields: [
+              {
+                id: 1,
+                title: 'Choose your Repository',
+                name: 'Repository',
+                input_field: { placeholder: 'user/repo' }
+              },
+              {
+                id: 2,
+                title: 'Issue Title Contains',
+                name: 'Title',
+                input_field: { placeholder: 'Issue title' }
+              }
+            ]
+          }
+        },
+        {
+          name: 'New Pull Request',
+          config: {
+            fields: [
+              {
+                id: 1,
+                title: 'Choose your Repository',
+                name: 'Repository',
+                input_field: { placeholder: 'user/repo' }
+              },
+              {
+                id: 2,
+                title: 'Branch',
+                name: 'Branch',
+                input_field: { placeholder: 'main' }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      name: 'Discord',
+      reaction_list: [
+        {
+          name: 'New Message',
+          config: {
+            fields: [
+              {
+                id: 1,
+                title: 'Channel ID',
+                name: 'ChannelID',
+                input_field: { placeholder: '123456789012345678' }
+              },
+              {
+                id: 2,
+                title: 'Message Content Contains',
+                name: 'Content',
+                input_field: { placeholder: 'Hello, World!' }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      name: 'Gmail',
+      reaction_list: [
+        {
+          name: 'New Email',
+          config: {
+            fields: [
+              {
+                id: 1,
+                title: 'Sender Email Address',
+                name: 'From',
+                input_field: { placeholder: 'sender@example.com' }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ];
 
   actions : {
     name: string;
@@ -211,11 +296,7 @@ export class AreaCreationPage {
   ];
 
   ngOnInit() {
-    this.apiService.get('services/').subscribe(data => {
-      if (data) {
-        this.reactions = data.data;
-      }
-    });
+
   }
 
   isButtonClickable(): boolean {
