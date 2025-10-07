@@ -94,7 +94,7 @@
                     </div>
                     <div class="form-fields" *ngIf="step === 3">
                         <div *ngFor="let action of actionsList">
-                            <h4>{{ action.title }}</h4>
+                            <h4>{{ action.name }}</h4>
                             <app-options-field-component
                                 *ngIf="action.options_field"
                                 [label]="action.name"

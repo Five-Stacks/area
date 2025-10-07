@@ -88,212 +88,39 @@ export class AreaCreationPage {
         }[]
       }
     } [];
-  }[] = [
-    { name: 'GitHub',
-      reaction_list: [
-        {
-          name: 'New Issue',
-          config: {
-            fields: [
-              {
-                id: 1,
-                title: 'Choose your Repository',
-                name: 'Repository',
-                input_field: { placeholder: 'user/repo' }
-              },
-              {
-                id: 2,
-                title: 'Issue Title Contains',
-                name: 'Title',
-                input_field: { placeholder: 'Issue title' }
-              }
-            ]
-          }
-        },
-        {
-          name: 'New Pull Request',
-          config: {
-            fields: [
-              {
-                id: 1,
-                title: 'Choose your Repository',
-                name: 'Repository',
-                input_field: { placeholder: 'user/repo' }
-              },
-              {
-                id: 2,
-                title: 'Branch',
-                name: 'Branch',
-                input_field: { placeholder: 'main' }
-              }
-            ]
-          }
-        }
-      ]
-    },
-    {
-      name: 'Discord',
-      reaction_list: [
-        {
-          name: 'New Message',
-          config: {
-            fields: [
-              {
-                id: 1,
-                title: 'Channel ID',
-                name: 'ChannelID',
-                input_field: { placeholder: '123456789012345678' }
-              },
-              {
-                id: 2,
-                title: 'Message Content Contains',
-                name: 'Content',
-                input_field: { placeholder: 'Hello, World!' }
-              }
-            ]
-          }
-        }
-      ]
-    },
-    {
-      name: 'Gmail',
-      reaction_list: [
-        {
-          name: 'New Email',
-          config: {
-            fields: [
-              {
-                id: 1,
-                title: 'Sender Email Address',
-                name: 'From',
-                input_field: { placeholder: 'sender@example.com' }
-              }
-            ]
-          }
-        }
-      ]
-    }
-  ];
+  }[] = [];
 
   actions : {
     name: string;
-    reaction_list: {
-      name: string;
-      config: {
-        fields: {
-          id: number;
-          title: string;
-          name: string;
-          options_field?: { values: string[]; };
-          input_field?: { placeholder: string; };
-        }[]
-      }
-    } [];
-  }[] = [
-    {
-      name: 'GitHub',
-      reaction_list: [
-        {
-          name: 'Create Issue',
-          config: {
-            fields: [
-              {
-                id: 1,
-                title: 'Choose your Repository',
-                name: 'Repository',
-                input_field: { placeholder: 'user/repo' }
-              },
-              {
-                id: 2,
-                title: 'Issue Title',
-                name: 'Title',
-                input_field: { placeholder: 'Issue title' }
-              },
-              {
-                id: 3,
-                title: 'Issue Body',
-                name: 'Body',
-                input_field: { placeholder: 'Issue body' }
-              }
-            ]
-          }
-        },
-        {
-          name: 'New Commit',
-          config: {
-            fields: [
-              {
-                id: 1,
-                title: 'Choose your Repository',
-                name: 'Repository',
-                input_field: { placeholder: 'user/repo' }
-              },
-              {
-                id: 2,
-                title: 'Branch',
-                name: 'Branch',
-                input_field: { placeholder: 'main' }
-              }
-            ]
-          }
-        }
-      ]
-    },
-    {
-      name: 'Discord',
-      reaction_list: [
-        {
-          name: 'Send Message',
-          config: {
-            fields: [
-              {
-                id: 1,
-                title: 'Channel ID',
-                name: 'ChannelID',
-                input_field: { placeholder: '123456789012345678' }
-              },
-              {
-                id: 2,
-                title: 'Message Content',
-                name: 'Content',
-                input_field: { placeholder: 'Hello, World!' }
-              }
-            ]
-          }
-        }
-      ]
-    },
-    {
-      name: 'Gmail',
-      reaction_list: [
-        {
-          name: 'Send Email',
-          config: {
-            fields: [
-              {
-                id: 1,
-                title: 'Recipient Email',
-                name: 'To',
-                input_field: { placeholder: 'recipient@example.com' }
-              },
-              {
-                id: 2,
-                title: 'Email Subject',
-                name: 'Subject',
-                input_field: { placeholder: 'Subject' }
-              },
-              {
-                id: 3,
-                title: 'Email Body',
-                name: 'Body',
-                input_field: { placeholder: 'Email body' }
-              }
-            ]
-          }
-        }
-      ]
+    description?: string;
+    config?: {
+      fields: {
+        id: number;
+        title: string;
+        name: string;
+        options_field?: { values: string[]; };
+        input_field?: { placeholder: string; };
+      }[]
     }
-  ];
+  }[] = [];
+
+  optionsServices : string[] = [];
+  serviceChosen  = '';
+  reactionsList : string[] = [];
+  reactionChosen  = '';
+  actionChosen  = -1;
+  actionsList : any[] = [];
+  ActionsResponses: {
+      response: string;
+      fieldId: number;
+      fieldName: string;
+  }[] = [];
+
+  ngOnInit() {
+    this.apiService.get('service').subscribe(services => {
+      this.optionsServices = ['Choose Service', ...services.data.map((service: any) => service.name)];
+    });
+  }
 
   isButtonClickable(): boolean {
     if (this.step === 1 && this.idEditingTrigger !== -1)
@@ -347,11 +174,6 @@ export class AreaCreationPage {
       this.step = 1;
       this.isEditing = true;
       this.idEditingAction = actionId;
-      this.optionsServices = ['Choose Action Service'];
-      this.actions.forEach(action => {
-        if (!this.optionsServices.includes(action.name))
-          this.optionsServices.push(action.name);
-      });
     }
   }
 
@@ -367,11 +189,6 @@ export class AreaCreationPage {
       this.step = 1;
       this.isEditing = true;
       this.idEditingTrigger = triggerId;
-      this.optionsServices = ['Choose Service'];
-      this.reactions.forEach(reaction => {
-        if (!this.optionsServices.includes(reaction.name))
-          this.optionsServices.push(reaction.name);
-      });
     }
   }
 
@@ -451,45 +268,106 @@ export class AreaCreationPage {
     this.ActionsResponses = [];
   }
 
+  onStepTwoTrigger = () => {
+    this.apiService.get("service").subscribe(services => {
+      let id = -1;
+      services.data.forEach((service: any) => {
+        if (service.name === this.serviceChosen)
+          id = service.id;
+      });
+      if (id === -1) return;
+      this.apiService.get(`action/service/${id}`).subscribe(actions => {
+        console.log(actions.data);
+        this.reactionsList = ['Choose Action'];
+        actions.data.forEach((element: { name: string, id: number, service_id: number, description?: string, config?: any }) => {
+          console.log(element);
+          this.reactionsList.push(element.name);
+        });
+        console.log(this.reactionsList);
+      });
+    });
+  }
+
+  onStepThreeTrigger = () => {
+    this.apiService.get("service").subscribe(services => {
+      let id = -1;
+      services.data.forEach((service: any) => {
+        if (service.name === this.serviceChosen)
+          id = service.id;
+      });
+      if (id === -1) return;
+      console.log(this.reactionChosen);
+      this.apiService.get(`action/service/${id}`).subscribe(actions => {
+        const config : any = actions.data.find((action: any) => action.name === this.reactionChosen);
+        this.actionsList = config ? config.config.fields : [];
+        this.ActionsResponses = new Array(this.actionsList.length).fill(null).map((_, index) => ({
+          response: '',
+          fieldId: this.actionsList[index].id,
+          fieldName: this.actionsList[index].name
+        }));
+        this.actionChosen = config ? 1 : -1;
+      });
+    });
+  }
+
+
   onNewStepTrigger = (step: number) => {
     if (step == 2) {
-      this.reactionsList = ['Choose Reaction'];
-      const reaction = this.reactions.find(reaction => reaction.name === this.serviceChosen);
-      reaction?.reaction_list.forEach(reaction => {
-        if (!this.reactionsList.includes(reaction.name))
-          this.reactionsList.push(reaction.name);
-      });
+      this.onStepTwoTrigger();
     }
     if (step == 3) {
-      const reaction = this.reactions.find(reaction => reaction.name === this.serviceChosen)?.reaction_list.find(reaction => reaction.name === this.reactionChosen);
-      this.actionsList = reaction ? reaction.config.fields : [];
-      this.ActionsResponses = new Array(this.actionsList.length).fill(null).map((_, index) => ({
-        response: '',
-        fieldId: this.actionsList[index].id,
-        fieldName: this.actionsList[index].name
-      }));
-      this.actionChosen = reaction ? 1 : -1;
+      this.onStepThreeTrigger();
     }
+  }
+
+  onStepTwoAction = () => {
+    this.apiService.get("service").subscribe(services => {
+      let id = -1;
+      services.data.forEach((service: any) => {
+        if (service.name === this.serviceChosen)
+          id = service.id;
+      });
+      if (id === -1) return;
+      this.apiService.get(`reaction/service/${id}`).subscribe(actions => {
+        console.log(actions.data);
+        this.reactionsList = ['Choose Reaction'];
+        actions.data.forEach((element: { name: string, id: number, service_id: number, description?: string, config?: any }) => {
+          console.log(element);
+          this.reactionsList.push(element.name);
+        });
+        console.log(this.reactionsList);
+      });
+    });
+  }
+
+  onStepThreeAction = () => {
+    this.apiService.get("service").subscribe(services => {
+      let id = -1;
+      services.data.forEach((service: any) => {
+        if (service.name === this.serviceChosen)
+          id = service.id;
+      });
+      if (id === -1) return;
+      console.log(this.reactionChosen);
+      this.apiService.get(`reaction/service/${id}`).subscribe(actions => {
+        const config : any = actions.data.find((action: any) => action.name === this.reactionChosen);
+        this.actionsList = config ? config.config.fields : [];
+        this.ActionsResponses = new Array(this.actionsList.length).fill(null).map((_, index) => ({
+          response: '',
+          fieldId: this.actionsList[index].id,
+          fieldName: this.actionsList[index].name
+        }));
+        this.actionChosen = config ? 1 : -1;
+      });
+    });
   }
 
   onNewStepAction = (step: number) => {
     if (step == 2) {
-      this.reactionsList = ['Choose Reaction'];
-      const reaction = this.actions.find(reaction => reaction.name === this.serviceChosen);
-      reaction?.reaction_list.forEach(reaction => {
-        if (!this.reactionsList.includes(reaction.name))
-          this.reactionsList.push(reaction.name);
-      });
+      this.onStepTwoAction();
     }
     if (step == 3) {
-      const reaction = this.actions.find(reaction => reaction.name === this.serviceChosen)?.reaction_list.find(reaction => reaction.name === this.reactionChosen);
-      this.actionsList = reaction ? reaction.config.fields : [];
-      this.ActionsResponses = new Array(this.actionsList.length).fill(null).map((_, index) => ({
-        response: '',
-        fieldId: this.actionsList[index].id,
-        fieldName: this.actionsList[index].name
-      }));
-      this.actionChosen = reaction ? 1 : -1;
+      this.onStepThreeAction();
     }
   }
 
@@ -510,22 +388,4 @@ export class AreaCreationPage {
     this.router.navigate(['/dashboard']);
     // Call backend to create area
   }
-
-  optionsServices : string[] = [];
-  serviceChosen  = '';
-  reactionsList : string[] = [];
-  reactionChosen  = '';
-  actionChosen  = -1;
-  actionsList : {
-          id: number;
-          title: string;
-          name: string;
-          options_field?: { values: string[] };
-          input_field?: { placeholder: string; };
-        }[] = [];
-  ActionsResponses: {
-      response: string;
-      fieldId: number;
-      fieldName: string;
-  }[] = [];
 }

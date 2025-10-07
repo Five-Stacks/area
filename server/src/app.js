@@ -5,6 +5,8 @@ import cookieParser from 'cookie-parser';
 import corsSetup from './config/cors.js';
 import passportSetup from './config/passport.js';
 import authRouter from './routes/authRoute.js';
+import serviceRouter from './routes/serviceRoute.js';
+import userServiceRouter from './routes/userServiceRoute.js';
 import actionRouter from './routes/actionRoute.js';
 import reactionRouter from './routes/reactionRoute.js';
 import areaRouter from './routes/areaRoute.js';
@@ -30,6 +32,8 @@ app.use(passportSetup());
 
 /* Use auth routes */
 app.use('/api/auth', authRouter);
+app.use('/api/service', serviceRouter);
+app.use('/api/userService', userServiceRouter);
 app.use('/api/action', actionRouter);
 app.use('/api/reaction', reactionRouter);
 app.use('/api/area', areaRouter);
