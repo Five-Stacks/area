@@ -1,0 +1,41 @@
+
+---
+id: getUserById
+title: Get User By ID
+---
+
+## GET `/api/users/:id`
+
+Retrieve a single user by ID. Admins can fetch any user. Non-admin users can only fetch their own user record (id must match authenticated user id).
+
+### Response
+
+- **200 OK**
+	```json
+	{ "id": 1, "name": "Jane", "email": "jane@example.com", "role": "user" }
+	```
+	- Returns the user object. Password hashes are excluded.
+
+- **403 Forbidden**
+	```json
+	{ "success": false, "error": "Forbidden" }
+	```
+	- The authenticated user is neither admin nor the requested user.
+
+- **404 Not Found**
+	```json
+	{ "success": false, "error": "User not found" }
+	```
+
+- **500 Internal Server Error**
+	```json
+	{ "success": false, "error": "Internal server error" }
+	```
+
+### Example
+
+```bash
+curl -X GET http://localhost:8080/api/users/1 \
+	--cookie "token=your_jwt_token"
+```
+

@@ -7,6 +7,7 @@ import actionRouter from './routes/actionRoute.js';
 import reactionRouter from './routes/reactionRoute.js';
 import areaRouter from './routes/areaRoute.js';
 import areaExecutionRouter from './routes/areaExecutionRoute.js';
+import userRouter from './routes/userRoute.js';
 import notFound from './middleware/notFound.js';
 
 /* App initialization */
@@ -26,6 +27,7 @@ app.use('/api/action', actionRouter);
 app.use('/api/reaction', reactionRouter);
 app.use('/api/area', areaRouter);
 app.use('/api/areaExecution', areaExecutionRouter);
+app.use('/api/users', userRouter);
 
 /* 404 Middleware */
 app.use(notFound);
