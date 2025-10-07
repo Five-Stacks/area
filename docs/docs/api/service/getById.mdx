@@ -1,0 +1,40 @@
+---
+id: getById
+title: Get Service By ID
+---
+
+## GET `/api/service/:id`
+
+Retrieve a specific service by its ID.
+
+### Response
+
+- **200 OK**
+  ```json
+  { "success": true, "data": { /* service object */ } }
+  ```
+- **404 Not Found**
+  ```json
+  { "success": false, "error": "Service not found" }
+  ```
+- **500 Internal Server Error**
+  ```json
+  { "success": false, "error": "Internal Server Error" }
+  ```
+
+### Service object
+
+```json
+{
+  "id": 1,
+  "name": "Action Name",
+  "description": "Action description",
+}
+```
+
+### Example
+
+```bash
+curl -X GET http://localhost:8080/api/action/1 \
+  --cookie "token=your_jwt_token"
+```
