@@ -83,7 +83,7 @@ export default function Index() {
       <StylizedButton
         style={styles.loginbutton}
         label="Login"
-        onPress={handleLogin} // ✅ Call the handleLogin function
+        onPress={handleLogin}
       />
 
       <OrDivider />
@@ -92,7 +92,7 @@ export default function Index() {
         style={styles.googleButton}
         label="Sign in with Google"
         styleLabel={styles.googleButtonLabel}
-        onPress={handleLogin} // You can replace with Google auth later
+        onPress={handleLogin}
         leftElement={
           <Image
             source={GoogleLogo}
