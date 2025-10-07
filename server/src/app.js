@@ -28,6 +28,9 @@ app.use(cookieParser());
 /* Passport configuration */
 app.use(passportSetup());
 
+/* Initialize services */
+servicesSetup();
+
 /* Use auth routes */
 app.use('/api/auth', authRouter);
 app.use('/api/action', actionRouter);
