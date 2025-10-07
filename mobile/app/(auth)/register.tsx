@@ -6,13 +6,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import StylizedButton from "@/src/components/global/button";
 import Input from "@/src/components/global/textinput";
 import AreaLogo from "@/assets/images/logo.png";
+import { API_URL } from "@/src/config";
 
 export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // ✅ Optional: if user already logged in, redirect them
   useEffect(() => {
     async function checkToken() {
       const token = await AsyncStorage.getItem("token");
@@ -28,7 +28,7 @@ export default function Register() {
     }
   
     try {
-      const response = await fetch("http://10.84.107.195:8080/api/auth/register", {
+      const response = await fetch(`${API_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),
@@ -47,13 +47,7 @@ export default function Register() {
         Alert.alert("Registration failed", data.error || "Try again.");
         return;
       }
-  
-      if (data.token) {
-        router.replace("/home");
-      } else {
-        router.replace("/home");
-      }
-  
+      router.replace("/home");  
     } catch (err) {
       console.error("Register error:", err);
       Alert.alert("Error", "Could not connect to server.");

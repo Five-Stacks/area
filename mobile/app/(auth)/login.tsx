@@ -9,16 +9,17 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import GoogleLogo from "@/assets/images/google.png";
 import AreaLogo from "@/assets/images/logo.png";
 
+import { API_URL } from "@/src/config";
+
 export default function Index() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // ✅ Auto-login if token exists
   useEffect(() => {
     async function checkToken() {
       const token = await AsyncStorage.getItem("token");
       if (token) {
-        router.replace("/home"); // navigate straight to home if logged in
+        router.replace("/home");
       }
     }
     checkToken();
@@ -26,7 +27,7 @@ export default function Index() {
 
   async function handleLogin() {
     try {
-      const response = await fetch("http://10.84.107.195:8080/api/auth/login", {
+      const response = await fetch(`${API_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
