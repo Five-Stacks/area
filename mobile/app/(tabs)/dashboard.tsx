@@ -1,6 +1,6 @@
 import SearchModule from "@/src/components/tabs/dashboard/searchModule";
 import AreaCard from "@/src/components/tabs/dashboard/areaCard";
-import { FlatList, ScrollView, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import Area from "@/src/types/area";
 
 export default function Dashboard() {
@@ -11,28 +11,23 @@ export default function Dashboard() {
           console.log(searchValues);
         }}
       />
-      <ScrollView style={styles.content}>
-        <FlatList
-          data={AreaList}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => <AreaCard area={item} />}
-          ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
-          contentContainerStyle={{ paddingBottom: 20 }}
-        />
-      </ScrollView>
+      <FlatList
+        data={AreaList}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => <AreaCard area={item} />}
+        contentContainerStyle={styles.content}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     marginTop: 30,
   },
   content: {
-    flex: 1,
     padding: 14,
-    gap: 100,
+    gap: 10,
   },
 });
 
