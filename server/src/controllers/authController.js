@@ -19,7 +19,7 @@ const register = async (req, res) => {
     const password_hash = await bcrypt.hash(password, 10);
     const newUser = await User.create({ email, password_hash, name });
 
-    const token = jwt.sign({ userId: newUser.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ userId: newUser.id, role: 'user' }, process.env.JWT_SECRET, { expiresIn: '1h' });
     res.cookie('token', token, { httpOnly: true, secure: false, maxAge: 60 * 60 * 1000 });
 
     res.status(201).json({ success: true, message: 'User registered successfully' });
@@ -38,7 +38,7 @@ const login = async (req, res) => {
         return res.status(401).json({ success: false, error: 'Invalid email or password' });
     }
 
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ userId: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
     res.cookie('token', token, { httpOnly: true, secure: false, maxAge: 60 * 60 * 1000 });
 
     res.status(200).json({ success: true, message: 'User login successful' });
@@ -76,8 +76,7 @@ const isAdmin = async (req, res) => {
     }
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const user = await User.findByPk(decoded.userId);
-        if (user && user.role === 'admin') {
+        if (decoded.role === 'admin') {
             return res.status(200).json({ success: true, isAdmin: true });
         }
         return res.status(200).json({ success: true, isAdmin: false });
