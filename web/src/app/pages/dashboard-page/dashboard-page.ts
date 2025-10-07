@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { TextFieldComponent } from '../../components/Forms/text-field-component/text-field-component';
 import { OptionsFieldComponent } from '../../components/Forms/options-field-component/options-field-component';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -28,6 +29,7 @@ export class DashboardPage implements OnInit {
   listStatus: string[] = ['All Status', 'Active', 'Inactive'];
 
   private router = inject(Router);
+  private apiService = inject(ApiService);
 
   listAreas : {
     id: number
@@ -39,116 +41,7 @@ export class DashboardPage implements OnInit {
     active: boolean
     selected?: boolean
     isToggling?: boolean
-  }[] = [
-    {
-      id: 1,
-      name: 'Area 1',
-      AppsIcons: [
-        { name: 'Date', url: 'https://www.svgrepo.com/show/438428/date-round.svg' }
-      ],
-      active: true
-    },
-    {
-      id: 2,
-      name: 'Area 2',
-      AppsIcons: [
-        { name: 'Google', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png' },
-        { name: 'X', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
-        { name: 'X', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
-        { name: 'Date', url: 'https://www.svgrepo.com/show/438428/date-round.svg' }
-      ],
-      active: false
-    },
-    {
-      id: 3,
-      name: 'Area 3',
-      AppsIcons: [
-        { name: 'Google', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png' },
-        { name: 'Date', url: 'https://www.svgrepo.com/show/438428/date-round.svg' }
-      ],
-      active: true
-    },
-    {
-      id: 4,
-      name: 'Area 4',
-      AppsIcons: [
-        { name: 'Google', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png' },
-        { name: 'X', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
-        { name: 'Date', url: 'https://www.svgrepo.com/show/438428/date-round.svg' }
-      ],
-      active: false
-    },
-    {
-      id: 5,
-      name: 'Area 5',
-      AppsIcons: [
-        { name: 'Google', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png' },
-        { name: 'X', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
-        { name: 'Date', url: 'https://www.svgrepo.com/show/438428/date-round.svg' }
-      ],
-      active: false
-    },
-    {
-      id: 6,
-      name: 'Area 6',
-      AppsIcons: [
-        { name: 'Google', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png' },
-        { name: 'X', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
-        { name: 'Date', url: 'https://www.svgrepo.com/show/438428/date-round.svg' }
-      ],
-      active: false
-    },
-    {
-      id: 7,
-      name: 'Area 7',
-      AppsIcons: [
-        { name: 'Google', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png' },
-        { name: 'X', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
-        { name: 'Date', url: 'https://www.svgrepo.com/show/438428/date-round.svg' }
-      ],
-      active: false
-    },
-    {
-      id: 8,
-      name: 'Area 8',
-      AppsIcons: [
-        { name: 'Google', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png' },
-        { name: 'X', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
-        { name: 'Date', url: 'https://www.svgrepo.com/show/438428/date-round.svg' }
-      ],
-      active: false
-    },
-    {
-      id: 9,
-      name: 'Area 9',
-      AppsIcons: [
-        { name: 'Google', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png' },
-        { name: 'X', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
-        { name: 'Date', url: 'https://www.svgrepo.com/show/438428/date-round.svg' }
-      ],
-      active: false
-    },
-    {
-      id: 10,
-      name: 'Area 10',
-      AppsIcons: [
-        { name: 'Google', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png' },
-        { name: 'X', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
-        { name: 'Date', url: 'https://www.svgrepo.com/show/438428/date-round.svg' }
-      ],
-      active: false
-    },
-    {
-      id: 11,
-      name: 'Area 11',
-      AppsIcons: [
-        { name: 'Google', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png' },
-        { name: 'X', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
-        { name: 'Date', url: 'https://www.svgrepo.com/show/438428/date-round.svg' }
-      ],
-      active: false
-    }
-  ];
+  }[] = [];
 
   onDetailsArea(areaId: number) {
     this.router.navigate(['/area/details', areaId]);
@@ -216,13 +109,20 @@ export class DashboardPage implements OnInit {
   }
 
   ngOnInit() {
-    // Initialize listApps based on the unique app names from listAreas
-    const appSet = new Set<string>();
-    this.listAreas.forEach(area => {
-      area.AppsIcons.forEach(app => {
-        appSet.add(app.name);
-      });
+    this.apiService.get('area/').subscribe(data => {
+      if (data) {
+        this.listAreas = data.data;
+
+        // Initialize listApps based on the unique app names from listAreas
+        const appSet = new Set<string>();
+        this.listAreas.forEach(area => {
+          area.AppsIcons.forEach(app => {
+            appSet.add(app.name);
+          });
+        });
+        this.listApps = ['All Apps', ...Array.from(appSet)];
+      }
     });
-    this.listApps = ['All Apps', ...Array.from(appSet)];
+
   }
 }
