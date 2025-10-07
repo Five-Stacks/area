@@ -49,12 +49,9 @@ export default function Register() {
       }
   
       if (data.token) {
-        await AsyncStorage.setItem("token", data.token);
-        Alert.alert("Success", "Account created successfully!");
         router.replace("/home");
       } else {
-        Alert.alert("Success", "Account created! Please log in.");
-        router.replace("/login");
+        router.replace("/home");
       }
   
     } catch (err) {
