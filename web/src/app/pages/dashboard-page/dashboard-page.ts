@@ -104,6 +104,8 @@ export class DashboardPage implements OnInit {
       setTimeout(() => {
         area.active = !area.active;
         area.isToggling = false;
+
+        this.apiService.put(`area/${areaId}`, { is_active: area!.active }).subscribe();
       }, 150);
     }
   }
