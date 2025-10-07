@@ -1,0 +1,28 @@
+---
+id: deleteById
+title: Delete Area By ID
+---
+
+## DELETE `/api/area/:id`
+
+Delete an area by its ID (for the current user).
+
+### Response
+- **200 OK**
+  ```json
+  { "success": true, "message": "Area deleted successfully" }
+  ```
+- **404 Not Found**
+  ```json
+  { "success": false, "error": "Area not found" }
+  ```
+- **500 Internal Server Error**
+  ```json
+  { "success": false, "error": "Internal Server Error" }
+  ```
+
+### Example
+```bash
+curl -X DELETE http://localhost:8080/api/area/1 \
+  --cookie "token=your_jwt_token"
+```

@@ -1,0 +1,36 @@
+---
+id: getAllCurrentUser
+title: Get All Area Executions (Current User)
+---
+
+## GET `/api/areaExecution/`
+
+Retrieve all area executions for the current user.
+
+### Response
+- **200 OK**
+  ```json
+  { "success": true, "data": [ /* array of area executions */ ] }
+  ```
+- **500 Internal Server Error**
+  ```json
+  { "success": false, "error": "Internal Server Error" }
+  ```
+
+### AreaExecution object
+
+```json
+{
+  "id": 1,
+  "area_id": 1,
+  "executed_at": "2024-06-10T12:00:00.000Z",
+  "status": "success",
+  "log": "Execution log"
+}
+```
+
+### Example
+```bash
+curl -X GET http://localhost:8080/api/areaExecution/ \
+  --cookie "token=your_jwt_token"
+```

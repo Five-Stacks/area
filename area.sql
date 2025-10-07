@@ -35,6 +35,7 @@ CREATE TABLE actions (
     service_id INTEGER REFERENCES services(id) ON DELETE CASCADE,
     name VARCHAR(100) NOT NULL,
     description TEXT,
+    config JSONB,
     UNIQUE (service_id, name)
 );
 
@@ -44,6 +45,7 @@ CREATE TABLE reactions (
     service_id INTEGER REFERENCES services(id) ON DELETE CASCADE,
     name VARCHAR(100) NOT NULL,
     description TEXT,
+    config JSONB,
     UNIQUE (service_id, name)
 );
 

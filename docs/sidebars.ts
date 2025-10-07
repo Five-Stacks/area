@@ -21,7 +21,6 @@ const sidebars: SidebarsConfig = {
       items: [
         'guides/installation',
         'guides/contributing',
-        // 'guides/deployment',
       ],
     },
   ],
@@ -42,6 +41,79 @@ const sidebars: SidebarsConfig = {
             'api/auth/logout',
             'api/auth/isConnected',
             'api/auth/isAdmin',
+          ]
+        },
+        {
+            type: 'category',
+            label: 'OAuth',
+            items: [
+                'api/oauth/github',
+                'api/oauth/discord',
+                'api/oauth/spotify',
+                'api/oauth/microsoft',
+                'api/oauth/twitter',
+            ]
+        },
+        {
+          type: 'category',
+          label: 'Users management',
+          items: [
+            'api/users/createUser',
+            'api/users/deleteById',
+            'api/users/getAll',
+            'api/users/getById',
+            'api/users/updateById',
+          ]
+        },
+        {
+          type: 'category',
+          label: 'Services',
+          items: [
+            'api/service/getAll',
+            'api/service/getById',
+          ]
+        },
+        {
+          type: 'category',
+          label: 'User Services',
+          items: [
+            'api/userService/getAll',
+            'api/userService/getById',
+          ]
+        },
+        {
+          type: 'category',
+          label: 'Action',
+          items: [
+            'api/action/getAll',
+            'api/action/getById',
+          ]
+        },
+        {
+          type: 'category',
+          label: 'Reaction',
+          items: [
+            'api/reaction/getAll',
+            'api/reaction/getById',
+          ]
+        },
+        {
+          type: 'category',
+          label: 'Area',
+          items: [
+            'api/area/add',
+            'api/area/getAllCurrentUser',
+            'api/area/getById',
+            'api/area/updateById',
+            'api/area/deleteById',
+          ]
+        },
+        {
+          type: 'category',
+          label: 'Area Execution',
+          items: [
+            'api/areaExecution/getAllCurrentUser',
+            'api/areaExecution/getById',
           ]
         }
       ],
