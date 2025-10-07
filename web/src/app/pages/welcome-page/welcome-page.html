@@ -1,10 +1,24 @@
-<p>welcome-page works!</p>
 <app-area-header></app-area-header>
-<app-area-button-full
-    [label]="'START TODAY'"
-    [path]="'/sign-up'"
-></app-area-button-full>
-<app-area-button-full
-    [label]="'EXPLORE ALL'"
-    [path]="'/explorer'"
-></app-area-button-full>
+<div class="area-welcome-container">
+    <div class="welcome-content">
+        <h1>Automation for business and home</h1>
+        <h4>Save time and get more done</h4>
+        <app-area-button-full
+            [label]="'START TODAY'"
+            [path]="'/sign-up'"
+        ></app-area-button-full>
+    </div>
+    <div class="service-content">
+        <h2>Choose from multiple services</h2>
+        <div class="services-grid">
+            <div class="service-card" *ngFor="let service of services">
+                <p>{{ service.title }}</p>
+                <img [src]="service.icon" alt="{{ service.title }} icon" />
+            </div>
+        </div>
+        <app-area-button-full
+            [label]="'EXPLORE ALL'"
+            [path]="'/explorer'"
+        ></app-area-button-full>
+    </div>
+</div>

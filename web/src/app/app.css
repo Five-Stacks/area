@@ -2,6 +2,7 @@
 
 :host {
     --blue-color: #6A74C9;
+    --blue-color-light: #DADCF0;
     --blue-hover-color: #5B63A8;
     --white-color: #ffffff;
     --black-color: #20252B;
@@ -9,10 +10,17 @@
     --line-color: #BABFCA;
     --green-color: #74B9A9;
     --red-color: #CC9A9B;
+    --red-color-light: #EEC6C6;
+    --red-color-dark: #8A3E49;
     --disabled-color: #8E8E8E;
     --form-border-color: #EFF2F9;
     --form-text-color: #20252b2B;
+    --disabled-background-color: #D5D5D5;
+    --disabled-text-color: #8E8E8E;
+    --disabled-shadow-color: rgb(32, 37, 43, 0.13);
     --blue-shadow-color: rgba(106, 116, 201, 0.33);
+    --blue-shadow-color-medium: rgba(34, 34, 37, 0.15);
+    --blue-shadow-color-light: rgba(106, 116, 201, 0.1);
 }
 
 main {

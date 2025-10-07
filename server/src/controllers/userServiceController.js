@@ -1,5 +1,5 @@
 /* Import modules */
-import { UserService } from '../models/serviceModel.js';
+import { UserService } from '../models/userServiceModel.js';
 
 /* Controller to get all user services */
 const getAll = async (req, res) => {
