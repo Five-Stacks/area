@@ -28,6 +28,9 @@ app.use(cookieParser());
 /* Passport configuration */
 app.use(passportSetup());
 
+/* Initialize services */
+servicesSetup();
+
 /* Use auth routes */
 app.use('/api/auth', authRouter);
 app.use('/api/action', actionRouter);
@@ -39,9 +42,6 @@ app.use('/api/oauth', oauthRouter);
 
 /* 404 Middleware */
 app.use(notFound);
-
-/* Initialize services */
-servicesSetup();
 
 /* Export application */
 export default app;
