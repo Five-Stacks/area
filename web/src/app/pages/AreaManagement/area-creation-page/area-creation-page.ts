@@ -67,6 +67,11 @@ export class AreaCreationPage {
       name?: string;
       type?: string;
       urlImage?: string;
+      datas_form?: {
+        fieldId: number;
+        fieldName: string;
+        response: string;
+      }[];
     }[];
     active?: boolean;
   } = {
@@ -248,6 +253,7 @@ export class AreaCreationPage {
         name: this.reactionChosen,
         type: 'action',
         urlImage: `/assets/icons/${this.serviceChosen.toLowerCase()}.png`,
+        datas_form: this.ActionsResponses
       };
     }
     this.idEditingTrigger = -1;
@@ -370,8 +376,48 @@ export class AreaCreationPage {
     // Check all fields are filled and create the area int the backend
     if (!this.isFormValid())
       return;
-    this.area.active = true;
-    this.router.navigate(['/dashboard']);
-    // Call backend to create area
+
+    let areaNew : {
+      action_id:number,
+      reaction_id:number,
+      is_active:boolean,
+      config: any
+    } = {
+      is_active: true,
+      reaction_id: -1,
+      action_id: -1,
+      config: {
+        name: this.area.name,
+        trigger: {
+          name: this.area.trigger.name,
+          datas_form: this.area.trigger.datas_form,
+          reactionChosenId: this.area.trigger.actionChosenId
+        },
+        action: {
+          name: this.area.actions[0].name,
+          datas_form: this.area.actions[0].datas_form,
+        }
+      }
+    };
+
+    // Get reaction Id by name
+    this.apiService.get("reaction").subscribe(reactions => {
+      reactions.data.forEach((reaction: any) => {
+        if (reaction.name === this.area.trigger.name)
+          areaNew.reaction_id = reaction.id;
+      });
+
+      this.apiService.get("action").subscribe(actions => {
+        actions.data.forEach((action: any) => {
+          if (action.name === this.area.actions[0].name)
+            areaNew.action_id = action.id;
+        });
+
+        this.apiService.post('area', areaNew).subscribe((data : any) => {
+          this.router.navigate(['/dashboard']);
+        });
+      });
+
+    });
   }
 }

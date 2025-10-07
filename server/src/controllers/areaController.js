@@ -12,7 +12,7 @@ const add = async (req, res) => {
         res.status(201).json({ success: true, data: newArea });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ success: false, error: 'Internal Server Error' });
+        res.status(500).json({ success: false, error: 'Internal Server Error: ' + error });
     }
 };
 

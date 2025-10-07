@@ -3,12 +3,11 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ButtonFullComponent } from '../../../components/Buttons/button-component-full/button-component-full';
 import { TextFieldComponent } from '../../../components/Forms/text-field-component/text-field-component';
 import { TextFieldHideComponent } from '../../../components/Forms/text-field-hide-component/text-field-hide-component';
-import { GoogleConnectComponent } from '../../../components/Forms/google-connect-component/google-connect-component';
 import { AdminAuthService } from '../../../services/admin-auth.service';
 
 @Component({
   selector: 'app-sign-up-page',
-  imports: [ButtonFullComponent, TextFieldComponent, RouterLink, TextFieldHideComponent, GoogleConnectComponent],
+  imports: [ButtonFullComponent, TextFieldComponent, RouterLink, TextFieldHideComponent],
   templateUrl: './sign-up-page.html',
   styleUrls: ['./sign-up-page.css'],
 })
