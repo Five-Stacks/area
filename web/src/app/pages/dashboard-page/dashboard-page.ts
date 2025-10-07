@@ -110,6 +110,12 @@ export class DashboardPage implements OnInit {
     }
   }
 
+  deleteArea(areaId: number) {
+    this.apiService.delete(`area/${areaId}`).subscribe(() => {
+      this.listAreas = this.listAreas.filter(area => area.id !== areaId);
+    });
+  }
+
   ngOnInit() {
     this.apiService.get('area/').subscribe(data => {
       if (data) {
