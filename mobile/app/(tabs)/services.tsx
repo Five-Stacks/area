@@ -6,95 +6,70 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
+  Modal,
 } from "react-native";
+import { WebView } from "react-native-webview";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_URL } from "@/src/api/config";
 import Input from "@/src/components/global/textinput";
 
-type Service = {
-  id: string;
-  name: string;
-  icon: any;
-  connected: boolean;
-};
-
-const initialServices: Service[] = [
-  {
-    id: "google",
-    name: "Google",
-    icon: require("@/assets/images/google.png"),
-    connected: false,
-  },
-  {
-    id: "github",
-    name: "GitHub",
-    icon: require("@/assets/images/github.png"),
-    connected: false,
-  },
+const servicesData = [
+  { id: "google", name: "Google", icon: require("@/assets/images/google.png") },
+  { id: "github", name: "GitHub", icon: require("@/assets/images/github.png") },
   {
     id: "discord",
     name: "Discord",
     icon: require("@/assets/images/discord.png"),
-    connected: false,
   },
 ];
 
 export default function OAuthPage() {
-  const [services, setServices] = useState<Service[]>(initialServices);
+  const [services, setServices] = useState(
+    servicesData.map((s) => ({ ...s, connected: false })),
+  );
+  const [modalVisible, setModalVisible] = useState(false);
+  const [currentURL, setCurrentURL] = useState("");
 
   useEffect(() => {
-    async function fetchConnections() {
+    async function fetchStatus() {
       try {
-        const response = await fetch(`${API_URL}/api/oauth/status`);
+        const token = await AsyncStorage.getItem("token");
+        if (!token) return;
+
+        const response = await fetch(`${API_URL}/api/oauth/status`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         const data = await response.json();
 
         setServices((prev) =>
           prev.map((s) => ({ ...s, connected: !!data[s.id] })),
         );
       } catch (err) {
-        console.error("Error fetching OAuth status:", err);
+        console.error(err);
       }
     }
-    fetchConnections();
+    fetchStatus();
   }, []);
 
   const handleConnect = async (serviceId: string) => {
-    const service = services.find((s) => s.id === serviceId);
-    if (!service) return;
-
-    if (service.connected) {
-      alert(`Disconnecting from ${service.name}...`);
-      await fetch(`${API_URL}/api/oauth/disconnect/${serviceId}`, {
-        method: "POST",
-      });
-    } else {
-      alert(`Connecting to ${service.name}...`);
-      await fetch(`${API_URL}/api/oauth/connect/${serviceId}`, {
-        method: "GET",
-      });
-    }
-
-    setServices((prev) =>
-      prev.map((s) =>
-        s.id === serviceId ? { ...s, connected: !s.connected } : s,
-      ),
-    );
+    setCurrentURL(`${API_URL}/api/oauth/${serviceId}`);
+    setModalVisible(true);
   };
 
   return (
     <View style={styles.container}>
-    <Input
-      placeholder="Search services..."
-      style={styles.searchInput}
-      showSearchIcon={true}
-      iconColor="#d0d0d0"
-    />
+      <Input
+        placeholder="Search services..."
+        style={styles.searchInput}
+        showSearchIcon={true}
+        iconColor="#d0d0d0"
+      />
       <Text style={styles.title}>Services</Text>
 
       <FlatList
         data={services}
         keyExtractor={(item) => item.id}
         numColumns={2}
-        contentContainerStyle={styles.grid}
         columnWrapperStyle={styles.row}
         renderItem={({ item }) => (
           <TouchableOpacity
@@ -109,11 +84,48 @@ export default function OAuthPage() {
                 { backgroundColor: item.connected ? "#74b9a9" : "#6a74c9" },
               ]}
             >
-              {item.connected ? "Connected" : "Connect"}
+              {item.connected ? "Connected" : "Disconnected"}
             </Text>
           </TouchableOpacity>
         )}
       />
+
+      <Modal
+        visible={modalVisible}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalBackground}>
+          <View style={styles.modalContainer}>
+            <TouchableOpacity
+              style={styles.closeButton}
+              onPress={() => setModalVisible(false)}
+            >
+              <Text style={{ color: "#fff" }}>Close</Text>
+            </TouchableOpacity>
+
+            <WebView
+              source={{ uri: currentURL }}
+              style={{ flex: 1 }}
+              sharedCookiesEnabled={true}
+              onNavigationStateChange={(navState) => {
+                if (navState.url.includes("/callback")) {
+                  setModalVisible(false);
+
+                  setServices((prev) =>
+                    prev.map((s) =>
+                      s.id === currentURL.split("/").pop()
+                        ? { ...s, connected: true }
+                        : s,
+                    ),
+                  );
+                }
+              }}
+            />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -125,19 +137,8 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     backgroundColor: "#f5f5f5",
   },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 20,
-  },
-  grid: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  row: {
-    justifyContent: "space-around",
-    marginBottom: 15,
-  },
+  title: { fontSize: 24, fontWeight: "bold", marginBottom: 20 },
+  row: { justifyContent: "space-around", marginBottom: 15 },
   card: {
     width: 150,
     height: 150,
@@ -145,7 +146,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#ddd",
     borderRadius: 12,
-    backgroundColor: "#eff2f9",
+    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
     shadowColor: "#000",
@@ -153,26 +154,31 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 2,
   },
-  cardConnected: {
-    borderColor: "#4CAF50",
-    backgroundColor: "#E8F5E9",
-  },
-  icon: {
-    width: 40,
-    height: 40,
-    resizeMode: "contain",
-    marginBottom: 10,
-  },
-  serviceName: {
-    fontSize: 16,
-    fontWeight: "600",
-    marginBottom: 5,
-  },
+  cardConnected: { borderColor: "#4CAF50", backgroundColor: "#E8F5E9" },
+  icon: { width: 40, height: 40, resizeMode: "contain", marginBottom: 10 },
+  serviceName: { fontSize: 16, fontWeight: "600", marginBottom: 5 },
   status: {
     fontSize: 12,
-    padding: 4,
-    borderRadius: 8,
+    padding: 3,
+    borderRadius: 5,
     color: "#fff",
+  },
+  modalBackground: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    justifyContent: "center",
+    padding: 20,
+  },
+  modalContainer: {
+    backgroundColor: "#fff",
+    borderRadius: 12,
+    height: "80%",
+    overflow: "hidden",
+  },
+  closeButton: {
+    backgroundColor: "#007bff",
+    padding: 10,
+    alignItems: "center",
   },
   searchInput: {
     borderColor: "#eff2f9",

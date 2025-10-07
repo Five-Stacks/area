@@ -45,7 +45,11 @@ const Input: React.FC<InputProps> = ({
       )}
 
       <TextInput
-        style={[styles.inputStyle, style, showSearchIcon && { paddingLeft: 35 }]} // space for icon
+        style={[
+          styles.inputStyle,
+          style,
+          showSearchIcon && { paddingLeft: 35 },
+        ]} // space for icon
         value={value}
         onChangeText={onChangeText}
         placeholder={placeholder}
