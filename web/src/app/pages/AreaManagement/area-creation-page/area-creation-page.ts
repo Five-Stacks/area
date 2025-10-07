@@ -10,6 +10,7 @@ import { ButtonFullComponent } from '../../../components/Buttons/button-componen
 import { OptionsFieldComponent } from '../../../components/Forms/options-field-component/options-field-component';
 import { TextFieldComponent } from '../../../components/Forms/text-field-component/text-field-component';
 import { Router } from '@angular/router';
+import { ApiService } from '../../../services/api.service';
 
 @Component({
   selector: 'app-area-creation-page',
@@ -29,6 +30,7 @@ import { Router } from '@angular/router';
 })
 export class AreaCreationPage {
   private router = inject(Router);
+  private apiService = inject(ApiService);
 
   isEditing = false;
   idEditingTrigger = -1; // 1, 2, ... for actions
@@ -86,89 +88,7 @@ export class AreaCreationPage {
         }[]
       }
     } [];
-  }[] = [
-    {
-      name: 'Gmail',
-      reaction_list: [
-        {
-          name: 'New Email Received',
-          config: {
-            fields: [
-              {
-                id: 1,
-                title: 'Label',
-                name: 'Label',
-                input_field: { placeholder: 'inbox' }
-              }
-            ]
-          }
-        },
-        {
-          name: 'New Email From',
-          config: {
-            fields: [
-              {
-                id: 1,
-                title: 'Sender Email',
-                name: 'From',
-                input_field: { placeholder: 'sender@example.com' }
-              }
-            ]
-          }
-        },
-        {
-          name: 'New Spam Email',
-          config: {
-            fields: [
-              {
-                id: 1,
-                title: 'Sender Email',
-                name: 'From',
-                input_field: { placeholder: 'sender@example.com' }
-              }
-            ]
-          }
-        }
-      ]
-    },
-    {
-      name: 'Calendar',
-      reaction_list: [
-        {
-          name: 'Each Day',
-          config: {
-            fields: [
-              {
-                id: 1,
-                title: 'Time',
-                name: 'Time',
-                input_field: { placeholder: '14:00' }
-              }
-            ]
-          }
-        },
-        {
-          name: 'Each Week',
-          config: {
-            fields: [
-              {
-                id: 1,
-                title: 'Day of the Week',
-                name: 'Day',
-                options_field: { values: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] }
-              },
-              {
-                id: 2,
-                title: 'Time',
-                name: 'Time',
-                input_field: { placeholder: '14:00' }
-              }
-            ]
-          }
-        }
-      ]
-    }
-  ];
+  }[] = [];
 
   actions : {
     name: string;
@@ -289,6 +209,14 @@ export class AreaCreationPage {
       ]
     }
   ];
+
+  ngOnInit() {
+    this.apiService.get('services/').subscribe(data => {
+      if (data) {
+        this.reactions = data.data;
+      }
+    });
+  }
 
   isButtonClickable(): boolean {
     if (this.step === 1 && this.idEditingTrigger !== -1)

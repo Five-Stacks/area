@@ -1,3 +1,55 @@
 .logo:hover {
     cursor: pointer;
 }
+
+.header-dashboard {
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+    background: transparent;
+}
+
+.all-part {
+    padding: 20px;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 1fr 10fr;
+
+    .logo-container {
+        display: grid;
+        grid-template-columns: 1fr 10fr;
+    }
+}
+
+.header-dashboard img {
+    margin-bottom: -85px;
+    margin-top: -65px;
+    margin-left: -15px;
+    margin-right: 15px;
+    width: 200px;
+    height: 200px;
+}
+.header-dashboard h2 {
+    font-size: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 200px;
+    text-align: justify;
+}
+
+.close-btn {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    border-radius: 50%;
+    left: auto;
+    right: 20px;
+}
+
+.close-btn-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.3fr;
+    position: absolute;
+    top: auto;
+    right: 20px;
+}
