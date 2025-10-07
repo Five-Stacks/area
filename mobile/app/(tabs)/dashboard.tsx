@@ -1,22 +1,54 @@
-import SearchModule from "@/src/components/tabs/dashboard/searchModule";
+import SearchModule, {
+  SearchModuleValues,
+} from "@/src/components/tabs/dashboard/searchModule";
 import AreaCard from "@/src/components/tabs/dashboard/areaCard";
-import { FlatList, StyleSheet, View } from "react-native";
-import Area from "@/src/types/area";
+import {
+  ActivityIndicator,
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import { getAreas } from "@/src/api/area";
+import { useQuery } from "@tanstack/react-query";
+import { globalTextStyle } from "@/src/styles/global";
 
 export default function Dashboard() {
+  const {
+    data: areas,
+    isLoading,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["areas"],
+    queryFn: getAreas,
+  });
+
+  function updateListBySearch(searchValues: SearchModuleValues): void {
+    console.log(searchValues);
+    refetch();
+  }
+
   return (
     <View style={styles.container}>
-      <SearchModule
-        onQueryChange={(searchValues) => {
-          console.log(searchValues);
-        }}
-      />
-      <FlatList
-        data={AreaList}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => <AreaCard area={item} />}
-        contentContainerStyle={styles.content}
-      />
+      <SearchModule onQueryChange={updateListBySearch} />
+      {isLoading && (
+        <ActivityIndicator size={"large"} style={styles.activityIndicator} />
+      )}
+      {error && (
+        <Text style={[globalTextStyle.medium, styles.errorText]}>
+          Error fetching areas: {"\n"}
+          {error.message}
+        </Text>
+      )}
+      {!isLoading && areas && (
+        <FlatList
+          data={areas}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => <AreaCard area={item} />}
+          contentContainerStyle={styles.content}
+        />
+      )}
     </View>
   );
 }
@@ -29,61 +61,12 @@ const styles = StyleSheet.create({
     padding: 14,
     gap: 10,
   },
+  activityIndicator: {
+    marginTop: 25,
+  },
+  errorText: {
+    color: "red",
+    textAlign: "center",
+    margin: 25,
+  },
 });
-
-const AreaList: Area[] = [
-  {
-    id: 1,
-    user_id: 1,
-    action_id: 1,
-    reaction_ids: [1, 2, 3],
-    config: {},
-    is_active: true,
-    created_at: new Date(),
-  },
-  {
-    id: 2,
-    user_id: 1,
-    action_id: 2,
-    reaction_ids: [2, 3],
-    config: {},
-    is_active: true,
-    created_at: new Date(),
-  },
-  {
-    id: 3,
-    user_id: 1,
-    action_id: 3,
-    reaction_ids: [1, 3],
-    config: {},
-    is_active: false,
-    created_at: new Date(),
-  },
-  {
-    id: 4,
-    user_id: 1,
-    action_id: 1,
-    reaction_ids: [1, 2, 3],
-    config: {},
-    is_active: true,
-    created_at: new Date(),
-  },
-  {
-    id: 5,
-    user_id: 1,
-    action_id: 2,
-    reaction_ids: [2, 3],
-    config: {},
-    is_active: true,
-    created_at: new Date(),
-  },
-  {
-    id: 6,
-    user_id: 1,
-    action_id: 3,
-    reaction_ids: [1, 3],
-    config: {},
-    is_active: true,
-    created_at: new Date(),
-  },
-];

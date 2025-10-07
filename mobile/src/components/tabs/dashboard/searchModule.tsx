@@ -4,7 +4,7 @@ import SearchBar from "@/src/components/global/searchBar";
 import { globalColors } from "@/src/styles/global";
 import StylizedDropdown, { StylizedDropdownItem } from "../../global/dropdowns";
 
-type SearchModuleValues = {
+export type SearchModuleValues = {
   query?: string;
   service?: string;
   status?: boolean;
