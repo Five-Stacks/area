@@ -22,17 +22,17 @@ export const adminGuard: CanActivateFn = (route, state) => {
       // Check if user is authenticated but not admin
       if (adminAuthService.isAuthenticated()) {
         // User is logged in but not admin - redirect to error page
-        router.navigate(['/error'], { 
-          queryParams: { 
-            message: 'Access denied. Admin privileges required.' 
+        router.navigate(['/error'], {
+          queryParams: {
+            message: 'Access denied. Admin privileges required.'
           }
         });
         return false;
       } else {
         // User is not authenticated - redirect to sign-in
-        router.navigate(['/sign-in'], { 
-          queryParams: { 
-            returnUrl: state.url 
+        router.navigate(['/sign-in'], {
+          queryParams: {
+            returnUrl: state.url
           }
         });
         return false;

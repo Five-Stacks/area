@@ -12,7 +12,7 @@ export class AdminAuthService {
 
 
   isAdmin(): Observable<boolean> {
-    return this.http.get<{ isAdmin: boolean }>(`${this.apiUrl}/auth/is-admin`, { withCredentials: true }).pipe(
+    return this.http.get<{ isAdmin: boolean }>(`${this.apiUrl}/auth/isAdmin`, { withCredentials: true }).pipe(
       map(response => response.isAdmin),
       catchError(error => {
         console.error('Error checking admin status:', error);
@@ -22,8 +22,8 @@ export class AdminAuthService {
   }
 
   isAuthenticated(): Observable<boolean> {
-    return this.http.get<{ isAuthenticated: boolean }>(`${this.apiUrl}/auth/is-authenticated`, { withCredentials: true }).pipe(
-      map(response => response.isAuthenticated),
+    return this.http.get<{ connected: boolean }>(`${this.apiUrl}/auth/isConnected`, { withCredentials: true }).pipe(
+      map(response => response.connected),
       catchError(error => {
         console.error('Error checking authentication status:', error);
         return of(false);
