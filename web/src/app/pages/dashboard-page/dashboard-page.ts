@@ -119,22 +119,20 @@ export class DashboardPage implements OnInit {
   ngOnInit() {
     this.apiService.get('area/').subscribe(data => {
       if (data) {
-        console.log(data.data);
 
         // Initialize listApps based on the unique app names from listAreas
         const appSet = new Set<string>();
         data.data.forEach((area : any) => {
-          console.log(area);
           this.listAreas.push({
             id: area.id,
             name: area.config.name,
             AppsIcons: area.config ? [
               ...area.config.trigger ? [{
-                name: area.config.trigger.name,
+                name: area.config.trigger.service_name,
                 url: `/assets/icons/${area.config.trigger.service_name.toLowerCase()}.png`
               }] : [],
               ...area.config.action ? [{
-                name: area.config.action.name,
+                name: area.config.action.service_name,
                 url: `/assets/icons/${area.config.action.service_name.toLowerCase()}.png`
               }] : []
             ] : [],
@@ -142,6 +140,8 @@ export class DashboardPage implements OnInit {
             selected: false,
             isToggling: false
           });
+          appSet.add(area.config.trigger.service_name);
+          appSet.add(area.config.action.service_name);
         });
         this.listApps = ['All Apps', ...Array.from(appSet)];
       }
