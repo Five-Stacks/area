@@ -74,37 +74,11 @@ export class AreaCreationPage {
     actions: [{id: 1}],
   };
 
-  reactions : {
-    name: string;
-    reaction_list: {
-      name: string;
-      config: {
-        fields: {
-          id: number;
-          title: string;
-          name: string;
-          options_field?: { values: string[]; };
-          input_field?: { placeholder: string; };
-        }[]
-      }
-    } [];
-  }[] = [];
-
-  actions : {
-    name: string;
-    description?: string;
-    config?: {
-      fields: {
-        id: number;
-        title: string;
-        name: string;
-        options_field?: { values: string[]; };
-        input_field?: { placeholder: string; };
-      }[]
-    }
-  }[] = [];
-
+  optionsServicesIds : number[] = [];
+  optionsServicesTrigger : string[] = [];
+  optionsServicesActions : string[] = [];
   optionsServices : string[] = [];
+
   serviceChosen  = '';
   reactionsList : string[] = [];
   reactionChosen  = '';
@@ -118,7 +92,26 @@ export class AreaCreationPage {
 
   ngOnInit() {
     this.apiService.get('service').subscribe(services => {
-      this.optionsServices = ['Choose Service', ...services.data.map((service: any) => service.name)];
+      this.optionsServicesIds = [...services.data.map((service: any) => service.id)];
+      this.optionsServicesTrigger = ['Choose Service'];
+      this.optionsServicesActions = ['Choose Service'];
+
+      services.data.forEach((service: any) => {
+        this.apiService.get('action').subscribe(reactions => {
+          reactions.data.forEach((element : any) => {
+            if (element.service_id == service.id && !this.optionsServicesActions.includes(service.name)) {
+              this.optionsServicesActions.push(service.name);
+            }
+          });
+        });
+        this.apiService.get('reaction').subscribe(actions => {
+          actions.data.forEach((element : any) => {
+            if (element.service_id == service.id && !this.optionsServicesTrigger.includes(service.name)) {
+              this.optionsServicesTrigger.push(service.name);
+            }
+          });
+        });
+      });
     });
   }
 
@@ -141,7 +134,6 @@ export class AreaCreationPage {
   }
 
   openPopupName() {
-    console.log('Opening name popup');
     let popup = document.querySelector('.popup-overlay');
     if (popup)
       popup.classList.remove('disabled-popup');
@@ -174,6 +166,7 @@ export class AreaCreationPage {
       this.step = 1;
       this.isEditing = true;
       this.idEditingAction = actionId;
+      this.optionsServices = this.optionsServicesActions;
     }
   }
 
@@ -189,6 +182,7 @@ export class AreaCreationPage {
       this.step = 1;
       this.isEditing = true;
       this.idEditingTrigger = triggerId;
+      this.optionsServices = this.optionsServicesTrigger;
     }
   }
 
@@ -242,7 +236,7 @@ export class AreaCreationPage {
     this.area.name = this.nameArea;
     if (this.idEditingTrigger !== -1) {
       this.area.trigger = {
-        name: this.reactions.find(reaction => reaction.name === this.serviceChosen)?.reaction_list.find(reaction => reaction.name === this.reactionChosen)?.name,
+        name: this.reactionChosen,
         urlImage: `/assets/icons/${this.serviceChosen.toLowerCase()}.png`,
         serviceChosen: this.serviceChosen,
         actionChosenId: this.actionChosen,
@@ -251,7 +245,7 @@ export class AreaCreationPage {
     } else {
       this.area.actions[this.idEditingAction - 1] = {
         id: this.idEditingAction,
-        name: this.reactions.find(reaction => reaction.name === this.serviceChosen)?.reaction_list.find(reaction => reaction.name === this.reactionChosen)?.name,
+        name: this.reactionChosen,
         type: 'action',
         urlImage: `/assets/icons/${this.serviceChosen.toLowerCase()}.png`,
       };
@@ -276,14 +270,11 @@ export class AreaCreationPage {
           id = service.id;
       });
       if (id === -1) return;
-      this.apiService.get(`action/service/${id}`).subscribe(actions => {
-        console.log(actions.data);
+      this.apiService.get(`reaction/service/${id}`).subscribe(actions => {
         this.reactionsList = ['Choose Action'];
         actions.data.forEach((element: { name: string, id: number, service_id: number, description?: string, config?: any }) => {
-          console.log(element);
           this.reactionsList.push(element.name);
         });
-        console.log(this.reactionsList);
       });
     });
   }
@@ -296,8 +287,7 @@ export class AreaCreationPage {
           id = service.id;
       });
       if (id === -1) return;
-      console.log(this.reactionChosen);
-      this.apiService.get(`action/service/${id}`).subscribe(actions => {
+      this.apiService.get(`reaction/service/${id}`).subscribe(actions => {
         const config : any = actions.data.find((action: any) => action.name === this.reactionChosen);
         this.actionsList = config ? config.config.fields : [];
         this.ActionsResponses = new Array(this.actionsList.length).fill(null).map((_, index) => ({
@@ -328,14 +318,11 @@ export class AreaCreationPage {
           id = service.id;
       });
       if (id === -1) return;
-      this.apiService.get(`reaction/service/${id}`).subscribe(actions => {
-        console.log(actions.data);
+      this.apiService.get(`action/service/${id}`).subscribe(actions => {
         this.reactionsList = ['Choose Reaction'];
         actions.data.forEach((element: { name: string, id: number, service_id: number, description?: string, config?: any }) => {
-          console.log(element);
           this.reactionsList.push(element.name);
         });
-        console.log(this.reactionsList);
       });
     });
   }
@@ -348,8 +335,7 @@ export class AreaCreationPage {
           id = service.id;
       });
       if (id === -1) return;
-      console.log(this.reactionChosen);
-      this.apiService.get(`reaction/service/${id}`).subscribe(actions => {
+      this.apiService.get(`action/service/${id}`).subscribe(actions => {
         const config : any = actions.data.find((action: any) => action.name === this.reactionChosen);
         this.actionsList = config ? config.config.fields : [];
         this.ActionsResponses = new Array(this.actionsList.length).fill(null).map((_, index) => ({

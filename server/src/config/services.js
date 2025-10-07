@@ -15,8 +15,9 @@ const MICROSOFT_DESC = "Automate Microsoft 365 (Outlook, OneDrive, Teams). Trigg
 // Function to initialize services in the database
 async function servicesSetup() {
     const services = [
-        { name: 'github', description: GITHUB_DESC },
+        { name: 'timer', description: "Timer management"},
         { name: 'google', description: GOOGLE_DESC },
+        { name: 'github', description: GITHUB_DESC },
         { name: 'discord', description: DISCORD_DESC },
         { name: 'spotify', description: SPOTIFY_DESC },
         { name: 'twitter', description: TWITTER_DESC },
