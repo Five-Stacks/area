@@ -1,10 +1,13 @@
 import { Stack, SplashScreen } from "expo-router";
 import { useFonts } from "expo-font";
 import { useEffect } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "react-native-screens";
 
 // Prevent the splash screen from auto loading before all elements are loaded
 SplashScreen.preventAutoHideAsync();
+
+const queryClient = new QueryClient();
 
 export default function RootLayout() {
   let isConnected: boolean = true;
@@ -29,12 +32,14 @@ export default function RootLayout() {
   }, [error]);
 
   return (
-    <Stack>
-      {isConnected ? (
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      ) : (
-        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-      )}
-    </Stack>
+    <QueryClientProvider client={queryClient}>
+      <Stack>
+        {isConnected ? (
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        ) : (
+          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+        )}
+      </Stack>
+    </QueryClientProvider>
   );
 }
