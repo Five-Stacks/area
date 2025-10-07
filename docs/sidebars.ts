@@ -67,6 +67,22 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'category',
+          label: 'Services',
+          items: [
+            'api/service/getAll',
+            'api/service/getById',
+          ]
+        },
+        {
+          type: 'category',
+          label: 'User Services',
+          items: [
+            'api/userService/getAll',
+            'api/userService/getById',
+          ]
+        },
+        {
+          type: 'category',
           label: 'Action',
           items: [
             'api/action/getAll',
