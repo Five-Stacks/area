@@ -24,32 +24,34 @@ export default function Index() {
     checkToken();
   }, []);
 
-  // ✅ Handle login
   async function handleLogin() {
     try {
-      const response = await fetch("http://10.84.107.233:8080/api/auth/mobile-login", {
+      const response = await fetch("http://10.84.107.195:8080/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
-
+  
       const data = await response.json();
-
+      console.log("LOGIN RESPONSE:", data);
+  
       if (!response.ok) {
-        alert(data.error || "Login failed");
+        alert(data.error || `Login failed (${response.status})`);
         return;
       }
-
-      // Store token in AsyncStorage
-      await AsyncStorage.setItem("token", data.token);
-
-      // Navigate to home
+  
+      if (!data.success) {
+        alert("No token received from server.");
+        return;
+      }
+  
       router.replace("/home");
     } catch (error) {
       console.error("Login error:", error);
       alert("Something went wrong. Try again.");
     }
   }
+  
 
   return (
     <View
