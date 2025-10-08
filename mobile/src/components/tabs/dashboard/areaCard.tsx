@@ -1,10 +1,13 @@
-import React, { JSX } from "react";
+import React from "react";
 import { StyleSheet, View, TouchableHighlight, Image } from "react-native";
 import Checkbox from "../../global/checkmark";
 import Toggle from "../../global/toggle";
 import { globalColors } from "@/src/styles/global";
 import Area from "@/src/types/area";
+import { deleteAreaById } from "@/src/api/area";
+import { QueryClient, useMutation } from "@tanstack/react-query";
 
+import dotdotdotIcon from "@/assets/images/dotdotdotIcon.png";
 import clockIcon from "@/assets/images/clockIcon.png";
 import githubLogo from "@/assets/images/githubLogo.png";
 import googleLogo from "@/assets/images/googleLogo.png";
@@ -12,21 +15,33 @@ import discordLogo from "@/assets/images/discordLogo.png";
 import spotifyLogo from "@/assets/images/SpotifyLogo.png";
 import twitterLogo from "@/assets/images/TwitterLogo.png";
 import microsoftLogo from "@/assets/images/MicrosoftLogo.png";
-import dotdotdotIcon from "@/assets/images/dotdotdotIcon.png";
+import AreaActionsDropdown from "./AreaActionsDropdown";
 
 type AreaCardProps = {
   area: Area;
+  areaQuery: QueryClient;
 };
 
-const AreaCard: React.FC<AreaCardProps> = ({ area }) => {
+const AreaCard: React.FC<AreaCardProps> = ({ area, areaQuery }) => {
+  const deleteAreaMutation = useMutation({
+    mutationFn: (id: number) => deleteAreaById(id),
+    onSuccess: () => {
+      areaQuery.invalidateQueries({ queryKey: ["areas"] });
+    },
+  });
+
   return (
     <TouchableHighlight style={styles.container} underlayColor="#333">
       <View style={styles.content}>
-        <View style={styles.topRow}>
+        <View style={styles.row}>
           <Checkbox label={`AREA #${area.id}`} />
+          <AreaActionsDropdown
+            areaId={area.id}
+            onDelete={() => deleteAreaMutation.mutate(area.id)}
+          />
         </View>
 
-        <View style={styles.bottomRow}>
+        <View style={styles.row}>
           <View style={styles.bottomLeft}>
             <Image
               style={styles.serviceIcon}
@@ -58,7 +73,7 @@ const AreaCard: React.FC<AreaCardProps> = ({ area }) => {
               }
             })} */}
           </View>
-          <View style={styles.bottomRight}>
+          <View>
             <Toggle width={65} value={area.is_active} />
           </View>
         </View>
@@ -78,12 +93,9 @@ const styles = StyleSheet.create({
     padding: 12,
     justifyContent: "space-between",
   },
-  topRow: {
-    alignItems: "flex-start", // top right
-  },
-  bottomRow: {
+  row: {
     flexDirection: "row",
-    justifyContent: "space-between", // bottom left & right
+    justifyContent: "space-between",
     alignItems: "flex-end",
   },
   bottomLeft: {
@@ -94,7 +106,10 @@ const styles = StyleSheet.create({
     gap: 3,
     borderColor: globalColors.darkGray,
   },
-  bottomRight: {},
+  icon: {
+    width: 20,
+    height: 20,
+  },
   serviceIcon: {
     padding: 3,
     width: 20,
