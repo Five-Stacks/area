@@ -9,7 +9,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import GoogleLogo from "@/assets/images/google.png";
 import AreaLogo from "@/assets/images/logo.png";
 
-import { API_URL } from "@/src/config";
+import { API_URL } from "@/src/api/config";
 
 export default function Index() {
   const [email, setEmail] = useState("");
