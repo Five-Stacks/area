@@ -1,4 +1,8 @@
-type Area = {
+import { Action } from "./action";
+import { Reaction } from "./reaction";
+import { Service } from "./service";
+
+export type Area = {
   id: number;
   user_id: number;
   action_id: number;
@@ -8,4 +12,10 @@ type Area = {
   created_at: Date;
 };
 
-export default Area;
+/** Same as Area type but with all of it's actions, reaction & services inside */
+export type EnrichedArea = Area & {
+  action: Action;
+  reaction: Reaction;
+  actionService: Service;
+  reactionService: Service;
+};

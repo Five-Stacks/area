@@ -3,7 +3,7 @@ import { StyleSheet, View, TouchableHighlight, Image } from "react-native";
 import Checkbox from "../../global/checkmark";
 import Toggle from "../../global/toggle";
 import { globalColors } from "@/src/styles/global";
-import Area from "@/src/types/area";
+import { Area } from "@/src/types/area";
 import { deleteAreaById } from "@/src/api/area";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
@@ -16,12 +16,19 @@ import spotifyLogo from "@/assets/images/SpotifyLogo.png";
 import twitterLogo from "@/assets/images/TwitterLogo.png";
 import microsoftLogo from "@/assets/images/MicrosoftLogo.png";
 import AreaActionsDropdown from "./AreaActionsDropdown";
+import { Service } from "@/src/types/service";
 
 type AreaCardProps = {
   area: Area;
+  actionService: Service;
+  reactionService: Service;
 };
 
-const AreaCard: React.FC<AreaCardProps> = ({ area }) => {
+const AreaCard: React.FC<AreaCardProps> = ({
+  area,
+  actionService,
+  reactionService,
+}) => {
   const queryClient = useQueryClient();
 
   const deleteAreaMutation = useMutation({
@@ -46,11 +53,11 @@ const AreaCard: React.FC<AreaCardProps> = ({ area }) => {
           <View style={styles.bottomLeft}>
             <Image
               style={styles.serviceIcon}
-              source={matchServiceToIcon(area.action_id)}
+              source={matchServiceToIcon(actionService.name)}
             />
             <Image
               style={styles.serviceIcon}
-              source={matchServiceToIcon(area.reaction_id)}
+              source={matchServiceToIcon(reactionService.name)}
             />
             {/* {area.reaction_id.map((value, index) => {
               if (index < 2) {
@@ -119,21 +126,21 @@ const styles = StyleSheet.create({
   },
 });
 
-function matchServiceToIcon(id: number): any {
-  switch (id) {
-    case 1:
+function matchServiceToIcon(name: string): any {
+  switch (name) {
+    case "timer":
       return clockIcon;
-    case 2:
+    case "google":
       return googleLogo;
-    case 3:
+    case "github":
       return githubLogo;
-    case 4:
+    case "discord":
       return discordLogo;
-    case 5:
+    case "spotify":
       return spotifyLogo;
-    case 6:
+    case "twitter":
       return twitterLogo;
-    case 7:
+    case "microsoft":
       return microsoftLogo;
     default:
       return dotdotdotIcon;

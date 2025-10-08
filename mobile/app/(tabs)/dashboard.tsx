@@ -1,25 +1,26 @@
-import SearchModule, {
-  SearchModuleValues,
-} from "@/src/components/tabs/dashboard/searchModule";
+import SearchModule from "@/src/components/tabs/dashboard/searchModule";
 import AreaCard from "@/src/components/tabs/dashboard/areaCard";
 import { View, FlatList, StyleSheet } from "react-native";
 import ApiStateHandler from "@/src/components/global/apiStateHandler";
-import { useState } from "react";
-import { useAreasWithRelations } from "@/src/hooks/useAreasWithRelations";
+import { useFilteredAreas } from "@/src/hooks/useFilteredAreas";
 
 export default function Dashboard() {
-  const [searchValues, setSearchValues] = useState<SearchModuleValues>();
-  const { filteredAreas, isLoading, error } = useAreasWithRelations({
-    filters: searchValues,
-  });
+  const { filteredAreas, setFilters, isLoading, error } = useFilteredAreas();
+
   return (
     <View style={styles.container}>
-      <SearchModule onQueryChange={setSearchValues} />
+      <SearchModule onQueryChange={setFilters} />
       <ApiStateHandler isLoading={isLoading} error={error}>
         <FlatList
           data={filteredAreas}
           keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => <AreaCard area={item} />}
+          renderItem={({ item }) => (
+            <AreaCard
+              area={item}
+              actionService={item.actionService}
+              reactionService={item.reactionService}
+            />
+          )}
           contentContainerStyle={styles.content}
         />
       </ApiStateHandler>
