@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Dropdown } from "react-native-element-dropdown";
 import { StyleSheet, StyleProp, ViewStyle } from "react-native";
-import { globalColors } from "@/src/styles/global";
 
 export type StylizedDropdownItem = {
   label: string;

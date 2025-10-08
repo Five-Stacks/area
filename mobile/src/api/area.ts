@@ -23,4 +23,3 @@ export async function deleteAreaById(id: number) {
 
   return await res.json(); // { success: true, message: "Area deleted successfully" }
 }
-
