@@ -17,3 +17,10 @@ button:hover {
     cursor: pointer;
     background-color: var(--blue-hover-color);
 }
+
+button:disabled {
+    background-color: var(--disabled-background-color);
+    cursor: not-allowed;
+    box-shadow: 2px 6px 9px 0px var(--disabled-shadow-color);
+    color: var(--disabled-text-color);
+}

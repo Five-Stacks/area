@@ -32,6 +32,14 @@ const User = sequelize.define('User', {
         type: DataTypes.BOOLEAN,
         defaultValue: false
     },
+    login_service_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+            model: 'services',
+            key: 'id'
+        }
+    },
     created_at: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW

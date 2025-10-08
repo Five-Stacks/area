@@ -19,9 +19,8 @@ export class ButtonFullComponent {
   onClickHandler() {
     if (this.disabled) return;
 
-    if (this.onClick) {
+    if (this.onClick)
       this.onClick();
-    }
 
     if (this.path) {
       this.router.navigate([this.path]);

@@ -7,6 +7,7 @@ CREATE TABLE users (
     role VARCHAR(50) DEFAULT 'user',
     profile_picture_url TEXT,
     is_verified BOOLEAN DEFAULT FALSE,
+    login_service_id INTEGER NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

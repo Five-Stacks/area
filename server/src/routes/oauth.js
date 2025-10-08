@@ -67,7 +67,7 @@ router.get('/', (req, res) => {
 
 // Google OAuth routes
 
-router.get('/google', verifyToken, (req, res, next) => {
+router.get('/google', (req, res, next) => {
   const redirectTo = req.body?.redirect_to || req.query?.redirect_to;
   const options = { ...googleAuthOptions };
   const state = redirectTo ? buildState(redirectTo) : undefined;
@@ -76,13 +76,20 @@ router.get('/google', verifyToken, (req, res, next) => {
 });
 
 router.get('/google/callback',
-  verifyToken,
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
     const redirectTo = extractRedirectFromState(req);
     res.redirect(redirectTo);
   }
 );
+
+router.get('/google/login', (req, res, next) => {
+  const redirectTo = req.body?.redirect_to || req.query?.redirect_to;
+  const options = { ...googleAuthOptions };
+  const state = redirectTo ? buildState(redirectTo) : undefined;
+  if (state) options.state = state;
+  passport.authenticate('google', options)(req, res, next);
+});
 
 // Discord OAuth routes
 

@@ -21,6 +21,9 @@ input:focus {
     outline: none;
     border-color: var(--line-color);
 }
+input:hover {
+    border-color: var(--line-color);
+}
 
 .hint-text {
     color: var(--red-color);

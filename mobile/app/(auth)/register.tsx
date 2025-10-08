@@ -6,7 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import StylizedButton from "@/src/components/global/button";
 import Input from "@/src/components/global/textinput";
 import AreaLogo from "@/assets/images/logo.png";
-import { API_URL } from "@/src/config";
+import { API_URL } from "@/src/api/config";
 
 export default function Register() {
   const [name, setName] = useState("");

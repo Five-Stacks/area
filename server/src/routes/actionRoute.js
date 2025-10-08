@@ -9,6 +9,7 @@ const router = express.Router();
 /* Define routes */
 router.get('/', verifyToken, actionController.getAll);
 router.get('/:id', verifyToken, actionController.getById);
+router.get('/service/:id', verifyToken, actionController.getByServiceId);
 
 /* Export router */
 export default router;

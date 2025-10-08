@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AreaEditionPage } from './area-edition-page';
+import { OptionsFieldComponent } from './options-field-component';
 
-describe('AreaEditionPage', () => {
-  let component: AreaEditionPage;
-  let fixture: ComponentFixture<AreaEditionPage>;
+describe('OptionsFieldComponent', () => {
+  let component: OptionsFieldComponent;
+  let fixture: ComponentFixture<OptionsFieldComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AreaEditionPage]
+      imports: [OptionsFieldComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AreaEditionPage);
+    fixture = TestBed.createComponent(OptionsFieldComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
