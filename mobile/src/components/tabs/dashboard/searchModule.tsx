@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import SearchBar from "@/src/components/global/searchBar";
 import { globalColors } from "@/src/styles/global";
@@ -15,11 +15,20 @@ type SearchModuleProps = {
 };
 
 const SearchModule: React.FC<SearchModuleProps> = ({ onQueryChange }) => {
-  const [, setSearchBuffer] = useState<SearchModuleValues>({
+  const [searchBuffer, setSearchBuffer] = useState<SearchModuleValues>({
     query: "",
     service: undefined,
     status: undefined,
   });
+
+  // Use to slow down refresh rate when typing
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      onQueryChange(searchBuffer);
+    }, 300); // wait 300 ms after last refresh
+
+    return () => clearTimeout(handler);
+  }, [onQueryChange, searchBuffer]);
 
   return (
     <View style={styles.container}>
@@ -27,7 +36,7 @@ const SearchModule: React.FC<SearchModuleProps> = ({ onQueryChange }) => {
         onSearch={(query: any) => {
           setSearchBuffer((prev: any) => {
             const updated = { ...prev, query };
-            onQueryChange(updated);
+            setSearchBuffer(updated);
             return updated;
           });
         }}
@@ -40,7 +49,7 @@ const SearchModule: React.FC<SearchModuleProps> = ({ onQueryChange }) => {
           onValueChange={(selectedService: string) => {
             setSearchBuffer((prev: any) => {
               let updated = { ...prev, service: selectedService };
-              onQueryChange(updated);
+              setSearchBuffer(updated);
               return updated;
             });
           }}
@@ -65,7 +74,7 @@ const SearchModule: React.FC<SearchModuleProps> = ({ onQueryChange }) => {
                 default:
                   updated = prev;
               }
-              onQueryChange(updated);
+              setSearchBuffer(updated);
               return updated;
             });
           }}
