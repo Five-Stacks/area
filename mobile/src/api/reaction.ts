@@ -8,8 +8,8 @@ export async function getReaction(): Promise<Reaction[]> {
   return json.data;
 }
 
-export async function getReactionById(id: string): Promise<Reaction> {
-  const res = await fetch(`${API_BASE_URL}/reation/${id}`);
+export async function getReactionById(id: number): Promise<Reaction> {
+  const res = await fetch(`${API_BASE_URL}/reaction/${id}`);
   if (!res.ok) {
     if (res.status === 404) throw new Error("Action not found");
     throw new Error("Failed to fetch reaction");
@@ -19,7 +19,7 @@ export async function getReactionById(id: string): Promise<Reaction> {
 }
 
 export async function getReactionByServiceId(
-  serviceId: string,
+  serviceId: number,
 ): Promise<Reaction[]> {
   const res = await fetch(`${API_BASE_URL}/reaction/service/${serviceId}`);
   if (!res.ok) throw new Error("Failed to fetch reaction by service ID");

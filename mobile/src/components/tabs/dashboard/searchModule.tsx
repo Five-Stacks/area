@@ -39,10 +39,7 @@ const SearchModule: React.FC<SearchModuleProps> = ({ onQueryChange }) => {
           style={styles.dropdown}
           onValueChange={(selectedService: string) => {
             setSearchBuffer((prev: any) => {
-              let updated;
-              if (selectedService === "all")
-                updated = { ...prev, service: undefined };
-              else updated = { ...prev, service: selectedService };
+              let updated = { ...prev, service: selectedService };
               onQueryChange(updated);
               return updated;
             });
@@ -111,9 +108,10 @@ const stateDropdownData: StylizedDropdownItem[] = [
 
 // Placeholders
 const servicesDropdownData: StylizedDropdownItem[] = [
-  { label: "All services", value: "all" },
-  { label: "Github", value: "github" },
+  { label: "All services", value: undefined },
+  { label: "Timer", value: "timer" },
   { label: "Google", value: "google" },
+  { label: "Github", value: "github" },
   { label: "Discord", value: "discord" },
   { label: "Spotify", value: "spotify" },
   { label: "Twitter", value: "twitter" },

@@ -8,7 +8,7 @@ export async function getActions(): Promise<Action[]> {
   return json.data;
 }
 
-export async function getActionById(id: string): Promise<Action> {
+export async function getActionById(id: number): Promise<Action> {
   const res = await fetch(`${API_BASE_URL}/action/${id}`);
   if (!res.ok) {
     if (res.status === 404) throw new Error("Action not found");
@@ -19,7 +19,7 @@ export async function getActionById(id: string): Promise<Action> {
 }
 
 export async function getActionsByServiceId(
-  serviceId: string,
+  serviceId: number,
 ): Promise<Action[]> {
   const res = await fetch(`${API_BASE_URL}/action/service/${serviceId}`);
   if (!res.ok) throw new Error("Failed to fetch actions by service ID");

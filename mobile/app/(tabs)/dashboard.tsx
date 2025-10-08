@@ -3,33 +3,21 @@ import SearchModule, {
 } from "@/src/components/tabs/dashboard/searchModule";
 import AreaCard from "@/src/components/tabs/dashboard/areaCard";
 import { View, FlatList, StyleSheet } from "react-native";
-import { getAreas } from "@/src/api/area";
-import { useQuery } from "@tanstack/react-query";
 import ApiStateHandler from "@/src/components/global/apiStateHandler";
+import { useState } from "react";
+import { useAreasWithRelations } from "@/src/hooks/useAreasWithRelations";
 
 export default function Dashboard() {
-  const {
-    data: areas,
-    isLoading,
-    error,
-    refetch,
-  } = useQuery({
-    queryKey: ["areas"],
-    queryFn: getAreas,
+  const [searchValues, setSearchValues] = useState<SearchModuleValues>();
+  const { filteredAreas, isLoading, error } = useAreasWithRelations({
+    filters: searchValues,
   });
-
-  function updateListBySearch(searchValues: SearchModuleValues): void {
-    console.log(searchValues);
-    console.log(areas);
-    refetch();
-  }
-
   return (
     <View style={styles.container}>
-      <SearchModule onQueryChange={updateListBySearch} />
+      <SearchModule onQueryChange={setSearchValues} />
       <ApiStateHandler isLoading={isLoading} error={error}>
         <FlatList
-          data={areas}
+          data={filteredAreas}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => <AreaCard area={item} />}
           contentContainerStyle={styles.content}

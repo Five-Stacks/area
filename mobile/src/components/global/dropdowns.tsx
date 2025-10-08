@@ -4,7 +4,7 @@ import { StyleSheet, StyleProp, ViewStyle } from "react-native";
 
 export type StylizedDropdownItem = {
   label: string;
-  value: string;
+  value: any;
 };
 
 type StylizedDropdownProps = {

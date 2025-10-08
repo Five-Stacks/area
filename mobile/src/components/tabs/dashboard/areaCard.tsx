@@ -5,7 +5,7 @@ import Toggle from "../../global/toggle";
 import { globalColors } from "@/src/styles/global";
 import Area from "@/src/types/area";
 import { deleteAreaById } from "@/src/api/area";
-import { QueryClient, useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import dotdotdotIcon from "@/assets/images/dotdotdotIcon.png";
 import clockIcon from "@/assets/images/clockIcon.png";
@@ -19,14 +19,15 @@ import AreaActionsDropdown from "./AreaActionsDropdown";
 
 type AreaCardProps = {
   area: Area;
-  areaQuery: QueryClient;
 };
 
-const AreaCard: React.FC<AreaCardProps> = ({ area, areaQuery }) => {
+const AreaCard: React.FC<AreaCardProps> = ({ area }) => {
+  const queryClient = useQueryClient();
+
   const deleteAreaMutation = useMutation({
     mutationFn: (id: number) => deleteAreaById(id),
     onSuccess: () => {
-      areaQuery.invalidateQueries({ queryKey: ["areas"] });
+      queryClient.invalidateQueries({ queryKey: ["areas"] });
     },
   });
 
@@ -45,11 +46,11 @@ const AreaCard: React.FC<AreaCardProps> = ({ area, areaQuery }) => {
           <View style={styles.bottomLeft}>
             <Image
               style={styles.serviceIcon}
-              source={matchServiceToIcon(area.reaction_id)}
+              source={matchServiceToIcon(area.action_id)}
             />
             <Image
               style={styles.serviceIcon}
-              source={matchServiceToIcon(area.action_id)}
+              source={matchServiceToIcon(area.reaction_id)}
             />
             {/* {area.reaction_id.map((value, index) => {
               if (index < 2) {
@@ -121,19 +122,19 @@ const styles = StyleSheet.create({
 function matchServiceToIcon(id: number): any {
   switch (id) {
     case 1:
-      return googleLogo;
-    case 2:
-      return githubLogo;
-    case 3:
-      return discordLogo;
-    case 4:
-      return spotifyLogo;
-    case 5:
-      return twitterLogo;
-    case 6:
-      return microsoftLogo;
-    case 7:
       return clockIcon;
+    case 2:
+      return googleLogo;
+    case 3:
+      return githubLogo;
+    case 4:
+      return discordLogo;
+    case 5:
+      return spotifyLogo;
+    case 6:
+      return twitterLogo;
+    case 7:
+      return microsoftLogo;
     default:
       return dotdotdotIcon;
   }
