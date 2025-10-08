@@ -35,11 +35,11 @@ app.use(passportSetup());
 servicesSetup();
 
 /* Start background executeArea service (sends mail every 5s) */
-try {
-	executeArea.start();
-} catch (e) {
-	console.warn('Failed to start executeArea:', e && e.message ? e.message : e);
-}
+// try {
+// 	executeArea.start();
+// } catch (e) {
+// 	console.warn('Failed to start executeArea:', e && e.message ? e.message : e);
+// }
 
 /* Use auth routes */
 app.use('/api/auth', authRouter);
