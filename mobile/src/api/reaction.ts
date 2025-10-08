@@ -1,5 +1,5 @@
 import API_BASE_URL from "./serverAdress";
-import Reaction from "../types/reaction";
+import { Reaction } from "../types/reaction";
 
 export async function getReaction(): Promise<Reaction[]> {
   const res = await fetch(`${API_BASE_URL}/reaction`);

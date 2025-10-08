@@ -1,9 +1,25 @@
-import Area from "@/src/types/area";
 import API_BASE_URL from "./serverAdress";
+import { Area } from "@/src/types/area";
 
 export async function getAreas(): Promise<Area[]> {
   const res = await fetch(`${API_BASE_URL}/area`);
   if (!res.ok) throw new Error("Failed to fetch areas");
+  const json = await res.json();
+  return json.data;
+}
+
+export async function updateAreaById(area: Area) {
+  const res = await fetch(`${API_BASE_URL}/area/${area.id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(area),
+  });
+  if (!res.ok) {
+    if (res.status === 404) throw new Error("Area not found");
+    throw new Error("Failed to update area");
+  }
   const json = await res.json();
   return json.data;
 }
@@ -21,5 +37,5 @@ export async function deleteAreaById(id: number) {
     throw new Error(`Failed to delete area: ${errText}`);
   }
 
-  return await res.json(); // { success: true, message: "Area deleted successfully" }
+  return await res.json();
 }

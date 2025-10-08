@@ -1,5 +1,5 @@
-import Action from "@/src/types/action";
 import API_BASE_URL from "./serverAdress";
+import { Action } from "@/src/types/action";
 
 export async function getActions(): Promise<Action[]> {
   const res = await fetch(`${API_BASE_URL}/action`);
