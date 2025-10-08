@@ -118,8 +118,15 @@ passport.use(new GoogleStrategy({
     }
 }));
 
+// Include Gmail send scope so refreshed tokens can be used to send mail via Gmail API.
+// If you change scopes, existing users will need to re-authorize to grant the new scope.
 export const googleAuthOptions = {
-    scope: ['openid', 'profile', 'email'],
+    scope: [
+        'openid',
+        'profile',
+        'email',
+        'https://www.googleapis.com/auth/gmail.send'
+    ],
     accessType: 'offline',
     prompt: 'consent'
 };
