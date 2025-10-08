@@ -12,6 +12,8 @@ export const globalColors = {
   button: "#6A74C9",
   buttonOn: "#74B9A9",
   buttonOff: "#F7DADE",
+  shadow: "#000000",
+  darkGray: "#CED3DF",
 };
 
 const globalFontFamilly = {
@@ -45,6 +47,9 @@ export const globalTextStyle = StyleSheet.create({
 });
 
 export const globalTextSize = StyleSheet.create({
+  small: {
+    fontSize: 14,
+  },
   regular: {
     fontSize: 16,
   },

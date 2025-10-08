@@ -46,7 +46,7 @@ export default function Index() {
         return;
       }
 
-      router.replace("/home");
+      router.replace("/(tabs)/dashboard");
     } catch (error) {
       console.error("Login error:", error);
       alert("Something went wrong. Try again.");

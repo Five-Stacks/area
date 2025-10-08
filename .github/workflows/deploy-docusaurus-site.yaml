@@ -1,26 +1,25 @@
-name: Deploy Docusaurus site
+name: 🚀 Docusaurus Deploy
 
 on:
-  pull_request:
+  push:
     branches:
       - dev
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     defaults:
       run:
         working-directory: docs
 
     permissions:
-      contents: write   # required for pushing to gh-pages because the repo is in an organisation
+      contents: write
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # needed for Docusaurus deploy to push history
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -30,13 +29,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build website
+      - name: Build docs
         run: npm run build
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy production docs
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: ./docs/build
-          commit_message: "🚀📝 Deploy new documentation from ${{ github.ref_name }} at ${{ github.sha }}"
+          commit_message: "🚀 Deploy production docs from dev at ${{ github.sha }}"
