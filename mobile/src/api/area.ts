@@ -8,7 +8,7 @@ export async function getAreas(): Promise<Area[]> {
   return json.data;
 }
 
-export async function updateAreaById(area: Area) {
+export async function updateArea(area: Area) {
   const res = await fetch(`${API_BASE_URL}/area/${area.id}`, {
     method: "PUT",
     headers: {

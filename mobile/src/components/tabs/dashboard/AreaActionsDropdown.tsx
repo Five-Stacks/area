@@ -14,10 +14,9 @@ type DropdownItem = {
   icon: any;
 };
 interface AreaActionsDropdownProps {
-  areaId: number;
-  onEdit?: (id: number) => void;
-  onRename?: (id: number) => void;
-  onDelete?: (id: number) => void;
+  onEdit?: () => void;
+  onRename?: () => void;
+  onDelete?: () => void;
   style?: ViewStyle;
 }
 
@@ -28,7 +27,6 @@ const dropdownItems: DropdownItem[] = [
 ];
 
 const AreaActionsDropdown: React.FC<AreaActionsDropdownProps> = ({
-  areaId,
   onEdit,
   onRename,
   onDelete,
@@ -42,10 +40,10 @@ const AreaActionsDropdown: React.FC<AreaActionsDropdownProps> = ({
 
     switch (item.value) {
       case "edit":
-        onEdit?.(areaId);
+        onEdit?.();
         break;
       case "rename":
-        onRename?.(areaId);
+        onRename?.();
         break;
       case "delete":
         Alert.alert(
@@ -56,7 +54,7 @@ const AreaActionsDropdown: React.FC<AreaActionsDropdownProps> = ({
             {
               text: "Delete",
               style: "destructive",
-              onPress: () => onDelete?.(areaId),
+              onPress: () => onDelete?.(),
             },
           ],
         );
