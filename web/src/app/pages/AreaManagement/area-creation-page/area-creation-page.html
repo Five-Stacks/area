@@ -106,7 +106,7 @@
                             <app-options-field-component
                                 *ngIf="action.options_field"
                                 [label]="action.name"
-                                [options]="action.options_field.values"
+                                [options]="optionsFieldValues(action)"
                                 [selectedOption]="ActionsResponses[action.id - 1].response"
                                 (valueChange)="ActionsResponses[action.id - 1].response = $event"
                             ></app-options-field-component>

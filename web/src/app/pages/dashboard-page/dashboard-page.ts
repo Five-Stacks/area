@@ -7,6 +7,18 @@ import { TextFieldComponent } from '../../components/Forms/text-field-component/
 import { OptionsFieldComponent } from '../../components/Forms/options-field-component/options-field-component';
 import { ApiService } from '../../services/api.service';
 
+interface ApiResponse<T = unknown> { data: T }
+
+interface AreaApiResponse {
+  id: number;
+  config: {
+    name: string;
+    trigger?: { service_name: string };
+    action?: { service_name: string };
+  };
+  is_active: boolean;
+}
+
 @Component({
   selector: 'app-dashboard-page',
   imports: [
@@ -123,12 +135,13 @@ export class DashboardPage implements OnInit {
   }
 
   ngOnInit() {
-    this.apiService.get('area/').subscribe(data => {
-      if (data) {
+    this.apiService.get<ApiResponse<AreaApiResponse[]>>('area/').subscribe((resp: ApiResponse<AreaApiResponse[]> | null) => {
+      if (!resp) return;
 
-        // Initialize listApps based on the unique app names from listAreas
-        const appSet = new Set<string>();
-        data.data.forEach((area : any) => {
+      // Initialize listApps based on the unique app names from listAreas
+      const appSet = new Set<string>();
+
+      resp.data.forEach((area: AreaApiResponse) => {
           this.listAreas.push({
             id: area.id,
             name: area.config.name,
@@ -146,11 +159,12 @@ export class DashboardPage implements OnInit {
             selected: false,
             isToggling: false
           });
-          appSet.add(area.config.trigger.service_name);
-          appSet.add(area.config.action.service_name);
+          if (area.config.trigger)
+            appSet.add(area.config.trigger.service_name);
+          if (area.config.action)
+            appSet.add(area.config.action.service_name);
         });
         this.listApps = ['All Apps', ...Array.from(appSet)];
-      }
     });
 
     // Initialize listApps based on the unique app names from listAreas

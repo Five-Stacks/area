@@ -10,38 +10,38 @@ export class ApiService {
     private apiUrl = 'http://localhost:8080/api'; // Adjust based on your server config
     private http: HttpClient = inject(HttpClient);
 
-    get(endpoint: string): Observable<any> {
-        return this.http.get<any>(`${this.apiUrl}/${endpoint}`, { withCredentials: true }).pipe(
-            catchError(error => {
+    get<T = unknown>(endpoint: string): Observable<T> {
+        return this.http.get<T>(`${this.apiUrl}/${endpoint}`, { withCredentials: true }).pipe(
+            catchError((error: unknown) => {
                 console.error(`GET ${endpoint} error:`, error);
-                return of(null);
+                return of(null as unknown as T);
             })
         );
     }
 
-    post(endpoint: string, data: any): Observable<any> {
-        return this.http.post<any>(`${this.apiUrl}/${endpoint}`, data, { withCredentials: true }).pipe(
-            catchError(error => {
+    post<T = unknown>(endpoint: string, data: unknown): Observable<T> {
+        return this.http.post<T>(`${this.apiUrl}/${endpoint}`, data, { withCredentials: true }).pipe(
+            catchError((error: unknown) => {
                 console.error(`POST ${endpoint} error:`, error);
-                return of(null);
+                return of(null as unknown as T);
             })
         );
     }
 
-    put(endpoint: string, data: any): Observable<any> {
-        return this.http.put<any>(`${this.apiUrl}/${endpoint}`, data, { withCredentials: true }).pipe(
-            catchError(error => {
+    put<T = unknown>(endpoint: string, data: unknown): Observable<T> {
+        return this.http.put<T>(`${this.apiUrl}/${endpoint}`, data, { withCredentials: true }).pipe(
+            catchError((error: unknown) => {
                 console.error(`PUT ${endpoint} error:`, error);
-                return of(null);
+                return of(null as unknown as T);
             })
         );
     }
 
-    delete(endpoint: string): Observable<any> {
-        return this.http.delete<any>(`${this.apiUrl}/${endpoint}`, { withCredentials: true }).pipe(
-            catchError(error => {
+    delete<T = unknown>(endpoint: string): Observable<T> {
+        return this.http.delete<T>(`${this.apiUrl}/${endpoint}`, { withCredentials: true }).pipe(
+            catchError((error: unknown) => {
                 console.error(`DELETE ${endpoint} error:`, error);
-                return of(null);
+                return of(null as unknown as T);
             })
         );
     }
