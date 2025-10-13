@@ -173,6 +173,10 @@ export class AreaCreationPage {
       this.isEditing = true;
       this.idEditingAction = actionId;
       this.optionsServices = this.optionsServicesActions;
+      if (this.area.actions[actionId - 1].serviceChosen)
+        this.serviceChosen = this.area.actions[actionId - 1].serviceChosen!;
+      else
+        this.serviceChosen = '';
     }
   }
 
@@ -189,6 +193,10 @@ export class AreaCreationPage {
       this.isEditing = true;
       this.idEditingTrigger = triggerId;
       this.optionsServices = this.optionsServicesTrigger;
+      if (this.area.trigger.serviceChosen)
+        this.serviceChosen = this.area.trigger.serviceChosen;
+      else
+        this.serviceChosen = '';
     }
   }
 
@@ -283,6 +291,9 @@ export class AreaCreationPage {
         actions.data.forEach((element: { name: string, id: number, service_id: number, description?: string, config?: any }) => {
           this.reactionsList.push(element.name);
         });
+        // If already chosen, keep it
+        if (this.area.trigger.name && this.reactionsList.includes(this.area.trigger.name))
+          this.reactionChosen = this.area.trigger.name;
       });
     });
   }
@@ -308,7 +319,6 @@ export class AreaCreationPage {
     });
   }
 
-
   onNewStepTrigger = (step: number) => {
     if (step == 2) {
       this.onStepTwoTrigger();
@@ -331,6 +341,14 @@ export class AreaCreationPage {
         actions.data.forEach((element: { name: string, id: number, service_id: number, description?: string, config?: any }) => {
           this.reactionsList.push(element.name);
         });
+        // If already chosen, keep it
+        if (this.idEditingTrigger !== -1) {
+          if (this.area.trigger.name && this.reactionsList.includes(this.area.trigger.name))
+            this.reactionChosen = this.area.trigger.name;
+        } else if (this.idEditingAction !== -1) {
+          if (this.area.actions[this.idEditingAction - 1].name && this.reactionsList.includes(this.area.actions[this.idEditingAction - 1].name!))
+            this.reactionChosen = this.area.actions[this.idEditingAction - 1].name!;
+        }
       });
     });
   }
