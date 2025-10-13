@@ -79,7 +79,7 @@
                         <app-options-field-component
                             [label]="'Options'"
                             [options]="optionsServices"
-                            [selectedOption]="''"
+                            [selectedOption]="serviceChosen"
                             (valueChange)="serviceChosen = $event"
                         ></app-options-field-component>
                     </div>
@@ -88,7 +88,7 @@
                         <app-options-field-component
                             [label]="'Reaction'"
                             [options]="reactionsList"
-                            [selectedOption]="''"
+                            [selectedOption]="reactionChosen"
                             (valueChange)="reactionChosen = $event"
                         ></app-options-field-component>
                     </div>
@@ -99,12 +99,13 @@
                                 *ngIf="action.options_field"
                                 [label]="action.name"
                                 [options]="action.options_field.values"
-                                [selectedOption]="''"
+                                [selectedOption]="ActionsResponses[action.id - 1].response"
                                 (valueChange)="ActionsResponses[action.id - 1].response = $event"
                             ></app-options-field-component>
                             <app-text-field-component
                                 *ngIf="action.input_field"
                                 [label]="action.name"
+                                [value]="ActionsResponses[action.id - 1].response"
                                 (valueChange)="ActionsResponses[action.id - 1].response = $event"
                             ></app-text-field-component>
                         </div>
