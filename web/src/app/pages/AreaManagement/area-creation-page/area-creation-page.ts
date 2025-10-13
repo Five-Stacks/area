@@ -210,6 +210,8 @@ export class AreaCreationPage {
       // If the action with the given idArea is not found, insert first
       this.area.actions.unshift(newAction);
     }
+    for (let i = 0; i < this.area.actions.length; i++)
+      this.area.actions[i].id = i + 1;
   }
 
   previousStep = () => {
@@ -298,6 +300,22 @@ export class AreaCreationPage {
     });
   }
 
+  getResponseByIndexTrigger = (index: number): string => {
+    if (this.serviceChosen != this.area.trigger.serviceChosen || this.reactionChosen != this.area.trigger.name)
+      return '';
+    if (this.area.trigger.datas_form && this.area.trigger.datas_form[index])
+      return this.area.trigger.datas_form[index].response;
+    return '';
+  }
+
+  getResponseByIndexAction = (index: number): string => {
+    if (this.serviceChosen != this.area.actions[this.idEditingAction - 1].serviceChosen || this.reactionChosen != this.area.actions[this.idEditingAction - 1].name)
+      return '';
+    if (this.area.actions[this.idEditingAction - 1].datas_form && this.area.actions[this.idEditingAction - 1].datas_form![index])
+      return this.area.actions[this.idEditingAction - 1].datas_form![index].response;
+    return '';
+  }
+
   onStepThreeTrigger = () => {
     this.apiService.get("service").subscribe(services => {
       let id = -1;
@@ -310,7 +328,7 @@ export class AreaCreationPage {
         const config : any = actions.data.find((action: any) => action.name === this.reactionChosen);
         this.actionsList = config ? config.config.fields : [];
         this.ActionsResponses = new Array(this.actionsList.length).fill(null).map((_, index) => ({
-          response: '',
+          response: this.getResponseByIndexTrigger(index),
           fieldId: this.actionsList[index].id,
           fieldName: this.actionsList[index].name
         }));
@@ -365,7 +383,7 @@ export class AreaCreationPage {
         const config : any = actions.data.find((action: any) => action.name === this.reactionChosen);
         this.actionsList = config ? config.config.fields : [];
         this.ActionsResponses = new Array(this.actionsList.length).fill(null).map((_, index) => ({
-          response: '',
+          response: this.getResponseByIndexAction(index),
           fieldId: this.actionsList[index].id,
           fieldName: this.actionsList[index].name
         }));
