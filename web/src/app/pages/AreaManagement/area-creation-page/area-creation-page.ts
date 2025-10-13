@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { HeaderDashBoardComponent } from '../../../components/Headers/header-component-dashboard/header-component-dashboard';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -11,6 +11,15 @@ import { OptionsFieldComponent } from '../../../components/Forms/options-field-c
 import { TextFieldComponent } from '../../../components/Forms/text-field-component/text-field-component';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
+
+interface ActionConfig {
+  id: number;
+  input_field?: {placeholder: string};
+  options_field?: {label: string; value: string}[];
+  name: string;
+  title: string;
+}
+
 
 @Component({
   selector: 'app-area-creation-page',
@@ -28,7 +37,7 @@ import { ApiService } from '../../../services/api.service';
   templateUrl: './area-creation-page.html',
   styleUrl: './area-creation-page.css'
 })
-export class AreaCreationPage {
+export class AreaCreationPage implements OnInit {
   private router = inject(Router);
   private apiService = inject(ApiService);
 
@@ -89,7 +98,7 @@ export class AreaCreationPage {
   reactionsList : string[] = [];
   reactionChosen  = '';
   actionChosen  = -1;
-  actionsList : any[] = [];
+  actionsList : ActionConfig[] = [];
   ActionsResponses: {
       response: string;
       fieldId: number;
@@ -140,13 +149,13 @@ export class AreaCreationPage {
   }
 
   openPopupName() {
-    let popup = document.querySelector('.popup-overlay');
+    const popup = document.querySelector('.popup-overlay');
     if (popup)
       popup.classList.remove('disabled-popup');
   }
 
   closePopupName() {
-    let popup = document.querySelector('.popup-overlay');
+    const popup = document.querySelector('.popup-overlay');
     if (popup)
       popup.classList.add('disabled-popup');
   }
@@ -432,7 +441,7 @@ export class AreaCreationPage {
     if (!this.isFormValid())
       return;
 
-    let areaNew : {
+    const areaNew : {
       action_id:number,
       reaction_id:number,
       is_active:boolean,
@@ -470,7 +479,7 @@ export class AreaCreationPage {
             areaNew.action_id = action.id;
         });
 
-        this.apiService.post('area', areaNew).subscribe((data : any) => {
+        this.apiService.post('area', areaNew).subscribe(() => {
           this.router.navigate(['/dashboard']);
         });
       });
