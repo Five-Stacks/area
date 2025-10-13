@@ -257,9 +257,17 @@ img {
     justify-content: center;
     align-items: center;
     svg {
+        transition: fill 0.3s, transform 0.3s, opacity 0.3s;
         margin-right: 4px;
         fill: var(--blue-color);
         opacity: 0.8;
+    }
+}
+.add-component:hover {
+    cursor: pointer;
+    svg {
+        opacity: 1;
+        transform: scale(1.2);
     }
 }
 
