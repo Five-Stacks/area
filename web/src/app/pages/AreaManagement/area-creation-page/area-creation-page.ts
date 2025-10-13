@@ -224,6 +224,23 @@ export class AreaCreationPage {
     }
   }
 
+  moveAction(actionId: number, direction: number) {
+    const index = this.area.actions.findIndex(action => action.id === actionId);
+    if (index === -1) return; // Action not found
+    const newIndex = index + direction;
+    if (newIndex < 0 || newIndex >= this.area.actions.length) return; // Out of bounds
+
+    // Swap the actions
+    const temp = this.area.actions[index];
+    this.area.actions[index] = this.area.actions[newIndex];
+    this.area.actions[newIndex] = temp;
+
+    // Reassign IDs to maintain sequential order
+    this.area.actions.forEach((action, idx) => {
+      action.id = idx + 1;
+    });
+  }
+
   nextStep = () => {
     if (this.isButtonClickable() === false) return;
     if (this.step < 4) {
