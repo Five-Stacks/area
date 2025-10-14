@@ -148,20 +148,23 @@ export class DashboardPage implements OnInit {
           this.listAreas.push({
             id: area.id,
             name: area.config.name,
-            AppsIcons: area.config ? [
-              ...area.config.trigger ? [{
-                name: area.config.trigger.service_name,
-                url: `/assets/icons/${area.config.trigger.service_name.toLowerCase()}.png`
-              }] : [],
-              ...area.config.action ? [{
-                name: area.config.action.service_name,
-                url: `/assets/icons/${area.config.action.service_name.toLowerCase()}.png`
-              }] : []
-            ] : [],
+            AppsIcons: [],
             active: area.is_active,
             selected: false,
             isToggling: false
           });
+          let Icons = [];
+          if (area.config.trigger)
+            Icons.push(area.config.trigger.service_name);
+          if (area.config.action) {
+            if (!Icons.includes(area.config.action.service_name))
+              Icons.push(area.config.action.service_name);
+          }
+
+          this.listAreas[this.listAreas.length - 1].AppsIcons = Icons.map(name => ({
+            name,
+            url: `/assets/icons/${name.toLowerCase()}.png`
+          }));
           if (area.config.trigger)
             appSet.add(area.config.trigger.service_name);
           if (area.config.action)
