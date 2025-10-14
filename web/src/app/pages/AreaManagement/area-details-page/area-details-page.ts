@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { HeaderDashBoardComponent } from '../../../components/Headers/header-component-dashboard/header-component-dashboard';
 import { CommonModule } from '@angular/common';
+import { ApiService } from '../../../services/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-area-details-page',
@@ -9,43 +11,43 @@ import { CommonModule } from '@angular/common';
   styleUrl: './area-details-page.css'
 })
 export class AreaDetailsPage {
+  apiService = inject(ApiService);
+  router = inject(Router);
+
   isEditing = false;
   idEditing = -1; // 1, 2, ... for actions
   nameArea = '';
 
   area : {
-    id: number;
-    name: string;
-    description: string;
+    name?: string;
+    description?: string;
     trigger: {
-      name: string;
-      type: string;
-      urlImage: string;
+      name?: string;
+      urlImage?: string;
+      serviceChosen?: string;
+      actionChosenId?: number;
+      datas_form?: {
+        fieldId: number;
+        fieldName: string;
+        response: string;
+      }[];
     };
     actions: {
       id: number;
-      name: string;
-      type: string;
-      urlImage: string;
+      name?: string;
+      type?: string;
+      serviceChosen?: string;
+      urlImage?: string;
+      datas_form?: {
+        fieldId: number;
+        fieldName: string;
+        response: string;
+      }[];
     }[];
-    active: boolean;
+    active?: boolean;
   } = {
-    id: 1,
-    name: 'Area 1',
-    description: 'This is a description of Area 1. It can be quite long and detailed, providing all the necessary information about the area.',
-    trigger: {
-      name: 'Every day at 8:00 AM',
-      type: 'Google',
-      urlImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png'
-    },
-    actions: [
-      { id: 1, name: 'Post Tweet', type: 'icon', urlImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/X_icon.svg/1200px-X_icon.svg.png' },
-      { id: 2, name: 'Send Email', type: 'icon', urlImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Mail_%28iOS%29.svg/1200px-Mail_%28iOS%29.svg.png' },
-      { id: 3, name: 'Turn on Light', type: 'icon', urlImage: 'https://cdn-icons-png.flaticon.com/512/69/69172.png' },
-      { id: 4, name: 'Log to Console', type: 'icon', urlImage: 'https://images.icon-icons.com/2248/PNG/512/console_icon_138727.png' },
-      { id: 5, name: 'Create Calendar Event', type: 'icon', urlImage: 'https://icons.veryicon.com/png/o/miscellaneous/face-monochrome-icon/calendar-249.png' }
-    ],
-    active: true
+    trigger: {},
+    actions: [{id: 1}],
   };
 
   editTrigger(areaId: number) {
@@ -56,5 +58,31 @@ export class AreaDetailsPage {
       this.isEditing = true;
       this.idEditing = areaId;
     }
+  }
+
+  ngOnInit() {
+    const areaId = window.location.pathname.split('/').pop();
+    this.apiService.get(`area/${areaId}`).subscribe((data : any) => {
+      console.log(data.data);
+      if (!data || !data.data || !data.data.config)
+        this.router.navigate(['/dashboard']);
+      this.area.name = data.data.config.name;
+      this.area.description = data.data.config.description;
+      this.area.active = data.data.is_active;
+      this.area.trigger = {
+        name: data.data.config.trigger?.name,
+        serviceChosen: data.data.config.trigger?.service_name,
+        urlImage: `/assets/icons/${data.data.config.trigger.service_name.toLowerCase()}.png`,
+        datas_form: data.data.config.trigger?.datas_form
+      };
+      this.area.actions = [{
+        name: data.data.config.action?.name,
+        id: 1,
+        type: data.data.config.action?.type,
+        serviceChosen: data.data.config.action?.service_name,
+        urlImage: `/assets/icons/${data.data.config.action.service_name.toLowerCase()}.png`,
+        datas_form: data.data.config.action?.datas_form
+      }];
+    });
   }
 }
