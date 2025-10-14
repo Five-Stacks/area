@@ -127,6 +127,11 @@
         margin-bottom: 0;
     }
 }
+.area-card:hover {
+    cursor: pointer;
+    transform: translateY(-3px);
+    box-shadow: 0px 8px 4px 0px var(--blue-shadow-color-light);
+}
 
 .button-area-selection {
     border: 2px solid var(--form-border-color);

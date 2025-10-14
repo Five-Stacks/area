@@ -78,7 +78,8 @@ export class DashboardPage implements OnInit {
     return area.AppsIcons;
   }
 
-  selectArea(areaId: number) {
+  selectArea(areaId: number, event: Event) {
+    event.stopPropagation();
     this.listAreas = this.listAreas.map(area => ({
       ...area,
       selected: area.id === areaId ? !area.selected : area.selected
@@ -108,7 +109,8 @@ export class DashboardPage implements OnInit {
     return filtered;
   }
 
-  changeStatus(areaId: number) {
+  changeStatus(areaId: number, event: Event) {
+    event.stopPropagation();
     const area = this.listAreas.find(a => a.id === areaId);
     if (area && !area.isToggling) {
       area.isToggling = true;
@@ -128,7 +130,8 @@ export class DashboardPage implements OnInit {
     }
   }
 
-  deleteArea(areaId: number) {
+  deleteArea(areaId: number, event: Event) {
+    event.stopPropagation();
     this.apiService.delete(`area/${areaId}`).subscribe(() => {
       this.listAreas = this.listAreas.filter(area => area.id !== areaId);
     });
@@ -175,5 +178,9 @@ export class DashboardPage implements OnInit {
       });
     });
     this.listApps = ['All Apps', ...Array.from(appSet)];
+  }
+
+  goToArea(areaId: number) {
+    this.router.navigate(['/area/details', areaId]);
   }
 }
