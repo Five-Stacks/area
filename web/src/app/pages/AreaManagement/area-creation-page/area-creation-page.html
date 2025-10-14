@@ -160,8 +160,8 @@
 <!-- Name popup modal -->
 <div class="popup-overlay disabled-popup">
     <div class="popup-modal">
-        <h3>Enter AREA name</h3>
-        <p>Please provide a name for your AREA before creating it.</p>
+        <h3>Change AREA name ?</h3>
+        <p>Please provide a name for your AREA or keep previous one.</p>
         <app-text-field-component
             [label]="'Area Name'"
             (valueChange)="nameArea = $event"
@@ -169,7 +169,7 @@
 
         <div class="popup-actions">
             <button class="btn-cancel" (click)="closePopupName()">Cancel</button>
-            <button class="btn-create" (click)="confirmPopupName()" [disabled]="nameArea.length < 1 || !nameArea">Create</button>
+            <button class="btn-create" (click)="confirmPopupName()" [disabled]="nameArea.length < 1 || !nameArea">Save</button>
         </div>
     </div>
 </div>

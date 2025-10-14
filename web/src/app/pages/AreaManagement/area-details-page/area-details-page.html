@@ -84,7 +84,7 @@
                 <div class="form-section">
                     <div class="form-fields" *ngIf="step === 1">
                         <h4>Step 1: Select Service</h4>
-                        <app-options-field-component
+                        <app-options-field-component id="serviceField" #serviceField
                             [label]="'Options'"
                             [options]="optionsServices"
                             [selectedOption]="serviceChosen"

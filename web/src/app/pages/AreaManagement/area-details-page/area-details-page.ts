@@ -4,7 +4,7 @@ import { ApiService } from '../../../services/api.service';
 import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatStepperModule } from '@angular/material/stepper';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -95,6 +95,7 @@ export class AreaDetailsPage implements OnInit {
   });
 
   area : {
+    id: number;
     name?: string;
     description?: string;
     trigger: {
@@ -122,6 +123,7 @@ export class AreaDetailsPage implements OnInit {
     }[];
     active?: boolean;
   } = {
+    id : -1,
     trigger: {},
     actions: [{id: 1}],
   };
@@ -142,12 +144,15 @@ export class AreaDetailsPage implements OnInit {
       fieldName: string;
   }[] = [];
 
+  @ViewChild('serviceField') serviceFieldComponent?: OptionsFieldComponent;
+
   ngOnInit() {
     const areaId = window.location.pathname.split('/').pop();
     this.apiService.get(`area/${areaId}`).subscribe((data : any) => {
       console.log(data.data);
       if (!data || !data.data || !data.data.config)
         this.router.navigate(['/dashboard']);
+      this.area.id = data.data.id;
       this.area.name = data.data.config.name;
       this.area.description = data.data.config.description;
       this.area.active = data.data.is_active;
@@ -274,6 +279,15 @@ export class AreaDetailsPage implements OnInit {
         this.serviceChosen = this.area.trigger.serviceChosen;
       else
         this.serviceChosen = '';
+
+      // Prefer calling the child component instance via ViewChild
+      if (this.serviceFieldComponent && typeof this.serviceFieldComponent.setSelectedOption === 'function') {
+        try {
+          this.serviceFieldComponent.setSelectedOption(this.serviceChosen);
+        } catch (e) {
+          console.error('serviceFieldComponent.setSelectedOption failed', e);
+        }
+      }
     }
   }
 
@@ -566,7 +580,8 @@ export class AreaDetailsPage implements OnInit {
           if (action.name === this.area.actions[0].name) areaNew.action_id = action.id;
         });
 
-        this.apiService.post('area', areaNew).subscribe(() => {
+        if (areaNew.action_id === -1 || areaNew.reaction_id === -1) return;
+        this.apiService.put('area/' + this.area.id, areaNew).subscribe(() => {
           this.router.navigate(['/dashboard']);
         });
       });
