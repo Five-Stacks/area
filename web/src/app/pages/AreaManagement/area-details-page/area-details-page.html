@@ -1,37 +1,176 @@
-<app-area-header-dashboard [title]="area.name ? area.name : 'Unnamed Area'"></app-area-header-dashboard>
+<app-area-header-dashboard [title]="area.name ? area.name : 'Unknown Area'"></app-area-header-dashboard>
 <div class="area-details-container">
-    <div class="bottom">
+    <div class="bottom" [class.disabled]="isEditing === false">
         <div class="left-part">
-            <div class="trigger-area">
-                <div class="action-details" >
-                <hr />
-                    <img [src]="area.trigger.urlImage" alt="Trigger Icon" class="trigger-icon" />
-                    <h3>{{ area.trigger.name ? area.trigger.name! : 'Unnamed Trigger' }}</h3>
-                    <div class="edit-button">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>
+            <div>
+                <div class="trigger-area" (click)="editTrigger(0)" tabindex="0" (keydown.enter)="editTrigger(0)" [class.trigger-edit]="idEditingTrigger === 0">
+                    <div class="action-details">
+                        <hr class="lastHr"/>
+                        <hr class="secondHr"/>
+                        <img [src]="area.trigger!.urlImage" alt="Trigger Icon" class="trigger-icon" *ngIf="area.trigger?.urlImage" />
+                        <svg *ngIf="!area.trigger?.urlImage" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M200-160v-280h-80v-80h240v80h-80v280h-80Zm0-440v-200h80v200h-80Zm160 0v-80h80v-120h80v120h80v80H360Zm80 440v-360h80v360h-80Zm240 0v-120h-80v-80h240v80h-80v120h-80Zm0-280v-360h80v360h-80Z"/></svg>
+                        <h3 [class.toConfigure]="!area.trigger.name">{{ area.trigger.name ? area.trigger.name : 'Select Trigger' }}</h3>
                     </div>
+                    <div class="status-text"><h4>TRIGGER</h4></div>
                 </div>
-                <div class="status-text"><h4>TRIGGER</h4></div>
+                <div class="add-component" (click)="addNewEmptyActionAfter(-1)" tabindex="0" (keydown.enter)="addNewEmptyActionAfter(-1)">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
+                </div>
             </div>
-            <div *ngFor="let action of area.actions" class="action-card" (click)="editTrigger(action.id)" tabindex="0" (keydown.enter)="editTrigger(action.id)">
-                <hr *ngIf="action !== area.actions[area.actions.length - 1]" />
-                <div class="action-details">
-                    <img [src]="action.urlImage" alt="Action Icon" class="action-icon" />
-                    <h3>{{ action.name ? action.name : 'Unnamed Action' }}</h3>
-                    <div class="edit-button">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>
+            <div *ngFor="let action of area.actions">
+                <div class="action-card" (click)="editAction(action.id)" tabindex="0" (keydown.enter)="editAction(action.id)" [class.action-edit]="idEditingAction === action.id">
+                    <div class="action-details">
+                        <hr class="lastHr"/>
+                        <hr class="secondHr" *ngIf="action.id !== area.actions[area.actions.length - 1]?.id"/>
+                        <img [src]="action.urlImage" alt="Action Icon" class="action-icon" *ngIf="action.urlImage" />
+                        <svg *ngIf="!action.urlImage" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M200-160v-280h-80v-80h240v80h-80v280h-80Zm0-440v-200h80v200h-80Zm160 0v-80h80v-120h80v120h80v80H360Zm80 440v-360h80v360h-80Zm240 0v-120h-80v-80h240v80h-80v120h-80Zm0-280v-360h80v360h-80Z"/></svg>
+                        <h3 [class.toConfigure]="!action.name">{{ action.name ? action.name : 'Select Action' }}</h3>
+                        <div class="delete-button" (click)="deleteAction(action.id); $event.stopPropagation()" tabindex="0" (keydown.enter)="deleteAction(action.id); $event.stopPropagation()">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
+                        </div>
+                    </div>
+                <div class="switch-buttons">
+                    <div class="status-text"><h4>ACTION</h4></div>
+                    <div class="move-button" (click)="moveAction(action.id, 1); $event.stopPropagation()" tabindex="0" (keydown.enter)="moveAction(action.id, 1); $event.stopPropagation()">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+                    </div>
+                    <div class="move-button" (click)="moveAction(action.id, -1); $event.stopPropagation()" tabindex="0" (keydown.enter)="moveAction(action.id, 1); $event.stopPropagation()">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-528 296-344l-56-56 240-240 240 240-56 56-184-184Z"/></svg>
                     </div>
                 </div>
-                <div class="status-text"><h4>ACTION</h4></div>
+            </div>
+            <div class="add-component" (click)="addNewEmptyActionAfter(action.id)" tabindex="0" (keydown.enter)="addNewEmptyActionAfter(action.id)">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
             </div>
         </div>
-        <div class="edition-part" *ngIf="isEditing">
-            <div class="edition-form">
-                <div class="headers">
-                    <img src="{{ area.actions[idEditing - 1].urlImage }}" alt="Action Icon" class="action-icon-large" />
-                    <h2>{{ area.actions[idEditing - 1].name }}</h2>
+    </div>
+    <div class="edition-part" [class.actionEdition]="idEditingAction !== -1">
+        <div class="edition-form">
+            <div class="headers">
+                <img [src]="area.trigger!.urlImage" alt="Trigger Icon" class="trigger-icon" *ngIf="area.trigger?.urlImage" />
+                <svg *ngIf="!area.trigger?.urlImage" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M200-160v-280h-80v-80h240v80h-80v280h-80Zm0-440v-200h80v200h-80Zm160 0v-80h80v-120h80v120h80v80H360Zm80 440v-360h80v360h-80Zm240 0v-120h-80v-80h240v80h-80v120h-80Zm0-280v-360h80v360h-80Z"/></svg>
+                <h2>{{ area.trigger.name ? area.trigger.name : 'Select Trigger' }}</h2>
+            </div>
+            <div class="stepper-container">
+                <div class="step" [class.active]="step === 1">
+                    <svg *ngIf="step === 1" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Z"/></svg>
+                    <svg *ngIf="step > 1" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#74B9A9"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
+                    <svg *ngIf="step < 1" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 27-3 53t-10 51q-14-16-32.5-27T794-418q3-15 4.5-30.5T800-480q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93q51 0 97.5-15t85.5-42q12 17 29.5 30t37.5 20q-51 41-114.5 64T480-80Zm290-160q-21 0-35.5-14.5T720-290q0-21 14.5-35.5T770-340q21 0 35.5 14.5T820-290q0 21-14.5 35.5T770-240Zm-158-52L440-464v-216h80v184l148 148-56 56Z"/></svg>
+                    <h4>Service</h4>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#a3a3a3"><path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/></svg>
+                <div class="step" [class.active]="step === 2">
+                    <svg *ngIf="step === 2" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Z"/></svg>
+                    <svg *ngIf="step > 2" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#74B9A9"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
+                    <svg *ngIf="step < 2" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 27-3 53t-10 51q-14-16-32.5-27T794-418q3-15 4.5-30.5T800-480q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93q51 0 97.5-15t85.5-42q12 17 29.5 30t37.5 20q-51 41-114.5 64T480-80Zm290-160q-21 0-35.5-14.5T720-290q0-21 14.5-35.5T770-340q21 0 35.5 14.5T820-290q0 21-14.5 35.5T770-240Zm-158-52L440-464v-216h80v184l148 148-56 56Z"/></svg>
+                    <h4>Reaction</h4>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#a3a3a3"><path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/></svg>
+                <div class="step" [class.active]="step === 3">
+                    <svg *ngIf="step === 3" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Z"/></svg>
+                    <svg *ngIf="step > 3" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#74B9A9"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
+                    <svg *ngIf="step < 3" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 27-3 53t-10 51q-14-16-32.5-27T794-418q3-15 4.5-30.5T800-480q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93q51 0 97.5-15t85.5-42q12 17 29.5 30t37.5 20q-51 41-114.5 64T480-80Zm290-160q-21 0-35.5-14.5T720-290q0-21 14.5-35.5T770-340q21 0 35.5 14.5T820-290q0 21-14.5 35.5T770-240Zm-158-52L440-464v-216h80v184l148 148-56 56Z"/></svg>
+                    <h4>Configure</h4>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#a3a3a3"><path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/></svg>
+                <div class="step" [class.active]="step === 4">
+                    <svg *ngIf="step === 4" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e4"><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Z"/></svg>
+                    <svg *ngIf="step > 4" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#74B9A9"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
+                    <svg *ngIf="step < 4" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 27-3 53t-10 51q-14-16-32.5-27T794-418q3-15 4.5-30.5T800-480q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93q51 0 97.5-15t85.5-42q12 17 29.5 30t37.5 20q-51 41-114.5 64T480-80Zm290-160q-21 0-35.5-14.5T720-290q0-21 14.5-35.5T770-340q21 0 35.5 14.5T820-290q0 21-14.5 35.5T770-240Zm-158-52L440-464v-216h80v184l148 148-56 56Z"/></svg>
+                    <h4>Review</h4>
                 </div>
             </div>
+            <div class="form-content">
+                <div class="form-section">
+                    <div class="form-fields" *ngIf="step === 1">
+                        <h4>Step 1: Select Service</h4>
+                        <app-options-field-component
+                            [label]="'Options'"
+                            [options]="optionsServices"
+                            [selectedOption]="serviceChosen"
+                            (valueChange)="serviceChosen = $event"
+                        ></app-options-field-component>
+                    </div>
+                    <div class="form-fields" *ngIf="step === 2">
+                        <h4>Step 2: Select Reaction</h4>
+                        <app-options-field-component
+                            [label]="'Reaction'"
+                            [options]="reactionsList"
+                            [selectedOption]="reactionChosen"
+                            (valueChange)="reactionChosen = $event"
+                        ></app-options-field-component>
+                    </div>
+                    <div class="form-fields" *ngIf="step === 3">
+                        <div *ngFor="let action of actionsList">
+                            <h4>{{ action.name }}</h4>
+                            <app-options-field-component
+                                *ngIf="action.options_field"
+                                [label]="action.name"
+                                [options]="optionsFieldValues(action)"
+                                [selectedOption]="ActionsResponses[action.id - 1].response"
+                                (valueChange)="ActionsResponses[action.id - 1].response = $event"
+                            ></app-options-field-component>
+                            <app-text-field-component
+                                *ngIf="action.input_field"
+                                [label]="action.name"
+                                [value]="ActionsResponses[action.id - 1].response"
+                                (valueChange)="ActionsResponses[action.id - 1].response = $event"
+                            ></app-text-field-component>
+                        </div>
+                    </div>
+                    <div class="form-fields" *ngIf="step === 4">
+                        <h2>Final Step: Review</h2>
+                        <p><strong>FROM:</strong> {{ serviceChosen }}</p>
+                        <p><strong>WHEN:</strong> {{ reactionChosen }}</p>
+                        <div *ngIf="ActionsResponses.length > 0">
+                            <h4>Options:</h4>
+                            <ul>
+                                <li *ngFor="let response of ActionsResponses; let i = index">
+                                    <strong>{{ response.fieldName }}:</strong> {{ response.response }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="validity-button">
+                    <app-area-button-full
+                        *ngIf="step > 1"
+                        [label]="'PREVIOUS'"
+                        [onClick]="previousStep"
+                    ></app-area-button-full>
+                    <app-area-button-full
+                        [label]=" step === 4 ? 'FINISH' : 'NEXT' "
+                        [disabled]="isButtonClickable() === false"
+                        [onClick]="nextStep"
+                    ></app-area-button-full>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="create-area-button">
+    <app-area-button-full
+        [label]="'SAVE'"
+        [onClick]="openPopupName"
+        [disabled]="isFormValid() === false"
+    ></app-area-button-full>
+</div>
+
+<!-- Name popup modal -->
+<div class="popup-overlay disabled-popup">
+    <div class="popup-modal">
+        <h3>Enter AREA name</h3>
+        <p>Please provide a name for your AREA before creating it.</p>
+        <app-text-field-component
+            [label]="'Area Name'"
+            [value]="area.name ? area.name : nameArea"
+            (valueChange)="nameArea = $event"
+        ></app-text-field-component>
+
+        <div class="popup-actions">
+            <button class="btn-cancel" (click)="closePopupName()">Cancel</button>
+            <button class="btn-create" (click)="confirmPopupName()" [disabled]="nameArea.length < 1 || !nameArea">Create</button>
         </div>
     </div>
 </div>
