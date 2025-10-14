@@ -3,28 +3,54 @@ id: area-format-config
 title: Area config format
 ---
 
-## Area config data format:
-Config : {
-    - name : string // name of the area
-    - trigger : { // the event trigger
-        - reactionChosenId: number // ID of the chosen reaction table (e.g., 1)
-        - service_name: string // name of the reaction for display (e.g., 'timer')
-        - name: string // name of the specific chosen trigger (e.g., 'Each Day')
-        - datas_form: DATA_FORM,
-    }
-    - action : { // the resulting action (currently only 1)
-        - datas_form: DATA_FORM,
-        - service_name: string // name of the reaction for display (e.g., 'timer')
-        - name: string // name of the specific chosen trigger (e.g., 'Each Day')
-    }
-}
+## Area `config` field format
 
-#### DATA_FORM
+Example
 
-DATA_FORM: List of fields provided for configuration:
-Field[] : {
-    fieldId: number // ID of the field for ordering
-    fieldName: string // Name of the provided field
-    response: string // Value provided by the user
+```json
+{
+  "name": "My Area",
+  "trigger": {
+    "reactionChosenId": 1,
+    "service_name": "timer",
+    "name": "Each Day",
+    "datas_form": [
+      {
+        "fieldId": 1,
+        "fieldName": "Day",
+        "response": "Monday"
+      }
+    ]
+  },
+  "action": {
+    "service_name": "timer",
+    "name": "Each Day",
+    "datas_form": [
+      {
+        "fieldId": 2,
+        "fieldName": "Time",
+        "response": "09:00"
+      }
+    ]
+  }
 }
+```
+### Description
+
+- `name` (string): Name of the area.
+- `trigger` (object): The event trigger for the area.
+  - `reactionChosenId` (number): ID of the chosen reaction table (e.g., 1).
+  - `service_name` (string): Name of the reaction for display (e.g., "timer").
+  - `name` (string): Name of the specific chosen trigger (e.g., "Each Day").
+  - `datas_form` (Field[]): List of configuration fields for the trigger.
+- `action` (object): The resulting action (currently only one).
+  - `service_name` (string): Name of the reaction for display (e.g., "timer").
+  - `name` (string): Name of the specific chosen trigger (e.g., "Each Day").
+  - `datas_form` (Field[]): List of configuration fields for the action.
+
+#### Field object shape (`datas_form`)
+
+- `fieldId` (number): ID of the field for ordering.
+- `fieldName` (string): Name of the provided field.
+- `response` (string): Value provided by the user.
 
