@@ -1,23 +1,23 @@
-Format des données config d'un Area :
+Area config data format:
 Config : {
-    - name : string // nom de l'area
-    - trigger : { // le déclencheur de l'evenement
-        - reactionChosenId: number // ID de la table de la réaction choisi (ex: 1)
-        - service_name: string // nom de la réaction pour l'affichage (ex: 'timer')
-        - name: string // nom du declencheur précis choisi (ex: 'Each Day')
+    - name : string // name of the area
+    - trigger : { // the event trigger
+        - reactionChosenId: number // ID of the chosen reaction table (e.g., 1)
+        - service_name: string // name of the reaction for display (e.g., 'timer')
+        - name: string // name of the specific chosen trigger (e.g., 'Each Day')
         - datas_form: DATA_FORM,
     }
-    - action : { // l'action en retour (actuellement uniquement 1)
+    - action : { // the resulting action (currently only 1)
         - datas_form: DATA_FORM,
-        - service_name: string // nom de la réaction pour l'affichage (ex: 'timer')
-        - name: string // nom du declencheur précis choisi (ex: 'Each Day')
+        - service_name: string // name of the reaction for display (e.g., 'timer')
+        - name: string // name of the specific chosen trigger (e.g., 'Each Day')
     }
 }
 
-DATA_FORM: Liste de champ renseigné pour le parametrage :
-Champ[] : {
-    fieldId: number // ID du champ pour l'order
-    fieldName: string // Nom du champ renseigné
-    response: string // Valeur renseigné par l'utilisateur
+DATA_FORM: List of fields provided for configuration:
+Field[] : {
+    fieldId: number // ID of the field for ordering
+    fieldName: string // Name of the provided field
+    response: string // Value provided by the user
 }
 
