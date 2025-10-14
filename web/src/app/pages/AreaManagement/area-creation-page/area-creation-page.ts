@@ -236,7 +236,7 @@ export class AreaCreationPage implements OnInit {
     if (this.isEditing && this.idEditingTrigger === triggerId) {
       this.isEditing = false;
       this.idEditingTrigger = -1;
-      this.idEditingTrigger = -1;
+      this.idEditingAction = -1;
       this.step = 1;
     } else {
       if (this.isEditing)

@@ -153,7 +153,7 @@ export class DashboardPage implements OnInit {
             selected: false,
             isToggling: false
           });
-          let Icons = [];
+          const Icons = [];
           if (area.config.trigger)
             Icons.push(area.config.trigger.service_name);
           if (area.config.action) {
