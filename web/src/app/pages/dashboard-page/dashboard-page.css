@@ -116,6 +116,7 @@
     height: 66px;
     margin-bottom: 10px;
     margin-right: 20px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     display: grid;
     grid-template-columns: auto 7fr 2fr 1fr auto;
