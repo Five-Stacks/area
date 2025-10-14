@@ -38,6 +38,27 @@ interface BackendActionOrReaction {
   config?: { fields?: ActionField[] };
 }
 
+// Backend model for GET /area/:id
+interface BackendArea {
+  id: number;
+  is_active?: boolean;
+  config?: {
+    name?: string;
+    description?: string;
+    trigger?: {
+      service_name?: string;
+      name?: string;
+      datas_form?: { fieldId: number; fieldName: string; response: string }[];
+    };
+    action?: {
+      service_name?: string;
+      name?: string;
+      type?: string;
+      datas_form?: { fieldId: number; fieldName: string; response: string }[];
+    };
+  };
+}
+
 interface AreaCreateRequest {
   action_id: number;
   reaction_id: number;
@@ -148,27 +169,30 @@ export class AreaDetailsPage implements OnInit {
 
   ngOnInit() {
     const areaId = window.location.pathname.split('/').pop();
-    this.apiService.get(`area/${areaId}`).subscribe((data : any) => {
-      console.log(data.data);
-      if (!data || !data.data || !data.data.config)
+    this.apiService.get<ApiResponse<BackendArea>>(`area/${areaId}`).subscribe((data) => {
+      if (!data || !data.data || !data.data.config) {
         this.router.navigate(['/dashboard']);
+        return;
+      }
+
+      const cfg = data.data.config;
       this.area.id = data.data.id;
-      this.area.name = data.data.config.name;
-      this.area.description = data.data.config.description;
+      this.area.name = cfg.name;
+      this.area.description = cfg.description;
       this.area.active = data.data.is_active;
       this.area.trigger = {
-        name: data.data.config.trigger?.name,
-        serviceChosen: data.data.config.trigger?.service_name,
-        urlImage: `/assets/icons/${data.data.config.trigger.service_name.toLowerCase()}.png`,
-        datas_form: data.data.config.trigger?.datas_form
+        name: cfg.trigger?.name,
+        serviceChosen: cfg.trigger?.service_name,
+        urlImage: cfg.trigger?.service_name ? `/assets/icons/${cfg.trigger!.service_name!.toLowerCase()}.png` : undefined,
+        datas_form: cfg.trigger?.datas_form
       };
       this.area.actions = [{
-        name: data.data.config.action?.name,
+        name: cfg.action?.name,
         id: 1,
-        type: data.data.config.action?.type,
-        serviceChosen: data.data.config.action?.service_name,
-        urlImage: `/assets/icons/${data.data.config.action.service_name.toLowerCase()}.png`,
-        datas_form: data.data.config.action?.datas_form
+        type: cfg.action?.type,
+        serviceChosen: cfg.action?.service_name,
+        urlImage: cfg.action?.service_name ? `/assets/icons/${cfg.action!.service_name!.toLowerCase()}.png` : undefined,
+        datas_form: cfg.action?.datas_form
       }];
       this.nameArea = this.area.name ? this.area.name : '';
 
