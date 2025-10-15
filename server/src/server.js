@@ -1,5 +1,9 @@
 /* Import modules */
 import app from './app.js';
+import setupDatabase from './database/setupDatabase.js';
+
+/* Database setup */
+setupDatabase();
 
 /* Server startup */
 const PORT = 8080;
