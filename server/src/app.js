@@ -15,7 +15,6 @@ import userRouter from './routes/userRoute.js';
 import oauthRouter from './routes/oauth.js';
 import notFound from './middleware/notFound.js';
 import servicesSetup from './config/services.js';
-import executeArea from './services/executeArea.js';
 
 /* App initialization */
 const app = express();
@@ -33,13 +32,6 @@ app.use(passportSetup());
 
 /* Initialize services */
 servicesSetup();
-
-/* Start background executeArea service (sends mail every 5s) */
-// try {
-// 	executeArea.start();
-// } catch (e) {
-// 	console.warn('Failed to start executeArea:', e && e.message ? e.message : e);
-// }
 
 /* Use auth routes */
 app.use('/api/auth', authRouter);
