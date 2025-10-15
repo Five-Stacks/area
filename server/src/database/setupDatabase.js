@@ -1,6 +1,8 @@
 /* Import modules */
 import sequelize from "../config/sequelize.js";
 import servicesSetup from "./setupServices.js";
+import actionsSetup from "./setupActions.js";
+import reactionsSetup from "./setupReactions.js";
 
 /* Wait for database connection */
 async function waitForDatabase({ maxRetries = 30, retryDelay = 2000 } = {}) {
@@ -28,6 +30,8 @@ async function setupDatabase() {
             retryDelay: 2000,
         });
         await servicesSetup();
+        await actionsSetup();
+        await reactionsSetup();
     } catch (error) {
         console.error("Database setup failed:", error);
         process.exit(1);
