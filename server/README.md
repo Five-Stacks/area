@@ -24,6 +24,7 @@ server/
       ├── middleware/    # Auth, logging, error handlers, parsers
       ├── models/        # ORM models and database connection logic
       ├── routes/        # Route definitions, connect endpoints to controllers
+      ├── services/      # Area engine and hook execution logic
       └── utils/         # Small helpers, formatting, generic utilities
 ```
 
