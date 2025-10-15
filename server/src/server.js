@@ -1,9 +1,12 @@
-/* Import modules */
-import app from './app.js';
-import setupDatabase from './database/setupDatabase.js';
+/* Import app */
+import app from "./app.js";
 
 /* Database setup */
+import setupDatabase from "./database/setupDatabase.js";
 setupDatabase();
+
+/* Start area engine */
+import "./services/areaEngine.js";
 
 /* Server startup */
 const PORT = 8080;
