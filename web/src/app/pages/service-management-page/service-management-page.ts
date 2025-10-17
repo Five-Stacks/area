@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { HeaderDashBoardComponent } from '../../components/Headers/header-component-dashboard/header-component-dashboard';
 import { ApiService } from '../../services/api.service';
 import { CardService } from '../../components/card-service/card-service';
@@ -12,7 +12,7 @@ import { OptionsFieldComponent } from '../../components/Forms/options-field-comp
   templateUrl: './service-management-page.html',
   styleUrl: './service-management-page.css'
 })
-export class ServiceManagementPage {
+export class ServiceManagementPage implements OnInit {
   private apiService = inject(ApiService);
 
   searchService = '';

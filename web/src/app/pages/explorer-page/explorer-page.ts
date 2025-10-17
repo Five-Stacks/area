@@ -1,7 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../components/Headers/header-component/header-component';
 import { TextFieldComponent } from '../../components/Forms/text-field-component/text-field-component';
-import { OptionsFieldComponent } from '../../components/Forms/options-field-component/options-field-component';
 import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
 import { CardService } from '../../components/card-service/card-service';
