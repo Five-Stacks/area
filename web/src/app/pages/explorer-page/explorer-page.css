@@ -3,13 +3,14 @@
     padding-top: 100px;
     padding-left: 200px;
     padding-right: 200px;
-    h1 {
-        font-size: 45px;
-        font-weight: bold;
-        color: var(--black-color);
-    }
 }
 
+.explorer-page h1 {
+    font-size: 45px;
+    font-weight: bold;
+    color: var(--black-color);
+}
+}
 .services-list {
     margin-top: 50px;
     display: grid;
