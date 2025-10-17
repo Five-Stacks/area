@@ -1,2 +1,24 @@
-<p>explorer-page works!</p>
 <app-area-header></app-area-header>
+<div class="explorer-page">
+    <h1>EXPLORE</h1>
+    <app-text-field-component
+        [label]="'Search service...'"
+        [type]="'text'"
+        [(value)]="searchService"
+        (valueChange)="searchService = $event"
+    ></app-text-field-component>
+    <div class="services-list">
+        <div *ngFor="let service of filteredSerice()" class="service-item flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <h2>{{ service.name }}</h2>
+                    <img [src]="'/assets/icons/' + service.name + '.png'" alt="{{ service.name }}" />
+                </div>
+                <div class="flip-card-back">
+                    <h2>{{ service.name }}</h2>
+                    <p>{{ service.description }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

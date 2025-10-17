@@ -17,10 +17,11 @@
     --form-text-color: #20252b2B;
     --disabled-background-color: #D5D5D5;
     --disabled-text-color: #8E8E8E;
-    --disabled-shadow-color: rgb(32, 37, 43, 0.13);
+    --disabled-shadow-color: hsla(213, 15%, 15%, 0.13);
     --blue-shadow-color: rgba(106, 116, 201, 0.33);
     --blue-shadow-color-medium: rgba(34, 34, 37, 0.15);
     --blue-shadow-color-light: rgba(106, 116, 201, 0.1);
+    --gray-shadow-color: rgba(169, 169, 169, 0.5);
 }
 
 main {
