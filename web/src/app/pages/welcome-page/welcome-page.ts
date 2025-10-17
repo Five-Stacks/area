@@ -3,7 +3,7 @@ import { ButtonFullComponent } from '../../components/Buttons/button-component-f
 import { HeaderComponent } from '../../components/Headers/header-component/header-component';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api.service';
-import { CardService } from '../../card-service/card-service';
+import { CardService } from '../../components/card-service/card-service';
 
 @Component({
   selector: 'app-welcome-page',

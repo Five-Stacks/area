@@ -7,6 +7,11 @@
         <div class="flip-card-back">
             <h2>{{ name }}</h2>
             <p>{{ description }}</p>
+            <div *ngIf="connectedShow" class="connect-button">
+                <app-area-button-full
+                    [label]="'CONNECT'"
+                ></app-area-button-full>
+            </div>
         </div>
     </div>
 </div>

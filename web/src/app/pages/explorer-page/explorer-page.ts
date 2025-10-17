@@ -4,7 +4,7 @@ import { TextFieldComponent } from '../../components/Forms/text-field-component/
 import { OptionsFieldComponent } from '../../components/Forms/options-field-component/options-field-component';
 import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
-import { CardService } from '../../card-service/card-service';
+import { CardService } from '../../components/card-service/card-service';
 
 @Component({
   selector: 'app-explorer-page',
