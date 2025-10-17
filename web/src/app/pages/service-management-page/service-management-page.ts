@@ -6,6 +6,24 @@ import { CommonModule } from '@angular/common';
 import { TextFieldComponent } from '../../components/Forms/text-field-component/text-field-component';
 import { OptionsFieldComponent } from '../../components/Forms/options-field-component/options-field-component';
 
+interface Service {
+  name: string;
+  id: number;
+  description: string;
+}
+
+interface UserService {
+  id: number;
+  user_id?: number;
+  service_id?: number;
+  oauth_account_id?: number;
+  created_at?: string;
+}
+
+interface apiResponse<T> {
+  data: T;
+}
+
 @Component({
   selector: 'app-service-management-page',
   imports: [HeaderDashBoardComponent, TextFieldComponent, CommonModule, CardService, OptionsFieldComponent],
@@ -16,21 +34,10 @@ export class ServiceManagementPage implements OnInit {
   private apiService = inject(ApiService);
 
   searchService = '';
-  listServices : {
-    name: string;
-    id: number;
-    description: string;
-  }[] = [];
-
-  userServices : {
-    id: number;
-    user_id?: number;
-    service_id?: number;
-    oauth_account_id?: number;
-    created_at?: string;
-  }[] = [];
+  listServices : Service[] = [];
+  userServices : UserService[] = [];
   filterOptions: string[] = ["All", "Connected", "Disconnected"];
-  optionChoosed: string = 'All';
+  optionChoosed = 'All';
 
   isConnected(serviceId: number): boolean {
     return this.userServices.some(userService => userService.service_id === serviceId);
@@ -51,10 +58,10 @@ export class ServiceManagementPage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.apiService.get<any>('service').subscribe({
+    this.apiService.get<apiResponse<Service[]>>('service').subscribe({
       next: (data) => {
         this.listServices = data.data;
-        this.apiService.get<any>('userService').subscribe({
+        this.apiService.get<apiResponse<UserService[]>>('userService').subscribe({
           next: (userData) => {
             this.userServices = userData.data;
           },

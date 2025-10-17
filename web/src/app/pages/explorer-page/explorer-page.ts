@@ -5,6 +5,16 @@ import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
 import { CardService } from '../../components/card-service/card-service';
 
+interface Service {
+  name: string;
+  id: number;
+  description: string;
+}
+
+interface apiResponse<T> {
+  data: T;
+}
+
 @Component({
   selector: 'app-explorer-page',
   imports: [HeaderComponent, TextFieldComponent, CommonModule, CardService],
@@ -15,11 +25,7 @@ export class ExplorerPage implements OnInit {
   private apiService = inject(ApiService);
 
   searchService = '';
-  listServices : {
-    name: string;
-    id: number;
-    description: string;
-  }[] = [];
+  listServices : Service[] = [];
 
   filteredSerice() {
     return this.listServices.filter(service =>
@@ -28,7 +34,7 @@ export class ExplorerPage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.apiService.get<any>('service').subscribe({
+    this.apiService.get<apiResponse<Service[]>>('service').subscribe({
       next: (data) => {
         this.listServices = data.data;
       },

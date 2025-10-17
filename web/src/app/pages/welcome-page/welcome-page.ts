@@ -5,6 +5,16 @@ import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api.service';
 import { CardService } from '../../components/card-service/card-service';
 
+interface Service {
+  name: string;
+  description: string;
+  id: number;
+}
+
+interface apiResponse<T> {
+  data: T;
+}
+
 @Component({
   selector: 'app-welcome-page',
   imports: [ButtonFullComponent, HeaderComponent, CommonModule, CardService],
@@ -17,14 +27,10 @@ export class WelcomePage implements OnInit {
   handleButtonClick() {
     alert('Button clicked!');
   }
-  serviceList: {
-    name: string;
-    description: string;
-    id: number;
-  }[] = [];
+  serviceList: Service[] = [];
 
   ngOnInit() {
-    this.apiService.get<any>('service').subscribe({
+    this.apiService.get<apiResponse<Service[]>>('service').subscribe({
       next: (data) => {
         this.serviceList = (data.data || []).slice(0, 5);
       },
