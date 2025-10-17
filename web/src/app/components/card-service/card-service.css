@@ -81,10 +81,6 @@
     padding-top: 0;
 }
 
-.connect-button app-area-button-full button:disabled {
-    background-color: green !important;
-}
-
 .connected-button {
     display: block;
     width: 100%;
