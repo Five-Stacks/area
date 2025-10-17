@@ -7,8 +7,8 @@ import serviceController from '../controllers/serviceController.js';
 const router = express.Router();
 
 /* Define routes */
-router.get('/', verifyToken, serviceController.getAll);
-router.get('/:id', verifyToken, serviceController.getById);
+router.get('/', serviceController.getAll);
+router.get('/:id', serviceController.getById);
 
 /* Export router */
 export default router;

@@ -1,1 +1,26 @@
 <app-area-header-dashboard [title]="'SERVICES'"></app-area-header-dashboard>
+<div class="explorer-page">
+    <h1>EXPLORE</h1>
+    <div class="search-bar">
+        <app-text-field-component
+            [label]="'Search service...'"
+            [type]="'text'"
+            [(value)]="searchService"
+            (valueChange)="searchService = $event"
+        ></app-text-field-component>
+        <app-options-field-component
+            [label]="'Filter by:'"
+            [options]="filterOptions"
+            [selectedOption]="optionChoosed"
+            (valueChange)="optionChoosed = $event"
+        ></app-options-field-component>
+    </div>
+    <div class="services-list">
+        <app-card-service *ngFor="let service of filteredSerice()"
+            [name]="service.name"
+            [description]="service.description"
+            [connectedShow]="true"
+            [connected]="isConnected(service.id)"
+        ></app-card-service>
+    </div>
+</div>
