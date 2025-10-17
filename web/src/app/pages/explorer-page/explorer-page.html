@@ -8,17 +8,9 @@
         (valueChange)="searchService = $event"
     ></app-text-field-component>
     <div class="services-list">
-        <div *ngFor="let service of filteredSerice()" class="service-item flip-card">
-            <div class="flip-card-inner">
-                <div class="flip-card-front">
-                    <h2>{{ service.name }}</h2>
-                    <img [src]="'/assets/icons/' + service.name + '.png'" alt="{{ service.name }}" />
-                </div>
-                <div class="flip-card-back">
-                    <h2>{{ service.name }}</h2>
-                    <p>{{ service.description }}</p>
-                </div>
-            </div>
-        </div>
+        <app-card-service *ngFor="let service of filteredSerice()"
+            [name]="service.name"
+            [description]="service.description"
+        ></app-card-service>
     </div>
 </div>

@@ -1,25 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ButtonFullComponent } from '../../components/Buttons/button-component-full/button-component-full';
 import { HeaderComponent } from '../../components/Headers/header-component/header-component';
 import { CommonModule } from '@angular/common';
+import { ApiService } from '../../services/api.service';
+import { CardService } from '../../card-service/card-service';
 
 @Component({
   selector: 'app-welcome-page',
-  imports: [ButtonFullComponent, HeaderComponent, CommonModule], 
+  imports: [ButtonFullComponent, HeaderComponent, CommonModule, CardService],
   templateUrl: './welcome-page.html',
   styleUrl: './welcome-page.css'
 })
-export class WelcomePage {
+export class WelcomePage implements OnInit {
+  private apiService = inject(ApiService);
+
   handleButtonClick() {
     alert('Button clicked!');
   }
+  serviceList: {
+    name: string;
+    description: string;
+    id: number;
+  }[] = [];
 
-  services: {
-    title: string;
-    icon: string;
-  }[] = [
-    { title: 'Gmail', icon: 'assets/icons/gmail.png' },
-    { title: 'Calendar', icon: 'assets/icons/calendar.png' },
-    { title: 'Discord', icon: 'assets/icons/discord.png' }
-  ];
+  ngOnInit() {
+    this.apiService.get<any>('service').subscribe({
+      next: (data) => {
+        for (let i = 0; i < data.data.length && i < 5; i++) {
+          this.serviceList.push(data.data[i]);
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching services:', error);
+      }
+    });
+  }
 }

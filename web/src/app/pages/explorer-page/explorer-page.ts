@@ -4,10 +4,11 @@ import { TextFieldComponent } from '../../components/Forms/text-field-component/
 import { OptionsFieldComponent } from '../../components/Forms/options-field-component/options-field-component';
 import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
+import { CardService } from '../../card-service/card-service';
 
 @Component({
   selector: 'app-explorer-page',
-  imports: [HeaderComponent, TextFieldComponent, OptionsFieldComponent, CommonModule],
+  imports: [HeaderComponent, TextFieldComponent, CommonModule, CardService],
   templateUrl: './explorer-page.html',
   styleUrl: './explorer-page.css'
 })

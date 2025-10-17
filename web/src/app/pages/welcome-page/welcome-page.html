@@ -11,10 +11,10 @@
     <div class="service-content">
         <h2>Choose from multiple services</h2>
         <div class="services-grid">
-            <div class="service-card" *ngFor="let service of services">
-                <p>{{ service.title }}</p>
-                <img [src]="service.icon" alt="{{ service.title }} icon" />
-            </div>
+            <app-card-service *ngFor="let service of serviceList"
+                [name]="service.name"
+                [description]="service.description"
+            ></app-card-service>
         </div>
         <app-area-button-full
             [label]="'EXPLORE ALL'"
