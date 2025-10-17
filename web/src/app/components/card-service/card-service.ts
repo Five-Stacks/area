@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ButtonFullComponent } from '../Buttons/button-component-full/button-component-full';
 import { CommonModule } from '@angular/common';
+import { OptionsFieldComponent } from '../Forms/options-field-component/options-field-component';
 
 @Component({
   selector: 'app-card-service',

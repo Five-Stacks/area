@@ -18,6 +18,7 @@
     --disabled-background-color: #D5D5D5;
     --disabled-text-color: #8E8E8E;
     --disabled-shadow-color: hsla(213, 15%, 15%, 0.13);
+    --green-shadow-color: #74B9A954;
     --blue-shadow-color: rgba(106, 116, 201, 0.33);
     --blue-shadow-color-medium: rgba(34, 34, 37, 0.15);
     --blue-shadow-color-light: rgba(106, 116, 201, 0.1);

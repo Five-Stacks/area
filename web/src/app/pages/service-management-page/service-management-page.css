@@ -16,3 +16,9 @@
     grid-template-columns: repeat(5, 1fr);
     gap: 40px;
 }
+
+.search-bar {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    gap: 20px;
+}

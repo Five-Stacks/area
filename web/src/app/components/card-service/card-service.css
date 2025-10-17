@@ -80,3 +80,34 @@
     padding: 15px;
     padding-top: 0;
 }
+
+.connect-button app-area-button-full button:disabled {
+    background-color: green !important;
+}
+
+.connected-button {
+    display: block;
+    width: 100%;
+    background-color: var(--green-color);
+    border: none;
+    border-radius: 100px;
+
+    button {
+        background-color: var(--green-color);
+        border: none;
+        border-radius: 100px;
+        padding: 14px;
+        width: 100%;
+        color: var(--white-color);
+        font-size: 20px;
+
+        box-shadow: 2px 6px 9px 0px var(--green-shadow-color);
+    }
+
+    button:disabled {
+        background-color: var(--disabled-background-color);
+        cursor: not-allowed;
+        box-shadow: 2px 6px 9px 0px var(--disabled-shadow-color);
+        color: var(--disabled-text-color);
+    }
+}

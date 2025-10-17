@@ -8,9 +8,14 @@
             <h2>{{ name }}</h2>
             <p>{{ description }}</p>
             <div *ngIf="connectedShow" class="connect-button">
-                <app-area-button-full
+                <app-area-button-full *ngIf="!connected"
                     [label]="'CONNECT'"
                 ></app-area-button-full>
+                <div *ngIf="connected" class="connected-button">
+                    <button>
+                        CONNECTED
+                    </button>
+                </div>
             </div>
         </div>
     </div>
