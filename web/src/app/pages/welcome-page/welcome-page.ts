@@ -26,9 +26,7 @@ export class WelcomePage implements OnInit {
   ngOnInit() {
     this.apiService.get<any>('service').subscribe({
       next: (data) => {
-        for (let i = 0; i < data.data.length && i < 5; i++) {
-          this.serviceList.push(data.data[i]);
-        }
+        this.serviceList = (data.data || []).slice(0, 5);
       },
       error: (error) => {
         console.error('Error fetching services:', error);
