@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { HeaderDashBoardComponent } from '../../../components/Headers/header-component-dashboard/header-component-dashboard';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -11,6 +11,52 @@ import { OptionsFieldComponent } from '../../../components/Forms/options-field-c
 import { TextFieldComponent } from '../../../components/Forms/text-field-component/text-field-component';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
+
+interface ActionField {
+  id: number;
+  input_field?: { placeholder: string };
+  options_field?: { label: string; value: string }[];
+  name: string;
+  title: string;
+}
+
+interface ApiResponse<T = unknown> {
+  data: T;
+}
+
+interface Service {
+  id: number;
+  name: string;
+}
+
+interface BackendActionOrReaction {
+  id: number;
+  name: string;
+  service_id: number;
+  description?: string;
+  config?: { fields?: ActionField[] };
+}
+
+interface AreaCreateRequest {
+  action_id: number;
+  reaction_id: number;
+  is_active: boolean;
+  config: {
+    name?: string;
+    trigger: {
+      service_name?: string;
+      name?: string;
+      datas_form?: { fieldId: number; fieldName: string; response: string }[];
+      reactionChosenId?: number;
+    };
+    action: {
+      service_name?: string;
+      name?: string;
+      datas_form?: { fieldId: number; fieldName: string; response: string }[];
+    };
+  };
+}
+
 
 @Component({
   selector: 'app-area-creation-page',
@@ -28,7 +74,7 @@ import { ApiService } from '../../../services/api.service';
   templateUrl: './area-creation-page.html',
   styleUrl: './area-creation-page.css'
 })
-export class AreaCreationPage {
+export class AreaCreationPage implements OnInit {
   private router = inject(Router);
   private apiService = inject(ApiService);
 
@@ -89,7 +135,7 @@ export class AreaCreationPage {
   reactionsList : string[] = [];
   reactionChosen  = '';
   actionChosen  = -1;
-  actionsList : any[] = [];
+  actionsList : ActionField[] = [];
   ActionsResponses: {
       response: string;
       fieldId: number;
@@ -97,21 +143,27 @@ export class AreaCreationPage {
   }[] = [];
 
   ngOnInit() {
-    this.apiService.get('service').subscribe(services => {
-      this.optionsServicesIds = [...services.data.map((service: any) => service.id)];
+    this.apiService.get<ApiResponse<Service[]>>('service').subscribe((services: unknown) => {
+      const servicesResp = services as ApiResponse<Service[]> | null;
+      if (!servicesResp) return;
+      this.optionsServicesIds = [...servicesResp.data.map((service: Service) => service.id)];
       this.optionsServicesTrigger = ['Choose Service'];
       this.optionsServicesActions = ['Choose Service'];
 
-      services.data.forEach((service: any) => {
-        this.apiService.get('action').subscribe(reactions => {
-          reactions.data.forEach((element : any) => {
+      servicesResp.data.forEach((service: Service) => {
+        this.apiService.get<ApiResponse<BackendActionOrReaction[]>>('reaction').subscribe((reactions: unknown) => {
+          const reactionsResp = reactions as ApiResponse<BackendActionOrReaction[]> | null;
+          if (!reactionsResp) return;
+          reactionsResp.data.forEach((element: BackendActionOrReaction) => {
             if (element.service_id == service.id && !this.optionsServicesActions.includes(service.name)) {
               this.optionsServicesActions.push(service.name);
             }
           });
         });
-        this.apiService.get('reaction').subscribe(actions => {
-          actions.data.forEach((element : any) => {
+        this.apiService.get<ApiResponse<BackendActionOrReaction[]>>('action').subscribe((actions: unknown) => {
+          const actionsResp = actions as ApiResponse<BackendActionOrReaction[]> | null;
+          if (!actionsResp) return;
+          actionsResp.data.forEach((element: BackendActionOrReaction) => {
             if (element.service_id == service.id && !this.optionsServicesTrigger.includes(service.name)) {
               this.optionsServicesTrigger.push(service.name);
             }
@@ -140,13 +192,13 @@ export class AreaCreationPage {
   }
 
   openPopupName() {
-    let popup = document.querySelector('.popup-overlay');
+    const popup = document.querySelector('.popup-overlay');
     if (popup)
       popup.classList.remove('disabled-popup');
   }
 
   closePopupName() {
-    let popup = document.querySelector('.popup-overlay');
+    const popup = document.querySelector('.popup-overlay');
     if (popup)
       popup.classList.add('disabled-popup');
   }
@@ -173,6 +225,10 @@ export class AreaCreationPage {
       this.isEditing = true;
       this.idEditingAction = actionId;
       this.optionsServices = this.optionsServicesActions;
+      if (this.area.actions[actionId - 1].serviceChosen)
+        this.serviceChosen = this.area.actions[actionId - 1].serviceChosen!;
+      else
+        this.serviceChosen = '';
     }
   }
 
@@ -180,7 +236,7 @@ export class AreaCreationPage {
     if (this.isEditing && this.idEditingTrigger === triggerId) {
       this.isEditing = false;
       this.idEditingTrigger = -1;
-      this.idEditingTrigger = -1;
+      this.idEditingAction = -1;
       this.step = 1;
     } else {
       if (this.isEditing)
@@ -189,6 +245,10 @@ export class AreaCreationPage {
       this.isEditing = true;
       this.idEditingTrigger = triggerId;
       this.optionsServices = this.optionsServicesTrigger;
+      if (this.area.trigger.serviceChosen)
+        this.serviceChosen = this.area.trigger.serviceChosen;
+      else
+        this.serviceChosen = '';
     }
   }
 
@@ -202,6 +262,8 @@ export class AreaCreationPage {
       // If the action with the given idArea is not found, insert first
       this.area.actions.unshift(newAction);
     }
+    for (let i = 0; i < this.area.actions.length; i++)
+      this.area.actions[i].id = i + 1;
   }
 
   previousStep = () => {
@@ -212,6 +274,23 @@ export class AreaCreationPage {
       else if (this.idEditingAction !== -1)
         this.onNewStepAction(this.step);
     }
+  }
+
+  moveAction(actionId: number, direction: number) {
+    const index = this.area.actions.findIndex(action => action.id === actionId);
+    if (index === -1) return; // Action not found
+    const newIndex = index + direction;
+    if (newIndex < 0 || newIndex >= this.area.actions.length) return; // Out of bounds
+
+    // Swap the actions
+    const temp = this.area.actions[index];
+    this.area.actions[index] = this.area.actions[newIndex];
+    this.area.actions[newIndex] = temp;
+
+    // Reassign IDs to maintain sequential order
+    this.area.actions.forEach((action, idx) => {
+      action.id = idx + 1;
+    });
   }
 
   nextStep = () => {
@@ -271,35 +350,59 @@ export class AreaCreationPage {
   }
 
   onStepTwoTrigger = () => {
-    this.apiService.get("service").subscribe(services => {
+    this.apiService.get<ApiResponse<Service[]>>('service').subscribe((resp: unknown) => {
+      const services = resp as ApiResponse<Service[]> | null;
+      if (!services) return;
       let id = -1;
-      services.data.forEach((service: any) => {
-        if (service.name === this.serviceChosen)
-          id = service.id;
+      services.data.forEach((service: Service) => {
+        if (service.name === this.serviceChosen) id = service.id;
       });
       if (id === -1) return;
-      this.apiService.get(`reaction/service/${id}`).subscribe(actions => {
+      this.apiService.get<ApiResponse<BackendActionOrReaction[]>>(`action/service/${id}`).subscribe((resp2: unknown) => {
+        const actions = resp2 as ApiResponse<BackendActionOrReaction[]> | null;
+        if (!actions) return;
         this.reactionsList = ['Choose Action'];
-        actions.data.forEach((element: { name: string, id: number, service_id: number, description?: string, config?: any }) => {
+        actions.data.forEach((element: BackendActionOrReaction) => {
           this.reactionsList.push(element.name);
         });
+        // If already chosen, keep it
+        if (this.area.trigger.name && this.reactionsList.includes(this.area.trigger.name)) this.reactionChosen = this.area.trigger.name;
       });
     });
   }
 
+  getResponseByIndexTrigger = (index: number): string => {
+    if (this.serviceChosen != this.area.trigger.serviceChosen || this.reactionChosen != this.area.trigger.name)
+      return '';
+    if (this.area.trigger.datas_form && this.area.trigger.datas_form[index])
+      return this.area.trigger.datas_form[index].response;
+    return '';
+  }
+
+  getResponseByIndexAction = (index: number): string => {
+    if (this.serviceChosen != this.area.actions[this.idEditingAction - 1].serviceChosen || this.reactionChosen != this.area.actions[this.idEditingAction - 1].name)
+      return '';
+    if (this.area.actions[this.idEditingAction - 1].datas_form && this.area.actions[this.idEditingAction - 1].datas_form![index])
+      return this.area.actions[this.idEditingAction - 1].datas_form![index].response;
+    return '';
+  }
+
   onStepThreeTrigger = () => {
-    this.apiService.get("service").subscribe(services => {
+    this.apiService.get<ApiResponse<Service[]>>('service').subscribe((resp: unknown) => {
+      const services = resp as ApiResponse<Service[]> | null;
+      if (!services) return;
       let id = -1;
-      services.data.forEach((service: any) => {
-        if (service.name === this.serviceChosen)
-          id = service.id;
+      services.data.forEach((service: Service) => {
+        if (service.name === this.serviceChosen) id = service.id;
       });
       if (id === -1) return;
-      this.apiService.get(`reaction/service/${id}`).subscribe(actions => {
-        const config : any = actions.data.find((action: any) => action.name === this.reactionChosen);
-        this.actionsList = config ? config.config.fields : [];
+      this.apiService.get<ApiResponse<BackendActionOrReaction[]>>(`action/service/${id}`).subscribe((resp2: unknown) => {
+        const actions = resp2 as ApiResponse<BackendActionOrReaction[]> | null;
+        if (!actions) return;
+        const config = actions.data.find((action: BackendActionOrReaction) => action.name === this.reactionChosen);
+        this.actionsList = config ? (config.config?.fields ?? []) : [];
         this.ActionsResponses = new Array(this.actionsList.length).fill(null).map((_, index) => ({
-          response: '',
+          response: this.getResponseByIndexTrigger(index),
           fieldId: this.actionsList[index].id,
           fieldName: this.actionsList[index].name
         }));
@@ -307,7 +410,6 @@ export class AreaCreationPage {
       });
     });
   }
-
 
   onNewStepTrigger = (step: number) => {
     if (step == 2) {
@@ -319,35 +421,48 @@ export class AreaCreationPage {
   }
 
   onStepTwoAction = () => {
-    this.apiService.get("service").subscribe(services => {
+    this.apiService.get<ApiResponse<Service[]>>('service').subscribe((resp: unknown) => {
+      const services = resp as ApiResponse<Service[]> | null;
+      if (!services) return;
       let id = -1;
-      services.data.forEach((service: any) => {
-        if (service.name === this.serviceChosen)
-          id = service.id;
+      services.data.forEach((service: Service) => {
+        if (service.name === this.serviceChosen) id = service.id;
       });
       if (id === -1) return;
-      this.apiService.get(`action/service/${id}`).subscribe(actions => {
+      this.apiService.get<ApiResponse<BackendActionOrReaction[]>>(`reaction/service/${id}`).subscribe((resp2: unknown) => {
+        const actions = resp2 as ApiResponse<BackendActionOrReaction[]> | null;
+        if (!actions) return;
         this.reactionsList = ['Choose Reaction'];
-        actions.data.forEach((element: { name: string, id: number, service_id: number, description?: string, config?: any }) => {
+        actions.data.forEach((element: BackendActionOrReaction) => {
           this.reactionsList.push(element.name);
         });
+        // If already chosen, keep it
+        if (this.idEditingTrigger !== -1) {
+          if (this.area.trigger.name && this.reactionsList.includes(this.area.trigger.name)) this.reactionChosen = this.area.trigger.name;
+        } else if (this.idEditingAction !== -1) {
+          const actionName = this.area.actions[this.idEditingAction - 1].name;
+          if (actionName && this.reactionsList.includes(actionName)) this.reactionChosen = actionName;
+        }
       });
     });
   }
 
   onStepThreeAction = () => {
-    this.apiService.get("service").subscribe(services => {
+    this.apiService.get<ApiResponse<Service[]>>('service').subscribe((resp: unknown) => {
+      const services = resp as ApiResponse<Service[]> | null;
+      if (!services) return;
       let id = -1;
-      services.data.forEach((service: any) => {
-        if (service.name === this.serviceChosen)
-          id = service.id;
+      services.data.forEach((service: Service) => {
+        if (service.name === this.serviceChosen) id = service.id;
       });
       if (id === -1) return;
-      this.apiService.get(`action/service/${id}`).subscribe(actions => {
-        const config : any = actions.data.find((action: any) => action.name === this.reactionChosen);
-        this.actionsList = config ? config.config.fields : [];
+      this.apiService.get<ApiResponse<BackendActionOrReaction[]>>(`reaction/service/${id}`).subscribe((resp2: unknown) => {
+        const actions = resp2 as ApiResponse<BackendActionOrReaction[]> | null;
+        if (!actions) return;
+        const config = actions.data.find((action: BackendActionOrReaction) => action.name === this.reactionChosen);
+        this.actionsList = config ? (config.config?.fields ?? []) : [];
         this.ActionsResponses = new Array(this.actionsList.length).fill(null).map((_, index) => ({
-          response: '',
+          response: this.getResponseByIndexAction(index),
           fieldId: this.actionsList[index].id,
           fieldName: this.actionsList[index].name
         }));
@@ -374,17 +489,24 @@ export class AreaCreationPage {
     return true;
   }
 
+  optionsFieldValues(action: { options_field?: unknown } | undefined): string[] {
+    if (!action || action.options_field == null) return [];
+    const of = action.options_field as unknown;
+    const vals = (of as { values?: unknown }).values ?? of;
+    if (Array.isArray(vals)) return (vals as unknown[]).map(v => (typeof v === 'string' ? v : String(v)));
+    try {
+      return Array.from(vals as Iterable<unknown>).map(v => (typeof v === 'string' ? v : String(v)));
+    } catch {
+      return Object.keys(vals as Record<string, unknown>).map(k => String((vals as Record<string, unknown>)[k]));
+    }
+  }
+
   createAll() {
     // Check all fields are filled and create the area int the backend
     if (!this.isFormValid())
       return;
 
-    let areaNew : {
-      action_id:number,
-      reaction_id:number,
-      is_active:boolean,
-      config: any
-    } = {
+    const areaNew: AreaCreateRequest = {
       is_active: true,
       reaction_id: -1,
       action_id: -1,
@@ -405,19 +527,21 @@ export class AreaCreationPage {
     };
 
     // Get reaction Id by name
-    this.apiService.get("reaction").subscribe(reactions => {
-      reactions.data.forEach((reaction: any) => {
-        if (reaction.name === this.area.trigger.name)
-          areaNew.reaction_id = reaction.id;
+    this.apiService.get<ApiResponse<BackendActionOrReaction[]>>('action').subscribe((resp: unknown) => {
+      const reactions = resp as ApiResponse<BackendActionOrReaction[]> | null;
+      if (!reactions) return;
+      reactions.data.forEach((reaction: BackendActionOrReaction) => {
+        if (reaction.name === this.area.trigger.name) areaNew.reaction_id = reaction.id;
       });
 
-      this.apiService.get("action").subscribe(actions => {
-        actions.data.forEach((action: any) => {
-          if (action.name === this.area.actions[0].name)
-            areaNew.action_id = action.id;
+      this.apiService.get<ApiResponse<BackendActionOrReaction[]>>('reaction').subscribe((resp2: unknown) => {
+        const actions = resp2 as ApiResponse<BackendActionOrReaction[]> | null;
+        if (!actions) return;
+        actions.data.forEach((action: BackendActionOrReaction) => {
+          if (action.name === this.area.actions[0].name) areaNew.action_id = action.id;
         });
 
-        this.apiService.post('area', areaNew).subscribe((data : any) => {
+        this.apiService.post('area', areaNew).subscribe(() => {
           this.router.navigate(['/dashboard']);
         });
       });

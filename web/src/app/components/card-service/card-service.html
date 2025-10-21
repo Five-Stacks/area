@@ -1,0 +1,22 @@
+<div class="service-item">
+    <div class="flip-card-inner">
+        <div class="flip-card-front">
+            <h2>{{ name }}</h2>
+            <img [src]="'/assets/icons/' + name + '.png'" alt="{{ name }}" />
+        </div>
+        <div class="flip-card-back">
+            <h2>{{ name }}</h2>
+            <p>{{ description }}</p>
+            <div *ngIf="connectedShow" class="connect-button">
+                <app-area-button-full *ngIf="!connected"
+                    [label]="'CONNECT'"
+                ></app-area-button-full>
+                <div *ngIf="connected" class="connected-button">
+                    <button>
+                        CONNECTED
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

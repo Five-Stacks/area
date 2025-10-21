@@ -9,9 +9,9 @@
                         <hr class="secondHr"/>
                         <img [src]="area.trigger!.urlImage" alt="Trigger Icon" class="trigger-icon" *ngIf="area.trigger?.urlImage" />
                         <svg *ngIf="!area.trigger?.urlImage" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M200-160v-280h-80v-80h240v80h-80v280h-80Zm0-440v-200h80v200h-80Zm160 0v-80h80v-120h80v120h80v80H360Zm80 440v-360h80v360h-80Zm240 0v-120h-80v-80h240v80h-80v120h-80Zm0-280v-360h80v360h-80Z"/></svg>
-                        <h3 [class.toConfigure]="!area.trigger.name">{{ area.trigger.name ? area.trigger.name : 'Select Trigger' }}</h3>
+                        <h3 [class.toConfigure]="!area.trigger.name">{{ area.trigger.name ? area.trigger.name : 'Select Action' }}</h3>
                     </div>
-                    <div class="status-text"><h4>TRIGGER</h4></div>
+                    <div class="status-text"><h4>ACTION</h4></div>
                 </div>
                 <div class="add-component" (click)="addNewEmptyActionAfter(-1)" tabindex="0" (keydown.enter)="addNewEmptyActionAfter(-1)">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
@@ -24,12 +24,20 @@
                         <hr class="secondHr" *ngIf="action.id !== area.actions[area.actions.length - 1]?.id"/>
                         <img [src]="action.urlImage" alt="Action Icon" class="action-icon" *ngIf="action.urlImage" />
                         <svg *ngIf="!action.urlImage" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M200-160v-280h-80v-80h240v80h-80v280h-80Zm0-440v-200h80v200h-80Zm160 0v-80h80v-120h80v120h80v80H360Zm80 440v-360h80v360h-80Zm240 0v-120h-80v-80h240v80h-80v120h-80Zm0-280v-360h80v360h-80Z"/></svg>
-                        <h3 [class.toConfigure]="!action.name">{{ action.name ? action.name : 'Select Action' }}</h3>
+                        <h3 [class.toConfigure]="!action.name">{{ action.name ? action.name : 'Select Reaction' }}</h3>
                         <div class="delete-button" (click)="deleteAction(action.id); $event.stopPropagation()" tabindex="0" (keydown.enter)="deleteAction(action.id); $event.stopPropagation()">
                             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
                         </div>
                     </div>
-                <div class="status-text"><h4>ACTION</h4></div>
+                <div class="switch-buttons">
+                    <div class="status-text"><h4>REACTION</h4></div>
+                    <div class="move-button" (click)="moveAction(action.id, 1); $event.stopPropagation()" tabindex="0" (keydown.enter)="moveAction(action.id, 1); $event.stopPropagation()">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+                    </div>
+                    <div class="move-button" (click)="moveAction(action.id, -1); $event.stopPropagation()" tabindex="0" (keydown.enter)="moveAction(action.id, -1); $event.stopPropagation()">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-528 296-344l-56-56 240-240 240 240-56 56-184-184Z"/></svg>
+                    </div>
+                </div>
             </div>
             <div class="add-component" (click)="addNewEmptyActionAfter(action.id)" tabindex="0" (keydown.enter)="addNewEmptyActionAfter(action.id)">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
@@ -41,7 +49,7 @@
             <div class="headers">
                 <img [src]="area.trigger!.urlImage" alt="Trigger Icon" class="trigger-icon" *ngIf="area.trigger?.urlImage" />
                 <svg *ngIf="!area.trigger?.urlImage" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M200-160v-280h-80v-80h240v80h-80v280h-80Zm0-440v-200h80v200h-80Zm160 0v-80h80v-120h80v120h80v80H360Zm80 440v-360h80v360h-80Zm240 0v-120h-80v-80h240v80h-80v120h-80Zm0-280v-360h80v360h-80Z"/></svg>
-                <h2>{{ area.trigger.name ? area.trigger.name : 'Select Trigger' }}</h2>
+                <h2>{{ area.trigger.name ? area.trigger.name : 'Select Action' }}</h2>
             </div>
             <div class="stepper-container">
                 <div class="step" [class.active]="step === 1">
@@ -55,7 +63,7 @@
                     <svg *ngIf="step === 2" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Z"/></svg>
                     <svg *ngIf="step > 2" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#74B9A9"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
                     <svg *ngIf="step < 2" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 27-3 53t-10 51q-14-16-32.5-27T794-418q3-15 4.5-30.5T800-480q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93q51 0 97.5-15t85.5-42q12 17 29.5 30t37.5 20q-51 41-114.5 64T480-80Zm290-160q-21 0-35.5-14.5T720-290q0-21 14.5-35.5T770-340q21 0 35.5 14.5T820-290q0 21-14.5 35.5T770-240Zm-158-52L440-464v-216h80v184l148 148-56 56Z"/></svg>
-                    <h4>Reaction</h4>
+                    <h4>{{ idEditingAction === -1 ? 'Action' : 'Reaction' }}</h4>
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#a3a3a3"><path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/></svg>
                 <div class="step" [class.active]="step === 3">
@@ -79,16 +87,16 @@
                         <app-options-field-component
                             [label]="'Options'"
                             [options]="optionsServices"
-                            [selectedOption]="''"
+                            [selectedOption]="serviceChosen"
                             (valueChange)="serviceChosen = $event"
                         ></app-options-field-component>
                     </div>
                     <div class="form-fields" *ngIf="step === 2">
-                        <h4>Step 2: Select Reaction</h4>
+                        <h4>{{ idEditingAction === -1 ? 'Step 2: Select Action' : 'Step 2: Select Reaction' }}</h4>
                         <app-options-field-component
                             [label]="'Reaction'"
                             [options]="reactionsList"
-                            [selectedOption]="''"
+                            [selectedOption]="reactionChosen"
                             (valueChange)="reactionChosen = $event"
                         ></app-options-field-component>
                     </div>
@@ -97,14 +105,15 @@
                             <h4>{{ action.name }}</h4>
                             <app-options-field-component
                                 *ngIf="action.options_field"
-                                [label]="action.name"
-                                [options]="action.options_field.values"
-                                [selectedOption]="''"
+                                [label]="action.title"
+                                [options]="optionsFieldValues(action)"
+                                [selectedOption]="ActionsResponses[action.id - 1].response"
                                 (valueChange)="ActionsResponses[action.id - 1].response = $event"
                             ></app-options-field-component>
                             <app-text-field-component
                                 *ngIf="action.input_field"
-                                [label]="action.name"
+                                [label]="action.title"
+                                [value]="ActionsResponses[action.id - 1].response"
                                 (valueChange)="ActionsResponses[action.id - 1].response = $event"
                             ></app-text-field-component>
                         </div>
@@ -151,8 +160,8 @@
 <!-- Name popup modal -->
 <div class="popup-overlay disabled-popup">
     <div class="popup-modal">
-        <h3>Enter AREA name</h3>
-        <p>Please provide a name for your AREA before creating it.</p>
+        <h3>Change AREA name ?</h3>
+        <p>Please provide a name for your AREA or keep previous one.</p>
         <app-text-field-component
             [label]="'Area Name'"
             (valueChange)="nameArea = $event"
@@ -160,7 +169,7 @@
 
         <div class="popup-actions">
             <button class="btn-cancel" (click)="closePopupName()">Cancel</button>
-            <button class="btn-create" (click)="confirmPopupName()" [disabled]="nameArea.length < 1 || !nameArea">Create</button>
+            <button class="btn-create" (click)="confirmPopupName()" [disabled]="nameArea.length < 1 || !nameArea">Save</button>
         </div>
     </div>
 </div>
