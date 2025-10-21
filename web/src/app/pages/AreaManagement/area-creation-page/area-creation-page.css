@@ -90,7 +90,7 @@
 }
 
 .toConfigure {
-    opacity: 0.2;
+    opacity: 0.5;
     font-style: italic;
 }
 
@@ -249,7 +249,6 @@ img {
         font-size: 22px;
     }
 }
-
 .switch-buttons {
     width: auto;
     display: grid;
@@ -321,6 +320,13 @@ img {
     text-align: center;
     gap: 10px;
     padding-bottom: 10px;
+
+    h1 {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 800;
+        color: var(--black-color);
+    }
 }
 .step:first-child {
     margin-left: 15px;
@@ -360,7 +366,8 @@ img {
         padding: 0px;
         color: var(--blue-color);
     }
-    h4 {
+    h1 {
+        font-size: 20px;
         margin-top: 5px;
         margin-bottom: 10px;
     }

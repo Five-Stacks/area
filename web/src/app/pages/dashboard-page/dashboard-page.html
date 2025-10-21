@@ -18,11 +18,13 @@
                     [label]="'All Apps'"
                     [options]="listApps"
                     (valueChange)="appsFilter = $event"
+                    aria-labelledby="all-apps-label"
                 ></app-options-field-component>
                 <app-options-field-component
                     [label]="'All Status'"
                     [options]="listStatus"
                     (valueChange)="statusFilter = $event"
+                    aria-labelledby="all-status-label"
                 ></app-options-field-component>
             </div>
         </div>
@@ -36,6 +38,7 @@
                     [label]="'+ CREATE'"
                     [disabled]="false"
                     [path]="'/area/creation'"
+                    class="accessible-button"
                 ></app-area-button-full>
                 <app-area-button-icon
                     [label]="'SERVICES'"
@@ -63,8 +66,8 @@
                 </div>
                 <div class="areas-cards">
                     <div *ngFor="let area of getFilteredAreas()" class="area-card" (click)="goToArea(area.id)" tabindex="0" (keydown.enter)="goToArea(area.id)">
-                        <div class="button-area-selection" (click)="selectArea(area.id, $event)" tabindex="1" (keydown.enter)="selectArea(area.id, $event)">
-                            <svg *ngIf="area.selected" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
+                        <div class="button-area-selection" (click)="selectArea(area.id, $event)" tabindex="1" (keydown.enter)="selectArea(area.id, $event)" tabindex="0">
+                            <svg *ngIf="area.selected" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="http://www.w3.org/2000/svg" width="24px" fill="#e3e3e3"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
                         </div>
                         <h2>{{ area.name }}</h2>
                         <div [class]="area.AppsIcons.length === 1 ? 'apps-icons-single' : 'apps-icons'">
@@ -74,14 +77,14 @@
                             [style.background-color]="area.active ? 'var(--green-color)' : 'var(--red-color)'"
                             (click)="changeStatus(area.id, $event)"
                             (keydown.enter)="changeStatus(area.id, $event)"
-                            tabindex="0" >
+                            tabindex="0">
                             <div class="status-dot"
                                 [style.transform]="'translateX(' + (area.active ? '47px' : '0px') + ')'">
                             </div>
                         </div>
                         <div class="see-more">
-                            <a (click)="deleteArea(area.id, $event)" (keydown.enter)="deleteArea(area.id, $event)" tabindex="2">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
+                            <a (click)="deleteArea(area.id, $event)" (keydown.enter)="deleteArea(area.id, $event)" tabindex="0">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="http://www.w3.org/2000/svg" width="24px" fill="#e3e3e3"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
                             </a>
                         </div>
                     </div>

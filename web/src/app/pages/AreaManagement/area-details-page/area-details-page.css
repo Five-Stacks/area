@@ -321,6 +321,10 @@ img {
     text-align: center;
     gap: 10px;
     padding-bottom: 10px;
+    h1 {
+        margin: 0;
+        font-size: 18px;
+    }
 }
 .step:first-child {
     margin-left: 15px;
@@ -360,7 +364,8 @@ img {
         padding: 0px;
         color: var(--blue-color);
     }
-    h4 {
+    h1 {
+        font-size: 20px;
         margin-top: 5px;
         margin-bottom: 10px;
     }

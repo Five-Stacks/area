@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 :host {
-    --blue-color: #6A74C9;
-    --blue-color-light: #DADCF0;
-    --blue-hover-color: #5B63A8;
+    --blue-color: #4d59c0;
+    --blue-color-light: #e9e9f2;
+    --blue-hover-color: #3b47aa;
     --white-color: #ffffff;
     --black-color: #20252B;
     --gray-color: #EFF2F9;
     --line-color: #BABFCA;
-    --green-color: #74B9A9;
+    --green-color: #1b7863;
     --red-color: #CC9A9B;
     --red-color-light: #EEC6C6;
     --red-color-dark: #8A3E49;
@@ -16,7 +16,7 @@
     --form-border-color: #EFF2F9;
     --form-text-color: #20252b2B;
     --disabled-background-color: #D5D5D5;
-    --disabled-text-color: #8E8E8E;
+    --disabled-text-color: #5C5C5C;
     --disabled-shadow-color: hsla(213, 15%, 15%, 0.13);
     --green-shadow-color: #74B9A954;
     --blue-shadow-color: rgba(106, 116, 201, 0.33);

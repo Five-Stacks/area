@@ -27,4 +27,8 @@ export class OptionsFieldComponent implements OnInit  {
     this.selectedOption = target.value;
     this.valueChange.emit(this.selectedOption);
   }
+
+  get selectId(): string {
+    return 'select-' + this.label.replace(/\s+/g, '-').toLowerCase();
+  }
 }
