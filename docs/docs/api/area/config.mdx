@@ -1,0 +1,56 @@
+---
+id: area-format-config
+title: Area config format
+---
+
+## Area `config` field format
+
+Example
+
+```json
+{
+  "name": "My Area",
+  "trigger": {
+    "reactionChosenId": 1,
+    "service_name": "timer",
+    "name": "Each Day",
+    "datas_form": [
+      {
+        "fieldId": 1,
+        "fieldName": "Day",
+        "response": "Monday"
+      }
+    ]
+  },
+  "action": {
+    "service_name": "timer",
+    "name": "Each Day",
+    "datas_form": [
+      {
+        "fieldId": 2,
+        "fieldName": "Time",
+        "response": "09:00"
+      }
+    ]
+  }
+}
+```
+### Description
+
+- `name` (string): Name of the area.
+- `trigger` (object): The event trigger for the area.
+  - `reactionChosenId` (number): ID of the chosen reaction table (e.g., 1).
+  - `service_name` (string): Name of the reaction for display (e.g., "timer").
+  - `name` (string): Name of the specific chosen trigger (e.g., "Each Day").
+  - `datas_form` (Field[]): List of configuration fields for the trigger.
+- `action` (object): The resulting action (currently only one).
+  - `service_name` (string): Name of the reaction for display (e.g., "timer").
+  - `name` (string): Name of the specific chosen trigger (e.g., "Each Day").
+  - `datas_form` (Field[]): List of configuration fields for the action.
+
+#### Field object shape (`datas_form`)
+
+- `fieldId` (number): ID of the field for ordering.
+- `fieldName` (string): Name of the provided field.
+- `response` (string): Value provided by the user.
+

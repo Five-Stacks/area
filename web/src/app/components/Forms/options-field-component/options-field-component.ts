@@ -5,7 +5,7 @@ import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
   selector: 'app-options-field-component',
   imports: [CommonModule],
   templateUrl: './options-field-component.html',
-  styleUrl: './options-field-component.css'
+  styleUrls: ['./options-field-component.css']
 })
 export class OptionsFieldComponent implements OnInit  {
   @Input() options: string[] = [];
@@ -15,6 +15,11 @@ export class OptionsFieldComponent implements OnInit  {
 
   ngOnInit() {
     this.selectedOption = this.label;
+  }
+
+  public setSelectedOption(option: string) {
+    this.selectedOption = option;
+    this.valueChange.emit(this.selectedOption);
   }
 
   onOptionChange(event: Event) {

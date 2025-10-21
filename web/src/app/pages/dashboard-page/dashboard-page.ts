@@ -7,6 +7,18 @@ import { TextFieldComponent } from '../../components/Forms/text-field-component/
 import { OptionsFieldComponent } from '../../components/Forms/options-field-component/options-field-component';
 import { ApiService } from '../../services/api.service';
 
+interface ApiResponse<T = unknown> { data: T }
+
+interface AreaApiResponse {
+  id: number;
+  config: {
+    name: string;
+    trigger?: { service_name: string };
+    action?: { service_name: string };
+  };
+  is_active: boolean;
+}
+
 @Component({
   selector: 'app-dashboard-page',
   imports: [
@@ -66,7 +78,8 @@ export class DashboardPage implements OnInit {
     return area.AppsIcons;
   }
 
-  selectArea(areaId: number) {
+  selectArea(areaId: number, event: Event) {
+    event.stopPropagation();
     this.listAreas = this.listAreas.map(area => ({
       ...area,
       selected: area.id === areaId ? !area.selected : area.selected
@@ -96,7 +109,8 @@ export class DashboardPage implements OnInit {
     return filtered;
   }
 
-  changeStatus(areaId: number) {
+  changeStatus(areaId: number, event: Event) {
+    event.stopPropagation();
     const area = this.listAreas.find(a => a.id === areaId);
     if (area && !area.isToggling) {
       area.isToggling = true;
@@ -116,41 +130,47 @@ export class DashboardPage implements OnInit {
     }
   }
 
-  deleteArea(areaId: number) {
+  deleteArea(areaId: number, event: Event) {
+    event.stopPropagation();
     this.apiService.delete(`area/${areaId}`).subscribe(() => {
       this.listAreas = this.listAreas.filter(area => area.id !== areaId);
     });
   }
 
   ngOnInit() {
-    this.apiService.get('area/').subscribe(data => {
-      if (data) {
+    this.apiService.get<ApiResponse<AreaApiResponse[]>>('area/').subscribe((resp: ApiResponse<AreaApiResponse[]> | null) => {
+      if (!resp) return;
 
-        // Initialize listApps based on the unique app names from listAreas
-        const appSet = new Set<string>();
-        data.data.forEach((area : any) => {
+      // Initialize listApps based on the unique app names from listAreas
+      const appSet = new Set<string>();
+
+      resp.data.forEach((area: AreaApiResponse) => {
           this.listAreas.push({
             id: area.id,
             name: area.config.name,
-            AppsIcons: area.config ? [
-              ...area.config.trigger ? [{
-                name: area.config.trigger.service_name,
-                url: `/assets/icons/${area.config.trigger.service_name.toLowerCase()}.png`
-              }] : [],
-              ...area.config.action ? [{
-                name: area.config.action.service_name,
-                url: `/assets/icons/${area.config.action.service_name.toLowerCase()}.png`
-              }] : []
-            ] : [],
+            AppsIcons: [],
             active: area.is_active,
             selected: false,
             isToggling: false
           });
-          appSet.add(area.config.trigger.service_name);
-          appSet.add(area.config.action.service_name);
+          const Icons = [];
+          if (area.config.trigger)
+            Icons.push(area.config.trigger.service_name);
+          if (area.config.action) {
+            if (!Icons.includes(area.config.action.service_name))
+              Icons.push(area.config.action.service_name);
+          }
+
+          this.listAreas[this.listAreas.length - 1].AppsIcons = Icons.map(name => ({
+            name,
+            url: `/assets/icons/${name.toLowerCase()}.png`
+          }));
+          if (area.config.trigger)
+            appSet.add(area.config.trigger.service_name);
+          if (area.config.action)
+            appSet.add(area.config.action.service_name);
         });
         this.listApps = ['All Apps', ...Array.from(appSet)];
-      }
     });
 
     // Initialize listApps based on the unique app names from listAreas
@@ -161,5 +181,9 @@ export class DashboardPage implements OnInit {
       });
     });
     this.listApps = ['All Apps', ...Array.from(appSet)];
+  }
+
+  goToArea(areaId: number) {
+    this.router.navigate(['/area/details', areaId]);
   }
 }
