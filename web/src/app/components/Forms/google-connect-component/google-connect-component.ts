@@ -1,6 +1,4 @@
-import { Component, inject } from '@angular/core';
-import { ApiService } from '../../../services/api.service';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-google-sign-in',

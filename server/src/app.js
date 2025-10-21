@@ -1,6 +1,5 @@
 /* Import modules */
 import express from 'express';
-import './config/dotenv.js';
 import cookieParser from 'cookie-parser';
 import corsSetup from './config/cors.js';
 import passportSetup from './config/passport.js';
@@ -14,8 +13,6 @@ import areaExecutionRouter from './routes/areaExecutionRoute.js';
 import userRouter from './routes/userRoute.js';
 import oauthRouter from './routes/oauth.js';
 import notFound from './middleware/notFound.js';
-import servicesSetup from './config/services.js';
-import executeArea from './services/executeArea.js';
 
 /* App initialization */
 const app = express();
@@ -31,17 +28,7 @@ app.use(cookieParser());
 /* Passport configuration */
 app.use(passportSetup());
 
-/* Initialize services */
-servicesSetup();
-
-/* Start background executeArea service (sends mail every 5s) */
-// try {
-// 	executeArea.start();
-// } catch (e) {
-// 	console.warn('Failed to start executeArea:', e && e.message ? e.message : e);
-// }
-
-/* Use auth routes */
+/* Route handling */
 app.use('/api/auth', authRouter);
 app.use('/api/service', serviceRouter);
 app.use('/api/userService', userServiceRouter);

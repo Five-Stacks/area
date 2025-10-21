@@ -18,12 +18,13 @@ server/
   └── src/
       ├── app.js         # Express app setup
       ├── server.js      # Entry point, starts the server on port 8080
-      ├── config/        # Dotenv and Sequelize configuration files
+      ├── database/      # Setup database at server start
+      ├── config/        # Setup the configuration for the modules
       ├── controllers/   # Request/response logic for each route
       ├── middleware/    # Auth, logging, error handlers, parsers
       ├── models/        # ORM models and database connection logic
       ├── routes/        # Route definitions, connect endpoints to controllers
-      ├── services/      # Business logic, external API, reusable app logic
+      ├── services/      # Area engine and hook execution logic
       └── utils/         # Small helpers, formatting, generic utilities
 ```
 

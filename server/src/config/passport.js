@@ -1,6 +1,7 @@
 import express from 'express';
 import passport from 'passport';
 import session from 'express-session';
+import 'dotenv/config';
 
 const router = express.Router();
 
