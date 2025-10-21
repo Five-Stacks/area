@@ -3,7 +3,7 @@ import * as timer from "./timer.js";
 
 /* Reactions handler */
 const reactionsHandler = {
-    'timer': timer.default ?? timer
+    'Timer': timer.default ?? timer
 };
 
 /* Export reactions handler */
