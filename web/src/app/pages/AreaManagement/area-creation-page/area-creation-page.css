@@ -90,7 +90,7 @@
 }
 
 .toConfigure {
-    opacity: 0.2;
+    opacity: 0.5;
     font-style: italic;
 }
 
@@ -366,7 +366,8 @@ img {
         padding: 0px;
         color: var(--blue-color);
     }
-    h4 {
+    h1 {
+        font-size: 20px;
         margin-top: 5px;
         margin-bottom: 10px;
     }

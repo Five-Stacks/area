@@ -83,7 +83,7 @@
             <div class="form-content">
                 <div class="form-section">
                     <div class="form-fields" *ngIf="step === 1">
-                        <h4>Step 1: Select Service</h4>
+                        <h1>Step 1: Select Service</h1>
                         <app-options-field-component
                             [label]="'Options'"
                             [options]="optionsServices"
@@ -92,7 +92,7 @@
                         ></app-options-field-component>
                     </div>
                     <div class="form-fields" *ngIf="step === 2">
-                        <h4>Step 2: Select Reaction</h4>
+                        <h1>Step 2: Select Reaction</h1>
                         <app-options-field-component
                             [label]="'Reaction'"
                             [options]="reactionsList"
