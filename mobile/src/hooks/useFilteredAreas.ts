@@ -39,6 +39,5 @@ export function useFilteredAreas(): {
       return matches;
     });
   }, [enrichedAreas, filters]);
-
   return { filteredAreas, setFilters, isLoading, error };
 }
