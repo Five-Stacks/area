@@ -2,7 +2,6 @@ import { DataTypes } from 'sequelize';
 import sequelize from '../config/sequelize.js';
 
 /* Define OAuthAccounts model */
-
 const OAuthAccount = sequelize.define('OAuthAccount', {
     id: {
         type: DataTypes.INTEGER,

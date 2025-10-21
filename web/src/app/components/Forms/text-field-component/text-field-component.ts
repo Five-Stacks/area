@@ -22,7 +22,7 @@ import { FormsModule } from '@angular/forms';
 export class TextFieldComponent {
   @Input() label = 'Input';
   @Input() hint = '';
-
+  @Input() placeholder = '';
   @Input() value = '';
   @Output() valueChange = new EventEmitter<string>();
   @Input() type = 'text';
