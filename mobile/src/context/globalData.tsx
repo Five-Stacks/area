@@ -119,10 +119,7 @@ export const GlobalDataProvider = ({ children }: GlobalDataProviderProps) => {
   // Load all data on mount
   useEffect(() => {
     loadServices();
-    loadActions();
-    loadReactions();
-    loadAreas();
-  }, [loadServices, loadActions, loadReactions, loadAreas]);
+  }, [loadServices]);
 
   const updateArea_ = (area: Area) => {
     if (areas.find((s) => s.id === area.id)) {
