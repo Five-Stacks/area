@@ -12,13 +12,13 @@ const MICROSOFT_DESC = "Automate Microsoft 365 (Outlook, OneDrive, Teams). Trigg
 /* Service setup function */
 async function servicesSetup() {
     const services = [
-        { name: 'timer', description: "Timer management"},
-        { name: 'google', description: GOOGLE_DESC },
-        { name: 'github', description: GITHUB_DESC },
-        { name: 'discord', description: DISCORD_DESC },
-        { name: 'spotify', description: SPOTIFY_DESC },
-        { name: 'twitter', description: TWITTER_DESC },
-        { name: 'microsoft', description: MICROSOFT_DESC },
+        { name: 'Timer', description: "Timer management"},
+        { name: 'Google', description: GOOGLE_DESC },
+        { name: 'Github', description: GITHUB_DESC },
+        { name: 'Discord', description: DISCORD_DESC },
+        { name: 'Spotify', description: SPOTIFY_DESC },
+        { name: 'Twitter', description: TWITTER_DESC },
+        { name: 'Microsoft', description: MICROSOFT_DESC },
     ];
 
     for (const serviceData of services) {
