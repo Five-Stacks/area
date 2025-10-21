@@ -118,13 +118,13 @@ const stateDropdownData: StylizedDropdownItem[] = [
 // Placeholders
 const servicesDropdownData: StylizedDropdownItem[] = [
   { label: "All services", value: undefined },
-  { label: "Timer", value: "timer" },
-  { label: "Google", value: "google" },
-  { label: "Github", value: "github" },
-  { label: "Discord", value: "discord" },
-  { label: "Spotify", value: "spotify" },
-  { label: "Twitter", value: "twitter" },
-  { label: "Microsoft", value: "microsoft" },
+  { label: "Timer", value: "Timer" },
+  { label: "Google", value: "Google" },
+  { label: "Github", value: "Github" },
+  { label: "Discord", value: "Discord" },
+  { label: "Spotify", value: "Spotify" },
+  { label: "Twitter", value: "Twitter" },
+  { label: "Microsoft", value: "Microsoft" },
 ];
 
 export default SearchModule;
