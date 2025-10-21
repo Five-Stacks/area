@@ -107,5 +107,7 @@ export function useEnrichedAreas(): {
     });
   }, [areas, actions, reactions, services]);
 
+  enrichedAreas.sort((a, b) => a.id - b.id);
+
   return { enrichedAreas, isLoading, error };
 }

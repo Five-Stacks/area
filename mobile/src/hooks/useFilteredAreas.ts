@@ -40,5 +40,7 @@ export function useFilteredAreas(): {
     });
   }, [enrichedAreas, filters]);
 
+  filteredAreas.sort((a, b) => a.id - b.id);
+
   return { filteredAreas, setFilters, isLoading, error };
 }
