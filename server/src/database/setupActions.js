@@ -2,31 +2,19 @@
 import { Action } from '../models/indexModel.js';
 
 /* Action config */
-const timerActionConfig = {
-    "fields": [
-        {
-            "id": 1,
-            "name": "Day of the Week",
-            "title": "Day of the Week",
-            "options_field": {
-                "values": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-            }
-        },
-        {
-            "id": 2,
-            "name": "Time (HH:MM)",
-            "title": "Time (HH:MM)",
-            "input_field": {
-                "placeholder": "09:00"
-            }
-        }
-    ]
-};
+
+/* Import timer action config */
+import { timerActionConfig } from './services/timer/timer.js';
+
+/* Import google action config */
+
+
+/* End of imports */
 
 /* Action setup function */
 async function actionsSetup() {
     const actions = [
-        { service_id: 1, name: 'Timer', description: "Timer management", config: timerActionConfig }
+        { service_id: 1, name: 'Timer', description: "Timer management", config: timerActionConfig },
     ];
 
     for (const actionData of actions) {

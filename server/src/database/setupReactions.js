@@ -1,24 +1,21 @@
 /* Import modules */
 import { Reaction } from '../models/indexModel.js';
 
-/* Reaction config */
-const timerReactionConfig = {
-    "fields": [
-        {
-            "id": 1,
-            "name": "Duration (minutes)",
-            "title": "Duration (minutes)",
-            "input_field": {
-                "placeholder": "30"
-            }
-        }
-    ]
-};
+/* Import timer action config */
+
+import { timerReactionConfig } from './services/timer/timer.js';
+
+/* Import google action config */
+
+import { sendEmailGmailActionConfig } from './services/google/gmail.js';
+
+/* End of imports */
 
 /* Reaction setup function */
 async function reactionsSetup() {
     const reactions = [
-        { service_id: 1, name: 'Timer', description: "Timer management", config: timerReactionConfig }
+        { service_id: 1, name: 'Timer', description: "Timer management", config: timerReactionConfig },
+        { service_id: 2, name: 'Send email with Gmail', description: "Send an email using Gmail", config: sendEmailGmailActionConfig }
     ];
 
     for (const reactionData of reactions) {
