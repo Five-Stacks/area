@@ -11,6 +11,11 @@
 .service-item:hover .flip-card-inner {
     transform: rotateY(180deg);
 }
+.service-item:focus-within {
+    .flip-card-inner {
+        transform: rotateY(180deg);
+    }
+}
 
 /* This container is needed to position the front and back side */
 .flip-card-inner {
@@ -80,6 +85,7 @@
     padding: 15px;
     padding-top: 0;
 }
+
 
 .connected-button {
     display: block;

@@ -249,7 +249,6 @@ img {
         font-size: 22px;
     }
 }
-
 .switch-buttons {
     width: auto;
     display: grid;
@@ -321,6 +320,13 @@ img {
     text-align: center;
     gap: 10px;
     padding-bottom: 10px;
+
+    h1 {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 800;
+        color: var(--black-color);
+    }
 }
 .step:first-child {
     margin-left: 15px;
