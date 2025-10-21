@@ -1,3 +1,16 @@
+/* Screen reader only class - visually hidden but accessible */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
 select {
     padding: 14px 40px 14px 14px; /* Add space for arrow */
     border: 4px solid var(--form-border-color);
