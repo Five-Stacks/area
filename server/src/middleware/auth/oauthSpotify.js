@@ -12,7 +12,7 @@ passport.use(new SpotifyStrategy({
     passReqToCallback: true
 }, async (req, accessToken, refreshToken, profile, done) => {
     try {
-        const provider = 'spotify';
+        const provider = 'Spotify';
         const providerUserId = profile.id;
 
         let oauthAccount = await OAuthAccount.findOne({ where: { provider, provider_user_id: providerUserId } });

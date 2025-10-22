@@ -1,5 +1,6 @@
 /* Import modules */
 import { Reaction } from '../models/indexModel.js';
+import getIdOfService from '../utils/getIdOfService.js';
 
 /* Import timer action config */
 
@@ -13,9 +14,13 @@ import { sendEmailGmailActionConfig } from './services/google/gmail.js';
 
 /* Reaction setup function */
 async function reactionsSetup() {
+    const services = {
+        'Timer': await getIdOfService('Timer'),
+        'Google': await getIdOfService('Google'),
+    };
     const reactions = [
-        { service_id: 1, name: 'Timer', description: "Timer management", config: timerReactionConfig },
-        { service_id: 2, name: 'Send email with Gmail', description: "Send an email using Gmail", config: sendEmailGmailActionConfig }
+        { service_id: services['Timer'], name: 'Timer', description: "Timer management", config: timerReactionConfig },
+        { service_id: services['Google'], name: 'Send email with Gmail', description: "Send an email using Google", config: sendEmailGmailActionConfig }
     ];
 
     for (const reactionData of reactions) {

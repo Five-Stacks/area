@@ -531,14 +531,14 @@ export class AreaCreationPage implements OnInit {
       const reactions = resp as ApiResponse<BackendActionOrReaction[]> | null;
       if (!reactions) return;
       reactions.data.forEach((reaction: BackendActionOrReaction) => {
-        if (reaction.name === this.area.trigger.name) areaNew.reaction_id = reaction.id;
+        if (reaction.name === this.area.trigger.name) areaNew.action_id = reaction.id;
       });
 
       this.apiService.get<ApiResponse<BackendActionOrReaction[]>>('reaction').subscribe((resp2: unknown) => {
         const actions = resp2 as ApiResponse<BackendActionOrReaction[]> | null;
         if (!actions) return;
         actions.data.forEach((action: BackendActionOrReaction) => {
-          if (action.name === this.area.actions[0].name) areaNew.action_id = action.id;
+          if (action.name === this.area.actions[0].name) areaNew.reaction_id = action.id;
         });
 
         this.apiService.post('area', areaNew).subscribe(() => {

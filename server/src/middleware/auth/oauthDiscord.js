@@ -14,7 +14,7 @@ passport.use(new DiscordStrategy({
     passReqToCallback: true
 }, async (req, accessToken, refreshToken, profile, done) => {
     try {
-        const provider = 'discord';
+        const provider = 'Discord';
         const providerUserId = profile.id;
 
         let oauthAccount = await OAuthAccount.findOne({ where: { provider, provider_user_id: providerUserId } });
