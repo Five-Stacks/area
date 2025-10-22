@@ -13,7 +13,7 @@ passport.use(new GitHubStrategy({
   },
   async function(req, accessToken, refreshToken, profile, done) {
     try {
-      const provider = 'github';
+      const provider = 'Github';
       const providerUserId = profile.id;
 
       let oauthAccount = await OAuthAccount.findOne({ where: { provider, provider_user_id: providerUserId } });
