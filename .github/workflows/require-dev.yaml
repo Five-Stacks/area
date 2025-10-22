@@ -20,19 +20,4 @@ jobs:
           echo "::error title=Illegal-pull-request-source::All pull requests to the main branch must come from the dev branch."
           exit 1
 
-  push_to_mirror:
-    needs: check-source
-    runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' }}
-    steps:
-      - name: "Checkout"
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: "Mirroring"
-        uses: pixta-dev/repository-mirroring-action@v1
-        with:
-          target_repo_url:
-            ${{ env.MIRROR_URL }}
-          ssh_private_key:
-            ${{ secrets.GIT_SSH_PRIVATE_KEY }}
+
