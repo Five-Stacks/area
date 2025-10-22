@@ -8,200 +8,262 @@ description: Step-by-step guide to create your first automation workflow
 
 This guide will walk you through the process of creating an AREA automation workflow. Whether you're using the web or mobile application, the process is similar and intuitive.
 
+## Overview
+
+Creating an AREA involves:
+1. **Logging in** to your account
+2. **Choosing a trigger** (the event that starts the automation)
+3. **Choosing one or more actions** (what happens when triggered)
+4. **Naming and saving** your AREA
+
+The entire process happens from the **Dashboard** and is identical on web and mobile platforms.
+
 ## Prerequisites
 
 Before creating an AREA, make sure you:
 
 1. ✅ Have an account on the AREA platform
-2. ✅ Are logged in to the web or mobile application
+2. ✅ Are **logged in** to the web or mobile application
 3. ✅ Have connected at least one service (GitHub, Discord, Spotify, etc.)
 
-:::tip
-If you haven't connected any services yet, check the [Web App Guide](/user-guide/web-app#connecting-services) or [Mobile App Guide](/user-guide/mobile-app#connecting-services) for instructions.
+:::tip Connecting Services
+If you haven't connected any services yet, check:
+- [Web App: Services Management](/user-guide/web-app#services-management)
+- [Mobile App: Services Tab](/user-guide/mobile-app#services-tab)
+:::
+
+:::info Key Concept
+- **One Trigger** → Can have **Multiple Actions**
+- Actions execute in the order you set them
+- All actions run when the trigger fires
 :::
 
 ## Step-by-Step Guide
 
-### Step 1: Navigate to the AREA Creation Page
+### Prerequisites
+
+Before creating an AREA:
+1. ✅ You must be **logged in** to your account
+2. ✅ Have at least one service connected (see [Services Management](#connecting-services))
+
+### Step 1: Navigate to the Dashboard
 
 #### On Web Application
-1. Click on the **"AREAs"** tab in the main navigation
-2. Click the **"+ Create New AREA"** button
+1. Log in to your account
+2. Navigate to the **Dashboard**
+3. Click the **"Create"** button
 
-<!-- TODO: Add screenshot - ![Create AREA Button Web](/img/user-guide/web-create-button.png) -->
+![Create AREA Button Web](/img/user-guide/web-create-button.png)
 
 #### On Mobile Application
-1. Tap the **"AREA"** tab at the bottom navigation
-2. Tap the **"+"** floating action button in the bottom-right corner
+1. Log in to your account
+2. Navigate to the **Dashboard** tab
+3. Tap the **"Create"** button
 
 <!-- TODO: Add screenshot - ![Create AREA Button Mobile](/img/user-guide/mobile-create-button.png) -->
 
 ---
 
-### Step 2: Give Your AREA a Name
+### Step 2: Choose the Trigger
 
-Choose a descriptive name for your automation. This helps you identify it later when you have multiple AREAs.
+The trigger (action) is what starts your automation.
 
-**Examples of good names:**
-- "Notify Discord on New GitHub Issue"
-- "Add Starred Tracks to Playlist"
-- "Tweet New Blog Posts"
+#### 2.1 Choose the Service
+1. Select the service you want to use as a trigger
+2. Examples: GitHub, Discord, Spotify, Microsoft, Twitter
 
-<!-- TODO: Add screenshot - ![Name Your AREA](/img/user-guide/name-area.png) -->
+#### 2.2 Choose the Action
+1. Select the specific action/event from that service
+2. Examples: 
+   - GitHub: "New Issue Created", "New Pull Request"
+   - Discord: "New Message in Channel", "User Joined"
+   - Spotify: "New Track Saved", "Track Added to Playlist"
+
+#### 2.3 Configure Parameters
+1. Fill in the required parameters for the action
+2. Examples:
+   - Repository name for GitHub
+   - Channel ID for Discord
+   - Playlist ID for Spotify
+
+#### 2.4 Verify Parameters
+1. Review your configuration
+2. Make sure all required fields are filled
+3. Click "Next" or "Continue"
+
+![Select Action](/img/user-guide/select-action.png)
+
+---
+
+### Step 3: Choose the Actions (Reactions)
+
+What happens when the trigger fires. You can add multiple reactions!
+
+#### 3.1 Choose the Service
+1. Select the service for the reaction
+2. Can be the same or different from the trigger service
+
+#### 3.2 Choose the Reaction
+1. Select what action to perform
+2. Examples:
+   - Discord: "Send Message"
+   - GitHub: "Create Issue Comment"
+   - Spotify: "Add Track to Playlist"
+
+#### 3.3 Configure Parameters
+1. Fill in the required fields
+
+#### 3.4 Verify Parameters
+1. Review your reaction configuration
+2. Check that variables are correctly formatted
+
+![Configure Reaction](/img/user-guide/configure-reaction.png)
+
+### Step 4: Manage Actions (Optional)
+
+You can have multiple reactions for one trigger!
+
+#### Add More Actions
+1. Click **"+ Add Action"** button
+2. Repeat Step 3 for each additional reaction
+3. Each reaction can use a different service
+
+#### Remove Actions
+1. Click the **trash/delete icon** on an action
+2. Confirm deletion
+
+#### Reorder Actions
+1. Drag and drop actions to reorder them
+2. Actions execute in the order shown
+3. Top to bottom execution
 
 :::info
-You can always edit the name later from the AREA management page.
+Multiple reactions are useful for complex workflows, like:
+- Notify Discord AND create GitHub comment
+- Save to Spotify AND log to spreadsheet
 :::
 
 ---
 
-### Step 3: Select an Action (Trigger)
+### Step 5: Finalize and Save
 
-The action is what triggers your automation. 
+When you're satisfied with your configuration:
 
-1. Click on the **"Select Action"** dropdown
-2. Browse available actions by service
-3. Select the action you want to use
+#### 5.1 Validate the AREA
+1. Click **"Validate"** or **"Finish"** button
+2. A popup/modal will appear
 
-**Popular Actions:**
-- **GitHub**: New issue created, new pull request, new star
-- **Discord**: New message in channel, user joined server
-- **Spotify**: Track added to playlist, new saved track
-- **Microsoft**: New email received, calendar event created
-- **Twitter**: New tweet from user, new mention
+#### 5.2 Name Your AREA
+1. In the popup, enter a descriptive name for your AREA
+2. **Examples of good names:**
+   - "Notify Discord on New GitHub Issue"
+   - "Save Spotify Discoveries to Library"
+   - "Tweet New Blog Posts"
 
-<!-- TODO: Add screenshot - ![Select Action](/img/user-guide/select-action.png) -->
+#### 5.3 Save
+1. Click **"Save"** or **"Create"** in the popup
+2. Your AREA is now created and active!
+3. You'll be redirected to the AREA list or details page
 
----
+![Name Your AREA](/img/user-guide/name-area.png)
 
-### Step 4: Configure Action Parameters
-
-Depending on the action you selected, you may need to configure specific parameters.
-
-**Examples:**
-
-**GitHub - New Issue Created**
-- Repository name: `owner/repo-name`
-- Labels to filter: `bug`, `feature` (optional)
-
-**Discord - New Message**
-- Server ID
-- Channel ID
-
-**Spotify - New Saved Track**
-- No parameters needed (automatically uses your account)
-
-<!-- TODO: Add screenshot - ![Configure Action](/img/user-guide/configure-action.png) -->
-
-:::warning
-Make sure you've granted the necessary permissions to the service when connecting it. If you see permission errors, you may need to reconnect the service with additional scopes.
+:::tip
+The AREA is automatically **enabled** upon creation. You can disable it later from the management page if needed.
 :::
 
 ---
 
-### Step 5: Select a Reaction (Response)
+## Complete Example
 
-The reaction is what happens automatically when your action is triggered.
+### Example: GitHub Issue → Discord Notification
 
-1. Click on the **"Select Reaction"** dropdown
-2. Browse available reactions by service
-3. Select the reaction you want to use
+**Step-by-step walkthrough:**
 
-**Popular Reactions:**
-- **Discord**: Send message to channel, send DM
-- **GitHub**: Create issue comment, add label, close issue
-- **Spotify**: Add track to playlist, save track
-- **Microsoft**: Send email, create calendar event
-- **Twitter**: Post tweet, send DM
+1. **Dashboard** → Click "Create"
 
-<!-- TODO: Add screenshot - ![Select Reaction](/img/user-guide/select-reaction.png) -->
+2. **Choose Trigger:**
+   - Service: GitHub
+   - Action: "New Issue Created"
+   - Parameters:
+     - Repository: `Five-Stacks/area`
+     - Labels: `bug, help wanted` (optional)
+   - Verify and continue
 
----
+3. **Choose Reaction:**
+   - Service: Discord
+   - Action: "Send Message"
+   - Parameters:
+     - Channel ID: `123456789012345678`
+     - Message:
+       ```
+       🐛 New Issue Alert!
+       
+       **Title**: {{issue.title}}
+       **Author**: @{{issue.author}}
+       **Labels**: {{issue.labels}}
+       
+       🔗 [View Issue]({{issue.url}})
+       ```
+   - Verify
 
-### Step 6: Configure Reaction Parameters
+4. **Finalize:**
+   - Click "Validate"
+   - Popup appears
+   - Name: "GitHub Issues → Discord #dev-alerts"
+   - Click "Save"
 
-Configure how the reaction should behave when triggered.
-
-**Examples:**
-
-**Discord - Send Message**
-```
-Channel ID: 1234567890
-Message: New issue created: {{issue.title}}
-By: {{issue.author}}
-URL: {{issue.url}}
-```
-
-**GitHub - Create Comment**
-```
-Repository: owner/repo-name
-Comment: Thank you for your contribution! 🎉
-We'll review this soon.
-```
-
-**Spotify - Add to Playlist**
-```
-Playlist ID: 37i9dQZF1DXcBWIGoYBM5M
-```
-
-<!-- TODO: Add screenshot - ![Configure Reaction](/img/user-guide/configure-reaction.png) -->
-
-:::tip Dynamic Variables
-Many reactions support dynamic variables from the action. Use double curly braces `{{variable.name}}` to insert dynamic content from your trigger.
-
-Common variables:
-- `{{user.name}}` - Triggered user
-- `{{timestamp}}` - When it happened
-- `{{title}}`, `{{description}}`, `{{url}}` - Common item properties
-:::
+5. **Done!** Your AREA is active and will notify Discord when new issues are created.
 
 ---
 
-### Step 7: Review and Create
+## Creating on Mobile vs Web
 
-Before creating your AREA:
+The process is identical on both platforms:
 
-1. **Review your configuration**:
-   - ✓ Action is correctly set up
-   - ✓ Reaction parameters are valid
-   - ✓ Name is descriptive
+| Feature | Web | Mobile |
+|---------|-----|--------|
+| Login Required | ✅ Yes | ✅ Yes |
+| Dashboard Access | ✅ Yes | ✅ Yes |
+| Create Button | ✅ Yes | ✅ Yes |
+| Trigger Configuration | ✅ Yes | ✅ Yes |
+| Multiple Reactions | ✅ Yes | ✅ Yes |
+| Add/Remove/Reorder | ✅ Yes | ✅ Yes |
+| Name in Popup | ✅ Yes | ✅ Yes |
 
-2. **Check the status toggle**:
-   - Enable to activate immediately
-   - Disable to save as draft
-
-3. Click **"Create AREA"** or **"Save"**
-
-<!-- TODO: Add screenshot - ![Review AREA](/img/user-guide/review-area.png) -->
+**Mobile-specific notes:**
+- Swipe gestures may be used for reordering
+- Tap and hold to access delete options
+- Use native keyboard for text input
 
 ---
 
-## Common AREA Examples
+## More Quick Examples
 
-### Example 1: GitHub to Discord Notification
+### Example: Simple GitHub to Discord
 
-**Action**: GitHub - New Issue Created
-- Repository: `Five-Stacks/area`
+**Steps:**
+1. Dashboard → Create
+2. **Trigger:** GitHub → "New Issue" → Repo: `Five-Stacks/area`
+3. **Reaction:** Discord → "Send Message" → Channel: `123456789`
+   - Message: `🆕 {{issue.title}} by @{{issue.author}}`
+4. Validate → Name: "GitHub→Discord" → Save
 
-**Reaction**: Discord - Send Message
-- Channel ID: `123456789`
-- Message: `🆕 New issue: {{issue.title}} by @{{issue.author}}`
+### Example: Spotify Auto-Saver
 
-### Example 2: Spotify Track Saver
+**Steps:**
+1. Dashboard → Create
+2. **Trigger:** Spotify → "Track in Playlist" → Playlist: `Discover Weekly`
+3. **Reaction:** Spotify → "Save Track"
+4. Validate → Name: "Auto-save Discovery" → Save
 
-**Action**: Spotify - New Track in Playlist
-- Playlist: `Discover Weekly`
+### Example: Twitter Auto-Reply with Multiple Actions
 
-**Reaction**: Spotify - Save Track
-- Automatically save track to your library
-
-### Example 3: Twitter Auto-Reply
-
-**Action**: Twitter - New Mention
-- Username filter: (optional)
-
-**Reaction**: Twitter - Post Tweet
-- Tweet: `@{{mention.author}} Thanks for reaching out! I'll get back to you soon. 🙏`
+**Steps:**
+1. Dashboard → Create
+2. **Trigger:** Twitter → "New Mention"
+3. **Reaction 1:** Twitter → "Like Tweet"
+4. **Add Action** → Twitter → "Post Tweet" → `@{{mention.author}} Thanks! 🙏`
+5. Validate → Name: "Twitter Auto-Response" → Save
 
 ---
 
