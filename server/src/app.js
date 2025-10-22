@@ -11,7 +11,7 @@ import reactionRouter from './routes/reactionRoute.js';
 import areaRouter from './routes/areaRoute.js';
 import areaExecutionRouter from './routes/areaExecutionRoute.js';
 import userRouter from './routes/userRoute.js';
-import oauthRouter from './routes/oauth.js';
+import oauthRouter from './routes/oauthRoute.js';
 import notFound from './middleware/notFound.js';
 
 /* App initialization */
