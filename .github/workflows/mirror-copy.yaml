@@ -14,7 +14,7 @@ env:
 jobs:
   push_to_mirror:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' }}
+    if: github.repository != 'EpitechPGE3-2025/G-DEV-500-NAN-5-1-area-2' && ${{ github.event_name == 'push' }}
     steps:
       - name: "Checkout"
         uses: actions/checkout@v4
