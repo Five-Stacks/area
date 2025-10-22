@@ -25,6 +25,24 @@ const sidebars: SidebarsConfig = {
     },
   ],
 
+  userGuideSidebar: [
+    {
+      type: 'category',
+      label: '👤 User Guide',
+      collapsible: false,
+      items: [
+        'user-guide/overview',
+        'user-guide/creating-areas',
+        'user-guide/managing-areas',
+        'user-guide/web-app',
+        'user-guide/mobile-app',
+        'user-guide/services',
+        'user-guide/examples',
+        'user-guide/faq',
+      ],
+    },
+  ],
+
   apiSidebar: [
     {
       type: 'category',

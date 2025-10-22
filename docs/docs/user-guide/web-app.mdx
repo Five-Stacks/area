@@ -1,0 +1,872 @@
+---
+sidebar_position: 4
+title: Web Application Guide
+description: Complete guide to using the AREA web platform
+---
+
+# 🖥️ Web Application Guide
+
+The AREA web application provides a full-featured desktop experience for managing your automation workflows. Access it from any modern web browser and enjoy a powerful, intuitive interface.
+
+## Getting Started
+
+### Accessing the Web Application
+
+1. Open your web browser (Chrome, Firefox, Safari, Edge)
+2. Navigate to: **https://area-project.com** (or your deployment URL)
+3. You'll see the landing page with login/signup options
+
+<!-- TODO: Add screenshot - ![Web Landing Page](/img/user-guide/web-landing.png) -->
+
+### Creating an Account
+
+#### Email Registration
+
+1. Click **"Sign Up"** on the homepage
+2. Fill in the registration form:
+   - 📧 Email address
+   - 🔐 Password (min 8 characters)
+   - 🔐 Confirm password
+   - ✅ Accept terms and conditions
+3. Click **"Create Account"**
+4. Check your email for verification link
+5. Click the link to verify your account
+6. You're ready to start!
+
+<!-- TODO: Add screenshot - ![Web Registration](/img/user-guide/web-register.png) -->
+
+#### OAuth Registration
+
+Sign up quickly using your existing accounts:
+
+1. Click **"Sign Up"** on the homepage
+2. Choose your preferred OAuth provider:
+   - 🐙 GitHub
+   - 💬 Discord
+   - 🎵 Spotify
+   - 📧 Microsoft
+   - 🐦 Twitter
+3. Authorize the AREA application
+4. Complete profile (if needed)
+5. Start creating AREAs!
+
+<!-- TODO: Add screenshot - ![OAuth Registration](/img/user-guide/web-oauth-register.png) -->
+
+:::tip
+OAuth registration is faster and you can use these services in your AREAs immediately!
+:::
+
+### Logging In
+
+1. Click **"Login"** on the homepage
+2. Enter your credentials:
+   - 📧 Email
+   - 🔐 Password
+3. Click **"Sign In"**
+
+**Or use OAuth:**
+- Click your preferred OAuth provider
+- Authenticate
+- You're in!
+
+---
+
+## Dashboard Overview
+
+After logging in, you'll see your dashboard - your central hub for all automation activities.
+
+<!-- TODO: Add screenshot - ![Web Dashboard](/img/user-guide/web-dashboard.png) -->
+
+### Dashboard Sections
+
+#### 1. Navigation Bar (Top)
+
+| Element | Function |
+|---------|----------|
+| 🏠 Dashboard | Return to main dashboard |
+| ⚡ AREAs | View and manage automations |
+| 🔌 Services | Connect and manage services |
+| 👤 Profile | Account settings |
+| 🔔 Notifications | View alerts |
+| 🌙 Theme Toggle | Switch dark/light mode |
+
+#### 2. Quick Stats Cards
+
+Visual overview of your automation ecosystem:
+- **Total AREAs**: Number of workflows created
+- **Active AREAs**: Currently enabled automations
+- **Today's Executions**: Triggers in the last 24 hours
+- **Success Rate**: Percentage of successful runs
+
+#### 3. Recent Activity
+
+Live feed of automation executions:
+- ✅ Successful runs (green)
+- ❌ Failed runs (red)
+- ⏰ Timestamps
+- 🔍 Quick detail view
+
+#### 4. Quick Actions
+
+Shortcuts to common tasks:
+- ➕ **Create New AREA**
+- 🔌 **Connect Service**
+- 📊 **View Analytics**
+- ⚙️ **Settings**
+
+---
+
+## Navigation & Layout
+
+### Top Navigation Bar
+
+Always accessible, providing quick access to main sections.
+
+**Features:**
+- **Breadcrumb navigation**: Shows current location
+- **Global search**: Find AREAs, services, settings (Ctrl/Cmd + K)
+- **Notification center**: Click bell icon for alerts
+- **User menu**: Click avatar for account options
+
+<!-- TODO: Add screenshot - ![Web Navigation](/img/user-guide/web-navigation.png) -->
+
+### Sidebar (Collapsible)
+
+Toggle with the hamburger icon (☰):
+- Quick navigation to all sections
+- Service shortcuts
+- Recently accessed items
+- Favorites
+
+---
+
+## Services Management
+
+### Viewing Available Services
+
+Navigate to **Services** from the top menu to see:
+- All available services (grid or list view)
+- Connection status
+- Available actions and reactions
+- Service documentation links
+
+<!-- TODO: Add screenshot - ![Services Page](/img/user-guide/web-services.png) -->
+
+### Connecting Services
+
+#### Step-by-Step Process
+
+1. **Navigate** to the Services page
+2. **Find** the service you want to connect
+3. **Click** the **"Connect"** button on the service card
+4. **Authenticate** via OAuth:
+   - New browser window/tab opens
+   - Log in to the service
+   - Review permissions requested
+   - Click "Authorize" or "Allow"
+5. **Return** to AREA (automatic redirect)
+6. ✅ **Connected!** The service card now shows "Connected"
+
+<!-- TODO: Add screenshot - ![Connect Service Web](/img/user-guide/web-connect-service.png) -->
+
+:::warning
+Make sure popup blockers are disabled for the AREA website, as OAuth authentication opens in a new window.
+:::
+
+### Managing Connected Services
+
+Click on a connected service card to see:
+
+#### Service Details
+- 🔗 Connected account information
+- 📅 Connection date and time
+- 🔐 Permissions granted
+- 📊 Usage statistics
+
+#### Available Actions
+- List of trigger events you can use
+- Parameter requirements
+- Usage examples
+
+#### Available Reactions
+- List of responses you can configure
+- Parameter options
+- Usage examples
+
+#### Manage Connection
+- **Reconnect**: Re-authenticate (for more permissions)
+- **Disconnect**: Remove service connection
+- **Test Connection**: Verify service is working
+
+<!-- TODO: Add screenshot - ![Service Details Web](/img/user-guide/web-service-details.png) -->
+
+### Service Settings
+
+Click the **gear icon** on a service card to:
+- Configure service-specific settings
+- Set default parameters
+- Manage webhooks (advanced)
+- View API usage
+
+---
+
+## Working with AREAs
+
+### AREAs Page Overview
+
+Navigate to **AREAs** to see all your automation workflows.
+
+<!-- TODO: Add screenshot - ![AREAs Page](/img/user-guide/web-areas-page.png) -->
+
+#### View Options
+
+Switch between different views:
+- **📋 List View**: Compact list with details
+- **🎴 Grid View**: Visual cards with icons
+- **📊 Table View**: Detailed table with all fields
+
+#### Filtering Options
+
+Filter your AREAs by:
+- **Status**: All, Enabled, Disabled
+- **Service**: Filter by action or reaction service
+- **Date**: Created, modified, last execution
+- **Custom tags**: If you've tagged your AREAs
+
+#### Sorting Options
+
+Sort by:
+- Name (A-Z, Z-A)
+- Creation date
+- Last execution
+- Success rate
+- Number of executions
+
+### Creating an AREA (Detailed)
+
+Click the **"+ Create New AREA"** button to open the creation wizard.
+
+#### Step 1: Basic Information
+
+<!-- TODO: Add screenshot - ![AREA Creation Step 1](/img/user-guide/web-create-step1.png) -->
+
+- **Name**: Give your AREA a descriptive name
+- **Description** (optional): Explain what it does
+- **Tags** (optional): Add tags for organization
+
+#### Step 2: Select Action
+
+<!-- TODO: Add screenshot - ![AREA Creation Step 2](/img/user-guide/web-create-step2.png) -->
+
+1. Choose a service from the dropdown or grid
+2. Select an action type
+3. See a preview of available parameters
+
+**Popular Actions:**
+- **GitHub**: Repository events (issues, PRs, stars)
+- **Discord**: Server events (messages, joins)
+- **Spotify**: Music events (saved tracks, playlists)
+- **Microsoft**: Email and calendar events
+- **Twitter**: Tweet and timeline events
+
+#### Step 3: Configure Action Parameters
+
+<!-- TODO: Add screenshot - ![AREA Creation Step 3](/img/user-guide/web-create-step3.png) -->
+
+Fill in required parameters based on the action type.
+
+**Example - GitHub New Issue:**
+```
+Repository Owner: Five-Stacks
+Repository Name: area
+Labels (optional): bug, help wanted
+Assignee (optional): username
+```
+
+**Form features:**
+- ✅ Real-time validation
+- 💡 Helpful tooltips
+- 🔍 Autocomplete for some fields
+- 📝 Parameter descriptions
+
+#### Step 4: Select Reaction
+
+<!-- TODO: Add screenshot - ![AREA Creation Step 4](/img/user-guide/web-create-step4.png) -->
+
+Choose what happens when the action triggers:
+1. Select service
+2. Choose reaction type
+3. Preview configuration options
+
+#### Step 5: Configure Reaction Parameters
+
+<!-- TODO: Add screenshot - ![AREA Creation Step 5](/img/user-guide/web-create-step5.png) -->
+
+Set up the reaction with dynamic variables from the action.
+
+**Example - Discord Send Message:**
+```
+Server ID: 123456789012345678
+Channel ID: 987654321098765432
+Message Template:
+🆕 New GitHub Issue!
+**Title**: {{issue.title}}
+**Author**: @{{issue.author}}
+**Labels**: {{issue.labels}}
+**URL**: {{issue.url}}
+```
+
+**Variable Autocomplete:**
+- Type `{{` to see available variables
+- Hover for variable descriptions
+- Use dot notation for nested data: `{{user.profile.name}}`
+
+#### Step 6: Review & Create
+
+<!-- TODO: Add screenshot - ![AREA Creation Step 6](/img/user-guide/web-create-step6.png) -->
+
+Final review before creating:
+- ✅ Check all parameters
+- 🔘 Enable immediately or save as draft
+- 📊 Estimated execution frequency (if applicable)
+- ⚙️ Advanced settings (optional):
+  - Cooldown period
+  - Maximum executions per hour
+  - Error handling preferences
+
+Click **"Create AREA"** to finish!
+
+### AREA Detail View
+
+Click on any AREA to open the detailed view.
+
+<!-- TODO: Add screenshot - ![AREA Detail View](/img/user-guide/web-area-detail.png) -->
+
+#### Tabs
+
+**📊 Overview**
+- Summary of action and reaction
+- Current status
+- Creation and modification dates
+- Quick toggle enabled/disabled
+
+**📝 Configuration**
+- View all parameters
+- Edit action settings
+- Edit reaction settings
+- Test configuration
+
+**📜 Execution History**
+- Timeline of all executions
+- Success/failure status
+- Execution duration
+- Detailed logs
+- Filter and search history
+
+**📈 Analytics**
+- Execution frequency graph
+- Success rate over time
+- Average execution time
+- Error patterns
+
+**⚙️ Settings**
+- Advanced configuration
+- Notification preferences
+- Execution limits
+- Error handling
+
+### Editing an AREA
+
+From the AREA detail view:
+
+1. Click the **"Edit"** button (pencil icon)
+2. Modify any editable fields:
+   - Name and description
+   - Action parameters
+   - Reaction parameters
+   - Settings
+3. Changes are validated in real-time
+4. Click **"Save Changes"** when done
+
+<!-- TODO: Add screenshot - ![Edit AREA Web](/img/user-guide/web-edit-area.png) -->
+
+:::tip
+Use the "Test Configuration" button to verify your changes before saving!
+:::
+
+### Bulk Operations
+
+Select multiple AREAs for batch operations:
+
+1. **Enable selection mode**: Click checkbox icon in toolbar
+2. **Select AREAs**: Click checkboxes on AREA cards
+3. **Choose action** from the toolbar:
+   - ✅ Enable all
+   - ⏸️ Disable all
+   - 📋 Duplicate selected
+   - 🗑️ Delete selected
+   - 🏷️ Add tags
+   - 📤 Export
+
+<!-- TODO: Add screenshot - ![Bulk Operations](/img/user-guide/web-bulk-operations.png) -->
+
+### Advanced Filtering
+
+Use the advanced filter panel for complex queries:
+
+**Filter Builder:**
+- Add multiple conditions
+- Combine with AND/OR logic
+- Save frequently used filters
+- Share filters with team (if applicable)
+
+**Example Filter:**
+```
+Status = Enabled
+AND Service (Action) = GitHub
+AND Last Execution < 7 days ago
+AND Success Rate > 90%
+```
+
+---
+
+## Execution History & Monitoring
+
+### Global Execution History
+
+Navigate to **Dashboard → Execution History** to see all automation runs.
+
+<!-- TODO: Add screenshot - ![Execution History](/img/user-guide/web-execution-history.png) -->
+
+#### Features
+
+**Timeline View**
+- Visual timeline of executions
+- Color-coded by status
+- Zoom and pan
+- Date range selector
+
+**Filters**
+- By AREA
+- By service
+- By status (success/failure)
+- By date range
+
+**Export**
+- Export to CSV
+- Export to JSON
+- Generate report (PDF)
+
+### Execution Details
+
+Click on any execution to see:
+
+**Trigger Information**
+- What triggered the AREA
+- Trigger data/payload
+- Timestamp
+
+**Action Details**
+- Parameters used
+- API requests made
+- Response received
+
+**Reaction Details**
+- Parameters sent
+- Actions taken
+- Results/confirmation
+
+**Logs**
+- Detailed execution logs
+- Error messages (if any)
+- Debug information
+
+**Performance**
+- Execution time
+- API latency
+- Queue time
+
+<!-- TODO: Add screenshot - ![Execution Details](/img/user-guide/web-execution-details.png) -->
+
+---
+
+## Analytics & Insights
+
+### Dashboard Analytics
+
+Access via **Dashboard → Analytics** for insights into your automations.
+
+<!-- TODO: Add screenshot - ![Analytics Dashboard](/img/user-guide/web-analytics.png) -->
+
+#### Metrics Available
+
+**Execution Metrics**
+- Total executions (daily, weekly, monthly)
+- Success rate trends
+- Failure analysis
+- Peak usage times
+
+**Service Metrics**
+- Most used services
+- Service reliability
+- API call distribution
+- Rate limit usage
+
+**AREA Performance**
+- Top performing AREAs
+- Problematic AREAs
+- Unused AREAs
+- Optimization suggestions
+
+**Custom Reports**
+- Create custom dashboards
+- Schedule reports
+- Export data
+- Share with team
+
+---
+
+## Profile & Settings
+
+### Profile Management
+
+Access via clicking your avatar → **Profile**
+
+<!-- TODO: Add screenshot - ![Profile Settings](/img/user-guide/web-profile.png) -->
+
+#### Account Information
+
+**Personal Details**
+- 📧 Email address
+- 🏷️ Username
+- 👤 Display name
+- 🖼️ Profile picture (upload or use Gravatar)
+
+**Security**
+- 🔐 Change password
+- 🔑 Two-factor authentication (2FA)
+- 🔓 Active sessions
+- 📱 Connected devices
+
+**Connected OAuth Accounts**
+- View all OAuth connections
+- Disconnect accounts
+- Add more accounts
+
+### Application Settings
+
+Click **Settings** in the navigation menu.
+
+<!-- TODO: Add screenshot - ![Application Settings](/img/user-guide/web-settings.png) -->
+
+#### Preferences
+
+**Appearance**
+- 🌙 Theme: Light, Dark, Auto
+- 🎨 Accent color
+- 📏 Density: Comfortable, Compact
+- 🔤 Font size
+
+**Language**
+- 🇬🇧 English
+- 🇫🇷 Français
+- 🇪🇸 Español
+- 🇩🇪 Deutsch
+
+**Notifications**
+- 📧 Email notifications
+- 🔔 Browser notifications
+- 📊 Execution alerts
+- 📈 Weekly summary
+
+#### Advanced Settings
+
+**Execution**
+- ⏱️ Default timeout
+- 🔄 Retry attempts
+- ⚠️ Error handling
+- 📊 Logging level
+
+**API Access**
+- 🔑 API keys
+- 🔗 Webhooks
+- 📝 API documentation
+- 📊 Usage statistics
+
+**Data & Privacy**
+- 💾 Export all data
+- 🗑️ Delete account
+- 📊 Data usage
+- 🔒 Privacy settings
+
+---
+
+## Keyboard Shortcuts
+
+Boost your productivity with keyboard shortcuts!
+
+### Global Shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl/Cmd + K` | Open command palette |
+| `Ctrl/Cmd + /` | Show keyboard shortcuts |
+| `Ctrl/Cmd + N` | Create new AREA |
+| `Ctrl/Cmd + ,` | Open settings |
+| `Esc` | Close modal/dialog |
+
+### Navigation
+
+| Shortcut | Action |
+|----------|--------|
+| `G then D` | Go to Dashboard |
+| `G then A` | Go to AREAs |
+| `G then S` | Go to Services |
+| `G then P` | Go to Profile |
+
+### AREA Management
+
+| Shortcut | Action |
+|----------|--------|
+| `E` | Edit selected AREA |
+| `Space` | Toggle AREA enabled/disabled |
+| `D` | Duplicate AREA |
+| `Del` | Delete AREA |
+| `Ctrl/Cmd + S` | Save changes |
+
+### List Navigation
+
+| Shortcut | Action |
+|----------|--------|
+| `↑ / ↓` | Navigate items |
+| `Enter` | Open item |
+| `Ctrl/Cmd + A` | Select all |
+| `Ctrl/Cmd + Click` | Multi-select |
+
+---
+
+## Browser Extensions
+
+Enhance your AREA experience with browser extensions!
+
+### Chrome Extension
+
+**Features:**
+- Quick AREA creation from any webpage
+- Right-click context menu integration
+- Real-time notification badges
+- Quick view execution status
+
+**Installation:**
+1. Visit Chrome Web Store
+2. Search "AREA Automation"
+3. Click "Add to Chrome"
+
+### Firefox Add-on
+
+Same features as Chrome, optimized for Firefox.
+
+### Safari Extension
+
+Available for macOS 11+ and iOS/iPadOS 15+.
+
+---
+
+## Tips & Best Practices
+
+### 🎯 Organization
+
+**Use Descriptive Names**
+```
+❌ Area 1
+❌ Test
+✅ GitHub Issues → Discord Notifications
+✅ Save Spotify Discoveries to Library
+```
+
+**Tag Your AREAs**
+- Use consistent tag names
+- Tag by purpose: `production`, `testing`, `personal`
+- Tag by priority: `critical`, `important`, `nice-to-have`
+
+**Create Folders** (if feature available)
+- Group related AREAs
+- Organize by project or service
+
+### ⚡ Performance
+
+**Optimize Execution Frequency**
+- Don't poll too frequently
+- Use webhooks when available
+- Batch similar actions
+
+**Clean Up Old AREAs**
+- Archive or delete unused AREAs
+- Review execution history quarterly
+- Remove failed AREAs
+
+### 🔒 Security
+
+**Protect Sensitive Data**
+- Don't log sensitive information
+- Use environment variables for secrets
+- Review OAuth permissions regularly
+
+**Regular Security Audits**
+- Check connected services monthly
+- Remove unused service connections
+- Enable 2FA on your account
+
+### 📊 Monitoring
+
+**Set Up Alerts**
+- Enable failure notifications
+- Configure success confirmations for critical AREAs
+- Set up weekly summary emails
+
+**Review Analytics**
+- Check dashboard weekly
+- Identify optimization opportunities
+- Monitor service reliability
+
+---
+
+## Troubleshooting
+
+### Cannot Connect Service
+
+**Check:**
+1. ✅ Popup blocker is disabled
+2. ✅ Third-party cookies are enabled
+3. ✅ Service is not experiencing downtime
+4. ✅ You have valid credentials for the service
+
+**Try:**
+- Use incognito/private browsing mode
+- Clear browser cache and cookies
+- Try a different browser
+
+### AREA Not Executing
+
+**Diagnose:**
+1. Check if AREA is enabled (toggle switch)
+2. Verify service connections are active
+3. Review execution history for error messages
+4. Test action parameters manually
+
+**Common Fixes:**
+- Reconnect the service
+- Update action parameters
+- Check API rate limits
+- Verify webhook URLs
+
+### Page Loading Issues
+
+**Solutions:**
+1. Clear browser cache: `Ctrl/Cmd + Shift + Del`
+2. Disable browser extensions temporarily
+3. Check internet connection
+4. Try different browser
+5. Check browser console for errors (`F12`)
+
+### Data Not Syncing
+
+**Steps:**
+1. Refresh the page: `Ctrl/Cmd + R`
+2. Hard refresh: `Ctrl/Cmd + Shift + R`
+3. Check network tab in developer tools
+4. Verify server status
+5. Log out and log back in
+
+---
+
+## Advanced Features
+
+### Webhooks
+
+For advanced users, AREA supports custom webhooks:
+
+1. **Create Webhook**:
+   - Settings → Advanced → Webhooks
+   - Generate webhook URL
+   - Configure security settings
+
+2. **Use Webhook as Action**:
+   - Create AREA with "Webhook" action
+   - Use generated URL in external services
+
+3. **Monitor Webhooks**:
+   - View incoming requests
+   - Debug payloads
+   - Check logs
+
+### API Access
+
+Programmatic access to AREA:
+
+1. **Generate API Key**:
+   - Settings → Advanced → API Access
+   - Create new key
+   - Set permissions and expiration
+
+2. **API Documentation**:
+   - View at `/api/docs`
+   - Interactive API explorer
+   - Code examples
+
+3. **Use Cases**:
+   - Integrate AREA with custom apps
+   - Automate AREA management
+   - Build custom dashboards
+
+### Custom Integrations
+
+Request or build custom service integrations:
+
+1. Review [Contributing Guide](/guides/contributing)
+2. Check [API Documentation](/api/overview)
+3. Submit integration request on GitHub
+4. Build and test locally
+5. Submit pull request
+
+---
+
+## Browser Compatibility
+
+### Supported Browsers
+
+| Browser | Minimum Version |
+|---------|----------------|
+| Chrome | 90+ |
+| Firefox | 88+ |
+| Safari | 14+ |
+| Edge | 90+ |
+| Opera | 76+ |
+
+### Mobile Browsers
+
+While the web app works on mobile browsers, we recommend using the native mobile app for the best experience.
+
+---
+
+## Need More Help?
+
+- 📖 [User Guide Overview](/user-guide/overview)
+- 🎯 [Creating AREAs](/user-guide/creating-areas)
+- ⚙️ [Managing AREAs](/user-guide/managing-areas)
+- 📱 [Mobile Application Guide](/user-guide/mobile-app)
+- 🔧 [API Documentation](/api/overview)
+- 🐙 [GitHub Repository](https://github.com/Five-Stacks/area)
+
+---
+
+## Feedback & Support
+
+We'd love to hear from you!
+
+- 📧 **Email**: support@area-project.com
+- 🐙 **GitHub Issues**: [Report bugs](https://github.com/Five-Stacks/area/issues)
+- 💬 **Discord Community**: Join for help and discussions
+- 📝 **Feature Requests**: Submit via GitHub
+
+Happy automating! 🚀🖥️

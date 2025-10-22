@@ -1,0 +1,755 @@
+---
+sidebar_position: 6
+title: Available Services
+description: Complete list of services, actions, and reactions available in AREA
+---
+
+# 🔌 Available Services
+
+AREA supports integration with multiple popular services. Each service offers specific actions (triggers) and reactions (responses) that you can use to create powerful automation workflows.
+
+## Service Overview
+
+| Service | Category | Actions | Reactions | OAuth Required |
+|---------|----------|---------|-----------|----------------|
+| 🐙 GitHub | Development | 8 | 6 | ✅ Yes |
+| 💬 Discord | Communication | 5 | 4 | ✅ Yes |
+| 🎵 Spotify | Music | 6 | 4 | ✅ Yes |
+| 📧 Microsoft | Productivity | 7 | 5 | ✅ Yes |
+| 🐦 Twitter | Social Media | 5 | 4 | ✅ Yes |
+
+:::info
+More services are being added regularly. Check back often or contribute your own integrations!
+:::
+
+---
+
+## 🐙 GitHub
+
+Connect your GitHub account to automate development workflows.
+
+### Available Actions (Triggers)
+
+#### 1. New Issue Created
+Triggers when a new issue is created in a repository.
+
+**Parameters:**
+- `repository` (required): Repository name (format: `owner/repo`)
+- `labels` (optional): Filter by labels
+- `assignee` (optional): Filter by assignee
+
+**Available Variables:**
+- `{{issue.title}}`
+- `{{issue.body}}`
+- `{{issue.author}}`
+- `{{issue.url}}`
+- `{{issue.number}}`
+- `{{issue.labels}}`
+
+#### 2. New Pull Request
+Triggers when a new pull request is opened.
+
+**Parameters:**
+- `repository` (required): Repository name
+- `base_branch` (optional): Target branch
+- `author` (optional): Filter by PR author
+
+**Available Variables:**
+- `{{pr.title}}`
+- `{{pr.body}}`
+- `{{pr.author}}`
+- `{{pr.url}}`
+- `{{pr.number}}`
+- `{{pr.base_branch}}`
+- `{{pr.head_branch}}`
+
+#### 3. New Star
+Triggers when someone stars your repository.
+
+**Parameters:**
+- `repository` (required): Repository name
+
+**Available Variables:**
+- `{{user.name}}`
+- `{{user.url}}`
+- `{{repository.name}}`
+- `{{star_count}}`
+
+#### 4. Push to Branch
+Triggers when code is pushed to a specific branch.
+
+**Parameters:**
+- `repository` (required): Repository name
+- `branch` (required): Branch to monitor
+
+**Available Variables:**
+- `{{commit.message}}`
+- `{{commit.author}}`
+- `{{commit.sha}}`
+- `{{commit.url}}`
+- `{{branch}}`
+
+#### 5. Issue Comment
+Triggers when a comment is added to an issue.
+
+**Parameters:**
+- `repository` (required): Repository name
+- `issue_number` (optional): Specific issue number
+
+**Available Variables:**
+- `{{comment.body}}`
+- `{{comment.author}}`
+- `{{comment.url}}`
+- `{{issue.title}}`
+- `{{issue.number}}`
+
+#### 6. Pull Request Review
+Triggers when a PR receives a review.
+
+**Parameters:**
+- `repository` (required): Repository name
+- `state` (optional): approved, changes_requested, commented
+
+**Available Variables:**
+- `{{review.state}}`
+- `{{review.body}}`
+- `{{reviewer.name}}`
+- `{{pr.title}}`
+- `{{pr.number}}`
+
+#### 7. Release Published
+Triggers when a new release is published.
+
+**Parameters:**
+- `repository` (required): Repository name
+- `prerelease` (optional): Include pre-releases (true/false)
+
+**Available Variables:**
+- `{{release.name}}`
+- `{{release.tag}}`
+- `{{release.body}}`
+- `{{release.url}}`
+- `{{release.author}}`
+
+#### 8. Repository Forked
+Triggers when your repository is forked.
+
+**Parameters:**
+- `repository` (required): Repository name
+
+**Available Variables:**
+- `{{user.name}}`
+- `{{fork.url}}`
+- `{{repository.name}}`
+
+### Available Reactions (Responses)
+
+#### 1. Create Issue Comment
+Add a comment to an issue.
+
+**Parameters:**
+- `repository` (required): Repository name
+- `issue_number` (required): Issue number
+- `comment` (required): Comment text
+
+**Supports Variables:** ✅ Yes
+
+#### 2. Add Label to Issue
+Add labels to an issue.
+
+**Parameters:**
+- `repository` (required): Repository name
+- `issue_number` (required): Issue number
+- `labels` (required): Comma-separated label names
+
+**Supports Variables:** ✅ Yes
+
+#### 3. Close Issue
+Close an issue.
+
+**Parameters:**
+- `repository` (required): Repository name
+- `issue_number` (required): Issue number
+- `comment` (optional): Closing comment
+
+**Supports Variables:** ✅ Yes
+
+#### 4. Create Issue
+Create a new issue.
+
+**Parameters:**
+- `repository` (required): Repository name
+- `title` (required): Issue title
+- `body` (optional): Issue description
+- `labels` (optional): Labels to add
+
+**Supports Variables:** ✅ Yes
+
+#### 5. Assign Issue
+Assign an issue to a user.
+
+**Parameters:**
+- `repository` (required): Repository name
+- `issue_number` (required): Issue number
+- `assignees` (required): Comma-separated usernames
+
+**Supports Variables:** ✅ Yes
+
+#### 6. Update PR Status
+Update pull request status check.
+
+**Parameters:**
+- `repository` (required): Repository name
+- `pr_number` (required): PR number
+- `state` (required): success, failure, pending
+- `description` (optional): Status description
+
+**Supports Variables:** ✅ Yes
+
+---
+
+## 💬 Discord
+
+Automate Discord server interactions and notifications.
+
+### Available Actions (Triggers)
+
+#### 1. New Message in Channel
+Triggers when a message is posted in a specific channel.
+
+**Parameters:**
+- `server_id` (required): Discord server ID
+- `channel_id` (required): Channel ID
+- `author_filter` (optional): Filter by author username
+
+**Available Variables:**
+- `{{message.content}}`
+- `{{message.author}}`
+- `{{message.channel}}`
+- `{{message.timestamp}}`
+- `{{message.url}}`
+
+#### 2. User Joined Server
+Triggers when a new user joins the server.
+
+**Parameters:**
+- `server_id` (required): Discord server ID
+
+**Available Variables:**
+- `{{user.name}}`
+- `{{user.id}}`
+- `{{user.avatar_url}}`
+- `{{server.name}}`
+- `{{member_count}}`
+
+#### 3. User Left Server
+Triggers when a user leaves the server.
+
+**Parameters:**
+- `server_id` (required): Discord server ID
+
+**Available Variables:**
+- `{{user.name}}`
+- `{{user.id}}`
+- `{{server.name}}`
+- `{{member_count}}`
+
+#### 4. Reaction Added to Message
+Triggers when someone reacts to a message.
+
+**Parameters:**
+- `server_id` (required): Discord server ID
+- `channel_id` (required): Channel ID
+- `emoji` (optional): Specific emoji to monitor
+
+**Available Variables:**
+- `{{reaction.emoji}}`
+- `{{user.name}}`
+- `{{message.content}}`
+- `{{message.url}}`
+
+#### 5. Role Assigned
+Triggers when a role is assigned to a user.
+
+**Parameters:**
+- `server_id` (required): Discord server ID
+- `role_name` (optional): Specific role to monitor
+
+**Available Variables:**
+- `{{user.name}}`
+- `{{role.name}}`
+- `{{server.name}}`
+
+### Available Reactions (Responses)
+
+#### 1. Send Message to Channel
+Post a message in a Discord channel.
+
+**Parameters:**
+- `server_id` (required): Discord server ID
+- `channel_id` (required): Channel ID
+- `message` (required): Message content
+- `embed` (optional): Send as embed (true/false)
+
+**Supports Variables:** ✅ Yes
+
+**Example:**
+```
+🎉 New GitHub issue!
+**Title**: {{issue.title}}
+**By**: @{{issue.author}}
+**Link**: {{issue.url}}
+```
+
+#### 2. Send Direct Message
+Send a DM to a user.
+
+**Parameters:**
+- `user_id` (required): Discord user ID
+- `message` (required): Message content
+
+**Supports Variables:** ✅ Yes
+
+#### 3. Add Reaction to Message
+React to a message with an emoji.
+
+**Parameters:**
+- `channel_id` (required): Channel ID
+- `message_id` (required): Message ID
+- `emoji` (required): Emoji to use
+
+**Supports Variables:** ✅ Yes
+
+#### 4. Assign Role to User
+Give a role to a user.
+
+**Parameters:**
+- `server_id` (required): Discord server ID
+- `user_id` (required): User ID
+- `role_id` (required): Role ID
+
+**Supports Variables:** ✅ Yes
+
+---
+
+## 🎵 Spotify
+
+Automate your music listening experience.
+
+### Available Actions (Triggers)
+
+#### 1. New Track Saved
+Triggers when you save a track to your library.
+
+**Parameters:** None (uses your account)
+
+**Available Variables:**
+- `{{track.name}}`
+- `{{track.artist}}`
+- `{{track.album}}`
+- `{{track.url}}`
+- `{{track.id}}`
+
+#### 2. Track Added to Playlist
+Triggers when a track is added to a specific playlist.
+
+**Parameters:**
+- `playlist_id` (required): Spotify playlist ID
+
+**Available Variables:**
+- `{{track.name}}`
+- `{{track.artist}}`
+- `{{playlist.name}}`
+- `{{added_by}}`
+
+#### 3. New Playlist Created
+Triggers when you create a new playlist.
+
+**Parameters:** None
+
+**Available Variables:**
+- `{{playlist.name}}`
+- `{{playlist.id}}`
+- `{{playlist.url}}`
+- `{{playlist.description}}`
+
+#### 4. Currently Playing Changed
+Triggers when the currently playing track changes.
+
+**Parameters:**
+- `device` (optional): Specific device to monitor
+
+**Available Variables:**
+- `{{track.name}}`
+- `{{track.artist}}`
+- `{{device.name}}`
+- `{{is_playing}}`
+
+#### 5. Album Saved
+Triggers when you save an album.
+
+**Parameters:** None
+
+**Available Variables:**
+- `{{album.name}}`
+- `{{album.artist}}`
+- `{{album.url}}`
+- `{{album.release_date}}`
+
+#### 6. Followed New Artist
+Triggers when you follow an artist.
+
+**Parameters:** None
+
+**Available Variables:**
+- `{{artist.name}}`
+- `{{artist.url}}`
+- `{{artist.genres}}`
+
+### Available Reactions (Responses)
+
+#### 1. Add Track to Playlist
+Add a track to a playlist.
+
+**Parameters:**
+- `playlist_id` (required): Spotify playlist ID
+- `track_id` (required): Track ID or URI
+
+**Supports Variables:** ✅ Yes
+
+#### 2. Save Track to Library
+Save a track to your library.
+
+**Parameters:**
+- `track_id` (required): Track ID or URI
+
+**Supports Variables:** ✅ Yes
+
+#### 3. Create Playlist
+Create a new playlist.
+
+**Parameters:**
+- `name` (required): Playlist name
+- `description` (optional): Playlist description
+- `public` (optional): Make public (true/false)
+
+**Supports Variables:** ✅ Yes
+
+#### 4. Play Track
+Start playback of a track.
+
+**Parameters:**
+- `track_id` (required): Track ID or URI
+- `device_id` (optional): Specific device
+
+**Supports Variables:** ✅ Yes
+
+---
+
+## 📧 Microsoft
+
+Integrate with Microsoft 365 services.
+
+### Available Actions (Triggers)
+
+#### 1. New Email Received
+Triggers when you receive a new email.
+
+**Parameters:**
+- `folder` (optional): Specific folder (default: Inbox)
+- `from` (optional): Filter by sender
+- `subject_contains` (optional): Filter by subject
+
+**Available Variables:**
+- `{{email.subject}}`
+- `{{email.from}}`
+- `{{email.body}}`
+- `{{email.timestamp}}`
+
+#### 2. Calendar Event Created
+Triggers when a new event is added to your calendar.
+
+**Parameters:**
+- `calendar` (optional): Specific calendar name
+
+**Available Variables:**
+- `{{event.title}}`
+- `{{event.start}}`
+- `{{event.end}}`
+- `{{event.location}}`
+- `{{event.attendees}}`
+
+#### 3. Calendar Event Starting Soon
+Triggers before an event starts.
+
+**Parameters:**
+- `minutes_before` (required): How many minutes before (default: 15)
+
+**Available Variables:**
+- `{{event.title}}`
+- `{{event.start}}`
+- `{{event.location}}`
+
+#### 4. File Added to OneDrive
+Triggers when a file is added to OneDrive.
+
+**Parameters:**
+- `folder` (optional): Specific folder path
+
+**Available Variables:**
+- `{{file.name}}`
+- `{{file.url}}`
+- `{{file.size}}`
+- `{{file.modified}}`
+
+#### 5. Task Created
+Triggers when a task is created in Microsoft To Do.
+
+**Parameters:**
+- `list` (optional): Specific task list
+
+**Available Variables:**
+- `{{task.title}}`
+- `{{task.due_date}}`
+- `{{task.list}}`
+
+#### 6. New Contact Added
+Triggers when a new contact is added.
+
+**Parameters:** None
+
+**Available Variables:**
+- `{{contact.name}}`
+- `{{contact.email}}`
+- `{{contact.phone}}`
+
+#### 7. Email Flagged
+Triggers when you flag an email.
+
+**Parameters:** None
+
+**Available Variables:**
+- `{{email.subject}}`
+- `{{email.from}}`
+
+### Available Reactions (Responses)
+
+#### 1. Send Email
+Send an email.
+
+**Parameters:**
+- `to` (required): Recipient email
+- `subject` (required): Email subject
+- `body` (required): Email body
+- `cc` (optional): CC recipients
+
+**Supports Variables:** ✅ Yes
+
+#### 2. Create Calendar Event
+Add event to calendar.
+
+**Parameters:**
+- `title` (required): Event title
+- `start` (required): Start time
+- `end` (required): End time
+- `location` (optional): Event location
+- `description` (optional): Event description
+
+**Supports Variables:** ✅ Yes
+
+#### 3. Create Task
+Create a task in Microsoft To Do.
+
+**Parameters:**
+- `title` (required): Task title
+- `due_date` (optional): Due date
+- `list` (optional): Task list name
+
+**Supports Variables:** ✅ Yes
+
+#### 4. Upload File to OneDrive
+Upload a file to OneDrive.
+
+**Parameters:**
+- `file_url` (required): URL of file to upload
+- `destination_path` (required): OneDrive path
+
+**Supports Variables:** ✅ Yes
+
+#### 5. Add Contact
+Create a new contact.
+
+**Parameters:**
+- `name` (required): Contact name
+- `email` (optional): Email address
+- `phone` (optional): Phone number
+
+**Supports Variables:** ✅ Yes
+
+---
+
+## 🐦 Twitter
+
+Automate your Twitter interactions.
+
+### Available Actions (Triggers)
+
+#### 1. New Tweet from User
+Triggers when a specific user tweets.
+
+**Parameters:**
+- `username` (required): Twitter username (without @)
+- `include_retweets` (optional): Include retweets (true/false)
+
+**Available Variables:**
+- `{{tweet.text}}`
+- `{{tweet.url}}`
+- `{{tweet.author}}`
+- `{{tweet.likes}}`
+- `{{tweet.retweets}}`
+
+#### 2. New Mention
+Triggers when someone mentions you.
+
+**Parameters:**
+- `include_replies` (optional): Include replies (true/false)
+
+**Available Variables:**
+- `{{tweet.text}}`
+- `{{tweet.author}}`
+- `{{tweet.url}}`
+
+#### 3. New Follower
+Triggers when someone follows you.
+
+**Parameters:** None
+
+**Available Variables:**
+- `{{user.name}}`
+- `{{user.username}}`
+- `{{user.bio}}`
+- `{{user.url}}`
+
+#### 4. Hashtag Mentioned
+Triggers when a hashtag is used.
+
+**Parameters:**
+- `hashtag` (required): Hashtag to monitor (without #)
+
+**Available Variables:**
+- `{{tweet.text}}`
+- `{{tweet.author}}`
+- `{{tweet.url}}`
+
+#### 5. You Tweet
+Triggers when you post a tweet.
+
+**Parameters:** None
+
+**Available Variables:**
+- `{{tweet.text}}`
+- `{{tweet.url}}`
+- `{{tweet.timestamp}}`
+
+### Available Reactions (Responses)
+
+#### 1. Post Tweet
+Post a new tweet.
+
+**Parameters:**
+- `text` (required): Tweet text (max 280 characters)
+- `reply_to` (optional): Tweet ID to reply to
+
+**Supports Variables:** ✅ Yes
+
+**Example:**
+```
+🎉 New release!
+{{release.name}} is now available
+{{release.url}}
+#OpenSource #Automation
+```
+
+#### 2. Like Tweet
+Like a tweet.
+
+**Parameters:**
+- `tweet_id` (required): Tweet ID to like
+
+**Supports Variables:** ✅ Yes
+
+#### 3. Retweet
+Retweet a tweet.
+
+**Parameters:**
+- `tweet_id` (required): Tweet ID to retweet
+- `quote` (optional): Add comment (quote tweet)
+
+**Supports Variables:** ✅ Yes
+
+#### 4. Send Direct Message
+Send a DM to a user.
+
+**Parameters:**
+- `recipient` (required): Username (without @)
+- `message` (required): Message text
+
+**Supports Variables:** ✅ Yes
+
+---
+
+## Coming Soon 🚧
+
+We're working on adding more services! Vote for your favorites:
+
+- 📺 **YouTube** - Monitor channels, upload videos
+- 📝 **Notion** - Create pages, update databases
+- 📊 **Google Sheets** - Add rows, update cells
+- 🔔 **Slack** - Send messages, monitor channels
+- 📱 **Telegram** - Bot integrations
+- 🌤️ **Weather APIs** - Weather-based triggers
+- 📧 **Gmail** - Email automation
+- 🎮 **Twitch** - Stream notifications
+- 📷 **Instagram** - Post monitoring (subject to API limitations)
+
+Want to contribute a new service integration? Check our [Contributing Guide](/guides/contributing)!
+
+---
+
+## Service-Specific Tips
+
+### GitHub
+- **Rate Limits**: GitHub API has rate limits. Avoid polling too frequently.
+- **Webhooks**: For better performance, ask admin to set up webhooks.
+- **Permissions**: Ensure proper scope when connecting (repo access needed).
+
+### Discord
+- **Bot Setup**: For some features, you may need to add the AREA bot to your server.
+- **IDs**: Find channel/server IDs by enabling Developer Mode in Discord settings.
+- **Permissions**: Ensure the bot has necessary permissions in your server.
+
+### Spotify
+- **Playback**: Playing tracks requires Spotify Premium.
+- **Private Playlists**: Can only access playlists you own or follow.
+- **Currently Playing**: May have slight delay in detection.
+
+### Microsoft
+- **Licensing**: Some features require Microsoft 365 subscription.
+- **Permissions**: Review requested permissions carefully during OAuth.
+- **OneDrive**: Folder paths use forward slashes: `/Documents/AREA`
+
+### Twitter
+- **API Access**: Twitter API has strict rate limits.
+- **Character Limits**: Tweets are limited to 280 characters.
+- **Mentions**: High-volume accounts may have delays.
+
+---
+
+## Need More Information?
+
+- 📖 [Creating AREAs Guide](/user-guide/creating-areas)
+- ⚙️ [Managing AREAs Guide](/user-guide/managing-areas)
+- 🔧 [API Documentation](/api/overview)
+- 🐙 [GitHub Repository](https://github.com/Five-Stacks/area)
+
+Have questions about a specific service? Open an issue on GitHub or join our Discord community!

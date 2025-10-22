@@ -1,0 +1,366 @@
+---
+sidebar_position: 3
+title: Managing AREAs
+description: Edit, enable, disable, and delete your automation workflows
+---
+
+# ⚙️ Managing Your AREAs
+
+Once you've created AREAs, you'll need to manage them - editing configurations, enabling/disabling automations, viewing execution history, and deleting workflows you no longer need.
+
+## Viewing Your AREAs
+
+### On Web Application
+
+Navigate to the **AREAs** tab to see all your automations displayed in a list or grid view.
+
+Each AREA card shows:
+- 📝 **Name**: Your AREA's title
+- ⚡ **Action**: The trigger service and event
+- 🎯 **Reaction**: The response service and action
+- 🔘 **Status**: Enabled (active) or Disabled (paused)
+- 📊 **Last execution**: When it last triggered
+
+<!-- TODO: Add screenshot - ![AREA List View](/img/user-guide/area-list.png) -->
+
+### On Mobile Application
+
+Tap the **AREA** tab in the bottom navigation to view your automations.
+
+Scroll through your AREAs with quick visual indicators for:
+- ✅ Active automations (green)
+- ⏸️ Paused automations (gray)
+- ❌ Failed executions (red warning)
+
+<!-- TODO: Add screenshot - ![Mobile AREA List](/img/user-guide/mobile-area-list.png) -->
+
+---
+
+## Enabling and Disabling AREAs
+
+You can temporarily pause an AREA without deleting it. This is useful when you want to stop an automation temporarily.
+
+### Quick Toggle
+
+#### Web Application
+1. Find the AREA in your list
+2. Click the **toggle switch** on the right side
+3. Green = Enabled, Gray = Disabled
+
+<!-- TODO: Add screenshot - ![Toggle AREA Web](/img/user-guide/toggle-area-web.png) -->
+
+#### Mobile Application
+1. Locate the AREA in your list
+2. Tap the **toggle switch**
+3. The status updates immediately
+
+<!-- TODO: Add screenshot - ![Toggle AREA Mobile](/img/user-guide/toggle-area-mobile.png) -->
+
+:::tip
+Disabled AREAs don't consume resources or check for triggers. This is perfect for seasonal automations or temporary workflows.
+:::
+
+---
+
+## Editing an AREA
+
+Need to change parameters or update your automation? Here's how to edit an existing AREA.
+
+### Web Application
+
+1. Navigate to your AREAs list
+2. Click on the AREA you want to edit
+3. Click the **"Edit"** button (pencil icon)
+4. Modify any of the following:
+   - ✏️ AREA name
+   - ⚡ Action parameters
+   - 🎯 Reaction parameters
+5. Click **"Save Changes"**
+
+<!-- TODO: Add screenshot - ![Edit AREA Web](/img/user-guide/edit-area-web.png) -->
+
+### Mobile Application
+
+1. Go to the AREA tab
+2. Tap on the AREA you want to edit
+3. Tap the **"Edit"** icon in the top-right
+4. Make your changes
+5. Tap **"Save"** when done
+
+<!-- TODO: Add screenshot - ![Edit AREA Mobile](/img/user-guide/edit-area-mobile.png) -->
+
+### What Can You Edit?
+
+| Element | Editable | Notes |
+|---------|----------|-------|
+| AREA Name | ✅ Yes | Change anytime |
+| Action Type | ❌ No | Create a new AREA instead |
+| Action Parameters | ✅ Yes | Update filters, IDs, etc. |
+| Reaction Type | ❌ No | Create a new AREA instead |
+| Reaction Parameters | ✅ Yes | Modify messages, destinations |
+| Status (Enabled/Disabled) | ✅ Yes | Toggle anytime |
+
+:::warning
+You cannot change the action or reaction service type. If you need to do this, you must create a new AREA.
+:::
+
+---
+
+## Viewing Execution History
+
+Track how your AREAs are performing by viewing their execution history.
+
+### Access Execution History
+
+#### Web Application
+
+1. Click on an AREA to view details
+2. Scroll to the **"Execution History"** section
+3. See a list of all executions with:
+   - ⏰ Timestamp
+   - ✅ Status (success/failed)
+   - 📄 Details/logs
+   - ⚡ Trigger data
+
+<!-- TODO: Add screenshot - ![Execution History Web](/img/user-guide/execution-history-web.png) -->
+
+#### Mobile Application
+
+1. Tap on an AREA
+2. Swipe to the **"History"** tab
+3. View recent executions
+
+<!-- TODO: Add screenshot - ![Execution History Mobile](/img/user-guide/execution-history-mobile.png) -->
+
+### Understanding Execution Status
+
+| Status | Icon | Meaning |
+|--------|------|---------|
+| Success | ✅ | AREA executed successfully |
+| Failed | ❌ | Execution encountered an error |
+| Pending | ⏳ | Currently processing |
+| Skipped | ⏭️ | Conditions not met |
+
+### Viewing Execution Details
+
+Click/tap on any execution to see:
+- **Trigger Data**: What activated the AREA
+- **Reaction Output**: What action was taken
+- **Error Messages**: If something went wrong
+- **Execution Time**: How long it took
+- **Timestamp**: Exact date and time
+
+<!-- TODO: Add screenshot - ![Execution Details](/img/user-guide/execution-details.png) -->
+
+---
+
+## Deleting an AREA
+
+When you no longer need an automation, you can permanently delete it.
+
+### Web Application
+
+1. Navigate to your AREAs list
+2. Click on the AREA you want to delete
+3. Click the **"Delete"** button (trash icon)
+4. Confirm the deletion in the popup dialog
+
+<!-- TODO: Add screenshot - ![Delete AREA Web](/img/user-guide/delete-area-web.png) -->
+
+### Mobile Application
+
+1. Go to the AREA tab
+2. Long-press on the AREA you want to delete
+3. Tap **"Delete"** from the action menu
+4. Confirm the deletion
+
+**Alternative method:**
+1. Tap on the AREA
+2. Tap the menu icon (⋮) in the top-right
+3. Select **"Delete AREA"**
+4. Confirm
+
+<!-- TODO: Add screenshot - ![Delete AREA Mobile](/img/user-guide/delete-area-mobile.png) -->
+
+:::danger Warning
+Deleting an AREA is permanent and cannot be undone. All execution history will also be deleted. If you want to keep the history but stop the automation, consider disabling it instead.
+:::
+
+---
+
+## Filtering and Searching
+
+### Web Application
+
+Use the search and filter tools to find specific AREAs:
+
+1. **Search Bar**: Type AREA name or keywords
+2. **Filter by Service**: Show only AREAs using specific services
+3. **Filter by Status**: View only enabled or disabled AREAs
+4. **Sort Options**:
+   - Name (A-Z)
+   - Created date
+   - Last execution
+   - Status
+
+<!-- TODO: Add screenshot - ![Filter AREAs Web](/img/user-guide/filter-areas-web.png) -->
+
+### Mobile Application
+
+1. Tap the **search icon** (🔍) at the top
+2. Type to search by name
+3. Use the **filter icon** to filter by:
+   - Status (enabled/disabled)
+   - Service
+   - Creation date
+
+<!-- TODO: Add screenshot - ![Filter AREAs Mobile](/img/user-guide/filter-areas-mobile.png) -->
+
+---
+
+## Duplicating an AREA
+
+Want to create a similar AREA? Duplicate an existing one to save time.
+
+### Web Application
+
+1. Click on the AREA to duplicate
+2. Click the **"Duplicate"** button (copy icon)
+3. A new AREA is created with "(Copy)" appended to the name
+4. Edit the duplicate as needed
+
+### Mobile Application
+
+1. Long-press on the AREA
+2. Select **"Duplicate"** from the menu
+3. The duplicate appears in your list
+4. Edit to customize
+
+:::tip
+Duplicating is perfect for creating variations of similar automations, like notifying different Discord channels for different GitHub repositories.
+:::
+
+---
+
+## Bulk Actions (Web Only)
+
+The web application supports bulk operations for managing multiple AREAs at once.
+
+1. **Enable Selection Mode**: Click the checkbox icon
+2. **Select AREAs**: Check the boxes next to AREAs
+3. **Choose Action**:
+   - Enable All
+   - Disable All
+   - Delete Selected
+
+<!-- TODO: Add screenshot - ![Bulk Actions](/img/user-guide/bulk-actions.png) -->
+
+:::warning
+Bulk delete is permanent and cannot be undone. Double-check your selection before confirming.
+:::
+
+---
+
+## Troubleshooting
+
+### My AREA stopped working
+
+**Steps to diagnose:**
+
+1. **Check if it's enabled**: Look at the toggle status
+2. **Review execution history**: Look for error messages
+3. **Verify service connections**: Go to Settings > Services
+4. **Check parameters**: Ensure IDs, names, and URLs are still valid
+5. **Test the action**: Manually trigger the action to see if it works
+
+### Execution history shows failures
+
+**Common causes:**
+
+| Error | Solution |
+|-------|----------|
+| Authentication failed | Reconnect the service in Settings |
+| Invalid parameter | Check parameter format (IDs, URLs) |
+| Service unavailable | Try again later or check service status |
+| Permission denied | Re-authenticate with required scopes |
+| Rate limit exceeded | Reduce frequency or wait |
+
+### Can't edit or delete an AREA
+
+1. Make sure you're logged in
+2. Check if you're the owner of the AREA
+3. Try refreshing the page/app
+4. Check your internet connection
+
+---
+
+## Best Practices
+
+### 📋 Regular Maintenance
+
+- Review your AREAs monthly
+- Delete unused automations
+- Update parameters as services change
+- Check execution history for errors
+
+### 🏷️ Organized Naming
+
+Use consistent naming patterns:
+- `[Service] Action → Reaction`
+- Example: `[GitHub] New Issue → Discord Alert`
+
+### 🎯 Monitor Performance
+
+- Check execution history weekly
+- Identify frequently failing AREAs
+- Optimize or disable problematic automations
+
+### 🔒 Security Review
+
+- Regularly audit service permissions
+- Remove unused service connections
+- Review AREAs that post public content
+
+### 📊 Optimize Resources
+
+- Disable seasonal AREAs when not needed
+- Consolidate similar AREAs when possible
+- Remove duplicate automations
+
+---
+
+## Advanced Tips
+
+### Using Variables Effectively
+
+When editing reactions, leverage all available variables:
+
+```
+❌ Bad: "Something happened"
+✅ Good: "{{action.service}}: {{title}} by {{author}} at {{timestamp}}"
+```
+
+### Conditional Logic
+
+Some reactions support conditional parameters. Check the service documentation for:
+- If/then logic
+- Variable transformations
+- Filter conditions
+
+### Chaining AREAs
+
+Create complex workflows by chaining multiple AREAs:
+1. AREA 1: GitHub Issue → Create Google Doc
+2. AREA 2: Google Doc Created → Send Email
+3. AREA 3: Email Sent → Log to Spreadsheet
+
+---
+
+## Next Steps
+
+- Learn platform-specific features: [Web App Guide](/user-guide/web-app)
+- Explore mobile features: [Mobile App Guide](/user-guide/mobile-app)
+- Go back to [Creating AREAs](/user-guide/creating-areas)
+- Check out the [User Guide Overview](/user-guide/overview)
+
+Need more help? Check the [API Documentation](/api/overview) or visit our [GitHub repository](https://github.com/Five-Stacks/area).

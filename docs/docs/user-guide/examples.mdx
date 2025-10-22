@@ -1,0 +1,554 @@
+---
+sidebar_position: 7
+title: Example Workflows
+description: Real-world AREA automation examples and use cases
+---
+
+# 💡 Example Workflows
+
+Get inspired by these real-world AREA automation examples. Each example includes the complete configuration and explains the use case.
+
+## Developer Workflows
+
+### 1. GitHub Issue to Discord Notification
+
+**Use Case**: Notify your development team in Discord when new issues are created.
+
+**Configuration:**
+
+**Action**: GitHub - New Issue Created
+- Repository: `Five-Stacks/area`
+- Labels: `bug`, `feature`
+
+**Reaction**: Discord - Send Message
+- Channel ID: `123456789012345678`
+- Message:
+```
+🐛 New Issue Alert!
+
+**Title**: {{issue.title}}
+**Author**: @{{issue.author}}
+**Labels**: {{issue.labels}}
+**Description**: {{issue.body}}
+
+🔗 [View Issue]({{issue.url}})
+```
+
+**Benefits:**
+- Instant team awareness
+- No need to manually check GitHub
+- Filtered by important labels
+
+---
+
+### 2. Auto-Label Pull Requests
+
+**Use Case**: Automatically add labels to new pull requests based on branch name.
+
+**Configuration:**
+
+**Action**: GitHub - New Pull Request
+- Repository: `Five-Stacks/area`
+- Base Branch: `main`
+
+**Reaction**: GitHub - Add Label to Issue
+- Repository: `Five-Stacks/area`
+- Issue Number: `{{pr.number}}`
+- Labels: `needs-review`
+
+**Benefits:**
+- Consistent labeling
+- Better PR organization
+- Easier to track review status
+
+---
+
+### 3. Release Announcements
+
+**Use Case**: Automatically tweet when you publish a new release.
+
+**Configuration:**
+
+**Action**: GitHub - Release Published
+- Repository: `Five-Stacks/area`
+- Include Prereleases: `false`
+
+**Reaction**: Twitter - Post Tweet
+- Text:
+```
+🎉 {{release.name}} is now available!
+
+{{release.body}}
+
+Download: {{release.url}}
+
+#OpenSource #Automation #AREA
+```
+
+**Benefits:**
+- Automatic announcement
+- Consistent communication
+- Wider reach
+
+---
+
+## Team Collaboration
+
+### 4. Welcome New Discord Members
+
+**Use Case**: Send a friendly welcome message to new server members.
+
+**Configuration:**
+
+**Action**: Discord - User Joined Server
+- Server ID: `123456789012345678`
+
+**Reaction**: Discord - Send Direct Message
+- User ID: `{{user.id}}`
+- Message:
+```
+👋 Welcome to the AREA community, {{user.name}}!
+
+We're excited to have you here! 🎉
+
+To get started:
+• Check out #getting-started
+• Introduce yourself in #introductions
+• Ask questions in #support
+
+Happy automating! 🚀
+```
+
+**Benefits:**
+- Friendly onboarding
+- Reduces support burden
+- Better community engagement
+
+---
+
+### 5. Role Assignment Notifications
+
+**Use Case**: Notify admins when important roles are assigned.
+
+**Configuration:**
+
+**Action**: Discord - Role Assigned
+- Server ID: `123456789012345678`
+- Role Name: `Moderator`
+
+**Reaction**: Discord - Send Message to Channel
+- Channel ID: `987654321098765432`
+- Message:
+```
+🛡️ New Moderator Assigned!
+
+**User**: {{user.name}}
+**Role**: {{role.name}}
+**Time**: {{timestamp}}
+
+Welcome to the team! 👋
+```
+
+**Benefits:**
+- Admin awareness
+- Team transparency
+- Audit trail
+
+---
+
+## Music & Entertainment
+
+### 6. Save Discover Weekly to Library
+
+**Use Case**: Automatically save all tracks from your Discover Weekly playlist.
+
+**Configuration:**
+
+**Action**: Spotify - Track Added to Playlist
+- Playlist ID: `37i9dQZF1DXcBWIGoYBM5M` (Discover Weekly)
+
+**Reaction**: Spotify - Save Track to Library
+- Track ID: `{{track.id}}`
+
+**Benefits:**
+- Never lose Discover Weekly tracks
+- Build comprehensive music library
+- Easy access to past recommendations
+
+---
+
+### 7. New Music Playlist Creation
+
+**Use Case**: Create a monthly playlist with your saved tracks.
+
+**Configuration:**
+
+**Action**: Spotify - New Track Saved
+- (No parameters needed)
+
+**Reaction**: Spotify - Add Track to Playlist
+- Playlist ID: `YOUR_MONTHLY_PLAYLIST_ID`
+- Track ID: `{{track.id}}`
+
+**Benefits:**
+- Organized music collection
+- Time-based playlists
+- Easy sharing
+
+---
+
+## Productivity
+
+### 8. Email to Calendar Event
+
+**Use Case**: Create calendar events from specific emails.
+
+**Configuration:**
+
+**Action**: Microsoft - New Email Received
+- Folder: `Inbox`
+- Subject Contains: `Meeting:`
+
+**Reaction**: Microsoft - Create Calendar Event
+- Title: `{{email.subject}}`
+- Description: `{{email.body}}`
+- Start: `{{email.meeting_start}}`
+- End: `{{email.meeting_end}}`
+
+**Benefits:**
+- Automated scheduling
+- No manual calendar entry
+- Reduced missed meetings
+
+---
+
+### 9. Task Creation from Flagged Emails
+
+**Use Case**: Convert flagged emails into actionable tasks.
+
+**Configuration:**
+
+**Action**: Microsoft - Email Flagged
+- (No parameters needed)
+
+**Reaction**: Microsoft - Create Task
+- Title: `Follow up: {{email.subject}}`
+- Due Date: `+2 days`
+- List: `Email Follow-ups`
+
+**Benefits:**
+- Better email management
+- Action-oriented workflow
+- Nothing falls through cracks
+
+---
+
+### 10. Daily Standup Reminder
+
+**Use Case**: Send daily standup reminders to team channels.
+
+**Configuration:**
+
+**Action**: Microsoft - Calendar Event Starting Soon
+- Minutes Before: `5`
+- Event Title Contains: `Daily Standup`
+
+**Reaction**: Discord - Send Message to Channel
+- Channel ID: `123456789012345678`
+- Message:
+```
+🕐 Daily Standup in 5 minutes!
+
+**Location**: {{event.location}}
+**Attendees**: {{event.attendees}}
+
+See you there! 👋
+```
+
+**Benefits:**
+- Improved meeting attendance
+- Better time management
+- Reduced no-shows
+
+---
+
+## Social Media Management
+
+### 11. Cross-Platform Posting
+
+**Use Case**: Post your GitHub releases to multiple platforms.
+
+**Configuration:**
+
+**Action**: GitHub - Release Published
+- Repository: `Five-Stacks/area`
+
+**Reaction**: Twitter - Post Tweet
+- Text:
+```
+🎉 New Release: {{release.name}}
+
+{{release.description}}
+
+🔗 {{release.url}}
+
+#GitHub #AREA #Automation
+```
+
+**Second AREA for Discord:**
+
+**Action**: GitHub - Release Published (same)
+
+**Reaction**: Discord - Send Message
+- Channel ID: `announcements`
+- Message: Similar to Twitter
+
+**Benefits:**
+- Consistent messaging
+- Multi-channel reach
+- Time savings
+
+---
+
+### 12. Social Media Monitoring
+
+**Use Case**: Track mentions across platforms.
+
+**Configuration:**
+
+**Action**: Twitter - New Mention
+- Include Replies: `true`
+
+**Reaction**: Discord - Send Message
+- Channel ID: `social-monitoring`
+- Message:
+```
+📱 New Twitter Mention
+
+**From**: @{{tweet.author}}
+**Tweet**: {{tweet.text}}
+**Link**: {{tweet.url}}
+
+Time to respond! 💬
+```
+
+**Benefits:**
+- Never miss mentions
+- Faster response times
+- Better engagement
+
+---
+
+## Content Creation
+
+### 13. Blog Post Promotion
+
+**Use Case**: Automatically share new blog posts across channels.
+
+**Action**: GitHub - Push to Branch
+- Repository: `Five-Stacks/blog`
+- Branch: `main`
+- File Pattern: `posts/*.md`
+
+**Reaction**: Twitter - Post Tweet
+- Text:
+```
+📝 New Blog Post!
+
+{{commit.message}}
+
+Read more: https://blog.area-project.com/{{file.slug}}
+
+#TechBlog #Automation
+```
+
+**Benefits:**
+- Automatic promotion
+- Consistent sharing
+- Wider audience reach
+
+---
+
+### 14. Content Backup
+
+**Use Case**: Backup important Discord messages to OneDrive.
+
+**Configuration:**
+
+**Action**: Discord - New Message in Channel
+- Server ID: `123456789012345678`
+- Channel ID: `important-channel`
+
+**Reaction**: Microsoft - Upload File to OneDrive
+- File Content: `{{message.content}}`
+- File Name: `message-{{timestamp}}.txt`
+- Destination: `/Backups/Discord/`
+
+**Benefits:**
+- Permanent record
+- Easy search
+- Disaster recovery
+
+---
+
+## Personal Automation
+
+### 15. Birthday Reminders
+
+**Use Case**: Get reminded of team birthdays.
+
+**Configuration:**
+
+**Action**: Microsoft - Calendar Event Starting Soon
+- Minutes Before: `1440` (1 day)
+- Title Contains: `Birthday`
+
+**Reaction**: Discord - Send Direct Message
+- User ID: `YOUR_USER_ID`
+- Message:
+```
+🎂 Birthday Reminder!
+
+Tomorrow is {{event.title}}!
+
+Don't forget to wish them well! 🎉
+```
+
+**Benefits:**
+- Never forget birthdays
+- Better relationships
+- Thoughtful gestures
+
+---
+
+### 16. Fitness Tracking
+
+**Use Case**: Log workout sessions to a tracking sheet.
+
+**Configuration:**
+
+**Action**: Spotify - Currently Playing Changed
+- Playlist Contains: `Workout`
+
+**Reaction**: Microsoft - Create Task
+- Title: `Workout Session: {{timestamp}}`
+- List: `Fitness`
+- Due Date: `today`
+
+**Benefits:**
+- Automatic logging
+- Workout accountability
+- Progress tracking
+
+---
+
+## Advanced Workflows
+
+### 17. CI/CD Status Updates
+
+**Use Case**: Monitor deployment status across services.
+
+**Configuration:**
+
+**Action**: GitHub - Push to Branch
+- Repository: `Five-Stacks/area`
+- Branch: `main`
+
+**Reaction 1**: Discord - Send Message
+- Message: `🚀 Deployment started for {{commit.sha}}`
+
+**Reaction 2**: Create another AREA to monitor deployment completion
+
+**Benefits:**
+- Team awareness
+- Deployment tracking
+- Issue identification
+
+---
+
+### 18. Security Monitoring
+
+**Use Case**: Alert on suspicious repository activity.
+
+**Configuration:**
+
+**Action**: GitHub - New Star
+- Repository: `Five-Stacks/area`
+
+**Reaction**: Discord - Send Message
+- Channel ID: `security-alerts`
+- Message:
+```
+⭐ New Repository Star
+
+**User**: {{user.name}}
+**Profile**: {{user.url}}
+**Total Stars**: {{star_count}}
+
+Check profile for legitimacy if suspicious.
+```
+
+**Benefits:**
+- Security awareness
+- Bot detection
+- Community growth tracking
+
+---
+
+## Tips for Creating Workflows
+
+### Start Simple
+1. Create basic AREA first
+2. Test thoroughly
+3. Add complexity gradually
+4. Monitor execution
+
+### Use Variables Effectively
+- Leverage all available data
+- Format messages clearly
+- Include relevant links
+- Add context
+
+### Combine Multiple AREAs
+- Chain workflows for complex automation
+- Use consistent naming
+- Document dependencies
+- Monitor as a group
+
+### Monitor Performance
+- Check execution history
+- Optimize frequency
+- Fix failures promptly
+- Adjust as needed
+
+### Security Considerations
+- Don't expose sensitive data
+- Review permissions regularly
+- Use private channels when appropriate
+- Audit automations periodically
+
+---
+
+## Contributing Your Workflows
+
+Have a great workflow to share? We'd love to feature it!
+
+1. Document your workflow
+2. Include configuration details
+3. Explain the use case
+4. Add benefits
+5. Submit via GitHub PR
+
+Check our [Contributing Guide](/guides/contributing) for more details.
+
+---
+
+## Need Help?
+
+- 📖 [Creating AREAs Guide](/user-guide/creating-areas)
+- ⚙️ [Managing AREAs Guide](/user-guide/managing-areas)
+- 🔌 [Available Services](/user-guide/services)
+- 💬 Join our Discord community
+- 🐙 [GitHub Discussions](https://github.com/Five-Stacks/area/discussions)
+
+Happy automating! 🚀
