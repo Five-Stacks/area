@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ButtonFullComponent } from '../../components/Buttons/button-component-full/button-component-full';
 import { ButtonWithIconComponent } from '../../components/Buttons/button-with-icon-component/button-with-icon-component';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { TextFieldComponent } from '../../components/Forms/text-field-component/text-field-component';
 import { OptionsFieldComponent } from '../../components/Forms/options-field-component/options-field-component';
 import { ApiService } from '../../services/api.service';
@@ -27,7 +27,7 @@ interface AreaApiResponse {
     CommonModule,
     TextFieldComponent,
     OptionsFieldComponent,
-    RouterLink
+
   ],
   templateUrl: './dashboard-page.html',
   styleUrl: './dashboard-page.css'
