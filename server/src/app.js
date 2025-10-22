@@ -11,7 +11,8 @@ import reactionRouter from './routes/reactionRoute.js';
 import areaRouter from './routes/areaRoute.js';
 import areaExecutionRouter from './routes/areaExecutionRoute.js';
 import userRouter from './routes/userRoute.js';
-import oauthRouter from './routes/oauth.js';
+import oauthRouter from './routes/oauthRoute.js';
+import aboutRouter from './routes/aboutRoute.js';
 import notFound from './middleware/notFound.js';
 
 /* App initialization */
@@ -38,6 +39,7 @@ app.use('/api/area', areaRouter);
 app.use('/api/areaExecution', areaExecutionRouter);
 app.use('/api/users', userRouter);
 app.use('/api/oauth', oauthRouter);
+app.use('/', aboutRouter);
 
 /* 404 Middleware */
 app.use(notFound);
