@@ -8,11 +8,12 @@
             <h2>{{ name }}</h2>
             <p>{{ description }}</p>
             <div *ngIf="connectedShow" class="connect-button">
-                <app-area-button-full *ngIf="!connected"
+                <app-area-button-full *ngIf="!connected && !isBlocked()"
                     [label]="'CONNECT'"
                     [onClick]="connectService"
                 ></app-area-button-full>
-                <div *ngIf="connected" class="connected-button">
+                <div *ngIf="connected || isBlocked()"
+                    class="connected-button">
                     <button>CONNECTED</button>
                 </div>
             </div>

@@ -18,7 +18,12 @@ export class CardService {
   @Input() connectedShow = false;
   @Input() connected = false;
 
+  isBlocked = () => {
+    return this.name.toLowerCase() === 'timer';
+  }
+
   connectService = () => {
+    if (this.isBlocked()) return;
     window.location.href = this.apiService.apiUrl + '/oauth/' + this.name.toLowerCase();
   };
 }
