@@ -9,6 +9,7 @@ import { timerReactionConfig } from './services/timer/timer.js';
 /* Import google action config */
 
 import { sendEmailGmailActionConfig } from './services/google/gmail.js';
+import { createNewEventGoogleActionConfig } from './services/google/calendar.js';
 
 /* End of imports */
 
@@ -20,7 +21,8 @@ async function reactionsSetup() {
     };
     const reactions = [
         { service_id: services['Timer'], name: 'Timer', description: "Timer management", config: timerReactionConfig },
-        { service_id: services['Google'], name: 'Send email with Gmail', description: "Send an email using Google", config: sendEmailGmailActionConfig }
+        { service_id: services['Google'], name: 'Send email with Gmail', description: "Send an email using Google", config: sendEmailGmailActionConfig },
+        { service_id: services['Google'], name: 'Create Google Calendar event', description: "Create a new event in Google Calendar", config: createNewEventGoogleActionConfig },
     ];
 
     for (const reactionData of reactions) {

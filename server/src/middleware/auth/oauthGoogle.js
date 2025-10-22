@@ -125,7 +125,11 @@ export const googleAuthOptions = {
         'openid',
         'profile',
         'email',
-        'https://www.googleapis.com/auth/gmail.send'
+        'https://www.googleapis.com/auth/gmail.send',
+        'https://www.googleapis.com/auth/calendar',
+        'https://www.googleapis.com/auth/calendar.events',
+        'https://www.googleapis.com/auth/drive',
+        'https://www.googleapis.com/auth/drive.file'
     ],
     accessType: 'offline',
     prompt: 'consent'
