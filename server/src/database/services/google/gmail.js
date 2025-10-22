@@ -27,5 +27,34 @@ const sendEmailGmailActionConfig = {
     ]
 };
 
+const googleEmailReceivedActionConfig = {
+    "fields": [
+        {
+            "id": 1,
+            "name": "List of senders",
+            "title": "List of senders",
+            "input_field": {
+                "placeholder": "sender@example.com (multiple emails separated by commas) if set to 'None', will accept emails from any sender"
+            }
+        },
+        {
+            "id": 2,
+            "name": "Subject keywords",
+            "title": "Subject keywords",
+            "input_field": {
+                "placeholder": "keyword1, keyword2 (multiple keywords separated by commas) if set to 'None', will accept any subject"
+            }
+        },
+        {
+            "id": 3,
+            "name": "Body keywords",
+            "title": "Body keywords",
+            "input_field": {
+                "placeholder": "keyword1, keyword2 (multiple keywords separated by commas) if set to 'None', will accept any body content"
+            }
+        }
+    ]
+};
+
 /* Export action config */
-export { sendEmailGmailActionConfig };
+export { sendEmailGmailActionConfig, googleEmailReceivedActionConfig };

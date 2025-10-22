@@ -8,6 +8,7 @@ import { timerActionConfig } from './services/timer/timer.js';
 
 /* Import google action config */
 
+import { googleEmailReceivedActionConfig } from './services/google/gmail.js';
 
 /* End of imports */
 
@@ -15,6 +16,7 @@ import { timerActionConfig } from './services/timer/timer.js';
 async function actionsSetup() {
     const actions = [
         { service_id: 1, name: 'Timer', description: "Timer management", config: timerActionConfig },
+        { service_id: 2, name: 'Gmail received', description: "Triggered when a new email is received in Gmail", config: googleEmailReceivedActionConfig },
     ];
 
     for (const actionData of actions) {
