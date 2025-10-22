@@ -221,16 +221,15 @@
 │   │   └── Tips for Creating
 │   │
 │   └── ❓ FAQ
-│       ├── General Questions (5)
-│       ├── Account & Authentication (6)
-│       ├── Services & Connections (7)
-│       ├── Creating & Managing AREAs (10)
-│       ├── Execution & Performance (6)
-│       ├── Troubleshooting (8)
-│       ├── Mobile App (7)
-│       ├── Advanced Features (4)
-│       ├── Billing & Limits (3)
-│       └── Privacy & Data (4)
+│       ├── General Questions
+│       ├── Services & Connections
+│       ├── Creating & Managing AREAs
+│       ├── Execution & Performance
+│       ├── Troubleshooting
+│       ├── Mobile App
+│       ├── Advanced Features
+│       ├── Billing & Limits
+│       └── Privacy & Data
 │
 └── 🛠 API Reference
     └── [Existing API docs...]

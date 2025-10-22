@@ -37,7 +37,6 @@ const sidebars: SidebarsConfig = {
         'user-guide/web-app',
         'user-guide/mobile-app',
         'user-guide/services',
-        'user-guide/examples',
         'user-guide/faq',
       ],
     },
