@@ -3,7 +3,7 @@ import getIdOfService from '../../../utils/getIdOfService.js';
 import { OAuthAccount } from '../../../models/oauthAccountsModel.js';
 import { UserService } from '../../../models/userServiceModel.js';
 
-import getAccessTokenGoogle from './getAccessToken.js';
+import getAccessTokenGoogle from '../../../utils/getAccessToken.js';
 
 
 const googleServiceId = await getIdOfService('Google');
