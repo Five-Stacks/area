@@ -10,6 +10,7 @@ import { AreaCreationPage } from './pages/AreaManagement/area-creation-page/area
 import { ServiceManagementPage } from './pages/service-management-page/service-management-page';
 import { SettingsPage } from './pages/settings-page/settings-page';
 import { authGuard } from './guards/auth.guard';
+import { AreaHistory } from './area-history/area-history';
 
 export const routes: Routes = [
     { path: '', component: WelcomePage },
@@ -22,5 +23,6 @@ export const routes: Routes = [
     { path: 'area/creation', component: AreaCreationPage, canActivate: [authGuard] },
     { path: 'services-manager', component: ServiceManagementPage, canActivate: [authGuard] },
     { path: 'settings', component: SettingsPage, canActivate: [authGuard] },
+    { path: 'area/history/:id', component: AreaHistory, canActivate: [authGuard] },
     { path: '**', component: ErrorPage },
 ];
