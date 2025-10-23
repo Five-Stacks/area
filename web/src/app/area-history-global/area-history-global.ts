@@ -52,12 +52,7 @@ interface BackendArea {
 export class AreaHistoryGlobal {
   private router = inject(Router);
 
-  historyItems: AreaHistoryItem[] = [
-    { id: 1, area_id: 3, executed_at: '2024-10-01T10:00:00Z', status: 'success', log: 'Execution completed successfully.' },
-    { id: 2, area_id: 2, executed_at: '2024-10-01T11:00:00Z', status: 'failure', log: 'Error: Unable to reach the API endpoint.' },
-    { id: 3, area_id: 2, executed_at: '2024-10-01T12:00:00Z', status: 'success', log: 'Execution completed successfully.' },
-    { id: 4, area_id: 3, executed_at: '2024-10-01T13:00:00Z', status: 'failure', log: 'Error: Timeout while waiting for response.' }
-  ];
+  historyItems: AreaHistoryItem[] = [];
   historyItemsWithNames: GlobalAreaHistoryItem[] = [];
   private apiService = inject(ApiService);
 
