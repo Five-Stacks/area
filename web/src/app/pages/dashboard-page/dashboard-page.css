@@ -97,7 +97,7 @@
 
 .area-card-header {
     display: grid;
-    grid-template-columns: 10fr 1.5fr 2fr;
+    grid-template-columns: 10fr 1.5fr 2.5fr;
     gap: 10px;
     margin-bottom: 10px;
 
@@ -180,6 +180,9 @@
 }
 
 .see-more {
+    display: grid;
+    grid-template-columns: auto auto;
+
     a svg {
         fill: var(--line-color);
         width: 30px;

@@ -137,6 +137,11 @@ export class DashboardPage implements OnInit {
     });
   }
 
+  historyArea(areaId: number, event: Event) {
+    event.stopPropagation();
+    this.router.navigate(['/area/history', areaId]);
+  }
+
   ngOnInit() {
     this.apiService.get<ApiResponse<AreaApiResponse[]>>('area/').subscribe((resp: ApiResponse<AreaApiResponse[]> | null) => {
       if (!resp) return;
