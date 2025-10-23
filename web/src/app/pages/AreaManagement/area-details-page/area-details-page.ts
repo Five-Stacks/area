@@ -60,6 +60,7 @@ interface BackendArea {
 }
 
 interface AreaCreateRequest {
+
   action_id: number;
   reaction_id: number;
   is_active: boolean;
@@ -204,7 +205,7 @@ export class AreaDetailsPage implements OnInit {
         this.optionsServicesActions = ['Choose Service'];
 
         servicesResp.data.forEach((service: Service) => {
-          this.apiService.get<ApiResponse<BackendActionOrReaction[]>>('action').subscribe((reactions: unknown) => {
+          this.apiService.get<ApiResponse<BackendActionOrReaction[]>>('reaction').subscribe((reactions: unknown) => {
             const reactionsResp = reactions as ApiResponse<BackendActionOrReaction[]> | null;
             if (!reactionsResp) return;
             reactionsResp.data.forEach((element: BackendActionOrReaction) => {
@@ -213,7 +214,7 @@ export class AreaDetailsPage implements OnInit {
               }
             });
           });
-          this.apiService.get<ApiResponse<BackendActionOrReaction[]>>('reaction').subscribe((actions: unknown) => {
+          this.apiService.get<ApiResponse<BackendActionOrReaction[]>>('action').subscribe((actions: unknown) => {
             const actionsResp = actions as ApiResponse<BackendActionOrReaction[]> | null;
             if (!actionsResp) return;
             actionsResp.data.forEach((element: BackendActionOrReaction) => {
@@ -421,7 +422,7 @@ export class AreaDetailsPage implements OnInit {
         if (service.name === this.serviceChosen) id = service.id;
       });
       if (id === -1) return;
-      this.apiService.get<ApiResponse<BackendActionOrReaction[]>>(`reaction/service/${id}`).subscribe((resp2: unknown) => {
+      this.apiService.get<ApiResponse<BackendActionOrReaction[]>>(`action/service/${id}`).subscribe((resp2: unknown) => {
         const actions = resp2 as ApiResponse<BackendActionOrReaction[]> | null;
         if (!actions) return;
         this.reactionsList = ['Choose Action'];
@@ -459,7 +460,7 @@ export class AreaDetailsPage implements OnInit {
         if (service.name === this.serviceChosen) id = service.id;
       });
       if (id === -1) return;
-      this.apiService.get<ApiResponse<BackendActionOrReaction[]>>(`reaction/service/${id}`).subscribe((resp2: unknown) => {
+      this.apiService.get<ApiResponse<BackendActionOrReaction[]>>(`action/service/${id}`).subscribe((resp2: unknown) => {
         const actions = resp2 as ApiResponse<BackendActionOrReaction[]> | null;
         if (!actions) return;
         const config = actions.data.find((action: BackendActionOrReaction) => action.name === this.reactionChosen);
@@ -492,7 +493,7 @@ export class AreaDetailsPage implements OnInit {
         if (service.name === this.serviceChosen) id = service.id;
       });
       if (id === -1) return;
-      this.apiService.get<ApiResponse<BackendActionOrReaction[]>>(`action/service/${id}`).subscribe((resp2: unknown) => {
+      this.apiService.get<ApiResponse<BackendActionOrReaction[]>>(`reaction/service/${id}`).subscribe((resp2: unknown) => {
         const actions = resp2 as ApiResponse<BackendActionOrReaction[]> | null;
         if (!actions) return;
         this.reactionsList = ['Choose Reaction'];
@@ -519,7 +520,7 @@ export class AreaDetailsPage implements OnInit {
         if (service.name === this.serviceChosen) id = service.id;
       });
       if (id === -1) return;
-      this.apiService.get<ApiResponse<BackendActionOrReaction[]>>(`action/service/${id}`).subscribe((resp2: unknown) => {
+      this.apiService.get<ApiResponse<BackendActionOrReaction[]>>(`reaction/service/${id}`).subscribe((resp2: unknown) => {
         const actions = resp2 as ApiResponse<BackendActionOrReaction[]> | null;
         if (!actions) return;
         const config = actions.data.find((action: BackendActionOrReaction) => action.name === this.reactionChosen);
@@ -590,14 +591,14 @@ export class AreaDetailsPage implements OnInit {
     };
 
     // Get reaction Id by name
-    this.apiService.get<ApiResponse<BackendActionOrReaction[]>>('reaction').subscribe((resp: unknown) => {
+    this.apiService.get<ApiResponse<BackendActionOrReaction[]>>('action').subscribe((resp: unknown) => {
       const reactions = resp as ApiResponse<BackendActionOrReaction[]> | null;
       if (!reactions) return;
       reactions.data.forEach((reaction: BackendActionOrReaction) => {
         if (reaction.name === this.area.trigger.name) areaNew.reaction_id = reaction.id;
       });
 
-      this.apiService.get<ApiResponse<BackendActionOrReaction[]>>('action').subscribe((resp2: unknown) => {
+      this.apiService.get<ApiResponse<BackendActionOrReaction[]>>('reaction').subscribe((resp2: unknown) => {
         const actions = resp2 as ApiResponse<BackendActionOrReaction[]> | null;
         if (!actions) return;
         actions.data.forEach((action: BackendActionOrReaction) => {
