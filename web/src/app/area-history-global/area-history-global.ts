@@ -23,6 +23,26 @@ interface GlobalAreaHistoryItem {
   log: string;
 }
 
+interface BackendArea {
+  id: number;
+  is_active?: boolean;
+  config?: {
+    name?: string;
+    description?: string;
+    trigger?: {
+      service_name?: string;
+      name?: string;
+      datas_form?: { fieldId: number; fieldName: string; response: string }[];
+    };
+    action?: {
+      service_name?: string;
+      name?: string;
+      type?: string;
+      datas_form?: { fieldId: number; fieldName: string; response: string }[];
+    };
+  };
+}
+
 @Component({
   selector: 'app-area-history-global',
   imports: [CommonModule, HeaderDashBoardComponent],
@@ -45,7 +65,9 @@ export class AreaHistoryGlobal {
     this.apiService.get<ApiResponse<AreaHistoryItem[]>>(`areaExecution`).subscribe((data) => {
       this.historyItems = data.data;
       for (let item of this.historyItems) {
-        this.apiService.get<ApiResponse<any>>(`area/${item.area_id}`).subscribe((data) => {
+        this.apiService.get<ApiResponse<BackendArea>>(`area/${item.area_id}`).subscribe((data) => {
+          if (data.data.config === undefined || data.data.config.name === undefined)
+            return;
           (item as GlobalAreaHistoryItem).area_name = data.data.config.name;
           this.historyItemsWithNames.push(item as GlobalAreaHistoryItem);
         });
