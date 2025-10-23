@@ -1,0 +1,550 @@
+---
+sidebar_position: 5
+title: Mobile Application Guide
+description: Complete guide to using the AREA mobile app on iOS and Android
+---
+
+# 📱 Mobile Application Guide
+
+The AREA mobile application brings the power of automation to your smartphone. Available for both iOS and Android, it provides a native mobile experience with all the features you need on the go.
+
+## Getting Started
+
+### Installation
+
+#### iOS (iPhone/iPad)
+1. Open the **App Store**
+2. Search for "AREA Automation"
+3. Tap **"Get"** to download
+4. Wait for installation to complete
+5. Tap **"Open"**
+
+#### Android
+1. Open the **Google Play Store**
+2. Search for "AREA Automation"
+3. Tap **"Install"**
+4. Wait for installation to complete
+5. Tap **"Open"**
+
+:::tip
+Alternatively, scan the QR code from the AREA website to download directly.
+:::
+
+### First Launch
+
+When you first open the app:
+
+1. **Welcome Screen**: Read the intro and tap **"Get Started"**
+2. **Sign Up / Login**: Choose your preferred method:
+   - 📧 Email and password
+   - 🔗 OAuth (GitHub, Discord, Microsoft, etc.)
+3. **Permissions**: Grant necessary permissions:
+   - ✅ Notifications (recommended)
+   - ✅ Network access (required)
+
+<!-- TODO: Add screenshot - ![Mobile Onboarding](/img/user-guide/mobile-onboarding.png) -->
+
+---
+
+## App Navigation
+
+The mobile app uses a bottom tab navigation for easy access to main features.
+
+### Tab Bar Overview
+
+| Tab | Icon | Purpose |
+|-----|------|---------|
+| **Dashboard** | 🏠 | Overview of your automations and activity |
+| **Services** | 🔌 | Connect and manage integrated services |
+| **AREA** | ⚡ | Create and manage your automations |
+| **Profile** | 👤 | Account settings and preferences |
+
+<!-- TODO: Add screenshot - ![Mobile Navigation](/img/user-guide/mobile-navigation.png) -->
+
+---
+
+## Dashboard Tab
+
+Your hub for automation activity and quick insights.
+
+### Features
+
+#### Activity Feed
+See recent automation executions:
+- ✅ Successful runs
+- ❌ Failed executions
+- ⏰ Timestamps
+- 📊 Quick stats
+
+#### Quick Stats
+- Total AREAs
+- Active automations
+- Today's executions
+- Success rate
+
+#### Quick Actions
+- ➕ Create new AREA
+- 🔄 Refresh activity
+- 📊 View detailed analytics
+
+<!-- TODO: Add screenshot - ![Dashboard Tab](/img/user-guide/mobile-dashboard.png) -->
+
+### Navigation Tips
+
+- **Pull down** to refresh
+- **Tap** on an execution to see details
+- **Swipe left/right** between date ranges
+
+---
+
+## Services Tab
+
+Connect and manage all your integrated services.
+
+### Viewing Connected Services
+
+The Services tab shows:
+- 📱 Service icons and names
+- ✅ Connection status
+- 🔗 Connected account info
+- ⚙️ Quick settings access
+
+<!-- TODO: Add screenshot - ![Services List](/img/user-guide/mobile-services.png) -->
+
+### Connecting Services
+
+#### Step-by-Step Process
+
+1. **Navigate** to the Services tab
+2. **Tap** on a service card (e.g., "GitHub")
+3. **Tap** the **"Connect"** button
+4. **Authenticate** via OAuth:
+   - You'll be redirected to the service's login page
+   - Log in with your credentials
+   - Grant permissions requested
+5. **Return** to the app automatically
+6. ✅ Service is now connected!
+
+<!-- TODO: Add screenshot - ![Connect Service Mobile](/img/user-guide/mobile-connect-service.png) -->
+
+:::tip
+Make sure to grant all requested permissions. Limited permissions may prevent some actions or reactions from working.
+:::
+
+### Managing Service Connections
+
+#### View Service Details
+Tap on a connected service to see:
+- Connected account name/email
+- Connection date
+- Permissions granted
+- AREAs using this service
+
+#### Disconnect a Service
+1. Tap on the connected service
+2. Scroll down to **"Disconnect Service"**
+3. Tap and confirm
+
+:::warning
+Disconnecting a service will disable all AREAs using that service!
+:::
+
+#### Reconnect with More Permissions
+1. Disconnect the service
+2. Connect again
+3. Grant additional permissions when prompted
+
+### Available Services
+
+| Service | Actions Available | Reactions Available |
+|---------|-------------------|---------------------|
+| 🐙 **GitHub** | Issues, PRs, Stars | Comments, Labels, Status |
+| 💬 **Discord** | Messages, Joins | Send Messages, Reactions |
+| 🎵 **Spotify** | Tracks, Playlists | Add to Playlist, Save |
+| 📧 **Microsoft** | Emails, Events | Send Email, Create Event |
+| 🐦 **Twitter** | Tweets, Mentions | Post Tweet, Like, Retweet |
+
+---
+
+## AREA Tab
+
+Create, view, and manage your automation workflows.
+
+### Viewing Your AREAs
+
+The AREA tab displays all your automations in a scrollable list.
+
+**Each AREA card shows:**
+- 📝 Name
+- ⚡ Action (service + event)
+- 🎯 Reaction (service + action)
+- 🔘 Enable/disable toggle
+- ⏰ Last execution time
+- ✅/❌ Last execution status
+
+<!-- TODO: Add screenshot - ![AREA List Mobile](/img/user-guide/mobile-area-list.png) -->
+
+### Creating a New AREA
+
+1. **Tap** the **"+"** floating action button (bottom-right)
+2. **Fill in** the AREA name
+3. **Select** an action:
+   - Tap "Select Action"
+   - Browse services
+   - Choose your trigger
+4. **Configure** action parameters
+5. **Select** a reaction:
+   - Tap "Select Reaction"
+   - Browse services
+   - Choose your response
+6. **Configure** reaction parameters
+7. **Tap** "Create" to save
+
+<!-- TODO: Add screenshot - ![Create AREA Mobile](/img/user-guide/mobile-create-area.png) -->
+
+:::info
+For detailed instructions, see the [Creating AREAs guide](/user-guide/creating-areas).
+:::
+
+### AREA Details View
+
+Tap on any AREA to view full details:
+
+#### Overview Tab
+- Name and description
+- Action and reaction details
+- Enable/disable toggle
+- Last execution info
+
+#### History Tab
+- Execution timeline
+- Success/failure status
+- Trigger data
+- Error messages (if any)
+
+#### Settings Tab
+- Edit configuration
+- Duplicate AREA
+- Delete AREA
+
+<!-- TODO: Add screenshot - ![AREA Details Mobile](/img/user-guide/mobile-area-details.png) -->
+
+### Editing an AREA
+
+1. Tap on the AREA
+2. Tap the **"Edit"** icon (pencil) in the top-right
+3. Modify parameters
+4. Tap **"Save"** when done
+
+### Quick Actions
+
+**Long-press** on any AREA card to access quick actions:
+- ✏️ Edit
+- 📋 Duplicate
+- 🗑️ Delete
+- 📊 View History
+
+<!-- TODO: Add screenshot - ![AREA Quick Actions](/img/user-guide/mobile-area-quick-actions.png) -->
+
+---
+
+## Profile Tab
+
+Manage your account and app settings.
+
+### Account Information
+
+View and edit:
+- 👤 Profile picture
+- 📧 Email address
+- 🏷️ Username
+- 🔐 Password
+
+<!-- TODO: Add screenshot - ![Profile Tab](/img/user-guide/mobile-profile.png) -->
+
+### Settings
+
+#### Notifications
+- ✅ Enable/disable push notifications
+- 📢 Execution alerts
+- ❌ Failure notifications
+- 📊 Daily summaries
+
+#### Appearance
+- 🌙 Dark mode
+- 🌞 Light mode
+- 🔄 System default
+
+#### Language
+- 🇬🇧 English
+- 🇫🇷 Français
+- 🇪🇸 Español
+- 🇩🇪 Deutsch
+
+#### Advanced
+- 🔄 Sync frequency
+- 📱 Offline mode
+- 🗑️ Clear cache
+- 📊 Data usage
+
+### Connected Services Overview
+
+Quick view of all connected services with one-tap access to manage them.
+
+### Logout
+
+Tap **"Logout"** at the bottom of the Profile tab to sign out.
+
+---
+
+## Mobile-Specific Features
+
+### Push Notifications
+
+Stay informed about your automations:
+
+**Notification Types:**
+- ✅ Successful execution
+- ❌ Execution failure
+- 🔔 Important alerts
+- 📊 Daily summary
+
+**Customize:**
+1. Profile → Settings → Notifications
+2. Toggle notification types
+3. Set quiet hours (optional)
+
+<!-- TODO: Add screenshot - ![Notifications Settings](/img/user-guide/mobile-notifications-settings.png) -->
+
+### Offline Mode
+
+The app caches data for offline viewing:
+- ✅ View existing AREAs
+- ✅ Check execution history
+- ❌ Cannot create/edit AREAs
+- ❌ Cannot trigger executions
+
+:::tip
+Changes made offline will sync when you're back online.
+:::
+
+### Widgets (iOS & Android)
+
+Add AREA widgets to your home screen:
+
+**iOS:**
+1. Long-press on home screen
+2. Tap "+" icon
+3. Search "AREA"
+4. Choose widget size
+5. Add to home screen
+
+**Android:**
+1. Long-press on home screen
+2. Tap "Widgets"
+3. Find "AREA"
+4. Drag to home screen
+
+**Widget Types:**
+- 📊 Quick stats
+- ⚡ Recent executions
+- ➕ Quick create button
+
+<!-- TODO: Add screenshot - ![Mobile Widgets](/img/user-guide/mobile-widgets.png) -->
+
+### Biometric Authentication
+
+Secure your app with fingerprint or face recognition:
+
+1. Profile → Settings → Security
+2. Enable "Biometric Lock"
+3. Authenticate to confirm
+4. App will require biometric unlock
+
+:::info
+Available on devices with fingerprint sensor or Face ID/Face Recognition.
+:::
+
+---
+
+## Tips & Tricks
+
+### Gesture Controls
+
+- **Swipe left** on AREA card: Quick delete
+- **Swipe right** on AREA card: Quick toggle
+- **Pull down**: Refresh lists
+- **Long-press**: Quick actions menu
+
+### Search & Filter
+
+Use the search bar at the top of the AREA tab:
+- Type AREA name
+- Filter by service
+- Filter by status
+- Sort by date/name
+
+### Quick Create Templates
+
+Long-press the "+" button to access templates:
+- Popular AREA templates
+- Service-specific templates
+- Your frequently created patterns
+
+### Sync Across Devices
+
+Your AREAs automatically sync:
+- Changes on web appear on mobile
+- Changes on mobile appear on web
+- Real-time synchronization
+
+---
+
+## Troubleshooting
+
+### App won't connect
+
+**Solutions:**
+1. Check internet connection
+2. Verify server status
+3. Force close and reopen app
+4. Clear app cache
+5. Reinstall if needed
+
+### Notifications not working
+
+**Check:**
+1. Notifications enabled in app
+2. System permissions granted
+3. Do Not Disturb mode off
+4. Background refresh enabled
+
+### Service connection fails
+
+**Try:**
+1. Disconnect and reconnect service
+2. Clear browser cache (for OAuth)
+3. Check service status page
+4. Try different network
+
+### App crashes or freezes
+
+**Steps:**
+1. Force close the app
+2. Clear app cache
+3. Update to latest version
+4. Restart your device
+5. Reinstall if problem persists
+
+### Sync issues
+
+**Resolve:**
+1. Check internet connection
+2. Pull to refresh
+3. Log out and log back in
+4. Clear cache and data
+
+---
+
+## Best Practices
+
+### 🔋 Battery Optimization
+
+The app is optimized for battery life, but you can:
+- Reduce sync frequency
+- Disable background refresh for non-critical AREAs
+- Use WiFi instead of mobile data
+
+### 📊 Data Usage
+
+Minimize data consumption:
+- Enable WiFi-only sync
+- Reduce notification frequency
+- Download execution logs on WiFi
+
+### 🔐 Security
+
+Protect your automations:
+- Enable biometric lock
+- Use strong password
+- Review connected services regularly
+- Log out on shared devices
+
+### ⚡ Performance
+
+Keep the app running smoothly:
+- Update regularly
+- Clear cache monthly
+- Disable unused AREAs
+- Remove old execution history
+
+---
+
+## Keyboard Shortcuts (iPad)
+
+For iPad users with external keyboard:
+
+| Shortcut | Action |
+|----------|--------|
+| ⌘ + N | New AREA |
+| ⌘ + R | Refresh |
+| ⌘ + F | Search |
+| ⌘ + , | Settings |
+| ⌘ + 1-4 | Switch tabs |
+
+---
+
+## Accessibility Features
+
+The mobile app supports:
+- 🔊 VoiceOver / TalkBack
+- 🔍 Dynamic text sizing
+- 🎨 High contrast mode
+- ⌨️ Full keyboard navigation
+- 🎯 Reduced motion
+
+Enable in: Profile → Settings → Accessibility
+
+---
+
+## App Versions
+
+### Current Version Features
+
+**v2.0.0 (Latest)**
+- ✨ Redesigned UI
+- 🚀 Faster sync
+- 📱 Widgets support
+- 🔐 Biometric authentication
+- 🌙 Dark mode
+
+### Update the App
+
+**iOS:**
+App Store → Updates → Update AREA
+
+**Android:**
+Play Store → My Apps → Update AREA
+
+---
+
+## Need More Help?
+
+- 📖 [User Guide Overview](/user-guide/overview)
+- 🎯 [Creating AREAs](/user-guide/creating-areas)
+- ⚙️ [Managing AREAs](/user-guide/managing-areas)
+- 🖥️ [Web Application Guide](/user-guide/web-app)
+- 🔧 [API Documentation](/api/overview)
+
+---
+
+## Feedback & Support
+
+Have suggestions or found a bug?
+
+- 📧 Email: support@area-project.com
+- 🐙 GitHub: [Report an issue](https://github.com/Five-Stacks/area/issues)
+- 💬 Discord: Join our community
+- ⭐ Rate on App Store / Play Store
+
+Happy automating on the go! 🚀📱

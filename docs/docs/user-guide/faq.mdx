@@ -1,0 +1,469 @@
+---
+sidebar_position: 8
+title: FAQ - Frequently Asked Questions
+description: Common questions and answers about using AREA
+---
+
+# ❓ Frequently Asked Questions
+
+Find answers to common questions about the AREA platform. Can't find what you're looking for? Ask in our [Discord community](https://discord.gg/area) or [GitHub Discussions](https://github.com/Five-Stacks/area/discussions).
+
+## General Questions
+
+### What is AREA?
+
+AREA (Action-REAction) is an automation platform that connects different services and creates workflows. It's similar to IFTTT or Zapier, allowing you to automate tasks by defining triggers (actions) and responses (reactions).
+
+### Is AREA free to use?
+
+Yes, AREA is open-source and free to use. You can self-host it or use our hosted version. Some services may have their own rate limits or premium features.
+
+### What's the difference between an Action and a Reaction?
+
+- **Action**: The trigger that starts your workflow (e.g., "new email received", "GitHub issue created")
+- **Reaction**: What happens automatically when the action triggers (e.g., "send Discord message", "create calendar event")
+
+### How many AREAs can I create?
+
+There's no hard limit on the number of AREAs you can create. However, each active AREA consumes system resources, so be mindful of:
+- API rate limits from services
+- Server capacity (if self-hosting)
+- Your own organizational needs
+
+### Can I use AREA offline?
+
+The mobile app has limited offline functionality:
+- ✅ View existing AREAs
+- ✅ Check execution history
+- ❌ Cannot create new AREAs
+- ❌ Cannot execute automations
+
+Full functionality requires internet connection.
+
+---
+
+## Services & Connections
+
+### How do I connect a service?
+
+**Web:**
+1. Navigate to Services page
+2. Click "Connect" on desired service
+3. Authenticate via OAuth
+4. Grant permissions
+5. Return to AREA (automatic)
+
+**Mobile:**
+1. Go to Services tab
+2. Tap on service
+3. Tap "Connect"
+4. Follow OAuth flow
+
+See [Web App Guide](/user-guide/web-app#connecting-services) or [Mobile App Guide](/user-guide/mobile-app#connecting-services) for detailed instructions.
+
+### Why can't I connect a service?
+
+**Common issues:**
+
+1. **Popup blocked**: Disable popup blocker for AREA
+2. **Third-party cookies disabled**: Enable in browser settings
+3. **Service downtime**: Check service status page
+4. **Invalid credentials**: Verify your service login works
+5. **Network issues**: Check internet connection
+
+**Solution:** Try incognito/private browsing mode or different browser.
+
+### Do I need to reconnect services regularly?
+
+Usually no, but you may need to reconnect if:
+- OAuth token expires (varies by service)
+- You change your service password
+- Service permissions change
+- You see "Authentication Failed" errors
+
+AREA will notify you when reconnection is needed.
+
+### Can I use multiple accounts for the same service?
+
+Not simultaneously for one AREA account. Each service can only have one connected account at a time.
+
+**Workaround:** Create separate AREA accounts for different service accounts.
+
+### What if a service I need isn't available?
+
+You have several options:
+1. **Request it**: Open a feature request on [GitHub](https://github.com/Five-Stacks/area/issues)
+2. **Vote**: Check existing requests and upvote
+3. **Contribute**: Build the integration yourself (see [Contributing Guide](/guides/contributing))
+4. **Use webhooks**: Advanced users can use custom webhooks
+
+---
+
+## Creating & Managing AREAs
+
+### My AREA isn't triggering. Why?
+
+**Checklist:**
+
+1. ✅ **Is it enabled?** Check the toggle switch
+2. ✅ **Services connected?** Verify in Services page
+3. ✅ **Correct parameters?** Double-check IDs, names, URLs
+4. ✅ **Permissions granted?** Ensure proper OAuth scopes
+5. ✅ **Trigger occurred?** Make sure the action actually happened
+
+**Debug:**
+- Check execution history for errors
+- Test with simple parameters first
+- Review service connection status
+- Check API rate limits
+
+### Can I test an AREA before enabling it?
+
+Not directly, but you can:
+1. Create the AREA
+2. Enable it temporarily
+3. Manually trigger the action
+4. Check execution history
+5. Disable if not working correctly
+
+**Best Practice:** Start with simple configurations and add complexity gradually.
+
+### How do I know if my AREA executed successfully?
+
+**Check execution history:**
+
+**Web:**
+1. Click on the AREA
+2. Go to "Execution History" tab
+3. See status (✅ success / ❌ failed)
+
+**Mobile:**
+1. Tap on the AREA
+2. Swipe to "History" tab
+3. View recent executions
+
+**Enable notifications:**
+- Profile → Settings → Notifications
+- Enable "Execution Alerts"
+
+### Can I edit the action or reaction type after creation?
+
+❌ No, you cannot change the action or reaction service type.
+
+**Solution:** Create a new AREA with the desired configuration.
+
+**What you CAN edit:**
+- ✅ AREA name
+- ✅ Action parameters
+- ✅ Reaction parameters
+- ✅ Enabled/disabled status
+
+### How do I temporarily disable an AREA?
+
+**Web:** Click the toggle switch on the AREA card or detail page
+
+**Mobile:** Tap the toggle switch
+
+**Disabled AREAs:**
+- Won't check for triggers
+- Won't execute reactions
+- Keep their configuration
+- Can be re-enabled anytime
+
+Perfect for seasonal automations or testing!
+
+### Can I duplicate an AREA?
+
+❌ NO...
+
+---
+
+## Execution & Performance
+
+### How often does AREA check for triggers?
+
+Depends on the action type:
+- **Webhooks**: Instant (real-time)
+- **Polling**: Every 1-5 minutes (varies by service)
+- **Event-based**: When the event occurs
+
+Some services support webhooks for better performance.
+
+### Why is there a delay in execution?
+
+**Possible reasons:**
+
+1. **Polling interval**: Not webhook-based (1-5 min delay)
+2. **API rate limits**: Throttled by service
+3. **Server load**: High usage periods
+4. **Network latency**: Internet connection issues
+5. **Queue processing**: Multiple executions queued
+
+**Normal:** 1-5 minute delays are typical for polling-based actions.
+**Concerning:** 10+ minute delays - check execution logs.
+
+### What are API rate limits?
+
+Services limit how many API calls you can make per hour/day.
+
+**Example limits:**
+- GitHub: 5,000 requests/hour
+- Twitter: 300 tweets/3 hours
+- Spotify: Varies by endpoint
+
+**If you hit limits:**
+- ❌ AREA will fail temporarily
+- ⏳ Will retry after cooldown
+- 📊 Check service documentation for limits
+
+**Tip:** Don't poll too frequently!
+
+### Can an AREA trigger multiple times for the same event?
+
+Usually no, AREA tracks processed events to prevent duplicates.
+
+**Exception:** If you delete and recreate an AREA, it may reprocess recent events.
+
+
+---
+
+## Troubleshooting
+
+### I see "Authentication Failed" errors
+
+**Solutions:**
+
+1. **Reconnect the service:**
+   - Services → Select service → Disconnect
+   - Connect again with fresh authentication
+
+2. **Check service status:**
+   - Service may be down temporarily
+   - Check their status page
+
+3. **Verify credentials:**
+   - Can you log in to the service directly?
+   - Try resetting service password
+
+4. **Clear browser cache:**
+   - Clear cookies and cache
+   - Try again
+
+### My reaction isn't working
+
+**Debug steps:**
+
+1. ✅ **Check service connection**: Is reaction service connected?
+2. ✅ **Verify parameters**: Are IDs, URLs correct?
+3. ✅ **Test variables**: Are you using correct variable names?
+4. ✅ **Check permissions**: Does service have required permissions?
+5. ✅ **Review logs**: What error message appears?
+
+**Common issues:**
+- Invalid channel/repository IDs
+- Missing permissions
+- Incorrect variable syntax
+- Service rate limits
+
+
+### Browser notifications not working
+
+**Check:**
+
+1. **Browser permissions:**
+   - Allow notifications for AREA website
+   - Check browser notification settings
+
+2. **App settings:**
+   - Profile → Settings → Notifications
+   - Enable desired notification types
+
+3. **Do Not Disturb:**
+   - Disable system DND mode
+   - Check browser focus mode
+
+### Mobile app keeps logging me out
+
+**Possible causes:**
+
+1. **Token expiration**: Normal after long periods
+2. **App update**: May require re-login
+3. **Account changes**: Password changed on web
+
+**Solutions:**
+- Enable biometric authentication for quicker login
+- Use "Remember Me" option
+- Check for app updates
+
+### Page loads slowly
+
+**Solutions:**
+
+1. **Clear browser cache**
+2. **Disable browser extensions temporarily**
+3. **Check internet speed**
+4. **Try different browser**
+5. **Check server status** (if self-hosting)
+
+---
+
+## Mobile App
+
+### Can I create AREAs on mobile?
+
+✅ Yes! The mobile app has full AREA creation capabilities, identical to web.
+
+### Do I need the mobile app to use AREA?
+
+No, the mobile app is optional. You can use AREA entirely from the web browser.
+
+**Mobile app benefits:**
+- Push notifications
+- Quicker access
+- Offline viewing
+- Home screen widgets
+
+### Why is the app size so large?
+
+The app includes:
+- Complete UI framework
+- Offline caching
+- Multiple service integrations
+- High-resolution assets
+
+**Typical size:**
+- iOS: 50-80 MB
+- Android: 40-70 MB
+
+### Can I use AREA on iPad?
+
+✅ Yes! The iOS app works on iPad with optimized layout and keyboard shortcuts.
+
+### Are there widgets available?
+
+✅ Yes, for both iOS and Android:
+- Quick stats widget
+- Recent executions widget
+- Quick create button
+
+See [Mobile App Guide](/user-guide/mobile-app#widgets-ios--android) for setup instructions.
+
+---
+
+## Advanced Features
+
+### What are webhooks?
+
+Webhooks allow external services to notify AREA instantly when events occur, instead of polling.
+
+**Benefits:**
+- ⚡ Real-time (no delay)
+- 📉 Lower API usage
+- 🎯 More accurate
+
+**Setup:**
+- Settings → Advanced → Webhooks
+- Copy webhook URL
+- Configure in external service
+
+### Can I use AREA's API?
+
+✅ Yes, for advanced users:
+- Full REST API available
+- Create, read, update, delete AREAs programmatically
+- Check execution status
+- Manage services
+
+**Documentation:** [API Reference](/api/overview)
+
+**Get API Key:**
+- Settings → Advanced → API Access
+- Generate new key
+- Set permissions and expiration
+
+### Can I self-host AREA?
+
+✅ Yes! AREA is open-source.
+
+**Requirements:**
+- Node.js server
+- PostgreSQL database
+- OAuth credentials for services
+
+**Guide:** See [Installation Guide](/guides/installation)
+
+### How do I contribute to AREA?
+
+We welcome contributions!
+
+1. **Code:** Submit PRs on [GitHub](https://github.com/Five-Stacks/area)
+2. **Documentation:** Improve guides and docs
+3. **Services:** Build new integrations
+4. **Bug reports:** Open issues
+5. **Feature requests:** Propose new features
+
+See [Contributing Guide](/guides/contributing) for details.
+
+---
+
+## Billing & Limits (if applicable)
+
+### Is AREA completely free?
+
+Yes, the open-source version is completely free.
+
+---
+
+## Privacy & Data
+
+### What data does AREA store?
+
+AREA stores:
+- ✅ Account information (email, username)
+- ✅ AREA configurations
+- ✅ Execution history (30 days)
+- ✅ Service OAuth tokens (encrypted)
+- ❌ Does NOT store service passwords
+
+### Can I export my data?
+
+✅ Yes:
+- Settings → Data & Privacy → Export All Data
+- Includes all AREAs and execution history
+- Delivered as JSON file
+
+### Does AREA sell my data?
+
+❌ No. AREA does not sell user data. Period.
+
+Open-source = transparent. Check the code yourself!
+
+---
+
+## Still Have Questions?
+
+### Get Help
+
+- 📖 **Documentation**: Browse other guides
+- 💬 **Discord**: Join our community
+- 🐙 **GitHub Discussions**: Ask technical questions
+- 📧 **Email**: support@area-project.com (if available)
+
+### Report Issues
+
+- 🐛 **Bugs**: [GitHub Issues](https://github.com/Five-Stacks/area/issues)
+- 💡 **Feature Requests**: GitHub Discussions
+- 📝 **Documentation Issues**: Submit PR or open issue
+
+### Contribute
+
+Help improve this FAQ:
+1. Found an error? Open an issue
+2. Have a better answer? Submit a PR
+3. Frequent question not here? Suggest it!
+
+---
+
+**Last Updated**: October 22, 2025
+
+We update this FAQ regularly based on user questions. Bookmark this page for quick reference! 📚

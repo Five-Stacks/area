@@ -25,6 +25,23 @@ const sidebars: SidebarsConfig = {
     },
   ],
 
+  userGuideSidebar: [
+    {
+      type: 'category',
+      label: '👤 User Guide',
+      collapsible: false,
+      items: [
+        'user-guide/overview',
+        'user-guide/creating-areas',
+        'user-guide/managing-areas',
+        'user-guide/web-app',
+        'user-guide/mobile-app',
+        'user-guide/services',
+        'user-guide/faq',
+      ],
+    },
+  ],
+
   apiSidebar: [
     {
       type: 'category',
@@ -85,6 +102,7 @@ const sidebars: SidebarsConfig = {
           type: 'category',
           label: 'Action',
           items: [
+            'api/action/action-format-config',
             'api/action/getAll',
             'api/action/getById',
           ]
@@ -93,6 +111,7 @@ const sidebars: SidebarsConfig = {
           type: 'category',
           label: 'Reaction',
           items: [
+            'api/reaction/reaction-format-config',
             'api/reaction/getAll',
             'api/reaction/getById',
           ]
@@ -102,6 +121,7 @@ const sidebars: SidebarsConfig = {
           label: 'Area',
           items: [
             'api/area/add',
+            'api/area/area-format-config',
             'api/area/getAllCurrentUser',
             'api/area/getById',
             'api/area/updateById',
