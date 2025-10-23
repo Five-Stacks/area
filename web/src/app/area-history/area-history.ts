@@ -26,7 +26,6 @@ export class AreaHistory implements OnInit {
   ngOnInit(): void {
     const areaId = window.location.pathname.split('/').pop();
     this.apiService.get<ApiResponse<AreaHistoryItem[]>>(`areaExecution/${areaId}`).subscribe((data) => {
-      console.log(data.data);
       this.historyItems = data.data;
     });
   }
