@@ -23,6 +23,11 @@
     --blue-shadow-color-medium: rgba(34, 34, 37, 0.15);
     --blue-shadow-color-light: rgba(106, 116, 201, 0.1);
     --gray-shadow-color: rgba(169, 169, 169, 0.5);
+
+    --color-success: #1b7863;
+    --color-success-light: #d4f0ec;
+    --color-error: #e23b3e;
+    --color-error-light: #ffe1e1;
 }
 
 main {

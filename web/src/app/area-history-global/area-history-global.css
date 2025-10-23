@@ -1,0 +1,61 @@
+.area-history-container {
+    padding: 20px;
+    padding-top: 120px;
+}
+
+.history-item-details {
+    border: 2px solid transparent;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: var(--gray-color);
+    border-left: 5px solid var(--line-color);
+
+    .history-item-timestamp {
+        font-size: 14px;
+        color: var(--black-color);
+        opacity: 0.7;
+        margin-bottom: 8px;
+    }
+    .history-item-description {
+        font-size: 16px;
+        color: var(--black-color);
+        font-weight: 500;
+    }
+}
+
+.history-item-details.success {
+    border: 2px solid var(--color-success-light);
+    border-left: 5px solid var(--color-success);
+    background-color: var(--color-success-light);
+}
+
+.history-item-details.failure {
+    border: 2px solid var(--color-error-light);
+    border-left: 5px solid var(--color-error);
+    background-color: var(--color-error-light);
+}
+
+.history-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+
+    .history-item-area-name {
+        font-weight: bold;
+        font-size: 18px;
+        color: var(--black-color);
+    }
+}
+
+.history-item-details.success:focus,.history-item-details.success:hover {
+    border: 2px solid var(--color-success);
+    border-left: 5px solid var(--color-success);
+    cursor: pointer;
+}
+.history-item-details.failure:focus,.history-item-details.failure:hover {
+    border: 2px solid var(--color-error);
+    border-left: 5px solid var(--color-error);
+    cursor: pointer;
+}
