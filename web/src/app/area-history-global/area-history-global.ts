@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { CommonModule } from '@angular/common';
 import { HeaderDashBoardComponent } from '../components/Headers/header-component-dashboard/header-component-dashboard';
@@ -49,7 +49,7 @@ interface BackendArea {
   templateUrl: './area-history-global.html',
   styleUrl: './area-history-global.css'
 })
-export class AreaHistoryGlobal {
+export class AreaHistoryGlobal implements OnInit {
   private router = inject(Router);
 
   historyItems: AreaHistoryItem[] = [];
@@ -59,7 +59,7 @@ export class AreaHistoryGlobal {
   ngOnInit(): void {
     this.apiService.get<ApiResponse<AreaHistoryItem[]>>(`areaExecution`).subscribe((data) => {
       this.historyItems = data.data;
-      for (let item of this.historyItems) {
+      for (const item of this.historyItems) {
         this.apiService.get<ApiResponse<BackendArea>>(`area/${item.area_id}`).subscribe((data) => {
           if (data.data.config === undefined || data.data.config.name === undefined)
             return;
