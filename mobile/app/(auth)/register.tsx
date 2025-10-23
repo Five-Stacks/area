@@ -16,7 +16,7 @@ export default function Register() {
   useEffect(() => {
     async function checkToken() {
       const token = await AsyncStorage.getItem("token");
-      if (token) router.replace("/home");
+      if (token) router.replace("/(tabs)/dashboard");
     }
     checkToken();
   }, []);
@@ -47,7 +47,7 @@ export default function Register() {
         Alert.alert("Registration failed", data.error || "Try again.");
         return;
       }
-      router.replace("/home");
+      router.replace("/(tabs)/dashboard");
     } catch (err) {
       console.error("Register error:", err);
       Alert.alert("Error", "Could not connect to server.");

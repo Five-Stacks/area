@@ -8,6 +8,22 @@ export async function getAreas(): Promise<Area[]> {
   return json.data;
 }
 
+export async function createArea(area: Area) {
+  const res = await fetch(`${API_BASE_URL}/area`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(area),
+  });
+  if (!res.ok) {
+    const errText = await res.text();
+    throw new Error(`Failed to create area: ${errText}`);
+  }
+  const json = await res.json();
+  return json.data;
+}
+
 export async function updateArea(area: Area) {
   const res = await fetch(`${API_BASE_URL}/area/${area.id}`, {
     method: "PUT",

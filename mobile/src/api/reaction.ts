@@ -1,7 +1,7 @@
 import API_BASE_URL from "./serverAdress";
 import { Reaction } from "../types/reaction";
 
-export async function getReaction(): Promise<Reaction[]> {
+export async function getReactions(): Promise<Reaction[]> {
   const res = await fetch(`${API_BASE_URL}/reaction`);
   if (!res.ok) throw new Error("Failed to fetch reaction");
   const json = await res.json();
