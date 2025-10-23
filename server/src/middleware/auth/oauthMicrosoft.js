@@ -14,7 +14,7 @@ passport.use(new MicrosoftStrategy({
   passReqToCallback: true
 }, async (req, accessToken, refreshToken, profile, done) => {
   try {
-    const provider = 'microsoft';
+    const provider = 'Microsoft';
     const providerUserId = profile.id;
 
     let oauthAccount = await OAuthAccount.findOne({ where: { provider, provider_user_id: providerUserId } });

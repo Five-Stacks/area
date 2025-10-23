@@ -12,7 +12,7 @@ passport.use(new TwitterStrategy({
   passReqToCallback: true
 }, async function(req, token, tokenSecret, profile, done) {
   try {
-    const provider = 'twitter';
+    const provider = 'Twitter';
     const providerUserId = profile.id;
 
     let oauthAccount = await OAuthAccount.findOne({ where: { provider, provider_user_id: providerUserId } });

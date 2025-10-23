@@ -14,7 +14,7 @@ passport.use(new GoogleStrategy({
 }, async (req, accessToken, refreshToken, profile, done) => {
     try {
         // Try to find an existing oauth account for this provider user id
-        const provider = 'google';
+        const provider = 'Google';
         const providerUserId = profile.id;
         const no = false;
 
