@@ -442,3 +442,6 @@ img {
 .disabled-popup {
     display: none;
 }
+.mandatory-field {
+    color: var(--red-color) !important;
+}

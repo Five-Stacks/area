@@ -102,7 +102,7 @@
                     </div>
                     <div class="form-fields" *ngIf="step === 3">
                         <div *ngFor="let action of actionsList">
-                            <h4>{{ action.name }}</h4>
+                            <h4 [class.mandatory-field]="action.mandatory">{{ action.name + (action.mandatory ? ' *' : '') }}</h4>
                             <app-options-field-component
                                 *ngIf="action.options_field"
                                 [label]="action.title"

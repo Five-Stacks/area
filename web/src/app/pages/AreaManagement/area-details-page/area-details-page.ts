@@ -17,6 +17,7 @@ interface ActionField {
   id: number;
   input_field?: { placeholder: string };
   options_field?: { label: string; value: string }[];
+  mandatory: boolean;
   name: string;
   title: string;
 }
@@ -236,7 +237,7 @@ export class AreaDetailsPage implements OnInit {
       if (this.reactionChosen != '' && this.reactionChosen != 'Choose Reaction') return true;
     if (this.step === 3) {
       for (const response of this.ActionsResponses) {
-        if (response.response === '' || response.response == null)
+        if ((response.response === '' || response.response == null) && this.actionsList.find(a => a.id === response.fieldId)?.mandatory)
           return false;
       }
       return true;
