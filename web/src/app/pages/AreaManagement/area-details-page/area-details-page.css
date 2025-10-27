@@ -351,6 +351,7 @@ img {
     }
 }
 
+
 .form-content {
     display: grid;
     grid-template-rows: 10fr auto;
@@ -439,4 +440,7 @@ img {
 }
 .disabled-popup {
     display: none;
+}
+.mandatory-field {
+    color: var(--red-color) !important;
 }
