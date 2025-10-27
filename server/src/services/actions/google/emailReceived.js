@@ -52,7 +52,6 @@ async function check(area) {
         }
 
         if (newEmails.length === 0) {
-            console.log('No new emails found within the last minute.');
             return false;
         }
 

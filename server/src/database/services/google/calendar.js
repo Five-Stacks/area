@@ -59,5 +59,47 @@ const createNewEventGoogleActionConfig = {
     ]
 };
 
+const eventCreatedGoogleActionConfig = {
+    "fields": [
+        {
+            "id": 1,
+            "name": "Event Name Keyword",
+            "title": "Event Name Keyword",
+            "input_field": {
+                "placeholder": "Enter keyword to filter event names"
+            }
+        },
+        {
+            "id": 2,
+            "name": "Description Keyword",
+            "title": "Description Keyword",
+            "input_field": {
+                "placeholder": "Enter keyword to filter event descriptions"
+            }
+        }
+    ]
+};
+
+const eventStartedGoogleActionConfig = {
+    "fields": [
+        {
+            "id": 1,
+            "name": "Event Name Keyword",
+            "title": "Event Name Keyword",
+            "input_field": {
+                "placeholder": "Enter keyword to filter event names"
+            }
+        },
+        {
+            "id": 2,
+            "name": "Description Keyword",
+            "title": "Description Keyword",
+            "input_field": {
+                "placeholder": "Enter keyword to filter event descriptions"
+            }
+        }
+    ]
+};
+
 /* Export action config */
-export { createNewEventGoogleActionConfig };
+export { createNewEventGoogleActionConfig, eventCreatedGoogleActionConfig, eventStartedGoogleActionConfig };
