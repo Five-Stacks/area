@@ -1,5 +1,62 @@
 import getAccessTokenGoogle from '../../../utils/getAccessToken.js';
 
+const serverTimeZone = 'Europe/Paris';
+
+function parseDateToken(token) {
+    if (!token) return null;
+    const raw = String(token).trim();
+    const lower = raw.toLowerCase();
+    if (lower === 'today') {
+        return new Date().toISOString().slice(0, 10);
+    }
+
+    const plusMatch = lower.match(/^\+(\d+)\s*(days?)?$/);
+    if (plusMatch) {
+        const n = parseInt(plusMatch[1], 10);
+        const d = new Date();
+        d.setUTCDate(d.getUTCDate() + n);
+        return d.toISOString().slice(0, 10);
+    }
+
+    if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) {
+        return raw;
+    }
+
+    const parsed = new Date(raw);
+    if (!isNaN(parsed.getTime())) {
+        return parsed.toISOString().slice(0, 10);
+    }
+    return null;
+}
+
+function addDaysToDateString(dateStr, n) {
+    const [y, m, d] = dateStr.split('-').map(Number);
+    const dt = new Date(Date.UTC(y, m - 1, d));
+    dt.setUTCDate(dt.getUTCDate() + n);
+    return dt.toISOString().slice(0, 10);
+}
+
+function formatDateTime(dateToken, time, isEnd = false) {
+    const parsedDate = parseDateToken(dateToken);
+    if (!parsedDate) {
+        throw new Error(`Invalid date token: ${dateToken}`);
+    }
+
+    if (String(time).toLowerCase() === 'all-day') {
+        if (isEnd) {
+            return { date: addDaysToDateString(parsedDate, 1) };
+        }
+        return { date: parsedDate };
+    }
+
+    const hasOffset = /[Zz+-]/.test(String(time));
+    const dateTime = `${parsedDate}T${time}:00`;
+    if (hasOffset) {
+        return { dateTime };
+    }
+    return { dateTime, timeZone: serverTimeZone };
+}
+
 async function run(area) {
     const actionForm = area?.config?.action?.datas_form || [];
 
@@ -20,22 +77,6 @@ async function run(area) {
         if (!startDate || !endDate || !startTime || !endTime) {
             throw new Error('Missing date or time fields in action configuration.');
         }
-
-
-        const serverTimeZone = 'Europe/Paris';
-
-        const formatDateTime = (date, time) => {
-            if (time.toLowerCase() === 'all-day') {
-                return { date: date };
-            } else {
-                const hasOffset = /[Zz+-]/.test(time);
-                const dateTime = `${date}T${time}:00`;
-                if (hasOffset) {
-                    return { dateTime };
-                }
-                return { dateTime, timeZone: serverTimeZone };
-            }
-        };
 
         const event = {
             summary: eventTitle,
