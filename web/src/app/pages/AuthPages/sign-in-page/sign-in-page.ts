@@ -24,11 +24,6 @@ export class SignInPage {
   isLoading = false;
   errorMessage = '';
 
-  private isValidEmail(email: string): boolean {
-    // Simple RFC-like check: no whitespace, has one "@", and a dot after "@"
-    return /^\S+@\S+\.\S+$/.test(email);
-  }
-
   handleSignIn = () => {
     // Reset previous errors
     this.hintEmail = '';
@@ -39,12 +34,6 @@ export class SignInPage {
     if (!this.email || !this.password) {
       this.hintEmail = this.email ? '' : 'Email is required';
       this.hintPassword = this.password ? '' : 'Password is required';
-      return;
-    }
-
-    // Validate email format
-    if (!this.isValidEmail(this.email)) {
-      this.hintEmail = 'Invalid email format';
       return;
     }
 
@@ -73,14 +62,6 @@ export class SignInPage {
   onEmailChange(v: string) {
     this.email = v;
     this.errorMessage = ''; // Clear error when user types
-    // Clear or update hintEmail depending on format
-    if (!v) {
-      this.hintEmail = 'Email is required';
-    } else if (!this.isValidEmail(v)) {
-      this.hintEmail = 'Invalid email format';
-    } else {
-      this.hintEmail = '';
-    }
   }
 
   onPasswordChange(v: string) {
