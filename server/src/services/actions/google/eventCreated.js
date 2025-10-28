@@ -1,8 +1,8 @@
-import getAccessTokenGoogle from '../../../utils/getAccessToken.js';
+import getAccessToken from '../../../utils/getAccessToken.js';
 
 async function check(area) {
     try {
-        const accessToken = await getAccessTokenGoogle(area);
+        const accessToken = await getAccessToken(area, 'Google');
         if (!accessToken) {
             throw new Error('Unable to obtain Google access token.');
         }

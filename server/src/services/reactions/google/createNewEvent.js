@@ -1,4 +1,4 @@
-import getAccessTokenGoogle from '../../../utils/getAccessToken.js';
+import getAccessToken from '../../../utils/getAccessToken.js';
 
 const serverTimeZone = 'Europe/Paris';
 
@@ -61,7 +61,7 @@ async function run(area) {
     const actionForm = area?.config?.action?.datas_form || [];
 
     try {
-        const accessToken = await getAccessTokenGoogle(area);
+        const accessToken = await getAccessToken(area, 'Google');
         if (!accessToken) {
             throw new Error('Unable to obtain Google access token.');
         }

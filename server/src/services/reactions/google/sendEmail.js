@@ -1,15 +1,11 @@
-import getIdOfService from '../../../utils/getIdOfService.js';
-import getAccessTokenGoogle from '../../../utils/getAccessToken.js';
-
-
-const googleServiceId = await getIdOfService('Google');
+import getAccessToken from '../../../utils/getAccessToken.js';
 
 /* Run function for send email with Google reaction */
 async function run(area) {
     const actionForm = area?.config?.action?.datas_form || [];
 
     try {
-        const accessToken = await getAccessTokenGoogle(area, googleServiceId);
+        const accessToken = await getAccessToken(area, 'Google');
         if (!accessToken) {
             throw new Error('Unable to obtain Google access token.');
         }
