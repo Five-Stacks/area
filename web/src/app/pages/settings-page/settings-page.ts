@@ -6,6 +6,36 @@ import { TextFieldComponent } from '../../components/Forms/text-field-component/
 import { TextFieldHideComponent } from '../../components/Forms/text-field-hide-component/text-field-hide-component';
 import { ButtonFullComponent } from '../../components/Buttons/button-component-full/button-component-full';
 import { ApiService } from '../../services/api.service';
+// Typed response shapes for ApiService.get calls in this file
+interface UserPayload {
+  id?: number | string;
+  name?: string;
+  email?: string;
+  password?: string;
+  [key: string]: unknown;
+}
+
+interface ApiGetUserResponse {
+  user?: UserPayload;
+  data?: UserPayload;
+  // allow the response to be the user object directly
+  // index signature to keep it permissive for other fields
+  [key: string]: unknown;
+}
+
+// Safe extractor: normalize several backend shapes into a `UserPayload` or `undefined`.
+function toUserPayload(obj: unknown): UserPayload | undefined {
+  if (!obj || typeof obj !== 'object') return undefined;
+  const o = obj as Record<string, unknown>;
+  const id = o['id'];
+  const name = o['name'];
+  const email = o['email'];
+  const u: UserPayload = {};
+  if (typeof id === 'number' || typeof id === 'string') u.id = id;
+  if (typeof name === 'string') u.name = name;
+  if (typeof email === 'string') u.email = email;
+  return Object.keys(u).length ? u : undefined;
+}
 
 @Component({
   selector: 'app-settings-page',
@@ -41,12 +71,13 @@ export class SettingsPage implements OnInit {
       }
     } catch (err) {
       // ignore parse errors
+      console.debug('Error parsing cached user from localStorage:', err);
     }
 
-    // Prefer the secure endpoint that uses the httpOnly cookie: auth/me
-    this.apiService.get<any>('auth/me').subscribe({
+  // Prefer the secure endpoint that uses the httpOnly cookie: auth/me
+    this.apiService.get<ApiGetUserResponse>('auth/me').subscribe({
       next: (res) => {
-        const payload = res?.user ?? res?.data ?? res;
+        const payload = toUserPayload(res?.user ?? res?.data ?? res);
         if (payload && payload.id) {
           this.userId = Number(payload.id);
           this.name = payload.name ?? this.name;
@@ -56,15 +87,12 @@ export class SettingsPage implements OnInit {
 
         // If auth/me returned null-ish and we had a cached id, try GET /users/:id as a fallback
         if (this.userId !== null) {
-          this.apiService.get<any>(`users/${this.userId}`).subscribe({
+          this.apiService.get<ApiGetUserResponse>(`users/${this.userId}`).subscribe({
             next: (r2) => {
-              const p2 = r2?.data ?? r2?.user ?? r2;
+              const p2 = toUserPayload(r2?.data ?? r2?.user ?? r2);
               if (p2) {
-                const user = p2.id ? p2 : p2.user ?? p2;
-                if (user) {
-                  this.name = user.name ?? this.name;
-                  this.email = user.email ?? this.email;
-                }
+                this.name = p2.name ?? this.name;
+                this.email = p2.email ?? this.email;
               }
             },
             error: (err2) => {
@@ -77,15 +105,12 @@ export class SettingsPage implements OnInit {
         // If auth/me fails (not logged in or cookie missing), fallback to user/:id only if cached id exists
         console.debug('auth/me failed (user likely not authenticated):', err);
         if (this.userId !== null) {
-          this.apiService.get<any>(`users/${this.userId}`).subscribe({
+          this.apiService.get<ApiGetUserResponse>(`users/${this.userId}`).subscribe({
             next: (r2) => {
-              const p2 = r2?.data ?? r2?.user ?? r2;
+              const p2 = toUserPayload(r2?.data ?? r2?.user ?? r2);
               if (p2) {
-                const user = p2.id ? p2 : p2.user ?? p2;
-                if (user) {
-                  this.name = user.name ?? this.name;
-                  this.email = user.email ?? this.email;
-                }
+                this.name = p2.name ?? this.name;
+                this.email = p2.email ?? this.email;
               }
             },
             error: (err2) => {
@@ -101,7 +126,7 @@ export class SettingsPage implements OnInit {
     this.successMessage = '';
     this.errorMessage = '';
 
-    const payload: any = {};
+  const payload: Partial<UserPayload> = {};
     if (this.name) payload.name = this.name;
     if (this.email) payload.email = this.email;
     if (this.password) payload.password = this.password;
@@ -123,13 +148,13 @@ export class SettingsPage implements OnInit {
     // Preferred: call PUT /api/users/:id when we know the id
     if (this.userId !== null) {
       this.apiService.put(`users/${this.userId}`, payload).subscribe({
-        next: (res: any) => {
+        next: () => {
           this.loading = false;
           this.successMessage = 'Profile updated.';
           // Clear password field
           this.password = '';
         },
-        error: (err: any) => {
+        error: (err: unknown) => {
           this.loading = false;
           this.errorMessage = 'Error updating profile.';
           console.error('Error updating user:', err);
@@ -140,12 +165,12 @@ export class SettingsPage implements OnInit {
 
     // Fallback: if we don't have an id, try a generic put to `users` (backend may not support it)
     this.apiService.put('users', payload).subscribe({
-      next: (res: any) => {
+      next: () => {
         this.loading = false;
         this.successMessage = 'Update submitted.';
         this.password = '';
       },
-      error: (err: any) => {
+      error: (err: unknown) => {
         this.loading = false;
         this.errorMessage = 'Unable to update (endpoint not available).';
         console.error('Error updating user (fallback):', err);
