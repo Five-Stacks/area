@@ -85,5 +85,24 @@ const isAdmin = async (req, res) => {
     }
 };
 
+/* Controller to return current user based on token cookie */
+const me = async (req, res) => {
+    const token = req.cookies.token;
+    if (!token) {
+        return res.status(401).json({ success: false, error: 'Not authenticated' });
+    }
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findByPk(decoded.userId, { attributes: { exclude: ['password_hash'] } });
+        if (!user) {
+            return res.status(404).json({ success: false, error: 'User not found' });
+        }
+        return res.status(200).json({ success: true, user });
+    } catch (err) {
+        console.error('Error in auth.me:', err);
+        return res.status(401).json({ success: false, error: 'Invalid token' });
+    }
+};
+
 /* Exported controllers */
-export default { register, login, logout, isConnected, isAdmin };
+export default { register, login, logout, isConnected, isAdmin, me };
