@@ -2,6 +2,7 @@ const fileCreatedGoogleActionConfig = {
     "fields": [
         {
             "id": 1,
+            "mandatory": false,
             "name": "Name of the file keyword",
             "title": "Name of the file keyword",
             "input_field": {

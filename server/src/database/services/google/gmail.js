@@ -2,6 +2,7 @@ const sendEmailGmailActionConfig = {
     "fields": [
         {
             "id": 1,
+            "mandatory": true,
             "name": "Send to",
             "title": "Send to",
             "input_field": {
@@ -10,6 +11,7 @@ const sendEmailGmailActionConfig = {
         },
         {
             "id": 2,
+            "mandatory": true,
             "name": "Subject",
             "title": "Subject",
             "input_field": {
@@ -18,6 +20,7 @@ const sendEmailGmailActionConfig = {
         },
         {
             "id": 3,
+            "mandatory": true,
             "name": "Body",
             "title": "Body",
             "input_field": {
@@ -31,6 +34,7 @@ const googleEmailReceivedActionConfig = {
     "fields": [
         {
             "id": 1,
+            "mandatory": false,
             "name": "List of senders",
             "title": "List of senders",
             "input_field": {
@@ -39,6 +43,7 @@ const googleEmailReceivedActionConfig = {
         },
         {
             "id": 2,
+            "mandatory": false,
             "name": "Subject keywords",
             "title": "Subject keywords",
             "input_field": {
@@ -47,6 +52,7 @@ const googleEmailReceivedActionConfig = {
         },
         {
             "id": 3,
+            "mandatory": false,
             "name": "Body keywords",
             "title": "Body keywords",
             "input_field": {

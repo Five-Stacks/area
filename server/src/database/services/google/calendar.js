@@ -2,6 +2,7 @@ const createNewEventGoogleActionConfig = {
     "fields": [
         {
             "id": 1,
+            "mandatory": true,
             "name": "Name of the event",
             "title": "Name of the event",
             "input_field": {
@@ -10,6 +11,7 @@ const createNewEventGoogleActionConfig = {
         },
         {
             "id": 2,
+            "mandatory": true,
             "name": "Start date",
             "title": "Start date",
             "input_field": {
@@ -18,6 +20,7 @@ const createNewEventGoogleActionConfig = {
         },
         {
             "id": 3,
+            "mandatory": true,
             "name": "End date",
             "title": "End date",
             "input_field": {
@@ -26,6 +29,7 @@ const createNewEventGoogleActionConfig = {
         },
         {
             "id": 4,
+            "mandatory": true,
             "name": "Start time",
             "title": "Start time",
             "input_field": {
@@ -34,6 +38,7 @@ const createNewEventGoogleActionConfig = {
         },
         {
             "id": 5,
+            "mandatory": true,
             "name": "End time",
             "title": "End time",
             "input_field": {
@@ -42,6 +47,7 @@ const createNewEventGoogleActionConfig = {
         },
         {
             "id": 6,
+            "mandatory": false,
             "name": "Description",
             "title": "Description",
             "input_field": {
@@ -50,6 +56,7 @@ const createNewEventGoogleActionConfig = {
         },
         {
             "id": 7,
+            "mandatory": false,
             "name": "Location",
             "title": "Location",
             "input_field": {
@@ -63,6 +70,7 @@ const eventCreatedGoogleActionConfig = {
     "fields": [
         {
             "id": 1,
+            "mandatory": false,
             "name": "Event Name Keyword",
             "title": "Event Name Keyword",
             "input_field": {
@@ -71,6 +79,7 @@ const eventCreatedGoogleActionConfig = {
         },
         {
             "id": 2,
+            "mandatory": false,
             "name": "Description Keyword",
             "title": "Description Keyword",
             "input_field": {
@@ -84,6 +93,7 @@ const eventStartedGoogleActionConfig = {
     "fields": [
         {
             "id": 1,
+            "mandatory": false,
             "name": "Event Name Keyword",
             "title": "Event Name Keyword",
             "input_field": {
@@ -92,6 +102,7 @@ const eventStartedGoogleActionConfig = {
         },
         {
             "id": 2,
+            "mandatory": false,
             "name": "Description Keyword",
             "title": "Description Keyword",
             "input_field": {
