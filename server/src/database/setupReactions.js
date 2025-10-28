@@ -19,8 +19,10 @@ async function reactionsSetup() {
         'Timer': await getIdOfService('Timer'),
         'Google': await getIdOfService('Google'),
     };
+
     const reactions = [
         { service_id: services['Timer'], name: 'Timer', description: "Timer management", config: timerReactionConfig },
+
         { service_id: services['Google'], name: 'Send email with Gmail', description: "Send an email using Google", config: sendEmailGmailActionConfig },
         { service_id: services['Google'], name: 'Create Google Calendar event', description: "Create a new event in Google Calendar", config: createNewEventGoogleActionConfig },
     ];

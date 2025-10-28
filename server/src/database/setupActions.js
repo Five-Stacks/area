@@ -16,12 +16,18 @@ import { fileCreatedGoogleActionConfig } from './services/google/drive.js';
 
 /* Action setup function */
 async function actionsSetup() {
+    const services = {
+        'Timer': await getIdOfService('Timer'),
+        'Google': await getIdOfService('Google'),
+    };
+
     const actions = [
-        { service_id: 1, name: 'Timer', description: "Timer management", config: timerActionConfig },
-        { service_id: 2, name: 'Gmail received', description: "Triggered when a new email is received in Gmail", config: googleEmailReceivedActionConfig },
-        { service_id: 2, name: 'New Google Calendar event', description: "Triggered when a new event is created in Google Calendar", config: eventCreatedGoogleActionConfig },
-        { service_id: 2, name: 'Google Calendar event started', description: "Triggered when a Google Calendar event is starting", config: eventStartedGoogleActionConfig },
-        { service_id: 2, name: 'New Google Drive file', description: "Triggered when a new file is created in Google Drive", config: fileCreatedGoogleActionConfig },
+        { service_id: services['Timer'], name: 'Timer', description: "Timer management", config: timerActionConfig },
+
+        { service_id: services['Google'], name: 'Gmail received', description: "Triggered when a new email is received in Gmail", config: googleEmailReceivedActionConfig },
+        { service_id: services['Google'], name: 'New Google Calendar event', description: "Triggered when a new event is created in Google Calendar", config: eventCreatedGoogleActionConfig },
+        { service_id: services['Google'], name: 'Google Calendar event started', description: "Triggered when a Google Calendar event is starting", config: eventStartedGoogleActionConfig },
+        { service_id: services['Google'], name: 'New Google Drive file', description: "Triggered when a new file is created in Google Drive", config: fileCreatedGoogleActionConfig },
     ];
 
     for (const actionData of actions) {
