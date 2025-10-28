@@ -27,6 +27,12 @@ export class SignUpPage {
   isLoading = false;
   errorMessage = '';
 
+  private isValidEmail(email: string): boolean {
+    // Simple, commonly used email validation
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  }
+
   handleSignIn = () => {
     // Reset previous errors
     this.hintEmail = '';
@@ -35,12 +41,20 @@ export class SignUpPage {
     this.hintConfirmPassword = '';
     this.errorMessage = '';
 
+    // Trim inputs
+    this.email = this.email.trim();
+    this.name = this.name.trim();
+
     // Validate inputs
     let hasError = false;
     if (!this.email) {
       this.hintEmail = 'Email is required';
       hasError = true;
+    } else if (!this.isValidEmail(this.email)) {
+      this.hintEmail = 'Invalid email format';
+      hasError = true;
     }
+
     if (!this.password) {
       this.hintPassword = 'Password is required';
       hasError = true;
