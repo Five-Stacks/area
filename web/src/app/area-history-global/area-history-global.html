@@ -1,0 +1,15 @@
+<app-area-header-dashboard [title]="'History'"></app-area-header-dashboard>
+<div class="area-history-container">
+    <div class="history-item" *ngFor="let item of historyItemsWithNames">
+        <div class="history-item-details" [ngClass]="{'success': item.status === 'success', 'failure': item.status === 'failure'}" (click)="goToAreaDetail(item.area_id)" tabindex="0" (keydown.enter)="goToAreaDetail(item.area_id)">
+            <div class="history-item-header">
+                <div class="history-item-area-name">{{ item.area_name }}</div>
+                <div class="history-item-timestamp">{{ item.executed_at | date:'short' }}</div>
+            </div>
+            <div class="history-item-description">{{ item.log }}</div>
+        </div>
+    </div>
+    <div *ngIf="historyItemsWithNames.length === 0" class="history-item-details">
+        No history available.
+    </div>
+</div>
