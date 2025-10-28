@@ -32,6 +32,13 @@ async function refreshTokenGoogle(oauthAccount) {
         }
 
         const tokenData = await tokenResponse.json();
+
+        const updateData = { access_token: tokenData.access_token };
+        if (tokenData.refresh_token) {
+            updateData.refresh_token = tokenData.refresh_token;
+        }
+        await oauthAccount.update(updateData);
+
         return tokenData.access_token;
     } catch (error) {
         console.error('Error refreshing Google token:', error);
@@ -72,6 +79,13 @@ async function refreshTokenMicrosoft(oauthAccount) {
         }
 
         const tokenData = await tokenResponse.json();
+
+        const updateData = { access_token: tokenData.access_token };
+        if (tokenData.refresh_token) {
+            updateData.refresh_token = tokenData.refresh_token;
+        }
+        await oauthAccount.update(updateData);
+
         return tokenData.access_token;
     } catch (error) {
         console.error('Error refreshing Microsoft token:', error);
@@ -112,6 +126,13 @@ async function refreshTokenSpotify(oauthAccount) {
         }
 
         const tokenData = await tokenResponse.json();
+
+        const updateData = { access_token: tokenData.access_token };
+        if (tokenData.refresh_token) {
+            updateData.refresh_token = tokenData.refresh_token;
+        }
+        await oauthAccount.update(updateData);
+
         return tokenData.access_token;
     } catch (error) {
         console.error('Error refreshing Spotify token:', error);
@@ -153,6 +174,13 @@ async function refreshTokenGitHub(oauthAccount) {
         }
 
         const tokenData = await tokenResponse.json();
+
+        const updateData = { access_token: tokenData.access_token };
+        if (tokenData.refresh_token) {
+            updateData.refresh_token = tokenData.refresh_token;
+        }
+        await oauthAccount.update(updateData);
+
         return tokenData.access_token;
     } catch (error) {
         console.error('Error refreshing GitHub token:', error);
@@ -193,6 +221,13 @@ async function refreshTokenTwitter(oauthAccount) {
         }
 
         const tokenData = await tokenResponse.json();
+
+        const updateData = { access_token: tokenData.access_token };
+        if (tokenData.refresh_token) {
+            updateData.refresh_token = tokenData.refresh_token;
+        }
+        await oauthAccount.update(updateData);
+
         return tokenData.access_token;
     } catch (error) {
         console.error('Error refreshing Twitter token:', error);
@@ -233,6 +268,19 @@ async function refreshTokenDiscord(oauthAccount) {
         }
 
         const tokenData = await tokenResponse.json();
+
+        if (tokenData.refresh_token) {
+            await oauthAccount.update({
+                access_token: tokenData.access_token,
+                refresh_token: tokenData.refresh_token
+            });
+            console.log('Discord tokens updated successfully');
+        } else {
+            await oauthAccount.update({
+                access_token: tokenData.access_token
+            });
+        }
+
         return tokenData.access_token;
     } catch (error) {
         console.error('Error refreshing Discord token:', error);

@@ -7,6 +7,9 @@ import * as googleEventCreated from "./google/eventCreated.js";
 import * as googleEventStarted from "./google/eventStarted.js";
 import * as googleFileCreated from "./google/fileCreated.js";
 
+/* Discord Actions */
+import * as discordGuildJoined from "./discord/guildJoined.js";
+
 /* Actions handler */
 const actionsHandler = {
     'Timer': timer.default ?? timer,
@@ -14,6 +17,7 @@ const actionsHandler = {
     'New Google Calendar event': googleEventCreated.default ?? googleEventCreated,
     'Google Calendar event started': googleEventStarted.default ?? googleEventStarted,
     'New Google Drive file': googleFileCreated.default ?? googleFileCreated,
+    'Guild joined': discordGuildJoined.default ?? discordGuildJoined
 };
 
 /* Export actions handler */
