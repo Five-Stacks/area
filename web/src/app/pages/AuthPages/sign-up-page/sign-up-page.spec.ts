@@ -4,7 +4,6 @@ import { of } from 'rxjs';
 import { SignUpPage } from './sign-up-page';
 import { TextFieldComponent } from '../../../components/Forms/text-field-component/text-field-component';
 import { TextFieldHideComponent } from '../../../components/Forms/text-field-hide-component/text-field-hide-component';
-import { GoogleConnectComponent } from '../../../components/Forms/google-connect-component/google-connect-component';
 import { ButtonFullComponent } from '../../../components/Buttons/button-component-full/button-component-full';
 import { provideRouter, RouterLink, ActivatedRoute } from '@angular/router';
 import { AdminAuthService } from '../../../services/admin-auth.service';
