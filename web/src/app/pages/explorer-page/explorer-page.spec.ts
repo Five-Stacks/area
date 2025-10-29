@@ -6,8 +6,8 @@ import { of } from 'rxjs';
 
 describe('ExplorerPage', () => {
   // Helper to configure TestBed and create component with mocked ApiService
-  async function setup(services: any[] = []) {
-    const apiMock = { get: jasmine.createSpy('get').and.returnValue(of({ data: services })) };
+  async function setup(services: unknown[] = []) {
+    const apiMock = { get: jasmine.createSpy('get').and.returnValue(of({ data: services })) } as { get: jasmine.Spy };
 
     await TestBed.configureTestingModule({
       imports: [ExplorerPage],
@@ -17,7 +17,7 @@ describe('ExplorerPage', () => {
     const fixture = TestBed.createComponent(ExplorerPage);
     const component = fixture.componentInstance;
     fixture.detectChanges();
-    return { apiMock, fixture, component } as { apiMock: any; fixture: ComponentFixture<ExplorerPage>; component: ExplorerPage };
+    return { apiMock, fixture, component } as { apiMock: { get: jasmine.Spy }; fixture: ComponentFixture<ExplorerPage>; component: ExplorerPage };
   }
 
   it('should create', async () => {

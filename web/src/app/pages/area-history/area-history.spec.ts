@@ -6,8 +6,8 @@ import { ApiService } from '../../services/api.service';
 
 describe('AreaHistory', () => {
   // Helper to configure the TestBed and create component with a mocked ApiService and optional pathname
-  async function setup(data: any[], pathname = '/areas/1') {
-    const apiMock = { get: jasmine.createSpy('get').and.returnValue(of({ data })) };
+  async function setup(data: unknown[] = [], pathname = '/areas/1') {
+    const apiMock = { get: jasmine.createSpy('get').and.returnValue(of({ data })) } as { get: jasmine.Spy };
 
   // Set the browser pathname so the component picks up the area id we want
   // Using history.pushState avoids trying to redefine a non-configurable property.
@@ -22,7 +22,7 @@ describe('AreaHistory', () => {
     const component = fixture.componentInstance;
     fixture.detectChanges();
 
-    return { apiMock, fixture, component } as { apiMock: any; fixture: ComponentFixture<AreaHistory>; component: AreaHistory };
+    return { apiMock, fixture, component } as { apiMock: { get: jasmine.Spy }; fixture: ComponentFixture<AreaHistory>; component: AreaHistory };
   }
 
   it('should create', async () => {

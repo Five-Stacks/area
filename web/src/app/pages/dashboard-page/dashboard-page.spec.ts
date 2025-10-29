@@ -7,10 +7,10 @@ import { of } from 'rxjs';
 describe('DashboardPage', () => {
   let component: DashboardPage;
   let fixture: ComponentFixture<DashboardPage>;
-  let apiMock: any;
+  let apiMock: { get: jasmine.Spy };
 
   beforeEach(async () => {
-    apiMock = { get: jasmine.createSpy('get').and.returnValue(of({ data: [] })) };
+  apiMock = { get: jasmine.createSpy('get').and.returnValue(of({ data: [] })) } as { get: jasmine.Spy };
 
     await TestBed.configureTestingModule({
       imports: [DashboardPage],
@@ -56,7 +56,7 @@ describe('DashboardPage', () => {
     component.listAreas = [
       { id: 1, name: 'Alpha', AppsIcons: [], active: true },
       { id: 2, name: 'Beta', AppsIcons: [], active: true }
-    ] as any;
+    ] as unknown as typeof component.listAreas;
     component.searchTerm = 'Alpha';
     const filtered = component.getFilteredAreas();
     expect(filtered.length).toBe(1);

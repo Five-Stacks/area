@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ButtonFullComponent } from './button-component-full';
 
 describe('ButtonFullComponent', () => {
-  async function setup(routerMock: any = { navigate: jasmine.createSpy('navigate') }) {
+  async function setup(routerMock: { navigate: jasmine.Spy } = { navigate: jasmine.createSpy('navigate') }) {
     await TestBed.configureTestingModule({
       imports: [ButtonFullComponent],
       providers: [{ provide: Router, useValue: routerMock }]
@@ -13,7 +13,7 @@ describe('ButtonFullComponent', () => {
     const fixture = TestBed.createComponent(ButtonFullComponent);
     const component = fixture.componentInstance;
     fixture.detectChanges();
-    return { fixture, component, routerMock } as { fixture: ComponentFixture<ButtonFullComponent>; component: ButtonFullComponent; routerMock: any };
+    return { fixture, component, routerMock } as { fixture: ComponentFixture<ButtonFullComponent>; component: ButtonFullComponent; routerMock: { navigate: jasmine.Spy } };
   }
 
   it('should create', async () => {

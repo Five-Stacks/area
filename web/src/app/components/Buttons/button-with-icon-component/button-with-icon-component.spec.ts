@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 
 describe('ButtonWithIconComponent', () => {
   // Helper to configure TestBed with an optional router mock
-  async function setup(routerMock: any = { navigate: jasmine.createSpy('navigate') }) {
+  async function setup(routerMock: { navigate: jasmine.Spy } = { navigate: jasmine.createSpy('navigate') }) {
     await TestBed.configureTestingModule({
       imports: [ButtonWithIconComponent],
       providers: [{ provide: Router, useValue: routerMock }]
@@ -14,7 +14,7 @@ describe('ButtonWithIconComponent', () => {
     const fixture = TestBed.createComponent(ButtonWithIconComponent);
     const component = fixture.componentInstance;
     fixture.detectChanges();
-    return { fixture, component, routerMock } as { fixture: ComponentFixture<ButtonWithIconComponent>; component: ButtonWithIconComponent; routerMock: any };
+    return { fixture, component, routerMock } as { fixture: ComponentFixture<ButtonWithIconComponent>; component: ButtonWithIconComponent; routerMock: { navigate: jasmine.Spy } };
   }
 
   it('should create', async () => {

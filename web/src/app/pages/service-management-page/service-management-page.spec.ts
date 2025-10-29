@@ -5,14 +5,14 @@ import { ApiService } from '../../services/api.service';
 import { of } from 'rxjs';
 
 describe('ServiceManagementPage', () => {
-  async function setup(services: any[] = [], userServices: any[] = []) {
+  async function setup(services: unknown[] = [], userServices: unknown[] = []) {
     const apiMock = {
       get: jasmine.createSpy('get').and.callFake((url: string) => {
         if (url === 'service') return of({ data: services });
         if (url === 'userService') return of({ data: userServices });
         return of({ data: [] });
       })
-    };
+    } as { get: jasmine.Spy };
 
     await TestBed.configureTestingModule({
       imports: [ServiceManagementPage],
@@ -22,7 +22,7 @@ describe('ServiceManagementPage', () => {
     const fixture = TestBed.createComponent(ServiceManagementPage);
     const component = fixture.componentInstance;
     fixture.detectChanges();
-    return { fixture, component, apiMock } as { fixture: ComponentFixture<ServiceManagementPage>; component: ServiceManagementPage; apiMock: any };
+    return { fixture, component, apiMock } as { fixture: ComponentFixture<ServiceManagementPage>; component: ServiceManagementPage; apiMock: { get: jasmine.Spy } };
   }
 
   it('should create', async () => {

@@ -7,7 +7,7 @@ import { ApiService } from '../../services/api.service';
 
 describe('AreaHistoryGlobal', () => {
   // Helper to configure the TestBed and create component with a mocked ApiService and Router
-  async function setup(historyItems: any[] = [], areas: Record<number, any> = {}) {
+  async function setup(historyItems: unknown[] = [], areas: Record<number, unknown> = {}) {
     const apiMock = { get: jasmine.createSpy('get').and.callFake((url: string) => {
       if (url === 'areaExecution') return of({ data: historyItems });
       if (url.startsWith('area/')) {
@@ -32,7 +32,7 @@ describe('AreaHistoryGlobal', () => {
     fixture.detectChanges();
     await fixture.whenStable();
 
-    return { apiMock, routerMock, fixture, component } as { apiMock: any; routerMock: any; fixture: ComponentFixture<AreaHistoryGlobal>; component: AreaHistoryGlobal };
+    return { apiMock, routerMock, fixture, component } as { apiMock: { get: jasmine.Spy }; routerMock: { navigate: jasmine.Spy }; fixture: ComponentFixture<AreaHistoryGlobal>; component: AreaHistoryGlobal };
   }
 
   it('should create', async () => {

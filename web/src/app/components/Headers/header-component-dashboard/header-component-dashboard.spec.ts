@@ -4,7 +4,7 @@ import { HeaderDashBoardComponent } from './header-component-dashboard';
 import { Router } from '@angular/router';
 
 describe('HeaderDashBoardComponent', () => {
-  async function setup(routerMock: any = { navigate: jasmine.createSpy('navigate') }) {
+  async function setup(routerMock: { navigate: jasmine.Spy } = { navigate: jasmine.createSpy('navigate') }) {
     await TestBed.configureTestingModule({
       imports: [HeaderDashBoardComponent],
       providers: [{ provide: Router, useValue: routerMock }]
@@ -13,7 +13,7 @@ describe('HeaderDashBoardComponent', () => {
     const fixture = TestBed.createComponent(HeaderDashBoardComponent);
     const component = fixture.componentInstance;
     fixture.detectChanges();
-    return { fixture, component, routerMock } as { fixture: ComponentFixture<HeaderDashBoardComponent>; component: HeaderDashBoardComponent; routerMock: any };
+    return { fixture, component, routerMock } as { fixture: ComponentFixture<HeaderDashBoardComponent>; component: HeaderDashBoardComponent; routerMock: { navigate: jasmine.Spy } };
   }
 
   it('should create', async () => {

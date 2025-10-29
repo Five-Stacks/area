@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 
 describe('AreaCreationPage', () => {
   // Helper to configure TestBed and create component with a mocked ApiService and Router
-  async function setup(params: { services?: any[]; actions?: any[]; reactions?: any[]; postSuccess?: boolean } = {}) {
+  async function setup(params: { services?: unknown[]; actions?: unknown[]; reactions?: unknown[]; postSuccess?: boolean } = {}) {
     const { services = [], actions = [], reactions = [], postSuccess = true } = params;
     const apiMock = {
       get: jasmine.createSpy('get').and.callFake((url: string) => {
@@ -19,9 +19,9 @@ describe('AreaCreationPage', () => {
         return of({ data: [] });
       }),
       post: jasmine.createSpy('post').and.returnValue(of(postSuccess ? {} : null))
-    };
+    } as { get: jasmine.Spy; post: jasmine.Spy };
 
-    const routerMock = { navigate: jasmine.createSpy('navigate') };
+    const routerMock = { navigate: jasmine.createSpy('navigate') } as { navigate: jasmine.Spy };
 
     await TestBed.configureTestingModule({
       imports: [AreaCreationPage],
@@ -34,7 +34,7 @@ describe('AreaCreationPage', () => {
     const fixture = TestBed.createComponent(AreaCreationPage);
     const component = fixture.componentInstance;
     fixture.detectChanges();
-    return { apiMock, routerMock, fixture, component } as { apiMock: any; routerMock: any; fixture: ComponentFixture<AreaCreationPage>; component: AreaCreationPage };
+    return { apiMock, routerMock, fixture, component } as { apiMock: { get: jasmine.Spy; post: jasmine.Spy }; routerMock: { navigate: jasmine.Spy }; fixture: ComponentFixture<AreaCreationPage>; component: AreaCreationPage };
   }
 
   it('should create', async () => {
@@ -79,12 +79,12 @@ describe('AreaCreationPage', () => {
   it('isFormValid should return false when trigger name missing or action name missing', async () => {
     const { component } = await setup();
     component.area.actions = [{ id: 1, name: 'ok' }];
-    component.area.trigger = { name: undefined } as any;
+  component.area.trigger = { name: undefined } as unknown as typeof component.area.trigger;
     expect(component.isFormValid()).toBeFalse();
-    component.area.trigger = { name: 'trigger' } as any;
-    component.area.actions = [{ id: 1 } as any];
+  component.area.trigger = { name: 'trigger' } as unknown as typeof component.area.trigger;
+  component.area.actions = [{ id: 1 } as unknown as typeof component.area.actions[0]] as unknown as typeof component.area.actions;
     expect(component.isFormValid()).toBeFalse();
-    component.area.actions = [{ id: 1, name: 'ok' } as any];
+  component.area.actions = [{ id: 1, name: 'ok' } as unknown as typeof component.area.actions[0]] as unknown as typeof component.area.actions;
     expect(component.isFormValid()).toBeTrue();
   });
 
@@ -96,8 +96,8 @@ describe('AreaCreationPage', () => {
     const { component, apiMock, routerMock } = await setup({ services, actions, reactions, postSuccess: true });
 
     // prepare area with names so isFormValid true
-    component.area.actions = [{ id: 1, name: 'act', serviceChosen: 'S1' } as any];
-    component.area.trigger = { name: 'trig', serviceChosen: 'S1' } as any;
+  component.area.actions = [{ id: 1, name: 'act', serviceChosen: 'S1' }] as unknown as typeof component.area.actions;
+  component.area.trigger = { name: 'trig', serviceChosen: 'S1' } as unknown as typeof component.area.trigger;
     component.area.name = 'AreaName';
     component.nameArea = 'AreaName';
 

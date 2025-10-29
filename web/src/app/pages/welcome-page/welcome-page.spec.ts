@@ -7,10 +7,10 @@ import { of } from 'rxjs';
 describe('WelcomePage', () => {
   let component: WelcomePage;
   let fixture: ComponentFixture<WelcomePage>;
-  let apiMock: any;
+  let apiMock: { get: jasmine.Spy };
 
   beforeEach(async () => {
-    apiMock = { get: jasmine.createSpy('get').and.returnValue(of({ data: [] })) };
+  apiMock = { get: jasmine.createSpy('get').and.returnValue(of({ data: [] })) } as { get: jasmine.Spy };
 
     await TestBed.configureTestingModule({
       imports: [WelcomePage],

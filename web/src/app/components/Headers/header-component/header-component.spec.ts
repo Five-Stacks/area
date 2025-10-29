@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { HeaderComponent } from './header-component';
 
 describe('HeaderComponent', () => {
-  async function setup(routerMock: any = { navigate: jasmine.createSpy('navigate') }) {
+  async function setup(routerMock: { navigate: jasmine.Spy } = { navigate: jasmine.createSpy('navigate') }) {
     await TestBed.configureTestingModule({
       imports: [HeaderComponent],
       providers: [{ provide: Router, useValue: routerMock }]
@@ -14,7 +14,7 @@ describe('HeaderComponent', () => {
     const fixture = TestBed.createComponent(HeaderComponent);
     const component = fixture.componentInstance;
     fixture.detectChanges();
-    return { fixture, component, routerMock } as { fixture: ComponentFixture<HeaderComponent>; component: HeaderComponent; routerMock: any };
+    return { fixture, component, routerMock } as { fixture: ComponentFixture<HeaderComponent>; component: HeaderComponent; routerMock: { navigate: jasmine.Spy } };
   }
 
   it('should create', async () => {

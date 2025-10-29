@@ -12,9 +12,8 @@ describe('AreaDetailsPage', () => {
       const res = await (async function setupWrapper() {
         // reuse the setup helper defined later in the file
         // call the setup() function declared below by name via (global) lookup
-        // but since setup is hoisted, we can call it directly
-        // @ts-ignore
-        return await setup();
+  // but since setup is hoisted, we can call it directly
+  return await setup();
       })();
       return res;
     })();
@@ -22,7 +21,7 @@ describe('AreaDetailsPage', () => {
   });
   
   async function setup({ areaData = null, services = [], actions = [], reactions = [], putSuccess = true }:
-    { areaData?: any; services?: any[]; actions?: any[]; reactions?: any[]; putSuccess?: boolean } = {}) {
+    { areaData?: unknown; services?: unknown[]; actions?: unknown[]; reactions?: unknown[]; putSuccess?: boolean } = {}) {
 
     // ensure pathname contains area id
     window.history.pushState({}, '', '/areas/1');
@@ -36,9 +35,9 @@ describe('AreaDetailsPage', () => {
         return of({ data: [] });
       }),
       put: jasmine.createSpy('put').and.returnValue(of(putSuccess ? {} : null))
-    };
+    } as { get: jasmine.Spy; put: jasmine.Spy };
 
-    const routerMock = { navigate: jasmine.createSpy('navigate') };
+    const routerMock = { navigate: jasmine.createSpy('navigate') } as { navigate: jasmine.Spy };
 
     await TestBed.configureTestingModule({
       imports: [AreaDetailsPage],
@@ -51,7 +50,7 @@ describe('AreaDetailsPage', () => {
     const fixture = TestBed.createComponent(AreaDetailsPage);
     const component = fixture.componentInstance;
     fixture.detectChanges();
-    return { fixture, component, apiMock, routerMock } as { fixture: ComponentFixture<AreaDetailsPage>; component: AreaDetailsPage; apiMock: any; routerMock: any };
+    return { fixture, component, apiMock, routerMock } as { fixture: ComponentFixture<AreaDetailsPage>; component: AreaDetailsPage; apiMock: { get: jasmine.Spy; put: jasmine.Spy }; routerMock: { navigate: jasmine.Spy } };
   }
 
   it('should navigate to dashboard when area not found', async () => {
@@ -101,8 +100,8 @@ describe('AreaDetailsPage', () => {
     const { component, apiMock, routerMock } = await setup({ areaData: area, services: [{ id:1, name:'S' }], actions, reactions, putSuccess: true });
 
     expect(component.area.id).toBe(5);
-    component.area.actions = [{ id: 1, name: 'Act', serviceChosen: 'S' } as any];
-    component.area.trigger = { name: 'T', serviceChosen: 'S' } as any;
+  component.area.actions = [{ id: 1, name: 'Act', serviceChosen: 'S' }] as unknown as typeof component.area.actions;
+  component.area.trigger = { name: 'T', serviceChosen: 'S' } as unknown as typeof component.area.trigger;
     component.area.name = 'AreaName';
 
     component.createAll();
