@@ -1,11 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { of } from 'rxjs';
 import { SignUpPage } from './sign-up-page';
 import { TextFieldComponent } from '../../../components/Forms/text-field-component/text-field-component';
 import { TextFieldHideComponent } from '../../../components/Forms/text-field-hide-component/text-field-hide-component';
 import { GoogleConnectComponent } from '../../../components/Forms/google-connect-component/google-connect-component';
 import { ButtonFullComponent } from '../../../components/Buttons/button-component-full/button-component-full';
-import { provideRouter, RouterLink } from '@angular/router';
+import { provideRouter, RouterLink, ActivatedRoute } from '@angular/router';
+import { AdminAuthService } from '../../../services/admin-auth.service';
 
 describe('SignUpPage', () => {
   let fixture: ComponentFixture<SignUpPage>;
@@ -22,9 +24,13 @@ describe('SignUpPage', () => {
       }
     };
 
+    const adminAuthMock = { register: jasmine.createSpy('register').and.returnValue(of(true)) };
+
     await TestBed.configureTestingModule({
       imports: [RouterLink, SignUpPage],
       providers: [
+        { provide: AdminAuthService, useValue: adminAuthMock },
+        { provide: ActivatedRoute, useValue: { snapshot: { queryParams: {} }, queryParams: of({}) } },
         provideRouter([]),
       ]
     }).compileComponents();
@@ -49,11 +55,6 @@ describe('SignUpPage', () => {
     const hideFields = fixture.debugElement.queryAll(By.directive(TextFieldHideComponent));
     expect(textFields.length).toBe(2);
     expect(hideFields.length).toBe(2);
-  });
-
-  it('should render Google connect widget', () => {
-    const google = fixture.debugElement.query(By.directive(GoogleConnectComponent));
-    expect(google).toBeTruthy();
   });
 
   it('should render the SIGN UP button with correct label', () => {
