@@ -24,6 +24,8 @@ export default function Index() {
         return;
       }
 
+      await setItemAsync("isConnected", "true");
+
       router.replace("/(tabs)/dashboard");
     } catch (error) {
       console.error("Login error:", error);
