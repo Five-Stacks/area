@@ -1,25 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Text, View, StyleSheet, Image, Alert } from "react-native";
 import { Link, router } from "expo-router";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import StylizedButton from "@/src/components/global/button";
 import Input from "@/src/components/global/textinput";
 import AreaLogo from "@/assets/images/logo.png";
-import { API_URL } from "@/src/api/config";
+import { register } from "@/src/api/auth";
 
 export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  useEffect(() => {
-    async function checkToken() {
-      const token = await AsyncStorage.getItem("token");
-      if (token) router.replace("/home");
-    }
-    checkToken();
-  }, []);
 
   async function handleRegister() {
     if (!name || !email || !password) {
@@ -28,26 +19,16 @@ export default function Register() {
     }
 
     try {
-      const response = await fetch(`${API_URL}/api/auth/register`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password }),
-      });
+      const response = await register(name, email, password);
 
-      let data;
-      try {
-        data = await response.json();
-      } catch {
-        throw new Error("Invalid response from server");
-      }
+      console.log("REGISTER RESPONSE:", response);
 
-      console.log("REGISTER RESPONSE:", data);
-
-      if (!response.ok) {
-        Alert.alert("Registration failed", data.error || "Try again.");
+      if (!response.success) {
+        Alert.alert("Registration failed", response.error || "Try again.");
         return;
       }
-      router.replace("/home");
+
+      router.replace("/(tabs)/dashboard");
     } catch (err) {
       console.error("Register error:", err);
       Alert.alert("Error", "Could not connect to server.");
