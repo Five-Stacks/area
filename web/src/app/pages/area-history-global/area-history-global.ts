@@ -47,7 +47,7 @@ interface BackendArea {
   selector: 'app-area-history-global',
   imports: [CommonModule, HeaderDashBoardComponent],
   templateUrl: './area-history-global.html',
-  styleUrl: './area-history-global.css'
+  styleUrls: ['./area-history-global.css']
 })
 export class AreaHistoryGlobal implements OnInit {
   private router = inject(Router);
