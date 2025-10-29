@@ -8,7 +8,7 @@ import { useCallback, useContext, useState } from "react";
 import { useFocusEffect } from "expo-router";
 
 export default function Dashboard() {
-  const { refreshAll, areas, updateArea, deleteArea, isLoading, error } =
+  const { refreshAll, areas, updateArea, deleteArea, isLoading } =
     useContext(GlobalDataContext);
 
   const [searchModuleValues, setSearchModuleValues] =
