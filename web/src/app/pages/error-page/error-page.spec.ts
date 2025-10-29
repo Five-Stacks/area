@@ -25,7 +25,7 @@ describe('ErrorPage', () => {
     fixture.detectChanges();
   });
 
-  it('should creates', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });
