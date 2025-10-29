@@ -10,6 +10,7 @@ import GoogleLogo from "@/assets/images/google.png";
 import AreaLogo from "@/assets/images/logo.png";
 
 import { API_URL } from "@/src/api/config";
+import { setItemAsync } from "expo-secure-store";
 
 export default function Index() {
   const [email, setEmail] = useState("");
@@ -19,7 +20,7 @@ export default function Index() {
     async function checkToken() {
       const token = await AsyncStorage.getItem("token");
       if (token) {
-        router.replace("/home");
+        router.replace("/(tabs)/dashboard");
       }
     }
     checkToken();
@@ -45,6 +46,8 @@ export default function Index() {
         alert("No token received from server.");
         return;
       }
+
+      await setItemAsync("isConnected", "true");
 
       router.replace("/(tabs)/dashboard");
     } catch (error) {

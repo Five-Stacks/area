@@ -7,6 +7,7 @@ import StylizedButton from "@/src/components/global/button";
 import Input from "@/src/components/global/textinput";
 import AreaLogo from "@/assets/images/logo.png";
 import { API_URL } from "@/src/api/config";
+import { setItemAsync } from "expo-secure-store";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -16,7 +17,7 @@ export default function Register() {
   useEffect(() => {
     async function checkToken() {
       const token = await AsyncStorage.getItem("token");
-      if (token) router.replace("/home");
+      if (token) router.replace("/(tabs)/dashboard");
     }
     checkToken();
   }, []);
@@ -47,7 +48,10 @@ export default function Register() {
         Alert.alert("Registration failed", data.error || "Try again.");
         return;
       }
-      router.replace("/home");
+
+      await setItemAsync("isConnected", "true");
+
+      router.replace("/(tabs)/dashboard");
     } catch (err) {
       console.error("Register error:", err);
       Alert.alert("Error", "Could not connect to server.");
