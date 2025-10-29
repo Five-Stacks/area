@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   selector: 'app-area-header',
   imports: [ButtonComponent, ButtonFullComponent],
   templateUrl: './header-component.html',
-  styleUrl: './header-component.css'
+  styleUrls: ['./header-component.css']
 })
 export class HeaderComponent {
   router = inject(Router);

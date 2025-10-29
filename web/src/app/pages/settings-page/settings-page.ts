@@ -5,7 +5,7 @@ import { HeaderDashBoardComponent } from '../../components/Headers/header-compon
   selector: 'app-settings-page',
   imports: [HeaderDashBoardComponent],
   templateUrl: './settings-page.html',
-  styleUrl: './settings-page.css'
+  styleUrls: ['./settings-page.css']
 })
 export class SettingsPage {
 

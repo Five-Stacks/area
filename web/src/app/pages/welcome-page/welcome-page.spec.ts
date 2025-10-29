@@ -7,9 +7,10 @@ import { of } from 'rxjs';
 describe('WelcomePage', () => {
   let component: WelcomePage;
   let fixture: ComponentFixture<WelcomePage>;
+  let apiMock: any;
 
   beforeEach(async () => {
-    const apiMock = { get: jasmine.createSpy('get').and.returnValue(of({ data: [] })) };
+    apiMock = { get: jasmine.createSpy('get').and.returnValue(of({ data: [] })) };
 
     await TestBed.configureTestingModule({
       imports: [WelcomePage],
@@ -24,5 +25,14 @@ describe('WelcomePage', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should fetch services and populate serviceList on ngOnInit', () => {
+    apiMock.get.calls.reset();
+    apiMock.get.and.returnValue(of({ data: [{ id: 1, name: 'GitHub', description: 'Desc' }] }));
+    component.ngOnInit();
+    expect(apiMock.get).toHaveBeenCalledWith('service');
+    expect(component.serviceList.length).toBe(1);
+    expect(component.serviceList[0].id).toBe(1);
   });
 });
