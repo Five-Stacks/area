@@ -28,7 +28,7 @@ export type Area = {
   user_id: number;
   action_id: number;
   reaction_id: number;
-  config: Record<string, any>;
+  config: AreaConfig;
   is_active: boolean;
   created_at: Date;
 };
