@@ -3,7 +3,7 @@ import { of } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { AreaHistoryGlobal } from './area-history-global';
-import { ApiService } from '../services/api.service';
+import { ApiService } from '../../services/api.service';
 
 describe('AreaHistoryGlobal', () => {
   let component: AreaHistoryGlobal;

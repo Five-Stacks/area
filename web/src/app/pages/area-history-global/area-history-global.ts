@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ApiService } from '../services/api.service';
+import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
-import { HeaderDashBoardComponent } from '../components/Headers/header-component-dashboard/header-component-dashboard';
+import { HeaderDashBoardComponent } from '../../components/Headers/header-component-dashboard/header-component-dashboard';
 import { Router } from '@angular/router';
 
 interface ApiResponse<T = unknown> { data: T }
