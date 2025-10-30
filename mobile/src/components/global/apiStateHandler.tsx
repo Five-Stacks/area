@@ -11,7 +11,7 @@ import { globalColors, globalTextStyle } from "@/src/styles/global";
 
 type ApiStateHandlerProps = {
   isLoading: boolean;
-  error?: Error | null;
+  error?: string | null;
   children: React.ReactNode;
   style?: StyleProp<ViewStyle>;
 };
@@ -34,7 +34,7 @@ const ApiStateHandler: React.FC<ApiStateHandlerProps> = ({
       <View style={[styles.center, style]}>
         <Text style={[globalTextStyle.medium, styles.errorText]}>
           Error fetching data: {"\n"}
-          {error.message}
+          {error}
         </Text>
       </View>
     );

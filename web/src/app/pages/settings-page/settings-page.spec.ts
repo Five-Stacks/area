@@ -21,4 +21,10 @@ describe('SettingsPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render header dashboard in template', () => {
+    const el: HTMLElement = fixture.nativeElement;
+    const header = el.querySelector('app-area-header-dashboard');
+    expect(header).toBeTruthy();
+  });
 });

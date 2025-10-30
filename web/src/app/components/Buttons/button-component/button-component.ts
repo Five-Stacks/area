@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
   selector: 'app-area-button',
   imports: [],
   templateUrl: './button-component.html',
-  styleUrl: './button-component.css'
+  styleUrls: ['./button-component.css']
 })
 export class ButtonComponent {
   router = inject(Router);

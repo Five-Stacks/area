@@ -102,7 +102,7 @@ interface AreaCreateRequest {
     TextFieldComponent
   ],
   templateUrl: './area-details-page.html',
-  styleUrl: './area-details-page.css'
+  styleUrls: ['./area-details-page.css']
 })
 export class AreaDetailsPage implements OnInit {
   private router = inject(Router);
