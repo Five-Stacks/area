@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { AreaDetailsPage } from './area-details-page';
 
@@ -8,7 +9,7 @@ describe('AreaDetailsPage', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AreaDetailsPage]
+      imports: [AreaDetailsPage, HttpClientTestingModule]
     })
     .compileComponents();
 
