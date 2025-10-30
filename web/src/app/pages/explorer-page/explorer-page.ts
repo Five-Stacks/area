@@ -19,7 +19,7 @@ interface apiResponse<T> {
   selector: 'app-explorer-page',
   imports: [HeaderComponent, TextFieldComponent, CommonModule, CardService],
   templateUrl: './explorer-page.html',
-  styleUrl: './explorer-page.css'
+  styleUrls: ['./explorer-page.css']
 })
 export class ExplorerPage implements OnInit {
   private apiService = inject(ApiService);
