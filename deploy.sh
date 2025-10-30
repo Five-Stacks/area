@@ -3,10 +3,6 @@ set -e  # Stop on error
 
 cd /var/www/area-dev
 
-echo "🚀 Pulling latest version..."
-git fetch origin
-git reset --hard origin/dev
-
 echo "🛑 Stopping old containers..."
 docker-compose down -v
 
