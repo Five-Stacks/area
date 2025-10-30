@@ -41,7 +41,7 @@ jobs:
           scp deploy.sh ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/deploy.sh
 
           # upload other necessary files
-          scp server/ ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/server/ -r
+          scp -r server/ ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/server/
           scp docker-compose.yml ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/docker-compose.yml
           scp area.sql ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/area.sql
 
