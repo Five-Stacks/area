@@ -274,7 +274,6 @@ async function refreshTokenDiscord(oauthAccount) {
                 access_token: tokenData.access_token,
                 refresh_token: tokenData.refresh_token
             });
-            console.log('Discord tokens updated successfully');
         } else {
             await oauthAccount.update({
                 access_token: tokenData.access_token

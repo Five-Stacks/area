@@ -14,8 +14,7 @@ import { eventCreatedGoogleActionConfig, eventStartedGoogleActionConfig } from '
 import { fileCreatedGoogleActionConfig } from './services/google/drive.js';
 
 /* Import discord action config */
-
-
+import { discordProfileChangedActionConfig } from './services/discord/profile.js';
 
 /* End of imports */
 
@@ -36,6 +35,7 @@ async function actionsSetup() {
         { service_id: services['Google'], name: 'New Google Drive file', description: "Triggered when a new file is created in Google Drive", config: fileCreatedGoogleActionConfig },
 
         { service_id: services['Discord'], name: 'Guild joined', description: "Triggered when the user joins a new guild", config: {} },
+        { service_id: services['Discord'], name: 'Profile changed', description: "Triggered when the user's profile (username/avatar) changes", config: discordProfileChangedActionConfig || {} },
     ];
 
     for (const actionData of actions) {
