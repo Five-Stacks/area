@@ -26,18 +26,12 @@ jobs:
           echo "${{ secrets.ROOT_ENV }}" > rootenv
           echo "${{ secrets.SERVER_ENV }}" > serverenv
 
-      - name: Upload deployment files (files + deploy script + .envs)
+      - name: Upload deployment files via rsync
         run: |
-          echo "Create folder on server if not exists"
           ssh ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }} "mkdir -p /var/www/area-dev/"
-
-          echo "Upload server files"
-          scp -r server/ ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/server/
-
-          echo "Upload .env files"
-          scp rootenv ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/.env
-          scp serverenv ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/server/.env
-
-          echo "Upload other necessary files"
-          scp docker-compose.yml ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/docker-compose.yml
-          scp area.sql ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/area.sql
+          ssh ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }} "mkdir -p /var/www/area-dev/server/"
+          rsync -avz --delete server/ ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/server/
+          rsync -avz rootenv ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/.env
+          rsync -avz serverenv ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/server/.env
+          rsync -avz docker-compose.yml ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/docker-compose.yml
+          rsync -avz area.sql ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/area.sql
