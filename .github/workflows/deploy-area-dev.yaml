@@ -4,13 +4,14 @@ on:
   push:
     branches:
       - dev
+      - workflow-to-deploy-server-&-db-on-outside-server
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v3
 
       - name: Setup SSH
@@ -20,6 +21,33 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H ${{ vars.DEV_SERVER_IP }} >> ~/.ssh/known_hosts
 
-      - name: Deploy to DigitalOcean
+      - name: Ensure repo exists on server
         run: |
-          ssh ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }} "bash /var/www/area-dev/deploy.sh"
+          ssh ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }} "
+            if [ ! -d /var/www/area-dev ]; then
+              git clone https://github.com/<your_user>/<your_repo>.git /var/www/area-dev
+            else
+              cd /var/www/area-dev && git fetch origin
+            fi
+          "
+
+      - name: Prepare environment files
+        run: |
+          echo "${{ secrets.ROOT_ENV }}" > rootenv
+          echo "${{ secrets.SERVER_ENV }}" > serverenv
+
+      - name: Upload deployment files (script + env)
+        run: |
+          # rootenv -> /.env
+          scp rootenv ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/.env
+
+          # serverenv -> /server/.env
+          scp serverenv ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/server/.env
+
+          # upload deploy.sh to /var/www/area-dev/
+          scp deploy.sh ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/deploy.sh
+
+      - name: Run deployement script on server
+        run: |
+          ssh ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }} \
+            "bash /var/www/area-dev/deploy.sh"
