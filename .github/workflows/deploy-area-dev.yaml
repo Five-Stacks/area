@@ -28,16 +28,16 @@ jobs:
 
       - name: Upload deployment files (files + deploy script + .envs)
         run: |
-          # Create folder on server if not exists
+          echo "Create folder on server if not exists"
           ssh ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }} "mkdir -p /var/www/area-dev/"
 
-          # Upload server files
+          echo "Upload server files"
           scp -r server/ ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/server/
 
-          # Upload .env files
+          echo "Upload .env files"
           scp rootenv ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/.env
           scp serverenv ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/server/.env
 
-          # Upload other necessary files
+          echo "Upload other necessary files"
           scp docker-compose.yml ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/docker-compose.yml
           scp area.sql ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/area.sql
