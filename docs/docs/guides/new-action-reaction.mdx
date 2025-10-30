@@ -16,8 +16,8 @@ title: New Action or Reaction
 - `server/src/database/services/<service>/*.js` — create config objects (e.g., `fields`) used by the UI and exported for seeding.
 - `server/src/database/setupActions.js` — import the action config and add the action to the `actions` array so it is seeded.
 - `server/src/database/setupReactions.js` — import the reaction config and add the reaction to the `reactions` array.
-- `server/src/services/actions/<service>/<actionFile>.js` — add action implementation exporting default { check }.
-- `server/src/services/reactions/<service>/<reactionFile>.js` — add reaction implementation exporting default { run }.
+- `server/src/services/actions/<service>/<actionFile>.js` — add action implementation exporting default `{ check }`.
+- `server/src/services/reactions/<service>/<reactionFile>.js` — add reaction implementation exporting default `{ run }`.
 - `server/src/services/actions/index.js` — import and register the action handler in the `actionsHandler` map using the action name string.
 - `server/src/services/reactions/index.js` — import and register the reaction handler.
 
@@ -27,7 +27,8 @@ title: New Action or Reaction
 
 	 - Create `server/src/database/services/github/push.js` and export an action config, for example:
 
-	 ```js
+
+```js
 	 // server/src/database/services/github/push.js
 	 const githubPushActionConfig = {
 		 fields: [
@@ -35,8 +36,9 @@ title: New Action or Reaction
 		 ]
 	 };
 
-	 export { githubPushActionConfig };
-	 ```
+ 	 // export { githubPushActionConfig };
+
+```
 
 	 - In `server/src/database/setupActions.js` import this config and add the action row to the `actions` array using the service id (the file already maps all known services to ids). The `name` must match the handler key you will register later, e.g. `'New Push'`.
 
@@ -44,7 +46,8 @@ title: New Action or Reaction
 
 	 - Add `server/src/services/actions/github/push.js`:
 
-	 ```js
+
+```js
 	 import getAccessToken from '../../../utils/getAccessToken.js';
 
 	 async function check(area) {
@@ -53,25 +56,29 @@ title: New Action or Reaction
 		 return false; // implement actual API call against GitHub
 	 }
 
-	 export default { check };
-	 ```
+ 	 // export default { check };
+
+```
 
 	 - Register the handler in `server/src/services/actions/index.js` with the action name used in DB:
 
-	 ```js
+
+```js
 	 import * as githubPush from "./github/push.js";
 
 	 const actionsHandler = {
 		 'New Push': githubPush.default ?? githubPush,
 		 // ...
 	 };
-	 ```
+
+```
 
 3) Implement the Reaction run handler
 
 	 - Add `server/src/services/reactions/github/createIssue.js`:
 
-	 ```js
+
+```js
 	 import getAccessToken from '../../../utils/getAccessToken.js';
 
 	 async function run(area, reactionEntry) {
@@ -81,19 +88,22 @@ title: New Action or Reaction
 		 return 'Issue created';
 	 }
 
-	 export default { run };
-	 ```
+ 	 // export default { run };
+
+```
 
 	 - Register it in `server/src/services/reactions/index.js`:
 
-	 ```js
+
+```js
 	 import * as githubCreateIssue from "./github/createIssue.js";
 
 	 const reactionsHandler = {
 		 'Create Issue on GitHub': githubCreateIssue.default ?? githubCreateIssue,
 		 // ...
 	 };
-	 ```
+
+```
 
 4) Seed the Reaction config in `server/src/database/setupReactions.js` the same way as actions.
 
