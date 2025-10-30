@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   selector: 'app-area-header-dashboard',
   imports: [ButtonFullComponent],
   templateUrl: './header-component-dashboard.html',
-  styleUrl: './header-component-dashboard.css'
+  styleUrls: ['./header-component-dashboard.css']
 })
 export class HeaderDashBoardComponent {
   router = inject(Router);

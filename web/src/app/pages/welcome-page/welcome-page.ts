@@ -19,7 +19,7 @@ interface apiResponse<T> {
   selector: 'app-welcome-page',
   imports: [ButtonFullComponent, HeaderComponent, CommonModule, CardService],
   templateUrl: './welcome-page.html',
-  styleUrl: './welcome-page.css'
+  styleUrls: ['./welcome-page.css']
 })
 export class WelcomePage implements OnInit {
   private apiService = inject(ApiService);

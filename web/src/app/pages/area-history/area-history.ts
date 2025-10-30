@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { HeaderDashBoardComponent } from '../components/Headers/header-component-dashboard/header-component-dashboard';
-import { ApiService } from '../services/api.service';
+import { HeaderDashBoardComponent } from '../../components/Headers/header-component-dashboard/header-component-dashboard';
+import { ApiService } from '../../services/api.service';
 
 interface ApiResponse<T = unknown> { data: T }
 
@@ -17,7 +17,7 @@ interface AreaHistoryItem {
   selector: 'app-area-history',
   imports: [HeaderDashBoardComponent, CommonModule],
   templateUrl: './area-history.html',
-  styleUrl: './area-history.css'
+  styleUrls: ['./area-history.css']
 })
 export class AreaHistory implements OnInit {
   historyItems: AreaHistoryItem[] = [];

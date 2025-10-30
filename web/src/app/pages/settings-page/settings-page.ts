@@ -41,7 +41,7 @@ function toUserPayload(obj: unknown): UserPayload | undefined {
   selector: 'app-settings-page',
   imports: [HeaderDashBoardComponent, CommonModule, FormsModule, TextFieldComponent, TextFieldHideComponent, ButtonFullComponent],
   templateUrl: './settings-page.html',
-  styleUrl: './settings-page.css'
+  styleUrls: ['./settings-page.css']
 })
 export class SettingsPage implements OnInit {
   private apiService = inject(ApiService);

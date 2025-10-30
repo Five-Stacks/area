@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-text-field-component',
   imports: [MatFormFieldModule, MatInputModule, MatButtonModule, CommonModule, FormsModule],
   templateUrl: './text-field-component.html',
-  styleUrl: './text-field-component.css',
+  styleUrls: ['./text-field-component.css'],
   standalone: true,
   providers: [
     {

@@ -10,8 +10,8 @@ import { AreaCreationPage } from './pages/AreaManagement/area-creation-page/area
 import { ServiceManagementPage } from './pages/service-management-page/service-management-page';
 import { SettingsPage } from './pages/settings-page/settings-page';
 import { authGuard } from './guards/auth.guard';
-import { AreaHistory } from './area-history/area-history';
-import { AreaHistoryGlobal } from './area-history-global/area-history-global';
+import { AreaHistory } from './pages/area-history/area-history';
+import { AreaHistoryGlobal } from './pages/area-history-global/area-history-global';
 
 export const routes: Routes = [
     { path: '', component: WelcomePage },
