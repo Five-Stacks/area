@@ -39,8 +39,6 @@ async function check(area) {
         const usernameChanged = stored.username !== currentSnapshot.username || stored.discriminator !== currentSnapshot.discriminator;
         const avatarChanged = stored.avatar !== currentSnapshot.avatar;
 
-        console.log(`Discord profile check for area ${area.id}: usernameChanged=${usernameChanged}, avatarChanged=${avatarChanged}`);
-
         if (usernameChanged || avatarChanged) {
             triggerData.profile_snapshot = currentSnapshot;
             await Area.update({ config: { ...area.config, trigger: triggerData } }, { where: { id: area.id } });
