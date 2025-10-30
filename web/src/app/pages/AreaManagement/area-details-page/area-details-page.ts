@@ -198,7 +198,6 @@ export class AreaDetailsPage implements OnInit {
       const reactionIds: number[] = (data.data.reaction_ids ?? []);
       this.area.actions = [];
 
-      // Prefer the 'actions' array from backend config if present; fallback to singular cfg.action
       type ConfigWithActions = typeof cfg & { actions?: ActionConfig[]; action?: ActionConfig };
       const cfgWithActions = cfg as unknown as ConfigWithActions;
       const actionsConfigArray: ActionConfig[] = cfgWithActions.actions ?? (cfgWithActions.action ? [cfgWithActions.action as ActionConfig] : []);
