@@ -39,6 +39,12 @@ interface BackendActionOrReaction {
   config?: { fields?: ActionField[] };
 }
 
+interface ActionConfig {
+  service_name?: string;
+  name?: string;
+  datas_form?: { fieldId: number; fieldName: string; response: string }[];
+}
+
 // Backend model for GET /area/:id
 interface BackendArea {
   id: number;
@@ -193,7 +199,9 @@ export class AreaDetailsPage implements OnInit {
       this.area.actions = [];
 
       // Prefer the 'actions' array from backend config if present; fallback to singular cfg.action
-      const actionsConfigArray = (cfg as any).actions ?? (cfg.action ? [cfg.action] : []);
+      type ConfigWithActions = typeof cfg & { actions?: ActionConfig[]; action?: ActionConfig };
+      const cfgWithActions = cfg as unknown as ConfigWithActions;
+      const actionsConfigArray: ActionConfig[] = cfgWithActions.actions ?? (cfgWithActions.action ? [cfgWithActions.action as ActionConfig] : []);
 
       if (reactionIds.length > 0) {
         this.apiService.get<ApiResponse<BackendActionOrReaction[]>>('reaction').subscribe((respR: unknown) => {
