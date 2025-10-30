@@ -28,7 +28,7 @@ interface apiResponse<T> {
   selector: 'app-service-management-page',
   imports: [HeaderDashBoardComponent, TextFieldComponent, CommonModule, CardService, OptionsFieldComponent],
   templateUrl: './service-management-page.html',
-  styleUrl: './service-management-page.css'
+  styleUrls: ['./service-management-page.css']
 })
 export class ServiceManagementPage implements OnInit {
   private apiService = inject(ApiService);

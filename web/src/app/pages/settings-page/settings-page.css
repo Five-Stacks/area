@@ -1,0 +1,120 @@
+
+/* Adopt styles from sign-in-page for a consistent look */
+
+.settings-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	padding: 20px;
+    padding-top: 200px;
+}
+
+.settings-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 20px;
+	width: 365px;
+}
+
+/* Title style */
+.settings-container h1,
+.settings-container .title-form {
+	font-size: 30px;
+	font-weight: 1000;
+	margin: 0;
+}
+
+/* Logo pointer behaviour (if used) */
+.settings-container .logo:hover {
+	cursor: pointer;
+}
+
+/* Separator (not used by default here but kept for parity) */
+.settings-container .or-separator {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	gap: 10px;
+}
+.settings-container .or-separator hr {
+	width: 100%;
+	border: none;
+	border-top: 3px solid var(--line-color);
+	margin-top: 10px;
+}
+.settings-container .or-separator span {
+	font-size: 20px;
+	font-weight: 800;
+	color: var(--black-color);
+}
+
+/* Paragraphs and links inside settings container */
+.settings-container p {
+	font-size: 16px;
+	font-weight: 700;
+	color: var(--black-color);
+}
+.settings-container p a {
+	color: var(--blue-color);
+	text-decoration: underline;
+	font-weight: 700;
+}
+.settings-container p a:hover { cursor: pointer; color: var(--blue-hover-color); }
+
+/* Input labels and fields */
+.settings-form label {
+	display: flex;
+	flex-direction: column;
+	font-size: 14px;
+	color: var(--text-color, #222);
+	width: 100%;
+}
+
+.settings-form input {
+	padding: 8px 10px;
+	border: 1px solid var(--line-color, #ddd);
+	border-radius: 6px;
+	font-size: 14px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.settings-form h4 {
+    margin: 0px 0 -10px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--black-color);
+    text-align: left;
+}
+
+/* Map actions -> button-container to reuse login button layout */
+.actions, .button-container {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0px;
+}
+.actions p, .button-container p { margin: 10px 0 0 0; color: var(--red-color); font-weight: 600; font-size: 14px; }
+
+.actions button, .button-container button {
+	background: var(--blue-color, #007bff);
+	color: #fff;
+	border: none;
+	padding: 10px 16px;
+	border-radius: 6px;
+	cursor: pointer;
+	width: 100%;
+}
+.actions button:disabled, .button-container button:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+/* Messages */
+.message { margin-top: 8px; font-size: 13px; }
+.message.success { color: green; }
+.message.error { color: #c00; }
+

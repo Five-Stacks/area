@@ -1,20 +1,21 @@
 import { Text, View, Image, StyleSheet, ImageBackground } from "react-native";
 import { router } from "expo-router";
 import StylizedButton from "@/src/components/global/button";
-import * as SecureStore from "expo-secure-store";
 import { useEffect } from "react";
-import { Button } from "@react-navigation/elements";
+import { isConnected } from "@/src/api/auth";
 
 export default function Index() {
-//  useEffect(() => {
-//    async function checkToken() {
-//      const token = await SecureStore.getItemAsync("token");
-//      if (token) {
-//        router.replace("/(tabs)/dashboard");
-//      }
-//    }
-//    checkToken();
-//  }, []); 
+  useEffect(() => {
+    async function checkToken() {
+      const connected = await isConnected();
+      console.log("Connected:", connected);
+      if (connected.success) {
+        router.replace("/(tabs)/dashboard");
+      }
+    }
+
+    checkToken();
+  }, []);
 
   return (
     <View

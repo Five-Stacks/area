@@ -1,2 +1,36 @@
-<p>settings-page works!</p>
 <app-area-header-dashboard [title]="'SETTINGS'"></app-area-header-dashboard>
+
+<main class="settings-container">
+        <form (ngSubmit)="submit()" class="settings-form">
+            <h4>Change Name</h4>
+            <app-text-field-component
+                [label]="'Name'"
+                [(value)]="name">
+            </app-text-field-component>
+
+            <h4>Change Email</h4>
+            <app-text-field-component
+                [label]="'Email'"
+                [(value)]="email"
+                [type]="'email'">
+            </app-text-field-component>
+
+            <h4>Change Password</h4>
+            <app-text-field-hide-component
+                [label]="'New password'"
+                [(value)]="password"
+                [hint]="'Leave blank to keep current'">
+            </app-text-field-hide-component>
+
+            <div class="button-container">
+                <app-area-button-full
+                    [label]="'SAVE'"
+                    [onClick]="submit"
+                    [disabled]="loading">
+                </app-area-button-full>
+            </div>
+
+            <div class="message success" *ngIf="successMessage">{{ successMessage }}</div>
+            <div class="message error" *ngIf="errorMessage">{{ errorMessage }}</div>
+        </form>
+</main>

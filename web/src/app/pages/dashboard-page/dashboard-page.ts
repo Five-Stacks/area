@@ -30,7 +30,7 @@ interface AreaApiResponse {
 
   ],
   templateUrl: './dashboard-page.html',
-  styleUrl: './dashboard-page.css'
+  styleUrls: ['./dashboard-page.css']
 })
 export class DashboardPage implements OnInit {
   searchTerm = '';

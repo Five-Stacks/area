@@ -11,6 +11,7 @@ router.post('/login', authController.login);
 router.post('/logout', authController.logout);
 router.get('/isConnected', authController.isConnected);
 router.get('/isAdmin', authController.isAdmin);
+router.get('/me', authController.me);
 
 /* Export router */
 export default router;
