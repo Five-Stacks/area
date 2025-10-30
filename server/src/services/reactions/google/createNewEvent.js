@@ -72,10 +72,10 @@ async function run(area, reactionEntry) {
         }
 
         const eventTitle = reactionForm.find(f => f.fieldName === "Name of the event")?.response || 'New Event';
-        const startDate = reactionForm.find(f => f.fieldName === "Start date")?.response;
-        const endDate = reactionForm.find(f => f.fieldName === "End date")?.response;
-        const startTime = reactionForm.find(f => f.fieldName === "Start time")?.response;
-        const endTime = reactionForm.find(f => f.fieldName === "End time")?.response;
+        const startDate = reactionForm.find(f => f.fieldName === "Start date in format YYYY-MM-DD or today, or +n days from now")?.response;
+        const endDate = reactionForm.find(f => f.fieldName === "End date in format YYYY-MM-DD or today, or +n days from now")?.response;
+        const startTime = reactionForm.find(f => f.fieldName === "Start time in format HH:MM (24h) or all-day")?.response;
+        const endTime = reactionForm.find(f => f.fieldName === "End time in format HH:MM (24h) or all-day")?.response;
         const description = reactionForm.find(f => f.fieldName === "Description")?.response || '';
         const location = reactionForm.find(f => f.fieldName === "Location")?.response || '';
 
