@@ -28,10 +28,13 @@ export default function Dashboard() {
     }
 
     if (searchModuleValues.service) {
-      matches =
-        matches &&
-        (area.config.trigger.service_name === searchModuleValues.service ||
-          area.config.actions.service_name === searchModuleValues.service);
+      let services = area.config.trigger.service_name;
+
+      for (const action of area.config.actions) {
+        services += action.service_name === searchModuleValues.service;
+      }
+
+      matches = matches && services.includes(searchModuleValues.service);
     }
 
     if (searchModuleValues.status !== undefined) {
