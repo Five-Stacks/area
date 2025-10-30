@@ -1,0 +1,110 @@
+---
+id: new-action-reaction
+title: New Action or Reaction
+---
+
+# New Action or Reaction
+
+## Quick summary
+
+- Actions are trigger checks that live in `server/src/services/actions/**` and must export a default object with a `check(area)` async function that returns `true` when the action fires.
+- Reactions are executors that live in `server/src/services/reactions/**` and must export a default object with a `run(area, reactionEntry)` async function that performs the reaction.
+- Action and Reaction UI forms (fields) live as config objects in `server/src/database/services/<service>/...` and are seeded into the DB by `setupActions.js` and `setupReactions.js`.
+
+## Files to edit/add
+
+- `server/src/database/services/<service>/*.js` — create config objects (e.g., `fields`) used by the UI and exported for seeding.
+- `server/src/database/setupActions.js` — import the action config and add the action to the `actions` array so it is seeded.
+- `server/src/database/setupReactions.js` — import the reaction config and add the reaction to the `reactions` array.
+- `server/src/services/actions/<service>/<actionFile>.js` — add action implementation exporting default { check }.
+- `server/src/services/reactions/<service>/<reactionFile>.js` — add reaction implementation exporting default { run }.
+- `server/src/services/actions/index.js` — import and register the action handler in the `actionsHandler` map using the action name string.
+- `server/src/services/reactions/index.js` — import and register the reaction handler.
+
+## Example: add Action "New Push" and Reaction "Create Issue" for Github
+
+1) Add UI config (database seed)
+
+	 - Create `server/src/database/services/github/push.js` and export an action config, for example:
+
+	 ```js
+	 // server/src/database/services/github/push.js
+	 const githubPushActionConfig = {
+		 fields: [
+			 { id: 1, mandatory: true, name: 'Repository', title: 'Repository', input_field: { placeholder: 'owner/repo' } },
+		 ]
+	 };
+
+	 export { githubPushActionConfig };
+	 ```
+
+	 - In `server/src/database/setupActions.js` import this config and add the action row to the `actions` array using the service id (the file already maps all known services to ids). The `name` must match the handler key you will register later, e.g. `'New Push'`.
+
+2) Implement the Action check handler
+
+	 - Add `server/src/services/actions/github/push.js`:
+
+	 ```js
+	 import getAccessToken from '../../../utils/getAccessToken.js';
+
+	 async function check(area) {
+		 // sample: return true if the last push timestamp is within the last minute
+		 // use getAccessToken(area, 'Github') when you need an OAuth token
+		 return false; // implement actual API call against GitHub
+	 }
+
+	 export default { check };
+	 ```
+
+	 - Register the handler in `server/src/services/actions/index.js` with the action name used in DB:
+
+	 ```js
+	 import * as githubPush from "./github/push.js";
+
+	 const actionsHandler = {
+		 'New Push': githubPush.default ?? githubPush,
+		 // ...
+	 };
+	 ```
+
+3) Implement the Reaction run handler
+
+	 - Add `server/src/services/reactions/github/createIssue.js`:
+
+	 ```js
+	 import getAccessToken from '../../../utils/getAccessToken.js';
+
+	 async function run(area, reactionEntry) {
+		 const accessToken = await getAccessToken(area, 'Github');
+		 if (!accessToken) throw new Error('Github not linked');
+		 // perform API call to create issue
+		 return 'Issue created';
+	 }
+
+	 export default { run };
+	 ```
+
+	 - Register it in `server/src/services/reactions/index.js`:
+
+	 ```js
+	 import * as githubCreateIssue from "./github/createIssue.js";
+
+	 const reactionsHandler = {
+		 'Create Issue on GitHub': githubCreateIssue.default ?? githubCreateIssue,
+		 // ...
+	 };
+	 ```
+
+4) Seed the Reaction config in `server/src/database/setupReactions.js` the same way as actions.
+
+5) Test the handler
+
+	 - Restart the server so seeds are run and confirm the new Action and Reaction are present using the API (e.g. `GET /api/actions`, `GET /api/reactions`).
+	 - Create an Area using the Action name (trigger) and add your Reaction with required config fields. Monitor logs and `AreaExecution` rows for success/failure.
+
+## Common pitfalls and checks
+
+- Name matches: the string key used in `actionsHandler`/`reactionsHandler` must exactly match the `Action.name` / `Reaction.name` that you insert into the DB.
+- Config shape: the UI expects `fields` arrays (see `server/src/database/services/google/gmail.js` for examples). Ensure mandatory flags and placeholders are present for a good UX.
+- OAuth tokens: if your handler calls third-party APIs on behalf of a user, make sure the user has linked the service and that you implemented refresh token logic in `refreshTokens.js` and a `getAccessToken` branch.
+- Error handling: action `check` should throw on irrecoverable error; the area engine will catch it and create a failed `AreaExecution` row. Reaction `run` should throw on errors as well; the engine logs these and records failures.
