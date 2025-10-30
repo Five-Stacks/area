@@ -13,14 +13,17 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_URL } from "@/src/api/config";
 import Input from "@/src/components/global/textinput";
 
+import * as Linking from 'expo-linking';
+
+import * as SecureStore from "expo-secure-store";
+
 const servicesData = [
   { id: "google", name: "Google", icon: require("@/assets/images/google.png") },
   { id: "github", name: "GitHub", icon: require("@/assets/images/github.png") },
-  {
-    id: "discord",
-    name: "Discord",
-    icon: require("@/assets/images/discord.png"),
-  },
+  { id: "discord",name: "Discord",icon: require("@/assets/images/discord.png"),},
+  { id: "twitter", name: "Twitter", icon: require("@/assets/images/TwitterLogo.png") },
+  { id: "spotify", name: "Spotify", icon: require("@/assets/images/SpotifyLogo.png") },
+  { id: "microsoft",name: "Microsoft",icon: require("@/assets/images/MicrosoftLogo.png"),},
 ];
 
 export default function OAuthPage() {
@@ -29,6 +32,8 @@ export default function OAuthPage() {
   );
   const [modalVisible, setModalVisible] = useState(false);
   const [currentURL, setCurrentURL] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredData, setFilteredData] = useState(services);
 
   useEffect(() => {
     async function fetchStatus() {
@@ -51,10 +56,33 @@ export default function OAuthPage() {
     fetchStatus();
   }, []);
 
+  const handleSearch = (text: string) => {
+    setSearchQuery(text);
+
+    if (text === '') {
+      setFilteredData(services);
+    } else {
+      const filtered = services.filter((item) =>
+        item.name.toLowerCase().includes(text.toLowerCase())
+      );
+      setFilteredData(filtered);
+    }
+
+  }
+
   const handleConnect = async (serviceId: string) => {
-    setCurrentURL(`${API_URL}/api/oauth/${serviceId}`);
+    const redirectUri = Linking.createURL('oauth-callback'); // e.g., myapp://oauth-callback
+    console.log("Redirect URI:", redirectUri);
+
+    // Add token as query param
+    console.log("Connecting with url:", `${API_URL}/api/oauth/${serviceId}`);
+    const connectURL = `${API_URL}/api/oauth/${serviceId}?redirect_uri=${encodeURIComponent(redirectUri)}`;
+    console.log("Final connect URL:", connectURL);
+
+    setCurrentURL(connectURL);
     setModalVisible(true);
   };
+  
 
   return (
     <View style={styles.container}>
@@ -63,11 +91,12 @@ export default function OAuthPage() {
         style={styles.searchInput}
         showSearchIcon={true}
         iconColor="#d0d0d0"
+        onChangeText={handleSearch}
       />
       <Text style={styles.title}>Services</Text>
 
       <FlatList
-        data={services}
+        data={filteredData}
         keyExtractor={(item) => item.id}
         numColumns={2}
         columnWrapperStyle={styles.row}
