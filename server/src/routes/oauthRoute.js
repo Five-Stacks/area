@@ -35,9 +35,12 @@ function extractRedirectFromState(req) {
     const parsed = JSON.parse(decodeURIComponent(state));
     if (parsed && typeof parsed.redirect_to === 'string') {
       const r = parsed.redirect_to;
-      if (r.startsWith('/')) return r;
+      if (r.startsWith('/') || r.includes('://')) {
+        return r;
+      }
     }
   } catch (e) {
+    console.error('Error extracting redirect from state:', e);
   }
   return '/';
 }
