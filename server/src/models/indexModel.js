@@ -28,10 +28,6 @@ Reaction.belongsTo(Service, { foreignKey: 'service_id', as: 'service' });
 Action.hasMany(Area, { foreignKey: 'action_id', as: 'areas', onDelete: 'CASCADE' });
 Area.belongsTo(Action, { foreignKey: 'action_id', as: 'action' });
 
-/* Reaction <-> Area */
-Reaction.hasMany(Area, { foreignKey: 'reaction_id', as: 'areas', onDelete: 'CASCADE' });
-Area.belongsTo(Reaction, { foreignKey: 'reaction_id', as: 'reaction' });
-
 /* Area <-> AreaExecution */
 Area.hasMany(AreaExecution, { foreignKey: 'area_id', as: 'executions', onDelete: 'CASCADE' });
 AreaExecution.belongsTo(Area, { foreignKey: 'area_id', as: 'area' });

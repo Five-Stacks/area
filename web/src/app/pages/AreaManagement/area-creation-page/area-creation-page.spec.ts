@@ -7,10 +7,11 @@ import { Router } from '@angular/router';
 
 describe('AreaCreationPage', () => {
   // Helper to configure TestBed and create component with a mocked ApiService and Router
-  async function setup(params: { services?: unknown[]; actions?: unknown[]; reactions?: unknown[]; postSuccess?: boolean } = {}) {
-    const { services = [], actions = [], reactions = [], postSuccess = true } = params;
+  async function setup(params: { services?: unknown[]; actions?: unknown[]; reactions?: unknown[]; userServices?: unknown[]; postSuccess?: boolean } = {}) {
+    const { services = [], actions = [], reactions = [], userServices = [], postSuccess = true } = params;
     const apiMock = {
       get: jasmine.createSpy('get').and.callFake((url: string) => {
+        if (url === 'userService') return of({ data: userServices });
         if (url === 'service') return of({ data: services });
         if (url === 'action') return of({ data: actions });
         if (url === 'reaction') return of({ data: reactions });
@@ -43,8 +44,10 @@ describe('AreaCreationPage', () => {
   });
 
   it('ngOnInit should populate service options from API', async () => {
-    const services = [{ id: 1, name: 'S1' }, { id: 2, name: 'S2' }];
-    const { component, apiMock } = await setup({ services, actions: [], reactions: [] });
+  const services = [{ id: 1, name: 'S1' }, { id: 2, name: 'S2' }];
+  // userService should contain service_id references the user has access to
+  const userServices = [{ service_id: 1 }, { service_id: 2 }];
+  const { component, apiMock } = await setup({ services, actions: [], reactions: [], userServices });
     // ngOnInit called during setup; ensure api called for 'service'
     expect(apiMock.get).toHaveBeenCalledWith('service');
     expect(component.optionsServicesIds).toEqual([1, 2]);
