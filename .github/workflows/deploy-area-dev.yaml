@@ -45,7 +45,6 @@ jobs:
           scp docker-compose.yml ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/docker-compose.yml
           scp area.sql ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/area.sql
 
-      - name: Run deployement script on server
+      - name: Restart the systemd service on the dev server
         run: |
-          ssh ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }} \
-            "bash /var/www/area-dev/deploy.sh"
+          ssh ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }} "sudo systemctl restart area-dev.service"

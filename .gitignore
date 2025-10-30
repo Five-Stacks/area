@@ -25,5 +25,3 @@ Thumbs.db
 .vscode/
 
 *.sh
-# Required by the CI pipeline
-!deploy.sh
