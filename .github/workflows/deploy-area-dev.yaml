@@ -20,7 +20,6 @@ jobs:
           echo "${{ secrets.GIT_SSH_PRIVATE_KEY_DEV_SERVER }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H ${{ vars.DEV_SERVER_IP }} >> ~/.ssh/known_hosts
-          "
 
       - name: Prepare environment files
         run: |
