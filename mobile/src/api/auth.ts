@@ -45,3 +45,26 @@ export async function logout() {
 
   return response.json();
 }
+
+export async function updateUser(id: string, name?: string, email?: string, password?: string) {
+  const response = await fetch(`${API_URL}/users/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({name, email, password}),
+    credentials: "include",
+  });
+
+  return response.json();
+}
+
+export async function getUser() {
+  const response = await fetch(`${API_URL}/auth/me`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+  });
+
+  return response.json();
+}
+
+//get

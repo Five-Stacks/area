@@ -15,8 +15,6 @@ import Input from "@/src/components/global/textinput";
 
 import * as Linking from 'expo-linking';
 
-import * as SecureStore from "expo-secure-store";
-
 const servicesData = [
   { id: "google", name: "Google", icon: require("@/assets/images/google.png") },
   { id: "github", name: "GitHub", icon: require("@/assets/images/github.png") },
@@ -41,7 +39,7 @@ export default function OAuthPage() {
         const token = await AsyncStorage.getItem("token");
         if (!token) return;
 
-        const response = await fetch(`${API_URL}/api/oauth/status`, {
+        const response = await fetch(`${API_URL}/oauth/status`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await response.json();
@@ -50,6 +48,7 @@ export default function OAuthPage() {
           prev.map((s) => ({ ...s, connected: !!data[s.id] })),
         );
       } catch (err) {
+        console.log("Error fetching OAuth status:");
         console.error(err);
       }
     }
@@ -74,12 +73,12 @@ export default function OAuthPage() {
     const redirectUri = Linking.createURL('oauth-callback'); // e.g., myapp://oauth-callback
     console.log("Redirect URI:", redirectUri);
 
-    // Add token as query param
-    console.log("Connecting with url:", `${API_URL}/api/oauth/${serviceId}`);
-    const connectURL = `${API_URL}/api/oauth/${serviceId}?redirect_uri=${encodeURIComponent(redirectUri)}`;
+    console.log("Connecting with url:", `${API_URL}/oauth/${serviceId}`);
+    const connectURL = `${API_URL}/oauth/${serviceId}?redirect_to=${redirectUri}`;
     console.log("Final connect URL:", connectURL);
 
     setCurrentURL(connectURL);
+    console.log("Opening WebView with URL:", connectURL);
     setModalVisible(true);
   };
   
