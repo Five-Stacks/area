@@ -1,7 +1,5 @@
 /* Import modules */
-import * as timer from "./timer.js";
-
-/* Google Actions */
+import * as timer from "./timer/timer.js";
 import * as googleEmailReceived from "./google/emailReceived.js";
 import * as googleEventCreated from "./google/eventCreated.js";
 import * as googleEventStarted from "./google/eventStarted.js";

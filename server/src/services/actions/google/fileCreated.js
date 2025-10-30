@@ -1,5 +1,7 @@
+/* Import modules */
 import getAccessToken from '../../../utils/getAccessToken.js';
 
+/* Check for new Google Drive files action */
 async function check(area) {
     try {
         const accessToken = await getAccessToken(area, 'Google');
@@ -56,5 +58,5 @@ async function check(area) {
     }
 }
 
-/* Export action */
+/* Export check function */
 export default { check };

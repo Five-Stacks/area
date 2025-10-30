@@ -1,5 +1,7 @@
+/* Import modules */
 import getAccessToken from '../../../utils/getAccessToken.js';
 
+/* Check for new Gmail emails action */
 async function check(area) {
     try {
         const accessToken = await getAccessToken(area, 'Google');
@@ -120,4 +122,5 @@ async function check(area) {
     }
 }
 
+/* Export check function */
 export default { check };

@@ -1,4 +1,4 @@
-const createNewEventGoogleActionConfig = {
+const createNewEventGoogleReactionConfig = {
     "fields": [
         {
             "id": 1,
@@ -12,8 +12,8 @@ const createNewEventGoogleActionConfig = {
         {
             "id": 2,
             "mandatory": true,
-            "name": "Start date",
-            "title": "Start date",
+            "name": "Start date in format YYYY-MM-DD or today, or +n days from now",
+            "title": "Start date in format YYYY-MM-DD or today, or +n days from now",
             "input_field": {
                 "placeholder": "Date in format YYYY-MM-DD or today, or +n days from now"
             }
@@ -21,8 +21,8 @@ const createNewEventGoogleActionConfig = {
         {
             "id": 3,
             "mandatory": true,
-            "name": "End date",
-            "title": "End date",
+            "name": "End date in format YYYY-MM-DD or today, or +n days from now",
+            "title": "End date in format YYYY-MM-DD or today, or +n days from now",
             "input_field": {
                 "placeholder": "Date in format YYYY-MM-DD or today, or +n days from now"
             }
@@ -30,8 +30,8 @@ const createNewEventGoogleActionConfig = {
         {
             "id": 4,
             "mandatory": true,
-            "name": "Start time",
-            "title": "Start time",
+            "name": "Start time in format HH:MM (24h) or all-day",
+            "title": "Start time in format HH:MM (24h) or all-day",
             "input_field": {
                 "placeholder": "Time in format HH:MM (24h) or all-day"
             }
@@ -39,8 +39,8 @@ const createNewEventGoogleActionConfig = {
         {
             "id": 5,
             "mandatory": true,
-            "name": "End time",
-            "title": "End time",
+            "name": "End time in format HH:MM (24h) or all-day",
+            "title": "End time in format HH:MM (24h) or all-day",
             "input_field": {
                 "placeholder": "Time in format HH:MM (24h) or all-day"
             }
@@ -113,4 +113,4 @@ const eventStartedGoogleActionConfig = {
 };
 
 /* Export action config */
-export { createNewEventGoogleActionConfig, eventCreatedGoogleActionConfig, eventStartedGoogleActionConfig };
+export { createNewEventGoogleReactionConfig, eventCreatedGoogleActionConfig, eventStartedGoogleActionConfig };

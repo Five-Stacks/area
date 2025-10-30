@@ -1,4 +1,4 @@
-const sendEmailGmailActionConfig = {
+const sendEmailGmailReactionConfig = {
     "fields": [
         {
             "id": 1,
@@ -63,4 +63,4 @@ const googleEmailReceivedActionConfig = {
 };
 
 /* Export action config */
-export { sendEmailGmailActionConfig, googleEmailReceivedActionConfig };
+export { sendEmailGmailReactionConfig, googleEmailReceivedActionConfig };

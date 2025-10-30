@@ -1,17 +1,16 @@
-import { OAuthAccount } from '../models/oauthAccountsModel.js';
-import { UserService } from '../models/userServiceModel.js';
+/* Import modules */
+import { OAuthAccount, UserService } from '../models/indexModel.js';
 import refreshTokens from './refreshTokens.js';
-import getIdOfService from './getIdOfService.js';
+import getServiceId from './getServiceId.js';
 
+/* Get access token for a service */
 async function getAccessToken(area, serviceName) {
     const userId = area.user_id;
-
     try {
-        const serviceId = await getIdOfService(serviceName);
+        const serviceId = await getServiceId(serviceName);
         if (!serviceId) {
             throw new Error(`${serviceName} service is not configured.`);
         }
-
         const userServiceLink = await UserService.findOne({
             where: {
                 user_id: userId,
@@ -21,12 +20,10 @@ async function getAccessToken(area, serviceName) {
         if (!userServiceLink || !userServiceLink.oauth_account_id) {
             throw new Error(`No linked OAuth account for ${serviceName} service.`);
         }
-
         const oauthAccount = await OAuthAccount.findByPk(userServiceLink.oauth_account_id);
         if (!oauthAccount) {
             throw new Error(`No OAuth account found for ${serviceName} service.`);
         }
-
         let accessToken;
         switch (serviceName) {
             case 'Google':
@@ -50,7 +47,6 @@ async function getAccessToken(area, serviceName) {
             default:
                 throw new Error(`Unsupported service: ${serviceName}`);
         }
-
         return accessToken;
     } catch (error) {
         console.error(`Error getting ${serviceName} access token:`, error);
@@ -58,4 +54,5 @@ async function getAccessToken(area, serviceName) {
     }
 }
 
+/* Export getAccessToken function */
 export default getAccessToken;
