@@ -33,5 +33,5 @@ jobs:
           rsync -avz --delete server/ ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/server/
           rsync -avz rootenv ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/.env
           rsync -avz serverenv ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/server/.env
-          rsync -avz docker-compose.yml ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/docker-compose.yml
+          rsync -avz docker-compose.deploy.yml ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/docker-compose.yml
           rsync -avz area.sql ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/area.sql
