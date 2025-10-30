@@ -27,7 +27,9 @@ RemainAfterExit=yes
 WantedBy=multi-user.target
 EOL
 
+   echo "bbb"
   sudo systemctl daemon-reload
+  echo "ccc"
   sudo systemctl enable area-dev.service
   echo "✅ Systemd service created."
 fi
