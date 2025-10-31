@@ -5,6 +5,7 @@ import { timerActionConfig } from './services/timer/timer.js';
 import { googleEmailReceivedActionConfig } from './services/google/gmail.js';
 import { eventCreatedGoogleActionConfig, eventStartedGoogleActionConfig } from './services/google/calendar.js';
 import { fileCreatedGoogleActionConfig } from './services/google/drive.js';
+import { spotifyCurrentlyPlayingActionConfig } from './services/spotify/spotify.js';
 
 /* Action setup function */
 async function actionsSetup() {
@@ -24,6 +25,8 @@ async function actionsSetup() {
         { service_id: services['Google'], name: 'New Google Calendar event', description: "Triggered when a new event is created in Google Calendar", config: eventCreatedGoogleActionConfig },
         { service_id: services['Google'], name: 'Google Calendar event started', description: "Triggered when a Google Calendar event is starting", config: eventStartedGoogleActionConfig },
         { service_id: services['Google'], name: 'New Google Drive file', description: "Triggered when a new file is created in Google Drive", config: fileCreatedGoogleActionConfig },
+        { service_id: services['Spotify'], name: 'Spotify now playing', description: "Triggered when a new track starts playing on Spotify", config: spotifyCurrentlyPlayingActionConfig },
+        { service_id: services['Spotify'], name: 'Spotify track changed', description: "Triggered when the user's currently playing track changes", config: {} },
     ];
 
     for (const actionData of actions) {

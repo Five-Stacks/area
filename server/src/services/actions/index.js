@@ -1,9 +1,7 @@
 /* Import modules */
 import * as timer from "./timer/timer.js";
-import * as googleEmailReceived from "./google/emailReceived.js";
-import * as googleEventCreated from "./google/eventCreated.js";
-import * as googleEventStarted from "./google/eventStarted.js";
-import * as googleFileCreated from "./google/fileCreated.js";
+import * as spotifyCurrentlyPlaying from "./spotify/currentlyPlaying.js";
+import * as spotifyTrackChanged from "./spotify/trackChanged.js";
 
 /* Google Actions */
 import * as googleEmailReceived from "./google/emailReceived.js";
@@ -18,6 +16,8 @@ const actionsHandler = {
     'New Google Calendar event': googleEventCreated.default ?? googleEventCreated,
     'Google Calendar event started': googleEventStarted.default ?? googleEventStarted,
     'New Google Drive file': googleFileCreated.default ?? googleFileCreated,
+    'Spotify now playing': spotifyCurrentlyPlaying.default ?? spotifyCurrentlyPlaying,
+    'Spotify track changed': spotifyTrackChanged.default ?? spotifyTrackChanged,
 };
 
 /* Export actions handler */
