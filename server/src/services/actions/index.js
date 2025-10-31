@@ -18,7 +18,7 @@ const actionsHandler = {
     'New Google Calendar event': googleEventCreated.default ?? googleEventCreated,
     'Google Calendar event started': googleEventStarted.default ?? googleEventStarted,
     'New Google Drive file': googleFileCreated.default ?? googleFileCreated,
-    'Guild joined': discordGuildJoined.default ?? discordGuildJoined,
+    'Guild (discord server) joined': discordGuildJoined.default ?? discordGuildJoined,
     'Profile changed': discordProfileChanged.default ?? discordProfileChanged
 };
 

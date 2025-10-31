@@ -28,7 +28,7 @@ async function actionsSetup() {
         { service_id: services['Google'], name: 'Google Calendar event started', description: "Triggered when a Google Calendar event is starting", config: eventStartedGoogleActionConfig },
         { service_id: services['Google'], name: 'New Google Drive file', description: "Triggered when a new file is created in Google Drive", config: fileCreatedGoogleActionConfig },
 
-        { service_id: services['Discord'], name: 'Guild joined', description: "Triggered when the user joins a new guild", config: {} },
+        { service_id: services['Discord'], name: 'Guild (discord server) joined', description: "Triggered when the user joins a new guild", config: {} },
         { service_id: services['Discord'], name: 'Profile changed', description: "Triggered when the user's profile (username/avatar) changes", config: discordProfileChangedActionConfig || {} },
     ];
 
