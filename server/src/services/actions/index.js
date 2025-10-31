@@ -1,5 +1,6 @@
 /* Import modules */
 import * as timer from "./timer/timer.js";
+import * as timerEveryX from "./timer/everyXMinutes.js";
 
 /* Google Actions */
 import * as googleEmailReceived from "./google/emailReceived.js";
@@ -14,6 +15,7 @@ import * as discordProfileChanged from "./discord/profileChanged.js";
 /* Actions handler */
 const actionsHandler = {
     'Timer': timer.default ?? timer,
+    'Timer every X minutes': timerEveryX.default ?? timerEveryX,
     'Gmail received': googleEmailReceived.default ?? googleEmailReceived,
     'New Google Calendar event': googleEventCreated.default ?? googleEventCreated,
     'Google Calendar event started': googleEventStarted.default ?? googleEventStarted,
