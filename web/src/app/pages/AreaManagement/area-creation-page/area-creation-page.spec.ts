@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { AreaCreationPage } from './area-creation-page';
 import { ApiService } from '../../../services/api.service';
