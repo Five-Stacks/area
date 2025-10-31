@@ -6,30 +6,27 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
-  Modal,
 } from "react-native";
-import { WebView } from "react-native-webview";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_URL } from "@/src/api/config";
 import Input from "@/src/components/global/textinput";
 
 import * as Linking from 'expo-linking';
+import * as WebBrowser from 'expo-web-browser';
 
 const servicesData = [
   { id: "google", name: "Google", icon: require("@/assets/images/google.png") },
   { id: "github", name: "GitHub", icon: require("@/assets/images/github.png") },
-  { id: "discord",name: "Discord",icon: require("@/assets/images/discord.png"),},
+  { id: "discord", name: "Discord", icon: require("@/assets/images/discord.png") },
   { id: "twitter", name: "Twitter", icon: require("@/assets/images/TwitterLogo.png") },
   { id: "spotify", name: "Spotify", icon: require("@/assets/images/SpotifyLogo.png") },
-  { id: "microsoft",name: "Microsoft",icon: require("@/assets/images/MicrosoftLogo.png"),},
+  { id: "microsoft", name: "Microsoft", icon: require("@/assets/images/MicrosoftLogo.png") },
 ];
 
 export default function OAuthPage() {
   const [services, setServices] = useState(
     servicesData.map((s) => ({ ...s, connected: false })),
   );
-  const [modalVisible, setModalVisible] = useState(false);
-  const [currentURL, setCurrentURL] = useState("");
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredData, setFilteredData] = useState(services);
 
@@ -53,7 +50,48 @@ export default function OAuthPage() {
       }
     }
     fetchStatus();
+
+    // Listen for deep link callbacks
+    const subscription = Linking.addEventListener('url', handleDeepLink);
+
+    return () => {
+      subscription.remove();
+    };
   }, []);
+
+  useEffect(() => {
+    setFilteredData(services);
+  }, [services]);
+
+  const handleDeepLink = (event: { url: string }) => {
+    const { url } = event;
+    console.log("Deep link received:", url);
+    
+    if (url.includes('oauth-callback')) {
+      // Extract service ID from the URL if needed
+      // Update the connection status
+      fetchStatus();
+    }
+  };
+
+  const fetchStatus = async () => {
+    try {
+      const token = await AsyncStorage.getItem("token");
+      if (!token) return;
+
+      const response = await fetch(`${API_URL}/oauth/status`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await response.json();
+
+      setServices((prev) =>
+        prev.map((s) => ({ ...s, connected: !!data[s.id] })),
+      );
+    } catch (err) {
+      console.log("Error fetching OAuth status:");
+      console.error(err);
+    }
+  };
 
   const handleSearch = (text: string) => {
     setSearchQuery(text);
@@ -66,22 +104,29 @@ export default function OAuthPage() {
       );
       setFilteredData(filtered);
     }
-
-  }
+  };
 
   const handleConnect = async (serviceId: string) => {
-    const redirectUri = Linking.createURL('oauth-callback'); // e.g., myapp://oauth-callback
+    const redirectUri = Linking.createURL('oauth-callback');
     console.log("Redirect URI:", redirectUri);
 
-    console.log("Connecting with url:", `${API_URL}/oauth/${serviceId}`);
-    const connectURL = `${API_URL}/oauth/${serviceId}?redirect_to=${redirectUri}`;
-    console.log("Final connect URL:", connectURL);
+    const connectURL = `${API_URL}/oauth/${serviceId}?redirect_to=${encodeURIComponent(redirectUri)}`;
+    console.log("Opening browser with URL:", connectURL);
 
-    setCurrentURL(connectURL);
-    console.log("Opening WebView with URL:", connectURL);
-    setModalVisible(true);
+    try {
+      // Open the OAuth URL in the device's default browser
+      const result = await WebBrowser.openBrowserAsync(connectURL);
+      
+      console.log("Browser result:", result);
+      
+      // Refresh status after browser closes
+      if (result.type === 'cancel' || result.type === 'dismiss') {
+        await fetchStatus();
+      }
+    } catch (error) {
+      console.error("Error opening browser:", error);
+    }
   };
-  
 
   return (
     <View style={styles.container}>
@@ -117,43 +162,6 @@ export default function OAuthPage() {
           </TouchableOpacity>
         )}
       />
-
-      <Modal
-        visible={modalVisible}
-        animationType="slide"
-        transparent={true}
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View style={styles.modalBackground}>
-          <View style={styles.modalContainer}>
-            <TouchableOpacity
-              style={styles.closeButton}
-              onPress={() => setModalVisible(false)}
-            >
-              <Text style={{ color: "#fff" }}>Close</Text>
-            </TouchableOpacity>
-
-            <WebView
-              source={{ uri: currentURL }}
-              style={{ flex: 1 }}
-              sharedCookiesEnabled={true}
-              onNavigationStateChange={(navState) => {
-                if (navState.url.includes("/callback")) {
-                  setModalVisible(false);
-
-                  setServices((prev) =>
-                    prev.map((s) =>
-                      s.id === currentURL.split("/").pop()
-                        ? { ...s, connected: true }
-                        : s,
-                    ),
-                  );
-                }
-              }}
-            />
-          </View>
-        </View>
-      </Modal>
     </View>
   );
 }
@@ -190,23 +198,6 @@ const styles = StyleSheet.create({
     padding: 3,
     borderRadius: 5,
     color: "#fff",
-  },
-  modalBackground: {
-    flex: 1,
-    backgroundColor: "rgba(0,0,0,0.5)",
-    justifyContent: "center",
-    padding: 20,
-  },
-  modalContainer: {
-    backgroundColor: "#fff",
-    borderRadius: 12,
-    height: "80%",
-    overflow: "hidden",
-  },
-  closeButton: {
-    backgroundColor: "#007bff",
-    padding: 10,
-    alignItems: "center",
   },
   searchInput: {
     borderColor: "#eff2f9",
