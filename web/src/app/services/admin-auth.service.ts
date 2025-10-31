@@ -7,7 +7,7 @@ import { map, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AdminAuthService {
-  private apiUrl = 'http://localhost:8080/api'; // Adjust based on your server config
+  private apiUrl = 'https://area.pintardware.dev/api'; // Adjust based on your server config
   private http: HttpClient = inject(HttpClient);
 
 
