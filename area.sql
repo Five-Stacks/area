@@ -60,12 +60,12 @@ CREATE TABLE user_services (
     UNIQUE (user_id, service_id)
 );
 
--- AREA: user-defined automations linking an action to a reaction
+-- AREA: user-defined automations linking an action to multiple reactions
 CREATE TABLE areas (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     action_id INTEGER REFERENCES actions(id) ON DELETE CASCADE,
-    reaction_id INTEGER REFERENCES reactions(id) ON DELETE CASCADE,
+    reaction_ids INTEGER[] NOT NULL DEFAULT '{}'::INTEGER[],
     config JSONB,
     is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP

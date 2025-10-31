@@ -1,17 +1,22 @@
+/* Import modules */
 import getAccessToken from '../../../utils/getAccessToken.js';
 
 /* Run function for send email with Google reaction */
-async function run(area) {
-    const actionForm = area?.config?.action?.datas_form || [];
+async function run(area, reactionEntry) {
+    console.log('Executing Google Send Email reaction for area:', area.id);
+    if (!reactionEntry) {
+        return 'No reaction entry provided.';
+    }
+    const reactionForm = reactionEntry?.datas_form || [];
 
     try {
         const accessToken = await getAccessToken(area, 'Google');
         if (!accessToken) {
             throw new Error('Unable to obtain Google access token.');
         }
-        const emailTo = actionForm.find(f => f.fieldName === "Send to")?.response;
-        const emailSubject = actionForm.find(f => f.fieldName === "Subject")?.response || '';
-        const emailBody = actionForm.find(f => f.fieldName === "Body")?.response || '';
+        const emailTo = reactionForm.find(f => f.fieldName === "Send to")?.response;
+        const emailSubject = reactionForm.find(f => f.fieldName === "Subject")?.response || '';
+        const emailBody = reactionForm.find(f => f.fieldName === "Body")?.response || '';
 
         if (!emailTo || emailSubject === null || emailBody === null) {
             throw new Error('Missing email fields in action configuration.');
@@ -49,7 +54,7 @@ async function run(area) {
             throw new Error(`Failed to send email: ${errorData.error.message}`);
         }
 
-        return `Email to ${emailTo} sent successfully at ${new Date().toISOString()}.`;
+        return `Email to ${emailTo} sent successfully.`;
     } catch (error) {
         console.error('Error in Google send email reaction:', error);
         throw error;

@@ -3,45 +3,23 @@ import { Link, router } from "expo-router";
 import StylizedButton from "@/src/components/global/button";
 import Input from "@/src/components/global/textinput";
 import OrDivider from "@/src/components/auth/login/separator";
-import { useState, useEffect } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useState } from "react";
 
 import GoogleLogo from "@/assets/images/google.png";
 import AreaLogo from "@/assets/images/logo.png";
 
-import { API_URL } from "@/src/api/config";
+import { login } from "@/src/api/auth";
 
 export default function Index() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  useEffect(() => {
-    async function checkToken() {
-      const token = await AsyncStorage.getItem("token");
-      if (token) {
-        router.replace("/home");
-      }
-    }
-    checkToken();
-  }, []);
-
   async function handleLogin() {
     try {
-      const response = await fetch(`${API_URL}/api/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+      const response = await login(email, password);
+      console.log("LOGIN RESPONSE:", response);
 
-      const data = await response.json();
-      console.log("LOGIN RESPONSE:", data);
-
-      if (!response.ok) {
-        alert(data.error || `Login failed (${response.status})`);
-        return;
-      }
-
-      if (!data.success) {
+      if (!response.success) {
         alert("No token received from server.");
         return;
       }

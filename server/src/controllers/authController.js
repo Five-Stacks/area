@@ -1,7 +1,7 @@
 /* Import modules */
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { User } from '../models/userModel.js';
+import { User, OAuthAccount, UserService } from '../models/indexModel.js';
 
 /* Controller for user registration */
 const register = async (req, res) => {
@@ -18,6 +18,9 @@ const register = async (req, res) => {
 
     const password_hash = await bcrypt.hash(password, 10);
     const newUser = await User.create({ email, password_hash, name });
+
+    const timerOauth = await OAuthAccount.create({ user_id: newUser.id, provider: 'Timer', provider_user_id: `timer-${newUser.id}` });
+    await UserService.create({ user_id: newUser.id, service_id: 1, oauth_account_id: timerOauth.id });
 
     const token = jwt.sign({ userId: newUser.id, role: 'user' }, process.env.JWT_SECRET, { expiresIn: '1h' });
     res.cookie('token', token, { httpOnly: true, secure: false, maxAge: 60 * 60 * 1000 });
@@ -85,5 +88,24 @@ const isAdmin = async (req, res) => {
     }
 };
 
+/* Controller to return current user based on token cookie */
+const me = async (req, res) => {
+    const token = req.cookies.token;
+    if (!token) {
+        return res.status(401).json({ success: false, error: 'Not authenticated' });
+    }
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findByPk(decoded.userId, { attributes: { exclude: ['password_hash'] } });
+        if (!user) {
+            return res.status(404).json({ success: false, error: 'User not found' });
+        }
+        return res.status(200).json({ success: true, user });
+    } catch (err) {
+        console.error('Error in auth.me:', err);
+        return res.status(401).json({ success: false, error: 'Invalid token' });
+    }
+};
+
 /* Exported controllers */
-export default { register, login, logout, isConnected, isAdmin };
+export default { register, login, logout, isConnected, isAdmin, me };

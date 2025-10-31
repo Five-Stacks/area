@@ -19,10 +19,10 @@ const Area = sequelize.define('Area', {
         allowNull: false,
         references: { model: 'actions', key: 'id' }
     },
-    reaction_id: {
-        type: DataTypes.INTEGER,
+    reaction_ids: {
+        type: DataTypes.ARRAY(DataTypes.INTEGER),
         allowNull: false,
-        references: { model: 'reactions', key: 'id' }
+        defaultValue: []
     },
     config: {
         type: DataTypes.JSONB

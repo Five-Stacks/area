@@ -1,29 +1,68 @@
-import SearchModule from "@/src/components/tabs/dashboard/searchModule";
+import SearchModule, {
+  SearchModuleValues,
+} from "@/src/components/tabs/dashboard/searchModule";
 import AreaCard from "@/src/components/tabs/dashboard/areaCard";
 import { View, FlatList, StyleSheet } from "react-native";
-import ApiStateHandler from "@/src/components/global/apiStateHandler";
-import { useFilteredAreas } from "@/src/hooks/useFilteredAreas";
+import { GlobalDataContext } from "@/src/context/globalData";
+import { useCallback, useContext, useState } from "react";
+import { useFocusEffect } from "expo-router";
 
 export default function Dashboard() {
-  const { filteredAreas, setFilters, isLoading, error } = useFilteredAreas();
+  const { refreshAll, areas, updateArea, deleteArea, isLoading } =
+    useContext(GlobalDataContext);
+
+  const [searchModuleValues, setSearchModuleValues] =
+    useState<SearchModuleValues>({});
+
+  useFocusEffect(
+    useCallback(() => {
+      refreshAll();
+    }, [refreshAll]),
+  );
+
+  const filteredAreas = areas.filter((area) => {
+    let matches = true;
+
+    if (searchModuleValues.query) {
+      matches = matches && area.config.name.includes(searchModuleValues.query);
+    }
+
+    if (searchModuleValues.service) {
+      let services = area.config.trigger.service_name;
+
+      for (const action of area.config.actions) {
+        services += action.service_name === searchModuleValues.service;
+      }
+
+      matches = matches && services.includes(searchModuleValues.service);
+    }
+
+    if (searchModuleValues.status !== undefined) {
+      matches = matches && area.is_active === searchModuleValues.status;
+    }
+
+    return matches;
+  });
 
   return (
     <View style={styles.container}>
-      <SearchModule onQueryChange={setFilters} />
-      <ApiStateHandler isLoading={isLoading} error={error}>
-        <FlatList
-          data={filteredAreas}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <AreaCard
-              area={item}
-              actionService={item.actionService}
-              reactionService={item.reactionService}
-            />
-          )}
-          contentContainerStyle={styles.content}
-        />
-      </ApiStateHandler>
+      <SearchModule onQueryChange={setSearchModuleValues} />
+      <FlatList
+        data={filteredAreas}
+        keyExtractor={(item) => item.config.name + item.id.toString()}
+        renderItem={({ item }) => (
+          <AreaCard
+            area={item}
+            actionService={item.config.trigger.service_name}
+            reactionService={item.config.actions.service_name}
+            updateArea={updateArea}
+            deleteArea={deleteArea}
+          />
+        )}
+        contentContainerStyle={styles.content}
+        refreshing={isLoading}
+        onRefresh={refreshAll}
+      />
     </View>
   );
 }

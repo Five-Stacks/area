@@ -1,3 +1,4 @@
+/* Import modules */
 import getAccessToken from '../../../utils/getAccessToken.js';
 
 const serverTimeZone = 'Europe/Paris';
@@ -57,8 +58,12 @@ function formatDateTime(dateToken, time, isEnd = false) {
     return { dateTime, timeZone: serverTimeZone };
 }
 
-async function run(area) {
-    const actionForm = area?.config?.action?.datas_form || [];
+/* Run function for create new Google Calendar event reaction */
+async function run(area, reactionEntry) {
+    if (!reactionEntry) {
+        return 'No reaction entry provided.';
+    }
+    const reactionForm = reactionEntry?.datas_form || [];
 
     try {
         const accessToken = await getAccessToken(area, 'Google');
@@ -66,13 +71,13 @@ async function run(area) {
             throw new Error('Unable to obtain Google access token.');
         }
 
-        const eventTitle = actionForm.find(f => f.fieldName === "Name of the event")?.response || 'New Event';
-        const startDate = actionForm.find(f => f.fieldName === "Start date")?.response;
-        const endDate = actionForm.find(f => f.fieldName === "End date")?.response;
-        const startTime = actionForm.find(f => f.fieldName === "Start time")?.response;
-        const endTime = actionForm.find(f => f.fieldName === "End time")?.response;
-        const description = actionForm.find(f => f.fieldName === "Description")?.response || '';
-        const location = actionForm.find(f => f.fieldName === "Location")?.response || '';
+        const eventTitle = reactionForm.find(f => f.fieldName === "Name of the event")?.response || 'New Event';
+        const startDate = reactionForm.find(f => f.fieldName === "Start date in format YYYY-MM-DD or today, or +n days from now")?.response;
+        const endDate = reactionForm.find(f => f.fieldName === "End date in format YYYY-MM-DD or today, or +n days from now")?.response;
+        const startTime = reactionForm.find(f => f.fieldName === "Start time in format HH:MM (24h) or all-day")?.response;
+        const endTime = reactionForm.find(f => f.fieldName === "End time in format HH:MM (24h) or all-day")?.response;
+        const description = reactionForm.find(f => f.fieldName === "Description")?.response || '';
+        const location = reactionForm.find(f => f.fieldName === "Location")?.response || '';
 
         if (!startDate || !endDate || !startTime || !endTime) {
             throw new Error('Missing date or time fields in action configuration.');
@@ -101,11 +106,12 @@ async function run(area) {
         }
 
         const eventData = await response.json();
-        return `Event '${eventData.summary}' created successfully on ${new Date().toISOString()}.`;
+        return `Event '${eventData.summary}' created successfully.`;
     } catch (error) {
         console.error('Error in Google create event reaction:', error);
         throw error;
     }
 }
 
+/* Export the run function */
 export default { run };

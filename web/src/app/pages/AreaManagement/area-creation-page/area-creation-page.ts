@@ -40,7 +40,7 @@ interface BackendActionOrReaction {
 
 interface AreaCreateRequest {
   action_id: number;
-  reaction_id: number;
+  reaction_ids: number[];
   is_active: boolean;
   config: {
     name?: string;
@@ -50,11 +50,11 @@ interface AreaCreateRequest {
       datas_form?: { fieldId: number; fieldName: string; response: string }[];
       reactionChosenId?: number;
     };
-    action: {
+    actions: {
       service_name?: string;
       name?: string;
       datas_form?: { fieldId: number; fieldName: string; response: string }[];
-    };
+    }[];
   };
 }
 
@@ -73,7 +73,7 @@ interface AreaCreateRequest {
     TextFieldComponent
   ],
   templateUrl: './area-creation-page.html',
-  styleUrl: './area-creation-page.css'
+  styleUrls: ['./area-creation-page.css']
 })
 export class AreaCreationPage implements OnInit {
   private router = inject(Router);
@@ -144,31 +144,37 @@ export class AreaCreationPage implements OnInit {
   }[] = [];
 
   ngOnInit() {
-    this.apiService.get<ApiResponse<Service[]>>('service').subscribe((services: unknown) => {
-      const servicesResp = services as ApiResponse<Service[]> | null;
-      if (!servicesResp) return;
-      this.optionsServicesIds = [...servicesResp.data.map((service: Service) => service.id)];
-      this.optionsServicesTrigger = ['Choose Service'];
-      this.optionsServicesActions = ['Choose Service'];
+    this.apiService.get<ApiResponse<{ service_id: number }[]>>('userService').subscribe((userServices: unknown) => {
+      const userServicesResp = userServices as ApiResponse<{ service_id: number }[]> | null;
+      if (!userServicesResp) return;
+      this.optionsServicesIds = [...userServicesResp.data.map((service) => service.service_id)];
+      this.apiService.get<ApiResponse<Service[]>>('service').subscribe((services: unknown) => {
+        const servicesResp = services as ApiResponse<Service[]> | null;
+        if (!servicesResp) return;
+        this.optionsServicesTrigger = ['Choose Service'];
+        this.optionsServicesActions = ['Choose Service'];
 
-      servicesResp.data.forEach((service: Service) => {
-        this.apiService.get<ApiResponse<BackendActionOrReaction[]>>('reaction').subscribe((reactions: unknown) => {
-          const reactionsResp = reactions as ApiResponse<BackendActionOrReaction[]> | null;
-          if (!reactionsResp) return;
-          reactionsResp.data.forEach((element: BackendActionOrReaction) => {
-            if (element.service_id == service.id && !this.optionsServicesActions.includes(service.name)) {
-              this.optionsServicesActions.push(service.name);
-            }
-          });
-        });
-        this.apiService.get<ApiResponse<BackendActionOrReaction[]>>('action').subscribe((actions: unknown) => {
-          const actionsResp = actions as ApiResponse<BackendActionOrReaction[]> | null;
-          if (!actionsResp) return;
-          actionsResp.data.forEach((element: BackendActionOrReaction) => {
-            if (element.service_id == service.id && !this.optionsServicesTrigger.includes(service.name)) {
-              this.optionsServicesTrigger.push(service.name);
-            }
-          });
+        servicesResp.data.forEach((service: Service) => {
+          if (this.optionsServicesIds.includes(service.id)) {
+            this.apiService.get<ApiResponse<BackendActionOrReaction[]>>('reaction').subscribe((reactions: unknown) => {
+              const reactionsResp = reactions as ApiResponse<BackendActionOrReaction[]> | null;
+              if (!reactionsResp) return;
+              reactionsResp.data.forEach((element: BackendActionOrReaction) => {
+                if (element.service_id == service.id && !this.optionsServicesActions.includes(service.name)) {
+                  this.optionsServicesActions.push(service.name);
+                }
+              });
+            });
+            this.apiService.get<ApiResponse<BackendActionOrReaction[]>>('action').subscribe((actions: unknown) => {
+              const actionsResp = actions as ApiResponse<BackendActionOrReaction[]> | null;
+              if (!actionsResp) return;
+              actionsResp.data.forEach((element: BackendActionOrReaction) => {
+                if (element.service_id == service.id && !this.optionsServicesTrigger.includes(service.name)) {
+                  this.optionsServicesTrigger.push(service.name);
+                }
+              });
+            });
+          }
         });
       });
     });
@@ -220,8 +226,7 @@ export class AreaCreationPage implements OnInit {
       this.idEditingTrigger = -1;
       this.step = 1;
     } else {
-      if (this.isEditing)
-        this.idEditingTrigger = -1;
+      this.idEditingTrigger = -1;
       this.step = 1;
       this.isEditing = true;
       this.idEditingAction = actionId;
@@ -240,8 +245,7 @@ export class AreaCreationPage implements OnInit {
       this.idEditingAction = -1;
       this.step = 1;
     } else {
-      if (this.isEditing)
-        this.idEditingAction = -1;
+      this.idEditingAction = -1;
       this.step = 1;
       this.isEditing = true;
       this.idEditingTrigger = triggerId;
@@ -366,8 +370,12 @@ export class AreaCreationPage implements OnInit {
         actions.data.forEach((element: BackendActionOrReaction) => {
           this.reactionsList.push(element.name);
         });
-        // If already chosen, keep it
-        if (this.area.trigger.name && this.reactionsList.includes(this.area.trigger.name)) this.reactionChosen = this.area.trigger.name;
+        // Preserve existing selection if valid, otherwise default to the "Choose Reaction" item
+        if (this.area.trigger.name && this.reactionsList.includes(this.area.trigger.name)) {
+          this.reactionChosen = this.area.trigger.name;
+        } else {
+          this.reactionChosen = this.reactionsList[0];
+        }
       });
     });
   }
@@ -437,12 +445,22 @@ export class AreaCreationPage implements OnInit {
         actions.data.forEach((element: BackendActionOrReaction) => {
           this.reactionsList.push(element.name);
         });
-        // If already chosen, keep it
+        // Preserve existing selection if valid, otherwise default to the "Choose Reaction" item
         if (this.idEditingTrigger !== -1) {
-          if (this.area.trigger.name && this.reactionsList.includes(this.area.trigger.name)) this.reactionChosen = this.area.trigger.name;
+          if (this.area.trigger.name && this.reactionsList.includes(this.area.trigger.name)) {
+            this.reactionChosen = this.area.trigger.name;
+          } else if (!this.reactionsList.includes(this.reactionChosen)) {
+            this.reactionChosen = this.reactionsList[0];
+          }
         } else if (this.idEditingAction !== -1) {
           const actionName = this.area.actions[this.idEditingAction - 1].name;
-          if (actionName && this.reactionsList.includes(actionName)) this.reactionChosen = actionName;
+          if (actionName && this.reactionsList.includes(actionName)) {
+            this.reactionChosen = actionName;
+          } else if (!this.reactionsList.includes(this.reactionChosen)) {
+            this.reactionChosen = this.reactionsList[0];
+          }
+        } else if (!this.reactionsList.includes(this.reactionChosen)) {
+          this.reactionChosen = this.reactionsList[0];
         }
       });
     });
@@ -509,7 +527,7 @@ export class AreaCreationPage implements OnInit {
 
     const areaNew: AreaCreateRequest = {
       is_active: true,
-      reaction_id: -1,
+      reaction_ids: [],
       action_id: -1,
       config: {
         name: this.area.name,
@@ -519,28 +537,33 @@ export class AreaCreationPage implements OnInit {
           datas_form: this.area.trigger.datas_form,
           reactionChosenId: this.area.trigger.actionChosenId
         },
-        action: {
-          service_name: this.area.actions[0].serviceChosen,
-          name: this.area.actions[0].name,
-          datas_form: this.area.actions[0].datas_form,
-        }
+        actions: this.area.actions.map(a => ({
+          service_name: a.serviceChosen,
+          name: a.name,
+          datas_form: a.datas_form,
+        }))
       }
     };
 
-    // Get reaction Id by name
+    // Resolve action (trigger) id
     this.apiService.get<ApiResponse<BackendActionOrReaction[]>>('action').subscribe((resp: unknown) => {
-      const reactions = resp as ApiResponse<BackendActionOrReaction[]> | null;
-      if (!reactions) return;
-      reactions.data.forEach((reaction: BackendActionOrReaction) => {
-        if (reaction.name === this.area.trigger.name) areaNew.action_id = reaction.id;
+      const actions = resp as ApiResponse<BackendActionOrReaction[]> | null;
+      if (!actions) return;
+      actions.data.forEach((action: BackendActionOrReaction) => {
+        if (action.name === this.area.trigger.name) areaNew.action_id = action.id;
       });
 
+      // Resolve all reaction ids from UI actions list
       this.apiService.get<ApiResponse<BackendActionOrReaction[]>>('reaction').subscribe((resp2: unknown) => {
-        const actions = resp2 as ApiResponse<BackendActionOrReaction[]> | null;
-        if (!actions) return;
-        actions.data.forEach((action: BackendActionOrReaction) => {
-          if (action.name === this.area.actions[0].name) areaNew.reaction_id = action.id;
-        });
+        const reactions = resp2 as ApiResponse<BackendActionOrReaction[]> | null;
+        if (!reactions) return;
+        const ids: number[] = [];
+        for (const act of this.area.actions) {
+          if (!act.name) continue;
+          const match = reactions.data.find((reaction: BackendActionOrReaction) => reaction.name === act.name);
+          if (match) ids.push(match.id);
+        }
+        areaNew.reaction_ids = ids;
 
         this.apiService.post('area', areaNew).subscribe(() => {
           this.router.navigate(['/dashboard']);

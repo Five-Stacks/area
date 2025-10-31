@@ -1,11 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { of } from 'rxjs';
 import { SignInPage } from './sign-in-page';
 import { TextFieldComponent } from '../../../components/Forms/text-field-component/text-field-component';
 import { TextFieldHideComponent } from '../../../components/Forms/text-field-hide-component/text-field-hide-component';
-import { GoogleConnectComponent } from '../../../components/Forms/google-connect-component/google-connect-component';
 import { ButtonFullComponent } from '../../../components/Buttons/button-component-full/button-component-full';
-import { provideRouter, RouterLink } from '@angular/router';
+import { provideRouter, RouterLink, ActivatedRoute } from '@angular/router';
+import { AdminAuthService } from '../../../services/admin-auth.service';
 
 describe('SignInPage', () => {
   let fixture: ComponentFixture<SignInPage>;
@@ -22,10 +23,14 @@ describe('SignInPage', () => {
       }
     };
 
+    const adminAuthMock = { login: jasmine.createSpy('login').and.returnValue(of(true)) };
+
     await TestBed.configureTestingModule({
       imports: [RouterLink, SignInPage],
       providers: [
         provideRouter([]),
+        { provide: AdminAuthService, useValue: adminAuthMock },
+        { provide: ActivatedRoute, useValue: { snapshot: { queryParams: {} }, queryParams: of({}) } }
       ]
     }).compileComponents();
 
@@ -49,11 +54,6 @@ describe('SignInPage', () => {
     const hideFields = fixture.debugElement.queryAll(By.directive(TextFieldHideComponent));
     expect(textFields.length).toBe(1);
     expect(hideFields.length).toBe(1);
-  });
-
-  it('should render Google connect widget', () => {
-    const google = fixture.debugElement.query(By.directive(GoogleConnectComponent));
-    expect(google).toBeTruthy();
   });
 
   it('should render the LOG IN button with correct label', () => {
