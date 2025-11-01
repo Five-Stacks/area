@@ -1,9 +1,11 @@
 /* Import modules */
-import * as timer from "./timer/timer.js";
 import * as googleEmailReceived from "./google/emailReceived.js";
 import * as googleEventCreated from "./google/eventCreated.js";
 import * as googleEventStarted from "./google/eventStarted.js";
 import * as googleFileCreated from "./google/fileCreated.js";
+import * as timer from "./timer/timer.js";
+import * as spotifyCurrentlyPlaying from "./spotify/currentlyPlaying.js";
+import * as spotifyTrackChanged from "./spotify/trackChanged.js";
 import * as githubNewIssue from "./github/newIssue.js";
 import * as githubNewPullRequest from "./github/newPullRequest.js";
 import * as githubNewStar from "./github/newStar.js";
@@ -20,6 +22,8 @@ const actionsHandler = {
     'New GitHub Pull Request': githubNewPullRequest.default ?? githubNewPullRequest,
     'New Star on GitHub Repository': githubNewStar.default ?? githubNewStar,
     'New GitHub Release': githubNewRelease.default ?? githubNewRelease,
+    'Spotify now playing': spotifyCurrentlyPlaying.default ?? spotifyCurrentlyPlaying,
+    'Spotify track changed': spotifyTrackChanged.default ?? spotifyTrackChanged,
 };
 
 /* Export actions handler */

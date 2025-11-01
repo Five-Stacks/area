@@ -5,6 +5,7 @@ import { timerReactionConfig } from './services/timer/timer.js';
 import { sendEmailGmailReactionConfig } from './services/google/gmail.js';
 import { createNewEventGoogleReactionConfig } from './services/google/calendar.js';
 import { createIssueConfig, createPullRequestConfig, starRepositoryConfig, createReleaseConfig } from './services/github/github.js';
+import { spotifyAddCurrentTrackReactionConfig } from './services/spotify/spotify.js';
 
 /* Reaction setup function */
 async function reactionsSetup() {
@@ -26,6 +27,7 @@ async function reactionsSetup() {
         { service_id: services['Github'], name: 'Create GitHub Pull Request', description: "Create a new pull request in a GitHub repository", config: createPullRequestConfig },
         { service_id: services['Github'], name: 'Star GitHub Repository', description: "Star a GitHub repository", config: starRepositoryConfig },
         { service_id: services['Github'], name: 'Create GitHub Release', description: "Create a new release in a GitHub repository", config: createReleaseConfig },
+        { service_id: services['Spotify'], name: 'Add current Spotify track to playlist', description: "Add the currently playing track on Spotify to a specified playlist", config: spotifyAddCurrentTrackReactionConfig },
     ];
 
     for (const reactionData of reactions) {

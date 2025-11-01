@@ -6,6 +6,7 @@ import { googleEmailReceivedActionConfig } from './services/google/gmail.js';
 import { eventCreatedGoogleActionConfig, eventStartedGoogleActionConfig } from './services/google/calendar.js';
 import { fileCreatedGoogleActionConfig } from './services/google/drive.js';
 import { newIssueConfig, newPullRequestConfig, newStarConfig, newReleaseConfig } from './services/github/github.js';
+import { spotifyCurrentlyPlayingActionConfig } from './services/spotify/spotify.js';
 
 /* Action setup function */
 async function actionsSetup() {
@@ -29,6 +30,8 @@ async function actionsSetup() {
         { service_id: services['Github'], name: 'New GitHub Pull Request', description: "Triggered when a new pull request is created in a GitHub repository", config: newPullRequestConfig },
         { service_id: services['Github'], name: 'New Star on GitHub Repository', description: "Triggered when a GitHub repository receives a new star", config: newStarConfig },
         { service_id: services['Github'], name: 'New GitHub Release', description: "Triggered when a new release is published in a GitHub repository", config: newReleaseConfig },
+        { service_id: services['Spotify'], name: 'Spotify now playing', description: "Triggered when a new track starts playing on Spotify", config: spotifyCurrentlyPlayingActionConfig },
+        { service_id: services['Spotify'], name: 'Spotify track changed', description: "Triggered when the user's currently playing track changes", config: {} },
     ];
 
     for (const actionData of actions) {
