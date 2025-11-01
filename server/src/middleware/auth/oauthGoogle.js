@@ -9,10 +9,11 @@ import jwt from 'jsonwebtoken';
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:8080/api/oauth/google/callback",
+    callbackURL: "https://area.pintardware.dev/api/oauth/google/callback",
     passReqToCallback: true
 }, async (req, accessToken, refreshToken, profile, done) => {
     try {
+        console.log('google OAuth profile DEBUG--------------------------');
         // Try to find an existing oauth account for this provider user id
         const provider = 'Google';
         const providerUserId = profile.id;
