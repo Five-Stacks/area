@@ -9,7 +9,7 @@ import { Service } from '../../models/serviceModel.js';
 passport.use(new DiscordStrategy({
     clientID: process.env.DISCORD_CLIENT_ID,
     clientSecret: process.env.DISCORD_CLIENT_SECRET,
-    callbackURL: "http://localhost:8080/api/oauth/discord/callback",
+    callbackURL: "https://area.pintardware.dev/api/oauth/discord/callback",
     scope: ['identify', 'email', 'guilds'],
     passReqToCallback: true
 }, async (req, accessToken, refreshToken, profile, done) => {
