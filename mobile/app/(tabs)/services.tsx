@@ -48,8 +48,8 @@ export default function OAuthPage() {
     const { url } = event;
     console.log("Deep link received:", url);
     
-    if (url.includes('oauth-callback')) {
-      // Update the connection status after OAuth callback
+    if (url.includes('(tabs)/service') || url.includes('service')) {
+      // Update the connection status after OAuth redirect
       fetchStatus();
     }
   };
@@ -82,7 +82,9 @@ export default function OAuthPage() {
 
   const handleConnect = async (serviceId: string) => {
     try {
-      const redirectUri = Linking.createURL('oauth-callback');
+      // Use the deep link that points back to this service page
+      const redirectUri = Linking.createURL('(tabs)/service');
+      
       console.log("Redirect URI:", redirectUri);
 
       const connectURL = await initiateOAuth(serviceId, redirectUri);
@@ -93,10 +95,8 @@ export default function OAuthPage() {
       
       console.log("Browser result:", result);
       
-      // Refresh status after browser closes
-      if (result.type === 'cancel' || result.type === 'dismiss') {
-        await fetchStatus();
-      }
+      // Refresh status after browser closes or redirects back
+      await fetchStatus();
     } catch (error) {
       console.error("Error opening browser:", error);
     }
