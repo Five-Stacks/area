@@ -32,5 +32,19 @@ const timerReactionConfig = {
     ]
 };
 
+const timerEveryXActionConfig = {
+    "fields": [
+        {
+            "id": 1,
+            "mandatory": true,
+            "name": "Interval (minutes)",
+            "title": "Interval (minutes)",
+            "input_field": {
+                "placeholder": "e.g. 15"
+            }
+        }
+    ]
+};
+
 /* Export action config */
-export { timerActionConfig, timerReactionConfig };
+export { timerActionConfig, timerReactionConfig, timerEveryXActionConfig };

@@ -31,6 +31,13 @@ async function refreshTokenGoogle(oauthAccount) {
             throw err;
         }
         const tokenData = await tokenResponse.json();
+
+        const updateData = { access_token: tokenData.access_token };
+        if (tokenData.refresh_token) {
+            updateData.refresh_token = tokenData.refresh_token;
+        }
+        await oauthAccount.update(updateData);
+
         return tokenData.access_token;
     } catch (error) {
         console.error('Error refreshing Google token:', error);
@@ -67,6 +74,13 @@ async function refreshTokenMicrosoft(oauthAccount) {
             throw new Error(`Failed to refresh token: ${tokenResponse.status} ${tokenResponse.statusText} - ${text}`);
         }
         const tokenData = await tokenResponse.json();
+
+        const updateData = { access_token: tokenData.access_token };
+        if (tokenData.refresh_token) {
+            updateData.refresh_token = tokenData.refresh_token;
+        }
+        await oauthAccount.update(updateData);
+
         return tokenData.access_token;
     } catch (error) {
         console.error('Error refreshing Microsoft token:', error);
@@ -103,6 +117,13 @@ async function refreshTokenSpotify(oauthAccount) {
             throw new Error(`Failed to refresh token: ${tokenResponse.status} ${tokenResponse.statusText} - ${text}`);
         }
         const tokenData = await tokenResponse.json();
+
+        const updateData = { access_token: tokenData.access_token };
+        if (tokenData.refresh_token) {
+            updateData.refresh_token = tokenData.refresh_token;
+        }
+        await oauthAccount.update(updateData);
+
         return tokenData.access_token;
     } catch (error) {
         console.error('Error refreshing Spotify token:', error);
@@ -140,6 +161,13 @@ async function refreshTokenGithub(oauthAccount) {
             throw new Error(`Failed to refresh token: ${tokenResponse.status} ${tokenResponse.statusText} - ${text}`);
         }
         const tokenData = await tokenResponse.json();
+
+        const updateData = { access_token: tokenData.access_token };
+        if (tokenData.refresh_token) {
+            updateData.refresh_token = tokenData.refresh_token;
+        }
+        await oauthAccount.update(updateData);
+
         return tokenData.access_token;
     } catch (error) {
         console.error('Error refreshing GitHub token:', error);
@@ -176,6 +204,13 @@ async function refreshTokenTwitter(oauthAccount) {
             throw new Error(`Failed to refresh token: ${tokenResponse.status} ${tokenResponse.statusText} - ${text}`);
         }
         const tokenData = await tokenResponse.json();
+
+        const updateData = { access_token: tokenData.access_token };
+        if (tokenData.refresh_token) {
+            updateData.refresh_token = tokenData.refresh_token;
+        }
+        await oauthAccount.update(updateData);
+
         return tokenData.access_token;
     } catch (error) {
         console.error('Error refreshing Twitter token:', error);
@@ -212,6 +247,18 @@ async function refreshTokenDiscord(oauthAccount) {
             throw new Error(`Failed to refresh token: ${tokenResponse.status} ${tokenResponse.statusText} - ${text}`);
         }
         const tokenData = await tokenResponse.json();
+
+        if (tokenData.refresh_token) {
+            await oauthAccount.update({
+                access_token: tokenData.access_token,
+                refresh_token: tokenData.refresh_token
+            });
+        } else {
+            await oauthAccount.update({
+                access_token: tokenData.access_token
+            });
+        }
+
         return tokenData.access_token;
     } catch (error) {
         console.error('Error refreshing Discord token:', error);

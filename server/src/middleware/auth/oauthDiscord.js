@@ -10,7 +10,7 @@ passport.use(new DiscordStrategy({
     clientID: process.env.DISCORD_CLIENT_ID,
     clientSecret: process.env.DISCORD_CLIENT_SECRET,
     callbackURL: "http://localhost:8080/api/oauth/discord/callback",
-    scope: ['identify', 'email'],
+    scope: ['identify', 'email', 'guilds'],
     passReqToCallback: true
 }, async (req, accessToken, refreshToken, profile, done) => {
     try {
@@ -56,5 +56,6 @@ passport.use(new DiscordStrategy({
 export default passport;
 
 export const discordAuthOptions = {
-    scope: ['identify', 'email', 'guilds']
+    scope: ['identify', 'email', 'guilds'],
+    prompt: 'consent'
 };

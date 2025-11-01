@@ -85,6 +85,10 @@ async function getAccessToken(area, serviceName) {
         }
         return accessToken;
     } catch (error) {
+        if (error.message && (error.message.includes('invalid_grant') || error.message.includes('400 Bad Request'))) {
+            console.error(`${serviceName} refresh token is invalid or expired. User needs to re-authenticate.`);
+            console.error(`Area ID: ${area.id}, User ID: ${userId}`);
+        }
         console.error(`Error getting ${serviceName} access token:`, error);
         return null;
     }
