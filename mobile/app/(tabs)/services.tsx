@@ -7,9 +7,8 @@ import {
   TouchableOpacity,
   FlatList,
 } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { API_URL } from "@/src/api/config";
 import Input from "@/src/components/global/textinput";
+import { getOAuthStatus, initiateOAuth } from "@/src/api/oauth";
 
 import * as Linking from 'expo-linking';
 import * as WebBrowser from 'expo-web-browser';
@@ -31,24 +30,6 @@ export default function OAuthPage() {
   const [filteredData, setFilteredData] = useState(services);
 
   useEffect(() => {
-    async function fetchStatus() {
-      try {
-        const token = await AsyncStorage.getItem("token");
-        if (!token) return;
-
-        const response = await fetch(`${API_URL}/oauth/status`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const data = await response.json();
-
-        setServices((prev) =>
-          prev.map((s) => ({ ...s, connected: !!data[s.id] })),
-        );
-      } catch (err) {
-        console.log("Error fetching OAuth status:");
-        console.error(err);
-      }
-    }
     fetchStatus();
 
     // Listen for deep link callbacks
@@ -68,21 +49,14 @@ export default function OAuthPage() {
     console.log("Deep link received:", url);
     
     if (url.includes('oauth-callback')) {
-      // Extract service ID from the URL if needed
-      // Update the connection status
+      // Update the connection status after OAuth callback
       fetchStatus();
     }
   };
 
   const fetchStatus = async () => {
     try {
-      const token = await AsyncStorage.getItem("token");
-      if (!token) return;
-
-      const response = await fetch(`${API_URL}/oauth/status`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const data = await response.json();
+      const data = await getOAuthStatus();
 
       setServices((prev) =>
         prev.map((s) => ({ ...s, connected: !!data[s.id] })),
@@ -107,13 +81,13 @@ export default function OAuthPage() {
   };
 
   const handleConnect = async (serviceId: string) => {
-    const redirectUri = Linking.createURL('oauth-callback');
-    console.log("Redirect URI:", redirectUri);
-
-    const connectURL = `${API_URL}/oauth/${serviceId}?redirect_to=${encodeURIComponent(redirectUri)}`;
-    console.log("Opening browser with URL:", connectURL);
-
     try {
+      const redirectUri = Linking.createURL('oauth-callback');
+      console.log("Redirect URI:", redirectUri);
+
+      const connectURL = await initiateOAuth(serviceId, redirectUri);
+      console.log("Opening browser with URL:", connectURL);
+
       // Open the OAuth URL in the device's default browser
       const result = await WebBrowser.openBrowserAsync(connectURL);
       
