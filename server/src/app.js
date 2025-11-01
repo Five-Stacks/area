@@ -18,6 +18,10 @@ import notFound from './middleware/notFound.js';
 /* App initialization */
 const app = express();
 
+
+// ✅ Add this line early — right after creating the app
+app.set('trust proxy', 1);
+
 /* CORS configuration */
 app.use(corsSetup);
 

@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - dev
+      - AREA-152-Services-Actions-and-Reactions
 
 jobs:
   deploy:
