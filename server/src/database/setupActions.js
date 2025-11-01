@@ -5,6 +5,8 @@ import { timerActionConfig, timerEveryXActionConfig } from './services/timer/tim
 import { googleEmailReceivedActionConfig } from './services/google/gmail.js';
 import { eventCreatedGoogleActionConfig, eventStartedGoogleActionConfig } from './services/google/calendar.js';
 import { fileCreatedGoogleActionConfig } from './services/google/drive.js';
+import { newIssueConfig, newPullRequestConfig, newStarConfig, newReleaseConfig } from './services/github/github.js';
+import { spotifyCurrentlyPlayingActionConfig } from './services/spotify/spotify.js';
 
 /* Import discord action config */
 import { discordProfileChangedActionConfig } from './services/discord/profile.js';
@@ -28,6 +30,12 @@ async function actionsSetup() {
         { service_id: services['Google'], name: 'New Google Calendar event', description: "Triggered when a new event is created in Google Calendar", config: eventCreatedGoogleActionConfig },
         { service_id: services['Google'], name: 'Google Calendar event started', description: "Triggered when a Google Calendar event is starting", config: eventStartedGoogleActionConfig },
         { service_id: services['Google'], name: 'New Google Drive file', description: "Triggered when a new file is created in Google Drive", config: fileCreatedGoogleActionConfig },
+        { service_id: services['Github'], name: 'New GitHub Issue', description: "Triggered when a new issue is created in a GitHub repository", config: newIssueConfig },
+        { service_id: services['Github'], name: 'New GitHub Pull Request', description: "Triggered when a new pull request is created in a GitHub repository", config: newPullRequestConfig },
+        { service_id: services['Github'], name: 'New Star on GitHub Repository', description: "Triggered when a GitHub repository receives a new star", config: newStarConfig },
+        { service_id: services['Github'], name: 'New GitHub Release', description: "Triggered when a new release is published in a GitHub repository", config: newReleaseConfig },
+        { service_id: services['Spotify'], name: 'Spotify now playing', description: "Triggered when a new track starts playing on Spotify", config: spotifyCurrentlyPlayingActionConfig },
+        { service_id: services['Spotify'], name: 'Spotify track changed', description: "Triggered when the user's currently playing track changes", config: {} },
 
         { service_id: services['Discord'], name: 'Guild (discord server) joined', description: "Triggered when the user joins a new guild", config: {} },
         { service_id: services['Discord'], name: 'Profile changed', description: "Triggered when the user's profile (username/avatar) changes", config: discordProfileChangedActionConfig || {} },

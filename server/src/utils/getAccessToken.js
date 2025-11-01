@@ -27,22 +27,58 @@ async function getAccessToken(area, serviceName) {
         let accessToken;
         switch (serviceName) {
             case 'Google':
-                accessToken = await refreshTokens.refreshTokenGoogle(oauthAccount);
+                if (oauthAccount.refresh_token) {
+                    accessToken = await refreshTokens.refreshTokenGoogle(oauthAccount);
+                } else if (oauthAccount.access_token) {
+                    accessToken = oauthAccount.access_token;
+                } else {
+                    throw new Error(`No access or refresh token available for ${serviceName}`);
+                }
                 break;
             case 'Microsoft':
-                accessToken = await refreshTokens.refreshTokenMicrosoft(oauthAccount);
+                if (oauthAccount.refresh_token) {
+                    accessToken = await refreshTokens.refreshTokenMicrosoft(oauthAccount);
+                } else if (oauthAccount.access_token) {
+                    accessToken = oauthAccount.access_token;
+                } else {
+                    throw new Error(`No access or refresh token available for ${serviceName}`);
+                }
                 break;
             case 'Github':
-                accessToken = await refreshTokens.refreshTokenGithub(oauthAccount);
+                if (oauthAccount.refresh_token) {
+                    accessToken = await refreshTokens.refreshTokenGithub(oauthAccount);
+                } else if (oauthAccount.access_token) {
+                    accessToken = oauthAccount.access_token;
+                } else {
+                    throw new Error(`No access or refresh token available for ${serviceName}`);
+                }
                 break;
             case 'Spotify':
-                accessToken = await refreshTokens.refreshTokenSpotify(oauthAccount);
+                if (oauthAccount.refresh_token) {
+                    accessToken = await refreshTokens.refreshTokenSpotify(oauthAccount);
+                } else if (oauthAccount.access_token) {
+                    accessToken = oauthAccount.access_token;
+                } else {
+                    throw new Error(`No access or refresh token available for ${serviceName}`);
+                }
                 break;
             case 'Discord':
-                accessToken = await refreshTokens.refreshTokenDiscord(oauthAccount);
+                if (oauthAccount.refresh_token) {
+                    accessToken = await refreshTokens.refreshTokenDiscord(oauthAccount);
+                } else if (oauthAccount.access_token) {
+                    accessToken = oauthAccount.access_token;
+                } else {
+                    throw new Error(`No access or refresh token available for ${serviceName}`);
+                }
                 break;
             case 'Twitter':
-                accessToken = await refreshTokens.refreshTokenTwitter(oauthAccount);
+                if (oauthAccount.refresh_token) {
+                    accessToken = await refreshTokens.refreshTokenTwitter(oauthAccount);
+                } else if (oauthAccount.access_token) {
+                    accessToken = oauthAccount.access_token;
+                } else {
+                    throw new Error(`No access or refresh token available for ${serviceName}`);
+                }
                 break;
             default:
                 throw new Error(`Unsupported service: ${serviceName}`);
