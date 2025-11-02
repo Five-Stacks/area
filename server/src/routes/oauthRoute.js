@@ -71,9 +71,13 @@ router.get('/', (req, res) => {
 // Google OAuth routes
 
 router.get('/google', (req, res, next) => {
+  console.log('Initiating Google OAuth flow');
   const redirectTo = req.body?.redirect_to || req.query?.redirect_to;
   const options = { ...googleAuthOptions };
-  const state = redirectTo ? buildState(redirectTo) : undefined;
+  const state = buildState({
+    redirect_to: redirectTo || '/',
+    token: req.query?.token
+  });
   if (state) options.state = state;
   passport.authenticate('google', options)(req, res, next);
 });

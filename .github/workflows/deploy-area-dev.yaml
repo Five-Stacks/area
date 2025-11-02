@@ -3,7 +3,7 @@ name: Deploy AREA Dev
 on:
   push:
     branches:
-      - dev
+      - AREA-152-Services-Actions-and-Reactions
 
 jobs:
   deploy:
