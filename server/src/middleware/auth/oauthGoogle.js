@@ -21,10 +21,10 @@ passport.use(new GoogleStrategy({
 
         // Only verify JWT if a token is present in cookies. Do not call jwt.verify with undefined.
         let token;
-        if (req.cookies && req.cookies.token) {
-            token = req.cookies.token;
-        } else if (req.headers && req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
+        if (req.headers && req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
             token = req.headers.authorization.split(' ')[1];
+        } else if (req.cookies && req.cookies.token) {
+            token = req.cookies.token;
         }
         if (token) {
             try {
