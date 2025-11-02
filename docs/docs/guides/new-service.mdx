@@ -1,0 +1,90 @@
+---
+id: new-service
+title: New Service
+---
+
+# New Service
+
+## Quick summary
+
+- Input: add the service entry to `server/src/database/setupServices.js`.
+- For OAuth services: add provider middleware, register Passport strategy, wire routes in `server/src/routes/oauthRoute.js`, implement token refresh logic in `server/src/utils/refreshTokens.js`, and ensure `server/src/utils/getAccessToken.js` supports the service.
+- Output: service is seeded on server start, users can link accounts via OAuth, and actions/reactions can call third-party APIs using `getAccessToken(area, '<ServiceName>')`.
+
+## Files to edit/add
+
+- `server/src/database/setupServices.js` — add your service object to the array so it is seeded at server start.
+- `server/src/middleware/auth/oauth<Provider>.js` — create a Passport/OAuth strategy file (follow existing examples: `oauthGoogle.js`, `oauthGithub.js`).
+- `server/src/routes/oauthRoute.js` — register the new provider routes (`/auth/<provider>` and `/auth/<provider>/callback`) similarly to existing providers.
+- `server/src/utils/refreshTokens.js` — implement refresh logic for the provider.
+- `server/src/utils/getAccessToken.js` — add a branch to call the appropriate refresh token helper and return a usable access token.
+
+## Step-by-step: Add a new OAuth-enabled service (example: Github)
+
+1) Add the service to the DB seed
+
+	- Edit `server/src/database/setupServices.js` and add an entry for the service:
+
+	```js
+	{ name: 'Github', description: 'Connect GitHub to react to repository activity and automate workflows.' }
+	```
+
+	- Restart the server; the seeding script runs on boot and creates the `Service` row if it does not exist.
+
+2) Add Passport strategy / middleware
+
+	- Add a file `server/src/middleware/auth/oauthGithub.js` mirroring the pattern in `oauthGoogle.js` or other providers. This file should export the strategy options (the route code imports a named export like `githubAuthOptions`).
+	- The middleware file typically sets up `passport.use(new Strategy(...))` and configures scopes, client IDs, client secrets and the callback URL.
+
+3) Wire the OAuth routes
+
+	- Open `server/src/routes/oauthRoute.js`. This file centralizes provider routes and shows the exact pattern used by other providers. Add entries similar to the existing Github block if you created a new provider file, for example:
+
+	```js
+	router.get('/github', verifyToken, (req, res, next) => {
+	  const redirectTo = req.body?.redirect_to || req.query?.redirect_to;
+	  const options = { ...githubAuthOptions };
+	  const state = redirectTo ? buildState(redirectTo) : undefined;
+	  if (state) options.state = state;
+	  passport.authenticate('github', options)(req, res, next);
+	});
+
+	router.get('/github/callback',
+	  verifyToken,
+	  passport.authenticate('github', { failureRedirect: '/login' }),
+	  (req, res) => {
+		 const redirectTo = extractRedirectFromState(req);
+		 res.redirect(redirectTo);
+	  }
+	);
+	```
+
+	- Note: `oauthRoute.js` already contains helper functions used by providers: `buildState()`, `extractRedirectFromState()` and `restoreUserFromState()` — follow that pattern so the front-end can pass a redirect path and (optionally) a JWT in the state payload.
+
+4) Implement token refresh logic
+
+	- Edit `server/src/utils/refreshTokens.js` and add functions to refresh the provider tokens (examples exist for Google, Microsoft, Spotify, etc.). Your refresh function should accept an `oauthAccount` record and return a fresh access token or the updated oauthAccount as needed.
+
+5) Wire `getAccessToken()`
+
+	- Edit `server/src/utils/getAccessToken.js` and add a switch/case branch to call your refresh function and return the access token. The existing file already contains the pattern used by other services; add your provider name (capitalized like `Github`) to the switch.
+
+6) Verify `UserService` linking works
+
+	- When a user completes OAuth consent, the app should create or update `OAuthAccount` and `UserService` rows (look at other provider middleware for the exact save logic). Ensure the `UserService` `oauth_account_id` matches the created `OAuthAccount` so `getAccessToken()` can find it.
+
+7) Test end-to-end
+
+	- Restart the server.
+	- In the browser, sign in and click the provider link to start OAuth (the front-end calls the backend OAuth entrypoints). After consenting, check that:
+	  - The user has a new `OAuthAccount` in the DB.
+	  - `UserService` for that user contains a `service_id` pointing to the seeded service and a `oauth_account_id` pointing to the OAuthAccount.
+	  - `getAccessToken(area, '<ServiceName>')` returns a non-null token for areas created by that user.
+
+## Common pitfalls and checks
+
+- Naming: use the same service canonical name everywhere (`getServiceId()` normalizes names by capitalizing the first letter). The service name is used to look up `Service` rows and to map `UserService` links.
+- State handling: `oauthRoute.js` allows sending a JWT in the `state` parameter so the callback can restore `req.user` for token linking — follow the `buildState()` / `restoreUserFromState()` pattern to support this flow.
+- verifyToken: some providers require `verifyToken` on the route (see `spotify`, `discord`, `github` usage in `oauthRoute.js`) so the user is already authenticated before linking an external account. Match the pattern used by similar providers.
+- Refresh tokens: many providers issue long-lived refresh tokens; saving and using them correctly is key to a good UX (avoid re-auth prompts). Implement refresh logic in `refreshTokens.js` and return stable tokens via `getAccessToken()`.
+- Error handling: make `getAccessToken()` log and return `null` on missing/unlinked accounts so action/reaction handlers can surface a clear error message to the user.

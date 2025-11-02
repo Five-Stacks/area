@@ -8,11 +8,11 @@ import { Service } from '../../models/serviceModel.js';
 passport.use(new SpotifyStrategy({
     clientID: process.env.SPOTIFY_CLIENT_ID,
     clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-    callbackURL: "http://127.0.0.1:8080/api/oauth/spotify/callback",
+    callbackURL: "https://area.pintardware.dev/api/oauth/spotify/callback",
     passReqToCallback: true
 }, async (req, accessToken, refreshToken, profile, done) => {
     try {
-        const provider = 'spotify';
+        const provider = 'Spotify';
         const providerUserId = profile.id;
 
         let oauthAccount = await OAuthAccount.findOne({ where: { provider, provider_user_id: providerUserId } });
@@ -59,6 +59,7 @@ export const spotifyAuthOptions = {
         'user-read-private',
         'playlist-read-private',
         'playlist-modify-private',
+        'playlist-modify-public',
         'user-read-playback-state',
         'user-modify-playback-state'
     ]

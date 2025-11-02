@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { View, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  StyleProp,
+  ViewStyle,
+  TextStyle,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 type InputProps = {
@@ -7,6 +15,10 @@ type InputProps = {
   value?: string;
   placeholder?: string;
   secureTextEntry?: boolean;
+  showSearchIcon?: boolean; // ✅ optional magnifying glass
+  iconColor?: string; // ✅ customizable color
+  style?: StyleProp<TextStyle>;
+  containerStyle?: StyleProp<ViewStyle>;
 };
 
 const Input: React.FC<InputProps> = ({
@@ -14,14 +26,30 @@ const Input: React.FC<InputProps> = ({
   onChangeText,
   placeholder,
   secureTextEntry,
-}: InputProps) => {
-  const { inputStyle, containerStyle } = styles;
+  showSearchIcon = false,
+  iconColor = "gray", // default
+  style,
+  containerStyle,
+}) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   return (
-    <View style={containerStyle}>
+    <View style={[styles.containerStyle, containerStyle]}>
+      {showSearchIcon && (
+        <Ionicons
+          name="search"
+          size={20}
+          color={iconColor}
+          style={styles.leftIcon}
+        />
+      )}
+
       <TextInput
-        style={inputStyle}
+        style={[
+          styles.inputStyle,
+          style,
+          showSearchIcon && { paddingLeft: 35 },
+        ]} // space for icon
         value={value}
         onChangeText={onChangeText}
         placeholder={placeholder}
@@ -38,7 +66,7 @@ const Input: React.FC<InputProps> = ({
           <Ionicons
             name={isPasswordVisible ? "eye" : "eye-off"}
             size={20}
-            color="gray"
+            color={iconColor}
           />
         </TouchableOpacity>
       )}
@@ -56,11 +84,18 @@ const styles = StyleSheet.create({
     borderColor: "#ddd",
     borderWidth: 1,
     borderRadius: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
   },
   containerStyle: {
     height: 60,
     alignItems: "center",
     marginBottom: 10,
+  },
+  leftIcon: {
+    position: "absolute",
+    left: 25,
+    top: 25,
   },
   iconContainer: {
     position: "absolute",

@@ -1,0 +1,24 @@
+.explorer-page {
+    text-align: center;
+    padding-top: 100px;
+    padding-left: 200px;
+    padding-right: 200px;
+    h1 {
+        font-size: 45px;
+        font-weight: bold;
+        color: var(--black-color);
+    }
+}
+
+.services-list {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+}
+
+.search-bar {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    gap: 20px;
+}

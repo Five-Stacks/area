@@ -16,7 +16,7 @@ const config: Config = {
 
   // Set the production url of your site here
   url: 'https://five-stacks.github.io',
-  baseUrl: '/area/',
+  baseUrl: process.env.NODE_ENV === 'development' ? '/' : '/area/',
 
   // GitHub pages deployment config.
   organizationName: 'Five-Stacks',
@@ -73,6 +73,12 @@ const config: Config = {
         },
         {
           type: 'docSidebar',
+          sidebarId: 'userGuideSidebar',
+          position: 'left',
+          label: 'User Guide',
+        },
+        {
+          type: 'docSidebar',
           sidebarId: 'apiSidebar',
           position: 'left',
           label: 'API References',
@@ -92,6 +98,10 @@ const config: Config = {
             {
               label: 'Guides',
               to: '/guides/installation',
+            },
+            {
+              label: 'User Guide',
+              to: '/user-guide/overview',
             },
             {
               label: 'API References',

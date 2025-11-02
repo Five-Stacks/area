@@ -1,2 +1,16 @@
-<p>explorer-page works!</p>
 <app-area-header></app-area-header>
+<div class="explorer-page">
+    <h1>EXPLORE</h1>
+    <app-text-field-component
+        [label]="'Search service...'"
+        [type]="'text'"
+        [(value)]="searchService"
+        (valueChange)="searchService = $event"
+    ></app-text-field-component>
+    <div class="services-list">
+        <app-card-service *ngFor="let service of filteredSerice()"
+            [name]="service.name"
+            [description]="service.description"
+        ></app-card-service>
+    </div>
+</div>

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
@@ -7,13 +7,12 @@ import { map, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AdminAuthService {
-  private apiUrl = 'http://localhost:8080/api'; // Adjust based on your server config
+  private apiUrl = 'https://area.pintardware.dev/api'; // Adjust based on your server config
+  private http: HttpClient = inject(HttpClient);
 
-  constructor(private http: HttpClient) {
-  }
 
   isAdmin(): Observable<boolean> {
-    return this.http.get<{ isAdmin: boolean }>(`${this.apiUrl}/auth/is-admin`, { withCredentials: true }).pipe(
+    return this.http.get<{ isAdmin: boolean }>(`${this.apiUrl}/auth/isAdmin`, { withCredentials: true }).pipe(
       map(response => response.isAdmin),
       catchError(error => {
         console.error('Error checking admin status:', error);
@@ -23,8 +22,8 @@ export class AdminAuthService {
   }
 
   isAuthenticated(): Observable<boolean> {
-    return this.http.get<{ isAuthenticated: boolean }>(`${this.apiUrl}/auth/is-authenticated`, { withCredentials: true }).pipe(
-      map(response => response.isAuthenticated),
+    return this.http.get<{ connected: boolean }>(`${this.apiUrl}/auth/isConnected`, { withCredentials: true }).pipe(
+      map(response => response.connected),
       catchError(error => {
         console.error('Error checking authentication status:', error);
         return of(false);
@@ -43,22 +42,22 @@ export class AdminAuthService {
     });
   }
 
-  login(email: string, password: string): Observable<boolean> {
-    return this.http.post<{ success: boolean }>(`${this.apiUrl}/auth/login`, { email, password }, { withCredentials: true }).pipe(
-      map(response => response.success),
+  login(email: string, password: string): Observable<[boolean, string]> {
+    return this.http.post<{ success: boolean; message?: string; token: string }>(`${this.apiUrl}/auth/login`, { email, password }, { withCredentials: true }).pipe(
+      map(response => [response.success, response.token] as [boolean, string]),
       catchError(error => {
         console.error('Login error:', error);
-        return of(false);
+        return of([false, 'Login failed'] as [boolean, string]);
       })
     );
   }
 
-  register(email: string, password: string, name: string): Observable<boolean> {
-    return this.http.post<{ success: boolean }>(`${this.apiUrl}/auth/register`, { email, password, name }, { withCredentials: true }).pipe(
-      map(response => response.success),
+  register(email: string, password: string, name: string): Observable<[boolean, string]> {
+    return this.http.post<{ success: boolean; message?: string;  token: string }>(`${this.apiUrl}/auth/register`, { email, password, name }, { withCredentials: true }).pipe(
+      map(response => [response.success, response.token] as [boolean, string]),
       catchError(error => {
         console.error('Registration error:', error);
-        return of(false);
+        return of([false, 'Registration failed'] as [boolean, string]);
       })
     );
   }

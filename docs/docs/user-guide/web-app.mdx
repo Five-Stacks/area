@@ -1,0 +1,466 @@
+---
+sidebar_position: 4
+title: Web Application Guide
+description: Complete guide to using the AREA web platform
+---
+
+# 🖥️ Web Application Guide
+
+The AREA web application provides a full-featured desktop experience for managing your automation workflows. Access it from any modern web browser and enjoy a powerful, intuitive interface.
+
+## Getting Started
+
+### Accessing the Web Application
+
+1. Open your web browser (Chrome, Firefox, Safari, Edge)
+2. Navigate to: **https://area-project.com** (or your deployment URL)
+3. You'll see the landing page with login/signup options
+
+![Web Landing Page](/img/user-guide/web-landing.png)
+
+### Creating an Account
+
+#### Email Registration
+
+1. Click **"Sign Up"** on the homepage
+2. Fill in the registration form:
+   - 📧 Email address
+   - 🔐 Password (min 8 characters)
+   - 🔐 Confirm password
+   - ✅ Accept terms and conditions
+3. Click **"Create Account"**
+4. Check your email for verification link
+5. Click the link to verify your account
+6. You're ready to start!
+
+![Web Registration](/img/user-guide/web-register.png)
+
+### Logging In
+
+1. Click **"Login"** on the homepage
+2. Enter your credentials:
+   - 📧 Email
+   - 🔐 Password
+3. Click **"Sign In"**
+
+**Or use OAuth:**
+- Click your preferred OAuth provider
+- Authenticate
+- You're in!
+
+---
+
+## Dashboard Overview
+
+After logging in, you'll see your dashboard - your central hub for all automation activities.
+
+![Web Dashboard](/img/user-guide/web-dashboard.png)
+
+### Dashboard Sections
+
+#### 1. Navigation Bar (Top)
+
+| Element | Function |
+|---------|----------|
+| 🏠 Dashboard | Return to main dashboard |
+| ⚡ AREAs | View and manage automations |
+| 🔌 Services | Connect and manage services |
+| 👤 Profile | Account settings |
+| 🔔 Notifications | View alerts |
+| 🌙 Theme Toggle | Switch dark/light mode |
+
+#### 2. Quick Stats Cards
+
+Visual overview of your automation ecosystem:
+- **Total AREAs**: Number of workflows created
+- **Active AREAs**: Currently enabled automations
+- **Today's Executions**: Triggers in the last 24 hours
+- **Success Rate**: Percentage of successful runs
+
+#### 3. Recent Activity
+
+Live feed of automation executions:
+- ✅ Successful runs (green)
+- ❌ Failed runs (red)
+- ⏰ Timestamps
+- 🔍 Quick detail view
+
+#### 4. Quick Actions
+
+Shortcuts to common tasks:
+- ➕ **Create New AREA**
+- 🔌 **Connect Service**
+- 📊 **View Analytics**
+- ⚙️ **Settings**
+
+---
+
+## Navigation & Layout
+
+### Top Navigation Bar
+
+Always accessible, providing quick access to main sections.
+
+**Features:**
+- **Breadcrumb navigation**: Shows current location
+- **Global search**: Find AREAs, services, settings (Ctrl/Cmd + K)
+- **Notification center**: Click bell icon for alerts
+- **User menu**: Click avatar for account options
+
+![Web Navigation](/img/user-guide/web-navigation.png)
+
+### Sidebar (Collapsible)
+
+Toggle with the hamburger icon (☰):
+- Quick navigation to all sections
+- Service shortcuts
+- Recently accessed items
+- Favorites
+
+---
+
+## Services Management
+
+### Viewing Available Services
+
+Navigate to **Services** from the top menu to see:
+- All available services (grid or list view)
+- Connection status
+- Available actions and reactions
+- Service documentation links
+
+![Services Page](/img/user-guide/web-services.png)
+
+### Connecting Services
+
+#### Step-by-Step Process
+
+1. **Navigate** to the Services page
+2. **Find** the service you want to connect
+3. **Click** the **"Connect"** button on the service card
+4. **Authenticate** via OAuth:
+   - New browser window/tab opens
+   - Log in to the service
+   - Review permissions requested
+   - Click "Authorize" or "Allow"
+5. **Return** to AREA (automatic redirect)
+6. ✅ **Connected!** The service card now shows "Connected"
+
+![Connect Service Web](/img/user-guide/web-connect-service.png)
+
+:::warning
+Make sure popup blockers are disabled for the AREA website, as OAuth authentication opens in a new window.
+:::
+
+### Managing Connected Services
+
+Click on a connected service card to see:
+
+#### Service Details
+- 🔗 Connected account information
+- 📅 Connection date and time
+- 🔐 Permissions granted
+- 📊 Usage statistics
+
+#### Available Actions
+- List of trigger events you can use
+- Parameter requirements
+- Usage examples
+
+#### Available Reactions
+- List of responses you can configure
+- Parameter options
+- Usage examples
+
+#### Manage Connection
+- **Reconnect**: Re-authenticate (for more permissions)
+- **Disconnect**: Remove service connection
+- **Test Connection**: Verify service is working
+
+![Connect Service Web](/img/user-guide/web-connect-service.png)
+
+### Service Settings
+
+Click the **gear icon** on a service card to:
+- Configure service-specific settings
+- Set default parameters
+- Manage webhooks (advanced)
+- View API usage
+
+---
+
+## Working with AREAs
+
+### AREAs Page Overview
+
+Navigate to **AREAs** to see all your automation workflows.
+
+![AREAs Page](/img/user-guide/web-dashboard.png)
+
+#### View Options
+
+Switch between different views:
+- **📋 List View**: Compact list with details
+- **🎴 Grid View**: Visual cards with icons
+- **📊 Table View**: Detailed table with all fields
+
+#### Filtering Options
+
+Filter your AREAs by:
+- **Status**: All, Enabled, Disabled
+- **Service**: Filter by action or reaction service
+- **Date**: Created, modified, last execution
+- **Custom tags**: If you've tagged your AREAs
+
+#### Sorting Options
+
+Sort by:
+- Name (A-Z, Z-A)
+- Creation date
+- Last execution
+- Success rate
+- Number of executions
+
+### Creating an AREA (Detailed)
+
+Click the **"+ Create New AREA"** button to open the creation wizard.
+
+#### Step 1: Select Action
+
+![AREA Creation Step 2](/img/user-guide/web-create-step1.png)
+
+1. Choose a service from the dropdown or grid
+2. Select an action type
+3. See a preview of available parameters
+
+**Popular Actions:**
+- **GitHub**: Repository events (issues, PRs, stars)
+- **Discord**: Server events (messages, joins)
+- **Spotify**: Music events (saved tracks, playlists)
+- **Microsoft**: Email and calendar events
+- **Twitter**: Tweet and timeline events
+
+#### Step 2: Configure Action Parameters
+
+![AREA Creation Step 3](/img/user-guide/web-create-step3.png)
+
+Fill in required parameters based on the action type.
+
+**Example - GitHub New Issue:**
+```
+Repository Owner: Five-Stacks
+Repository Name: area
+Labels (optional): bug, help wanted
+Assignee (optional): username
+```
+
+**Form features:**
+- ✅ Real-time validation
+- 💡 Helpful tooltips
+- 🔍 Autocomplete for some fields
+- 📝 Parameter descriptions
+
+#### Step 3: Select Reaction
+
+![AREA Creation Step 4](/img/user-guide/web-create-step4.png)
+
+Choose what happens when the action triggers:
+1. Select service
+2. Choose reaction type
+3. Preview configuration options
+
+#### Step 4: Configure Reaction Parameters
+
+![AREA Creation Step 5](/img/user-guide/web-create-step5.png)
+
+Set up the reaction with dynamic variables from the action.
+
+**Example - Discord Send Message:**
+```
+Server ID: 123456789012345678
+Channel ID: 987654321098765432
+Message Template:
+🆕 New GitHub Issue!
+**Title**: {{issue.title}}
+**Author**: @{{issue.author}}
+**Labels**: {{issue.labels}}
+**URL**: {{issue.url}}
+```
+
+**Variable Autocomplete:**
+- Type `{{` to see available variables
+- Hover for variable descriptions
+- Use dot notation for nested data: `{{user.profile.name}}`
+
+#### Step 6: Review & Create
+
+![AREA Creation Step 6](/img/user-guide/web-create-step6.png)
+
+Final review before creating:
+- ✅ Check all parameters
+- 🔘 Enable immediately or save as draft
+- 📊 Estimated execution frequency (if applicable)
+- ⚙️ Advanced settings (optional):
+  - Cooldown period
+  - Maximum executions per hour
+  - Error handling preferences
+
+Click **"Create AREA"** to finish!
+
+### AREA Detail View
+
+Click on any AREA to open the detailed view.
+
+![AREA Detail View](/img/user-guide/edit-area-web.png)
+
+#### Tabs
+
+**📊 Overview**
+- Summary of action and reaction
+- Current status
+- Creation and modification dates
+- Quick toggle enabled/disabled
+
+**📝 Configuration**
+- View all parameters
+- Edit action settings
+- Edit reaction settings
+- Test configuration
+
+**📜 Execution History**
+- Timeline of all executions
+- Success/failure status
+- Execution duration
+- Detailed logs
+- Filter and search history
+
+**📈 Analytics**
+- Execution frequency graph
+- Success rate over time
+- Average execution time
+- Error patterns
+
+**⚙️ Settings**
+- Advanced configuration
+- Notification preferences
+- Execution limits
+- Error handling
+
+### Editing an AREA
+
+From the AREA detail view:
+
+1. Click the **"Edit"** button (pencil icon)
+2. Modify any editable fields:
+   - Name and description
+   - Action parameters
+   - Reaction parameters
+   - Settings
+3. Changes are validated in real-time
+4. Click **"Save Changes"** when done
+
+![AREA Detail View](/img/user-guide/edit-area-web.png)
+
+:::tip
+Use the "Test Configuration" button to verify your changes before saving!
+:::
+
+### Bulk Operations
+
+Select multiple AREAs for batch operations:
+
+1. **Enable selection mode**: Click checkbox icon in toolbar
+2. **Select AREAs**: Click checkboxes on AREA cards
+3. **Choose action** from the toolbar:
+   - ✅ Enable all
+   - ⏸️ Disable all
+   - 📋 Duplicate selected
+   - 🗑️ Delete selected
+   - 🏷️ Add tags
+   - 📤 Export
+
+![Bulk Operations](/img/user-guide/bulk-actions.png)
+
+### Advanced Filtering
+
+Use the advanced filter panel for complex queries:
+
+**Filter Builder:**
+- Add multiple conditions
+- Combine with AND/OR logic
+- Save frequently used filters
+- Share filters with team (if applicable)
+
+**Example Filter:**
+```
+Status = Enabled
+AND Service (Action) = GitHub
+AND Last Execution < 7 days ago
+AND Success Rate > 90%
+```
+
+---
+
+## Execution History & Monitoring
+
+### Global Execution History
+
+Navigate to **Dashboard → Execution History** to see all automation runs.
+
+<!-- TODO: Add screenshot - ![Execution History](/img/user-guide/web-execution-history.png) -->
+
+#### Features
+
+**Timeline View**
+- Visual timeline of executions
+- Color-coded by status
+- Zoom and pan
+- Date range selector
+
+**Filters**
+- By AREA
+- By service
+- By status (success/failure)
+- By date range
+
+**Export**
+- Export to CSV
+- Export to JSON
+- Generate report (PDF)
+
+### Execution Details
+
+Click on any execution to see:
+
+**Trigger Information**
+- What triggered the AREA
+- Trigger data/payload
+- Timestamp
+
+**Action Details**
+- Parameters used
+- API requests made
+- Response received
+
+**Reaction Details**
+- Parameters sent
+- Actions taken
+- Results/confirmation
+
+**Logs**
+- Detailed execution logs
+- Error messages (if any)
+- Debug information
+
+<!-- TODO: Add screenshot - ![Execution Details](/img/user-guide/web-execution-details.png) -->
+
+---
+
+## Need More Help?
+
+- 📖 [User Guide Overview](/user-guide/overview)
+- 🎯 [Creating AREAs](/user-guide/creating-areas)
+- ⚙️ [Managing AREAs](/user-guide/managing-areas)
+- 📱 [Mobile Application Guide](/user-guide/mobile-app)
+- 🔧 [API Documentation](/api/overview)
+- 🐙 [GitHub Repository](https://github.com/Five-Stacks/area)

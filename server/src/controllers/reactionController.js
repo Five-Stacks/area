@@ -7,7 +7,7 @@ const getAll = async (req, res) => {
         const reactions = await Reaction.findAll();
         res.status(200).json({ success: true, data: reactions });
     } catch (error) {
-        res.status(500).json({ success: false, error: 'Internal Server Error' });
+        res.status(500).json({ success: false, error: 'Internal Server Error' + error.message });
     }
 };
 
@@ -24,5 +24,14 @@ const getById = async (req, res) => {
     }
 };
 
+const getByServiceId = async (req, res) => {
+    try {
+        const reactions = await Reaction.findAll({ where: { service_id: req.params.id } });
+        res.status(200).json({ success: true, data: reactions });
+    } catch (error) {
+        res.status(500).json({ success: false, error: 'Internal Server Error' });
+    }
+}
+
 /* Exported controllers */
-export default { getAll, getById };
+export default { getAll, getById, getByServiceId };

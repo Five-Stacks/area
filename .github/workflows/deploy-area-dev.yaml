@@ -1,0 +1,36 @@
+name: Deploy AREA Dev
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.GIT_SSH_PRIVATE_KEY_DEV_SERVER }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H ${{ vars.DEV_SERVER_IP }} >> ~/.ssh/known_hosts
+
+      - name: Prepare environment files
+        run: |
+          echo "${{ secrets.ROOT_ENV }}" > rootenv
+          echo "${{ secrets.SERVER_ENV }}" > serverenv
+
+      - name: Upload deployment files via rsync
+        run: |
+          ssh ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }} "mkdir -p /var/www/area-dev/"
+          ssh ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }} "mkdir -p /var/www/area-dev/server/"
+          rsync -avz --delete server/ ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/server/
+          rsync -avz rootenv ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/.env
+          rsync -avz serverenv ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/server/.env
+          rsync -avz docker-compose.deploy.yml ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/docker-compose.yml
+          rsync -avz area.sql ${{ vars.DEV_SERVER_USER }}@${{ vars.DEV_SERVER_IP }}:/var/www/area-dev/area.sql

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { SettingsPage } from './settings-page';
 
@@ -8,7 +9,7 @@ describe('SettingsPage', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SettingsPage]
+      imports: [SettingsPage, HttpClientTestingModule]
     })
     .compileComponents();
 
@@ -19,5 +20,11 @@ describe('SettingsPage', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should render header dashboard in template', () => {
+    const el: HTMLElement = fixture.nativeElement;
+    const header = el.querySelector('app-area-header-dashboard');
+    expect(header).toBeTruthy();
   });
 });

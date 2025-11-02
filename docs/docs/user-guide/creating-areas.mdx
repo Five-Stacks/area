@@ -1,0 +1,337 @@
+---
+sidebar_position: 2
+title: Creating AREAs
+description: Step-by-step guide to create your first automation workflow
+---
+
+# 🎯 Creating Your First AREA
+
+This guide will walk you through the process of creating an AREA automation workflow. Whether you're using the web or mobile application, the process is similar and intuitive.
+
+## Overview
+
+Creating an AREA involves:
+1. **Logging in** to your account
+2. **Choosing a trigger** (the event that starts the automation)
+3. **Choosing one or more actions** (what happens when triggered)
+4. **Naming and saving** your AREA
+
+The entire process happens from the **Dashboard** and is identical on web and mobile platforms.
+
+## Prerequisites
+
+Before creating an AREA, make sure you:
+
+1. ✅ Have an account on the AREA platform
+2. ✅ Are **logged in** to the web or mobile application
+3. ✅ Have connected at least one service (GitHub, Discord, Spotify, etc.)
+
+### Connecting Services
+:::tip
+If you haven't connected any services yet, check:
+- [Web App: Services Management](/user-guide/web-app#services-management)
+- [Mobile App: Services Tab](/user-guide/mobile-app#services-tab)
+:::
+
+:::info Key Concept
+- **One Trigger** → Can have **Multiple Actions**
+- Actions execute in the order you set them
+- All actions run when the trigger fires
+:::
+
+## Step-by-Step Guide
+
+### Prerequisites
+
+Before creating an AREA:
+1. ✅ You must be **logged in** to your account
+2. ✅ Have at least one service connected (see [Services Management](#connecting-services))
+
+### Step 1: Navigate to the Dashboard
+
+#### On Web Application
+1. Log in to your account
+2. Navigate to the **Dashboard**
+3. Click the **"Create"** button
+
+![Create AREA Button Web](/img/user-guide/web-create-button.png)
+
+#### On Mobile Application
+1. Log in to your account
+2. Navigate to the **Dashboard** tab
+3. Tap the **"Create"** button
+
+<!-- TODO: Add screenshot - ![Create AREA Button Mobile](/img/user-guide/mobile-create-button.png) -->
+
+---
+
+### Step 2: Choose the Trigger
+
+The trigger (action) is what starts your automation.
+
+#### 2.1 Choose the Service
+1. Select the service you want to use as a trigger
+2. Examples: GitHub, Discord, Spotify, Microsoft, Twitter
+
+#### 2.2 Choose the Action
+1. Select the specific action/event from that service
+2. Examples: 
+   - GitHub: "New Issue Created", "New Pull Request"
+   - Discord: "New Message in Channel", "User Joined"
+   - Spotify: "New Track Saved", "Track Added to Playlist"
+
+#### 2.3 Configure Parameters
+1. Fill in the required parameters for the action
+2. Examples:
+   - Repository name for GitHub
+   - Channel ID for Discord
+   - Playlist ID for Spotify
+
+#### 2.4 Verify Parameters
+1. Review your configuration
+2. Make sure all required fields are filled
+3. Click "Next" or "Continue"
+
+![Select Action](/img/user-guide/select-action.png)
+
+---
+
+### Step 3: Choose the Actions (Reactions)
+
+What happens when the trigger fires. You can add multiple reactions!
+
+#### 3.1 Choose the Service
+1. Select the service for the reaction
+2. Can be the same or different from the trigger service
+
+#### 3.2 Choose the Reaction
+1. Select what action to perform
+2. Examples:
+   - Discord: "Send Message"
+   - GitHub: "Create Issue Comment"
+   - Spotify: "Add Track to Playlist"
+
+#### 3.3 Configure Parameters
+1. Fill in the required fields
+
+#### 3.4 Verify Parameters
+1. Review your reaction configuration
+2. Check that variables are correctly formatted
+
+![Configure Reaction](/img/user-guide/configure-reaction.png)
+
+### Step 4: Manage Actions (Optional)
+
+You can have multiple reactions for one trigger!
+
+#### Add More Actions
+1. Click **"+ Add Action"** button
+2. Repeat Step 3 for each additional reaction
+3. Each reaction can use a different service
+
+#### Remove Actions
+1. Click the **trash/delete icon** on an action
+2. Confirm deletion
+
+#### Reorder Actions
+1. Drag and drop actions to reorder them
+2. Actions execute in the order shown
+3. Top to bottom execution
+
+:::info
+Multiple reactions are useful for complex workflows, like:
+- Notify Discord AND create GitHub comment
+- Save to Spotify AND log to spreadsheet
+:::
+
+---
+
+### Step 5: Finalize and Save
+
+When you're satisfied with your configuration:
+
+#### 5.1 Validate the AREA
+1. Click **"Validate"** or **"Finish"** button
+2. A popup/modal will appear
+
+#### 5.2 Name Your AREA
+1. In the popup, enter a descriptive name for your AREA
+2. **Examples of good names:**
+   - "Notify Discord on New GitHub Issue"
+   - "Save Spotify Discoveries to Library"
+   - "Tweet New Blog Posts"
+
+#### 5.3 Save
+1. Click **"Save"** or **"Create"** in the popup
+2. Your AREA is now created and active!
+3. You'll be redirected to the AREA list or details page
+
+![Name Your AREA](/img/user-guide/name-area.png)
+
+:::tip
+The AREA is automatically **enabled** upon creation. You can disable it later from the management page if needed.
+:::
+
+---
+
+## Complete Example
+
+### Example: GitHub Issue → Discord Notification
+
+**Step-by-step walkthrough:**
+
+1. **Dashboard** → Click "Create"
+
+2. **Choose Trigger:**
+   - Service: GitHub
+   - Action: "New Issue Created"
+   - Parameters:
+     - Repository: `Five-Stacks/area`
+     - Labels: `bug, help wanted` (optional)
+   - Verify and continue
+
+3. **Choose Reaction:**
+   - Service: Discord
+   - Action: "Send Message"
+   - Parameters:
+     - Channel ID: `123456789012345678`
+     - Message:
+       ```
+       🐛 New Issue Alert!
+       
+       **Title**: {{issue.title}}
+       **Author**: @{{issue.author}}
+       **Labels**: {{issue.labels}}
+       
+       🔗 [View Issue]({{issue.url}})
+       ```
+   - Verify
+
+4. **Finalize:**
+   - Click "Validate"
+   - Popup appears
+   - Name: "GitHub Issues → Discord #dev-alerts"
+   - Click "Save"
+
+5. **Done!** Your AREA is active and will notify Discord when new issues are created.
+
+---
+
+## Creating on Mobile vs Web
+
+The process is identical on both platforms:
+
+| Feature | Web | Mobile |
+|---------|-----|--------|
+| Login Required | ✅ Yes | ✅ Yes |
+| Dashboard Access | ✅ Yes | ✅ Yes |
+| Create Button | ✅ Yes | ✅ Yes |
+| Trigger Configuration | ✅ Yes | ✅ Yes |
+| Multiple Reactions | ✅ Yes | ✅ Yes |
+| Add/Remove/Reorder | ✅ Yes | ✅ Yes |
+| Name in Popup | ✅ Yes | ✅ Yes |
+
+**Mobile-specific notes:**
+- Swipe gestures may be used for reordering
+- Tap and hold to access delete options
+- Use native keyboard for text input
+
+---
+
+## More Quick Examples
+
+### Example: Simple GitHub to Discord
+
+**Steps:**
+1. Dashboard → Create
+2. **Trigger:** GitHub → "New Issue" → Repo: `Five-Stacks/area`
+3. **Reaction:** Discord → "Send Message" → Channel: `123456789`
+   - Message: `🆕 {{issue.title}} by @{{issue.author}}`
+4. Validate → Name: "GitHub→Discord" → Save
+
+### Example: Spotify Auto-Saver
+
+**Steps:**
+1. Dashboard → Create
+2. **Trigger:** Spotify → "Track in Playlist" → Playlist: `Discover Weekly`
+3. **Reaction:** Spotify → "Save Track"
+4. Validate → Name: "Auto-save Discovery" → Save
+
+### Example: Twitter Auto-Reply with Multiple Actions
+
+**Steps:**
+1. Dashboard → Create
+2. **Trigger:** Twitter → "New Mention"
+3. **Reaction 1:** Twitter → "Like Tweet"
+4. **Add Action** → Twitter → "Post Tweet" → `@{{mention.author}} Thanks! 🙏`
+5. Validate → Name: "Twitter Auto-Response" → Save
+
+---
+
+## Troubleshooting
+
+### My AREA isn't triggering
+
+**Check these common issues:**
+
+1. ✅ **Is the AREA enabled?** Check the toggle switch
+2. ✅ **Service connections active?** Verify in Settings > Services
+3. ✅ **Action parameters correct?** Double-check repository names, IDs, etc.
+4. ✅ **Permissions granted?** Some actions need specific OAuth scopes
+
+### Reaction isn't working
+
+1. ✅ **Check reaction service connection**
+2. ✅ **Verify parameter formatting** (especially IDs and URLs)
+3. ✅ **Test with simple parameters** first, then add complexity
+4. ✅ **Review execution logs** in the AREA details page
+
+### Variables not appearing in reaction
+
+1. Make sure you're using the correct syntax: `{{variable.name}}`
+2. Check that the variable is available from your action
+3. Refer to the action documentation for available variables
+
+---
+
+## Best Practices
+
+### ✨ Naming Convention
+Use descriptive names that explain what the AREA does:
+- ❌ "Area 1"
+- ✅ "Notify team when prod fails"
+
+### 🎯 Start Simple
+Create simple AREAs first, then add complexity:
+1. Basic action → basic reaction
+2. Test and verify it works
+3. Add parameters and variables
+4. Refine and optimize
+
+### 🔍 Test Before Production
+1. Create a test AREA with a simple reaction (like logging to a test channel)
+2. Verify it triggers correctly
+3. Then modify it for production use
+
+### 📊 Monitor Execution
+- Check the execution history regularly
+- Review failed executions
+- Optimize based on patterns
+
+### 🔒 Security
+- Don't expose sensitive data in reactions
+- Be careful with public channels
+- Review permissions regularly
+
+---
+
+## Next Steps
+
+Now that you've created your first AREA:
+
+- Learn how to [manage and edit AREAs](/user-guide/managing-areas)
+- Explore the [web application features](/user-guide/web-app)
+- Try the [mobile application](/user-guide/mobile-app)
+- Check [execution history](/user-guide/managing-areas#viewing-execution-history)
+
+Happy automating! 🚀

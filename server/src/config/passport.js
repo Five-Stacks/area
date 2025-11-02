@@ -1,6 +1,7 @@
 import express from 'express';
 import passport from 'passport';
 import session from 'express-session';
+import 'dotenv/config';
 
 const router = express.Router();
 
@@ -9,7 +10,7 @@ router.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false }
+  cookie: { secure: true, httpOnly: true, sameSite: 'none'}
 }));
 
 router.use(passport.initialize());

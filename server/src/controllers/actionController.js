@@ -24,5 +24,14 @@ const getById = async (req, res) => {
     }
 };
 
+const getByServiceId = async (req, res) => {
+    try {
+        const actions = await Action.findAll({ where: { service_id: req.params.id } });
+        res.status(200).json({ success: true, data: actions });
+    } catch (error) {
+        res.status(500).json({ success: false, error: 'Internal Server Error' });
+    }
+}
+
 /* Exported controllers */
-export default { getAll, getById };
+export default { getAll, getById, getByServiceId };

@@ -1,0 +1,88 @@
+name: Lint & tests (web)
+
+on:
+  pull_request:
+    paths:
+      - "web/**"
+  push:
+    paths:
+      - "web/**"
+
+jobs:
+  lint:
+    if: github.repository != 'EpitechPGE3-2025/G-DEV-500-NAN-5-1-area-2'
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: web
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint --fix
+
+  build:
+    if: github.repository != 'EpitechPGE3-2025/G-DEV-500-NAN-5-1-area-2'
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: web
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify Angular build
+        run: npm run build
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: |
+          npm run test -- \
+            --watch=false \
+            --browsers=ChromeHeadless \
+            --code-coverage

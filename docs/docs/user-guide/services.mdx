@@ -1,0 +1,294 @@
+---
+sidebar_position: 6
+title: Available Services
+description: Complete list of services, actions, and reactions available in AREA
+---
+
+# 🔌 Available Services
+
+AREA supports integration with multiple popular services. Each service offers specific actions (triggers) and reactions (responses) that you can use to create powerful automation workflows.
+
+## Service Overview
+
+| Service | Category | Actions | Reactions | OAuth Required |
+|---------|----------|---------|-----------|----------------|
+| 🐙 GitHub | Development | 8 | 6 | ✅ Yes |
+| 💬 Discord | Communication | 5 | 4 | ✅ Yes |
+| 🎵 Spotify | Music | 6 | 4 | ✅ Yes |
+| 📧 Microsoft | Productivity | 7 | 5 | ✅ Yes |
+| 🐦 Twitter | Social Media | 5 | 4 | ✅ Yes |
+
+:::info
+More services are being added regularly. Check back often or contribute your own integrations!
+:::
+
+---
+
+## 🐙 GitHub
+
+Connect your GitHub account to automate development workflows.
+
+### Available Actions (Triggers)
+
+#### 1. New Issue Created
+Triggers when a new issue is created in a repository.
+
+
+#### 2. New Pull Request
+Triggers when a new pull request is opened.
+
+#### 3. New Star
+Triggers when someone stars your repository.
+
+#### 4. Push to Branch
+Triggers when code is pushed to a specific branch.
+
+#### 5. Issue Comment
+Triggers when a comment is added to an issue.
+
+#### 6. Pull Request Review
+Triggers when a PR receives a review.
+
+#### 7. Release Published
+Triggers when a new release is published.
+
+#### 8. Repository Forked
+Triggers when your repository is forked.
+
+### Available Reactions (Responses)
+
+#### 1. Create Issue Comment
+Add a comment to an issue.
+
+#### 2. Add Label to Issue
+Add labels to an issue.
+
+#### 3. Close Issue
+Close an issue.
+
+#### 4. Create Issue
+Create a new issue.
+
+#### 5. Assign Issue
+Assign an issue to a user.
+
+#### 6. Update PR Status
+Update pull request status check.
+
+---
+
+## 💬 Discord
+
+Automate Discord server interactions and notifications.
+
+### Available Actions (Triggers)
+
+#### 1. New Message in Channel
+Triggers when a message is posted in a specific channel.
+
+#### 2. User Joined Server
+Triggers when a new user joins the server.
+
+#### 3. User Left Server
+Triggers when a user leaves the server.
+
+#### 4. Reaction Added to Message
+Triggers when someone reacts to a message.
+
+#### 5. Role Assigned
+Triggers when a role is assigned to a user.
+
+### Available Reactions (Responses)
+
+#### 1. Send Message to Channel
+Post a message in a Discord channel.
+
+#### 2. Send Direct Message
+Send a DM to a user.
+
+#### 3. Add Reaction to Message
+React to a message with an emoji.
+
+#### 4. Assign Role to User
+Give a role to a user.
+
+---
+
+## 🎵 Spotify
+
+Automate your music listening experience.
+
+### Available Actions (Triggers)
+
+#### 1. New Track Saved
+Triggers when you save a track to your library.
+
+#### 2. Track Added to Playlist
+Triggers when a track is added to a specific playlist.
+
+#### 3. New Playlist Created
+Triggers when you create a new playlist.
+
+#### 4. Currently Playing Changed
+Triggers when the currently playing track changes.
+
+#### 5. Album Saved
+Triggers when you save an album.
+
+#### 6. Followed New Artist
+Triggers when you follow an artist.
+
+### Available Reactions (Responses)
+
+#### 1. Add Track to Playlist
+Add a track to a playlist.
+
+#### 2. Save Track to Library
+Save a track to your library.
+
+#### 3. Create Playlist
+Create a new playlist.
+
+#### 4. Play Track
+Start playback of a track.
+
+---
+
+## 📧 Microsoft
+
+Integrate with Microsoft 365 services.
+
+### Available Actions (Triggers)
+
+#### 1. New Email Received
+Triggers when you receive a new email.
+
+#### 2. Calendar Event Created
+Triggers when a new event is added to your calendar.
+
+#### 3. Calendar Event Starting Soon
+Triggers before an event starts.
+
+#### 4. File Added to OneDrive
+Triggers when a file is added to OneDrive.
+
+#### 5. Task Created
+Triggers when a task is created in Microsoft To Do.
+
+#### 6. New Contact Added
+Triggers when a new contact is added.
+
+#### 7. Email Flagged
+Triggers when you flag an email.
+
+### Available Reactions (Responses)
+
+#### 1. Send Email
+Send an email.
+
+#### 2. Create Calendar Event
+Add event to calendar.
+
+#### 3. Create Task
+Create a task in Microsoft To Do.
+
+#### 4. Upload File to OneDrive
+Upload a file to OneDrive.
+
+#### 5. Add Contact
+Create a new contact.
+
+---
+
+## 🐦 Twitter
+
+Automate your Twitter interactions.
+
+### Available Actions (Triggers)
+
+#### 1. New Tweet from User
+Triggers when a specific user tweets.
+
+#### 2. New Mention
+Triggers when someone mentions you.
+
+#### 3. New Follower
+Triggers when someone follows you.
+
+#### 4. Hashtag Mentioned
+Triggers when a hashtag is used.
+
+#### 5. You Tweet
+Triggers when you post a tweet.
+
+### Available Reactions (Responses)
+
+#### 1. Post Tweet
+Post a new tweet.
+
+#### 2. Like Tweet
+Like a tweet.
+
+#### 3. Retweet
+Retweet a tweet.
+
+#### 4. Send Direct Message
+Send a DM to a user.
+
+---
+
+## Coming Soon 🚧
+
+We're working on adding more services! Vote for your favorites:
+
+- 📺 **YouTube** - Monitor channels, upload videos
+- 📝 **Notion** - Create pages, update databases
+- 📊 **Google Sheets** - Add rows, update cells
+- 🔔 **Slack** - Send messages, monitor channels
+- 📱 **Telegram** - Bot integrations
+- 🌤️ **Weather APIs** - Weather-based triggers
+- 📧 **Gmail** - Email automation
+- 🎮 **Twitch** - Stream notifications
+- 📷 **Instagram** - Post monitoring (subject to API limitations)
+
+Want to contribute a new service integration? Check our [Contributing Guide](/guides/contributing)!
+
+---
+
+## Service-Specific Tips
+
+### GitHub
+- **Rate Limits**: GitHub API has rate limits. Avoid polling too frequently.
+- **Webhooks**: For better performance, ask admin to set up webhooks.
+- **Permissions**: Ensure proper scope when connecting (repo access needed).
+
+### Discord
+- **Bot Setup**: For some features, you may need to add the AREA bot to your server.
+- **IDs**: Find channel/server IDs by enabling Developer Mode in Discord settings.
+- **Permissions**: Ensure the bot has necessary permissions in your server.
+
+### Spotify
+- **Playback**: Playing tracks requires Spotify Premium.
+- **Private Playlists**: Can only access playlists you own or follow.
+- **Currently Playing**: May have slight delay in detection.
+
+### Microsoft
+- **Licensing**: Some features require Microsoft 365 subscription.
+- **Permissions**: Review requested permissions carefully during OAuth.
+- **OneDrive**: Folder paths use forward slashes: `/Documents/AREA`
+
+### Twitter
+- **API Access**: Twitter API has strict rate limits.
+- **Character Limits**: Tweets are limited to 280 characters.
+- **Mentions**: High-volume accounts may have delays.
+
+---
+
+## Need More Information?
+
+- 📖 [Creating AREAs Guide](/user-guide/creating-areas)
+- ⚙️ [Managing AREAs Guide](/user-guide/managing-areas)
+- 🔧 [API Documentation](/api/overview)
+- 🐙 [GitHub Repository](https://github.com/Five-Stacks/area)
+
+Have questions about a specific service? Open an issue on GitHub or join our Discord community!

@@ -8,11 +8,11 @@ import { Service } from '../../models/serviceModel.js';
 passport.use(new TwitterStrategy({
   clientID: process.env.TWITTER_CLIENT_ID,
   clientSecret: process.env.TWITTER_CLIENT_SECRET,
-  callbackURL: "http://localhost:8080/api/oauth/twitter/callback",
+  callbackURL: "https://area.pintardware.dev/api/oauth/twitter/callback",
   passReqToCallback: true
 }, async function(req, token, tokenSecret, profile, done) {
   try {
-    const provider = 'twitter';
+    const provider = 'Twitter';
     const providerUserId = profile.id;
 
     let oauthAccount = await OAuthAccount.findOne({ where: { provider, provider_user_id: providerUserId } });

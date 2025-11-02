@@ -1,0 +1,49 @@
+---
+id: action-format-config
+title: Action config format
+---
+
+## Action `config` field format
+
+Example
+
+```json
+{
+    "fields": [
+        {
+            "id": 1,
+            "name": "Day",
+            "title": "Day of the Week",
+            "options_field": {
+                "values": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+            }
+        },
+        {
+            "id": 2,
+            "name": "Time",
+            "title": "Time (HH:MM)",
+            "input_field": {
+                "placeholder": "09:00"
+            }
+        }
+    ]
+}
+```
+
+### Description
+
+- `fields` (array): List of field definitions. Each entry represents one input field required by the action configuration.
+
+Field object shape:
+
+- `id` (number): Ordering ID for the field.
+- `name` (string): Internal name for the field.
+- `title` (string): Display title shown to the user.
+- `options_field` (object, optional): Use for dropdown/select fields.
+    - `values` (string[]): Available option values.
+- `input_field` (object, optional): Use for free-text or simple input fields.
+    - `placeholder` (string): Placeholder text shown in the input.
+
+Use either `options_field` or `input_field` depending on the desired UI control for the field.
+
+This format mirrors the `config` field used for reactions as well. See the Reactions documentation for the equivalent format.

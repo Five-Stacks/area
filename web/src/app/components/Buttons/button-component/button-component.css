@@ -1,0 +1,25 @@
+:host {
+    display: block;
+    width: 100%;
+}
+button {
+    background-color: transparent;
+    border: none;
+    border-radius: 100px;
+    padding: 14px;
+    width: auto;
+    font-size: 20px;
+    font-weight: 550;
+    color: var(--black-color);
+}
+button:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+button:disabled {
+    background-color: var(--disabled-background-color);
+    cursor: not-allowed;
+    box-shadow: 2px 6px 9px 0px var(--disabled-shadow-color);
+    color: var(--disabled-text-color);
+}
