@@ -25,6 +25,6 @@ export class CardService {
   connectService = () => {
     if (this.isBlocked()) return;
     const redirectTo = encodeURIComponent(window.location.href);
-    window.location.href = `${this.apiService.apiUrl}/oauth/${this.name.toLowerCase()}?redirect_to=${redirectTo}?token=${this.apiService.tokenSaved}`;
+    window.location.href = `${this.apiService.apiUrl}/oauth/${this.name.toLowerCase()}?redirect_to=${redirectTo}&token=${this.apiService.tokenSaved}`;
   };
 }

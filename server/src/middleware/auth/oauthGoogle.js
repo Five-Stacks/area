@@ -13,7 +13,6 @@ passport.use(new GoogleStrategy({
     passReqToCallback: true
 }, async (req, accessToken, refreshToken, profile, done) => {
     try {
-        console.log('google OAuth profile DEBUG--------------------------');
         // Try to find an existing oauth account for this provider user id
         const provider = 'Google';
         const providerUserId = profile.id;

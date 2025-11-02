@@ -90,20 +90,15 @@ router.get('/google/callback',
   }
 );
 
-router.get('/google/login', (req, res, next) => {
-  const redirectTo = req.body?.redirect_to || req.query?.redirect_to;
-  const options = { ...googleAuthOptions };
-  const state = redirectTo ? buildState(redirectTo) : undefined;
-  if (state) options.state = state;
-  passport.authenticate('google', options)(req, res, next);
-});
-
 // Discord OAuth routes
 
 router.get('/discord', verifyToken, (req, res, next) => {
   const redirectTo = req.body?.redirect_to || req.query?.redirect_to;
   const options = { ...discordAuthOptions };
-  const state = redirectTo ? buildState(redirectTo) : undefined;
+  const state = buildState({
+    redirect_to: redirectTo || '/',
+    token: req.query?.token
+  });
   if (state) options.state = state;
   passport.authenticate('discord', options)(req, res, next);
 });
@@ -122,9 +117,10 @@ router.get('/discord/callback',
 router.get('/spotify', verifyToken, (req, res, next) => {
   const redirectTo = req.body?.redirect_to || req.query?.redirect_to;
   const options = { ...spotifyAuthOptions };
-  const token = req.cookies?.token;
-  const statePayload = token ? { redirect_to: redirectTo || '/', token } : (redirectTo ? redirectTo : undefined);
-  const state = statePayload ? buildState(statePayload) : undefined;
+  const state = buildState({
+    redirect_to: redirectTo || '/',
+    token: req.query?.token
+  });
   if (state) options.state = state;
   passport.authenticate('spotify', options)(req, res, next);
 });
@@ -143,7 +139,10 @@ router.get('/spotify/callback',
 router.get('/microsoft', verifyToken, (req, res, next) => {
   const redirectTo = req.body?.redirect_to || req.query?.redirect_to;
   const options = { ...microsoftAuthOptions };
-  const state = redirectTo ? buildState(redirectTo) : undefined;
+  const state = buildState({
+    redirect_to: redirectTo || '/',
+    token: req.query?.token
+  });
   if (state) options.state = state;
   passport.authenticate('microsoft', options)(req, res, next);
 });
@@ -163,7 +162,10 @@ router.get('/microsoft/callback',
 router.get('/github', verifyToken, (req, res, next) => {
   const redirectTo = req.body?.redirect_to || req.query?.redirect_to;
   const options = { ...githubAuthOptions };
-  const state = redirectTo ? buildState(redirectTo) : undefined;
+  const state = buildState({
+    redirect_to: redirectTo || '/',
+    token: req.query?.token
+  });
   if (state) options.state = state;
   passport.authenticate('github', options)(req, res, next);
 });
@@ -177,10 +179,15 @@ router.get('/github/callback',
   }
 );
 
+// Twitter OAuth routes
+
 router.get('/twitter', verifyToken, (req, res, next) => {
   const redirectTo = req.body?.redirect_to || req.query?.redirect_to;
   const options = { ...twitterAuthOptions };
-  const state = redirectTo ? buildState(redirectTo) : undefined;
+  const state = buildState({
+    redirect_to: redirectTo || '/',
+    token: req.query?.token
+  });
   if (state) options.state = state;
   passport.authenticate('twitter', options)(req, res, next);
 });
