@@ -63,6 +63,7 @@ describe('AreaDetailsPage', () => {
     const area = {
       id: 1,
       is_active: true,
+      reaction_ids: [200],
       config: {
         name: 'My Area',
         description: 'Desc',
@@ -71,7 +72,9 @@ describe('AreaDetailsPage', () => {
       }
     };
     const services = [{ id: 10, name: 'GitHub' }, { id: 20, name: 'Slack' }];
-    const { component, apiMock } = await setup({ areaData: area, services, actions: [], reactions: [] });
+    // Provide a reaction matching reaction_ids so the component will populate area.actions
+    const reactions = [{ id: 200, name: 'send', service_id: 20 }];
+    const { component, apiMock } = await setup({ areaData: area, services, actions: [], reactions });
 
     expect(apiMock.get).toHaveBeenCalledWith('area/1');
     expect(apiMock.get).toHaveBeenCalledWith('service');

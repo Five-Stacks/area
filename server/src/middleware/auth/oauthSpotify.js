@@ -59,6 +59,7 @@ export const spotifyAuthOptions = {
         'user-read-private',
         'playlist-read-private',
         'playlist-modify-private',
+        'playlist-modify-public',
         'user-read-playback-state',
         'user-modify-playback-state'
     ]

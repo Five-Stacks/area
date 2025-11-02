@@ -9,20 +9,31 @@ import jwt from 'jsonwebtoken';
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:8080/api/oauth/google/callback",
+    callbackURL: "https://area.pintardware.dev/api/oauth/google/callback",
     passReqToCallback: true
 }, async (req, accessToken, refreshToken, profile, done) => {
     try {
+        console.log('google OAuth profile DEBUG--------------------------');
         // Try to find an existing oauth account for this provider user id
         const provider = 'Google';
         const providerUserId = profile.id;
         const no = false;
 
         // Only verify JWT if a token is present in cookies. Do not call jwt.verify with undefined.
-        const tokenFromCookie = req && req.cookies && req.cookies.token;
-        if (tokenFromCookie) {
+        let token;
+        if (req.headers && req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
+            token = req.headers.authorization.split(' ')[1];
+        } else if (req.query && req.query.token) {
+            token = req.query.token;
+        } else if (req.query?.state) {
+            const passedState = JSON.parse(decodeURIComponent(req.query.state));
+            token = passedState.token;
+        } else if (req.cookies && req.cookies.token) {
+            token = req.cookies.token;
+        }
+        if (token) {
             try {
-                const decoded = jwt.verify(tokenFromCookie, process.env.JWT_SECRET);
+                const decoded = jwt.verify(token, process.env.JWT_SECRET);
                 req.user = decoded;
             } catch (e) {
                 no = true;
@@ -41,10 +52,10 @@ passport.use(new GoogleStrategy({
 
             const user = await User.findByPk(oauthAccount.user_id);
             if (user) {
-                const token = jwt.sign({ userIdx: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+                const token = jwt.sign({ userId: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
                     // use req.res.cookie when available (passport strategy doesn't receive res directly)
                     if (req && req.res && typeof req.res.cookie === 'function') {
-                        req.res.cookie('token', token, { httpOnly: true, secure: false, maxAge: 60 * 60 * 1000 });
+                        req.res.cookie('token', token, { httpOnly: true, secure: true, maxAge: 60 * 60 * 1000 });
                     }
                     return done(null, user);
             }
@@ -77,9 +88,12 @@ passport.use(new GoogleStrategy({
                 oauth_account_id: oauthAccount.id
             });
 
+            const timerOauth = await OAuthAccount.create({ user_id: newUser.id, provider: 'Timer', provider_user_id: `timer-${newUser.id}` });
+            await UserService.create({ user_id: newUser.id, service_id: 1, oauth_account_id: timerOauth.id });
+
             const token = jwt.sign({ userId: newUser.id, role: 'user' }, process.env.JWT_SECRET, { expiresIn: '1h' });
             if (req && req.res && typeof req.res.cookie === 'function') {
-                req.res.cookie('token', token, { httpOnly: true, secure: false, maxAge: 60 * 60 * 1000 });
+                req.res.cookie('token', token, { httpOnly: true, secure: true, maxAge: 60 * 60 * 1000 });
             }
 
             return done(null, newUser);
@@ -125,7 +139,12 @@ export const googleAuthOptions = {
         'openid',
         'profile',
         'email',
-        'https://www.googleapis.com/auth/gmail.send'
+        'https://www.googleapis.com/auth/gmail.readonly',
+        'https://www.googleapis.com/auth/gmail.send',
+        'https://www.googleapis.com/auth/calendar',
+        'https://www.googleapis.com/auth/calendar.events',
+        'https://www.googleapis.com/auth/drive',
+        'https://www.googleapis.com/auth/drive.file'
     ],
     accessType: 'offline',
     prompt: 'consent'

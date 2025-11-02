@@ -7,7 +7,8 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ApiService {
-    apiUrl = 'http://localhost:8080/api'; // Adjust based on your server config
+    tokenSaved = '';
+    apiUrl = 'https://area.pintardware.dev/api'; // Adjust based on your server config
     private http: HttpClient = inject(HttpClient);
 
     get<T = unknown>(endpoint: string): Observable<T> {

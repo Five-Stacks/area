@@ -13,7 +13,7 @@ async function check(area) {
 
 	const requiredDay = dayObj.response;
     let [requiredHour, requiredMinute] = timeObj.response.split(":").map(Number);
-	requiredHour = (requiredHour - 2 + 24) % 24;
+	requiredHour = (requiredHour - 1 + 24) % 24;
 	if (currentDay === requiredDay && currentHour === requiredHour && currentMinute === requiredMinute) {
 		return true;
 	}

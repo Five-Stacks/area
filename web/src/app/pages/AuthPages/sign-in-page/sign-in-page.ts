@@ -5,6 +5,7 @@ import { TextFieldComponent } from '../../../components/Forms/text-field-compone
 import { TextFieldHideComponent } from '../../../components/Forms/text-field-hide-component/text-field-hide-component';
 import { AdminAuthService } from '../../../services/admin-auth.service';
 import { CommonModule } from '@angular/common';
+import { ApiService } from '../../../services/api.service';
 
 @Component({
   selector: 'app-sign-in-page',
@@ -16,6 +17,7 @@ export class SignInPage {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private adminAuthService = inject(AdminAuthService);
+  private api = inject(ApiService);
 
   email = '';
   password = '';
@@ -43,8 +45,8 @@ export class SignInPage {
     this.adminAuthService.login(this.email, this.password).subscribe({
       next: (success) => {
         this.isLoading = false;
-        if (success) {
-          // Get return URL or default to dashboard
+        if (success[0]) {
+          this.api.tokenSaved = success[1];
           window.location.href = '/dashboard';
         } else {
           this.errorMessage = 'Invalid email or password';

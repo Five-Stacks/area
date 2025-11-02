@@ -1,7 +1,3 @@
-import { Action } from "./action";
-import { Reaction } from "./reaction";
-import { Service } from "./service";
-
 export type DataForm = {
   fieldId: number;
   fieldName: string;
@@ -20,7 +16,7 @@ export type AreaConfig = {
     service_name: string;
     name: string;
     datas_form: DataForm[];
-  };
+  }[];
 };
 
 export type Area = {
@@ -31,12 +27,4 @@ export type Area = {
   config: AreaConfig;
   is_active: boolean;
   created_at: Date;
-};
-
-/** Same as Area type but with all of it's actions, reaction & services inside */
-export type EnrichedArea = Area & {
-  action: Action;
-  reaction: Reaction;
-  actionService: Service;
-  reactionService: Service;
 };

@@ -65,53 +65,13 @@ export default function Index() {
 
   return (
     <View
-      style={styles.view}>
-      <View
-        style={styles.imageContainer}>
-        <Image
-          source={require("@/assets/images/imageprofile.png")}
-          style={styles.imageProfile}
-          />
-      </View>
-      <Text>Change Name *</Text>
-      <Input
-        placeholder="Change Name"
-        secureTextEntry={false}
-        value={name}
-        onChangeText={setName}
-      />
-      <Text>Change Email *</Text>
-      <Input
-        placeholder="Change Email"
-        secureTextEntry={false}
-        value={email}
-        onChangeText={setEmail}
-      />
-      <Text>Change Password</Text>
-      <Input
-        placeholder="Change Password"
-        secureTextEntry={true}
-        value={password}
-        onChangeText={setPassword}
-      />
-      <Text
-        style={styles.warning}>
-        Leave password blank to keep current password.
-      </Text>
-      <View
-        style={styles.buttonContainer}
-      >
-        <StylizedButton
-          style={styles.button}
-          label="Save Changes"
-          onPress={handleUpdate}
-        />
-        <StylizedButton
-          style={styles.buttonLogout}
-          label="Logout"
-          onPress={handleLogout}
-        />
-      </View>
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Text>Profile screen</Text>
     </View>
   );
 }
