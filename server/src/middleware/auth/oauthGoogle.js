@@ -20,10 +20,15 @@ passport.use(new GoogleStrategy({
         const no = false;
 
         // Only verify JWT if a token is present in cookies. Do not call jwt.verify with undefined.
-        const tokenFromCookie = req && req.cookies && req.cookies.token;
-        if (tokenFromCookie) {
+        let token;
+        if (req.cookies && req.cookies.token) {
+            token = req.cookies.token;
+        } else if (req.headers && req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
+            token = req.headers.authorization.split(' ')[1];
+        }
+        if (token) {
             try {
-                const decoded = jwt.verify(tokenFromCookie, process.env.JWT_SECRET);
+                const decoded = jwt.verify(token, process.env.JWT_SECRET);
                 req.user = decoded;
             } catch (e) {
                 no = true;
