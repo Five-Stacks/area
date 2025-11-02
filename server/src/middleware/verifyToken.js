@@ -3,7 +3,12 @@ import jwt from 'jsonwebtoken';
 
 /* Verify Token Middleware */
 const verifyToken = (req, res, next) => {
-  const token = req.cookies.token;
+  let token;
+  if (req.cookies && req.cookies.token) {
+    token = req.cookies.token;
+  } else if (req.query && req.query.token) {
+    token = req.query.token;
+  }
   if (!token) {
     return res.status(401).json({ success: false, error: 'Access Denied. No token provided.' });
   }
