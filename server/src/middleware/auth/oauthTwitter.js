@@ -8,19 +8,12 @@ import { Service } from '../../models/serviceModel.js';
 passport.use(new TwitterStrategy({
   clientID: process.env.TWITTER_CLIENT_ID,
   clientSecret: process.env.TWITTER_CLIENT_SECRET,
-  callbackURL: "http://localhost:8080/api/oauth/twitter/callback",
+  callbackURL: "https://area.pintardware.dev/api/oauth/twitter/callback",
   passReqToCallback: true
 }, async function(req, token, tokenSecret, profile, done) {
   try {
     const provider = 'Twitter';
     const providerUserId = profile.id;
-
-    if (req.query?.state) {
-        const passedState = JSON.parse(decodeURIComponent(req.query.state));
-        token = passedState.token;
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = decoded;
-    }
 
     let oauthAccount = await OAuthAccount.findOne({ where: { provider, provider_user_id: providerUserId } });
 

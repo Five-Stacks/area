@@ -8,20 +8,13 @@ import { Service } from '../../models/serviceModel.js';
 passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: "http://localhost:8080/api/oauth/github/callback",
+    callbackURL: "https://area.pintardware.dev/api/oauth/github/callback",
     passReqToCallback: true
   },
   async function(req, accessToken, refreshToken, profile, done) {
     try {
       const provider = 'Github';
       const providerUserId = profile.id;
-
-      if (req.query?.state) {
-          const passedState = JSON.parse(decodeURIComponent(req.query.state));
-          token = passedState.token;
-          const decoded = jwt.verify(token, process.env.JWT_SECRET);
-          req.user = decoded;
-      }
 
       let oauthAccount = await OAuthAccount.findOne({ where: { provider, provider_user_id: providerUserId } });
 

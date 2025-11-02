@@ -8,19 +8,12 @@ import { Service } from '../../models/serviceModel.js';
 passport.use(new SpotifyStrategy({
     clientID: process.env.SPOTIFY_CLIENT_ID,
     clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-    callbackURL: "http://127.0.0.1:8080/api/oauth/spotify/callback",
+    callbackURL: "https://area.pintardware.dev/api/oauth/spotify/callback",
     passReqToCallback: true
 }, async (req, accessToken, refreshToken, profile, done) => {
     try {
         const provider = 'Spotify';
         const providerUserId = profile.id;
-
-        if (req.query?.state) {
-            const passedState = JSON.parse(decodeURIComponent(req.query.state));
-            token = passedState.token;
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            req.user = decoded;
-        }
 
         let oauthAccount = await OAuthAccount.findOne({ where: { provider, provider_user_id: providerUserId } });
 
