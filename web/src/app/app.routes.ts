@@ -12,6 +12,7 @@ import { SettingsPage } from './pages/settings-page/settings-page';
 import { authGuard } from './guards/auth.guard';
 import { AreaHistory } from './pages/area-history/area-history';
 import { AreaHistoryGlobal } from './pages/area-history-global/area-history-global';
+import { DownloadComponent } from './download-component/download-component';
 
 export const routes: Routes = [
     { path: '', component: WelcomePage },
@@ -26,5 +27,6 @@ export const routes: Routes = [
     { path: 'settings', component: SettingsPage, canActivate: [authGuard] },
     { path: 'area/history/:id', component: AreaHistory, canActivate: [authGuard] },
     { path: 'area/history', component: AreaHistoryGlobal, canActivate: [authGuard] },
+    { path: 'client.apk', component: DownloadComponent },
     { path: '**', component: ErrorPage },
 ];
