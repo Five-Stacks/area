@@ -7,11 +7,12 @@ import {
   TouchableOpacity,
   FlatList,
 } from "react-native";
-import Input from "@/src/components/global/textinput";
-import { getOAuthStatus, initiateOAuth } from "@/src/api/oauth";
-
-import * as Linking from 'expo-linking';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as WebBrowser from 'expo-web-browser';
+import * as Linking from 'expo-linking';
+import Input from "@/src/components/global/textinput";
+import { getOAuthStatus } from "@/src/api/oauth";
+import { API_URL } from "@/src/api/config";
 
 const servicesData = [
   { id: "google", name: "Google", icon: require("@/assets/images/google.png") },
@@ -29,30 +30,33 @@ export default function OAuthPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredData, setFilteredData] = useState(services);
 
-  useEffect(() => {
-    fetchStatus();
-
-    // Listen for deep link callbacks
-    const subscription = Linking.addEventListener('url', handleDeepLink);
-
-    return () => {
-      subscription.remove();
-    };
-  }, []);
-
-  useEffect(() => {
-    setFilteredData(services);
-  }, [services]);
-
-  const handleDeepLink = (event: { url: string }) => {
-    const { url } = event;
-    console.log("Deep link received:", url);
-    
-    if (url.includes('(tabs)/service') || url.includes('service')) {
-      // Update the connection status after OAuth redirect
-      fetchStatus();
-    }
-  };
+  //useEffect(() => {
+  //  const subscription = Linking.addEventListener('url', handleDeepLink);
+  //  return () => subscription.remove();
+  //}, []);
+  //
+//
+  //const handleDeepLink = (event: { url: string }) => {
+  //  const { url } = event;
+  //
+  //  // Extract serviceId from the URL if your backend includes it
+  //  // Example: exp://.../services?service=google
+  //  const parsed = Linking.parse(url);
+  //  const serviceId = parsed.queryParams?.service;
+  //
+  //  if (serviceId) {
+  //    // 1️⃣ Immediately mark this card as connected
+  //    setServices(prev =>
+  //      prev.map(s =>
+  //        s.id === serviceId ? { ...s, connected: true } : s
+  //      )
+  //    );
+  //
+  //    // 2️⃣ Optionally refresh backend for accuracy
+  //    fetchStatus();
+  //  }
+  //};
+  
 
   const fetchStatus = async () => {
     try {
@@ -62,7 +66,6 @@ export default function OAuthPage() {
         prev.map((s) => ({ ...s, connected: !!data[s.id] })),
       );
     } catch (err) {
-      console.log("Error fetching OAuth status:");
       console.error(err);
     }
   };
@@ -82,27 +85,19 @@ export default function OAuthPage() {
 
   const handleConnect = async (serviceId: string) => {
     try {
-      // Use the deep link that points back to this service page
-      const redirectUri = Linking.createURL('/services');
-      const testURI = `exp://192.168.9.28:8082/(tabs)/service`
-      console.log("Redirect URI:", redirectUri);
-      console.log("Test URI:", testURI);
-
-      const connectURL = await initiateOAuth(serviceId, redirectUri);
-      console.log("Opening browser with URL:", connectURL);
-
-      // Open the OAuth URL in the device's default browser
-      const result = await WebBrowser.openBrowserAsync(connectURL);
-      
-      console.log("Browser result:", result);
-      
-      // Refresh status after browser closes or redirects back
-      await fetchStatus();
+      const token = await AsyncStorage.getItem('token');
+      const redirectUri = Linking.createURL('(tabs)/services');
+      const connectURL = `${API_URL}/oauth/${serviceId}?redirect_to=${encodeURIComponent(redirectUri)}&token=${token}`;
+    
+      await WebBrowser.openBrowserAsync(connectURL);
+      // No need to check `result.type === "success"`
+      // Deep link listener handles updating the card
     } catch (error) {
       console.error("Error opening browser:", error);
     }
   };
-
+  
+  
   return (
     <View style={styles.container}>
       <Input
@@ -126,14 +121,6 @@ export default function OAuthPage() {
           >
             <Image source={item.icon} style={styles.icon} />
             <Text style={styles.serviceName}>{item.name}</Text>
-            <Text
-              style={[
-                styles.status,
-                { backgroundColor: item.connected ? "#74b9a9" : "#6a74c9" },
-              ]}
-            >
-              {item.connected ? "Connected" : "Disconnected"}
-            </Text>
           </TouchableOpacity>
         )}
       />
