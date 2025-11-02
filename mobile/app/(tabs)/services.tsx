@@ -6,56 +6,98 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
-  Modal,
 } from "react-native";
-import { WebView } from "react-native-webview";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { API_URL } from "@/src/api/config";
+import * as WebBrowser from 'expo-web-browser';
+import * as Linking from 'expo-linking';
 import Input from "@/src/components/global/textinput";
+import { getOAuthStatus } from "@/src/api/oauth";
+import { API_URL } from "@/src/api/config";
 
 const servicesData = [
   { id: "google", name: "Google", icon: require("@/assets/images/google.png") },
   { id: "github", name: "GitHub", icon: require("@/assets/images/github.png") },
-  {
-    id: "discord",
-    name: "Discord",
-    icon: require("@/assets/images/discord.png"),
-  },
+  { id: "discord", name: "Discord", icon: require("@/assets/images/discord.png") },
+  { id: "twitter", name: "Twitter", icon: require("@/assets/images/TwitterLogo.png") },
+  { id: "spotify", name: "Spotify", icon: require("@/assets/images/SpotifyLogo.png") },
+  { id: "microsoft", name: "Microsoft", icon: require("@/assets/images/MicrosoftLogo.png") },
 ];
 
 export default function OAuthPage() {
   const [services, setServices] = useState(
     servicesData.map((s) => ({ ...s, connected: false })),
   );
-  const [modalVisible, setModalVisible] = useState(false);
-  const [currentURL, setCurrentURL] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredData, setFilteredData] = useState(services);
 
-  useEffect(() => {
-    async function fetchStatus() {
-      try {
-        const token = await AsyncStorage.getItem("token");
-        if (!token) return;
+  //useEffect(() => {
+  //  const subscription = Linking.addEventListener('url', handleDeepLink);
+  //  return () => subscription.remove();
+  //}, []);
+  //
+//
+  //const handleDeepLink = (event: { url: string }) => {
+  //  const { url } = event;
+  //
+  //  // Extract serviceId from the URL if your backend includes it
+  //  // Example: exp://.../services?service=google
+  //  const parsed = Linking.parse(url);
+  //  const serviceId = parsed.queryParams?.service;
+  //
+  //  if (serviceId) {
+  //    // 1️⃣ Immediately mark this card as connected
+  //    setServices(prev =>
+  //      prev.map(s =>
+  //        s.id === serviceId ? { ...s, connected: true } : s
+  //      )
+  //    );
+  //
+  //    // 2️⃣ Optionally refresh backend for accuracy
+  //    fetchStatus();
+  //  }
+  //};
+  
 
-        const response = await fetch(`${API_URL}/api/oauth/status`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const data = await response.json();
+  const fetchStatus = async () => {
+    try {
+      const data = await getOAuthStatus();
 
-        setServices((prev) =>
-          prev.map((s) => ({ ...s, connected: !!data[s.id] })),
-        );
-      } catch (err) {
-        console.error(err);
-      }
+      setServices((prev) =>
+        prev.map((s) => ({ ...s, connected: !!data[s.id] })),
+      );
+    } catch (err) {
+      console.error(err);
     }
-    fetchStatus();
-  }, []);
-
-  const handleConnect = async (serviceId: string) => {
-    setCurrentURL(`${API_URL}/api/oauth/${serviceId}`);
-    setModalVisible(true);
   };
 
+  const handleSearch = (text: string) => {
+    setSearchQuery(text);
+
+    if (text === '') {
+      setFilteredData(services);
+    } else {
+      const filtered = services.filter((item) =>
+        item.name.toLowerCase().includes(text.toLowerCase())
+      );
+      setFilteredData(filtered);
+    }
+  };
+
+  const handleConnect = async (serviceId: string) => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      const redirectUri = Linking.createURL('(tabs)/services');
+      const connectURL = `${API_URL}/oauth/${serviceId}?redirect_to=${encodeURIComponent(redirectUri)}&token=${token}`;
+    
+      await WebBrowser.openBrowserAsync(connectURL);
+      // No need to check `result.type === "success"`
+      // Deep link listener handles updating the card
+    } catch (error) {
+      console.error("Error opening browser:", error);
+    }
+  };
+  
+  
   return (
     <View style={styles.container}>
       <Input
@@ -63,11 +105,12 @@ export default function OAuthPage() {
         style={styles.searchInput}
         showSearchIcon={true}
         iconColor="#d0d0d0"
+        onChangeText={handleSearch}
       />
       <Text style={styles.title}>Services</Text>
 
       <FlatList
-        data={services}
+        data={filteredData}
         keyExtractor={(item) => item.id}
         numColumns={2}
         columnWrapperStyle={styles.row}
@@ -78,54 +121,9 @@ export default function OAuthPage() {
           >
             <Image source={item.icon} style={styles.icon} />
             <Text style={styles.serviceName}>{item.name}</Text>
-            <Text
-              style={[
-                styles.status,
-                { backgroundColor: item.connected ? "#74b9a9" : "#6a74c9" },
-              ]}
-            >
-              {item.connected ? "Connected" : "Disconnected"}
-            </Text>
           </TouchableOpacity>
         )}
       />
-
-      <Modal
-        visible={modalVisible}
-        animationType="slide"
-        transparent={true}
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View style={styles.modalBackground}>
-          <View style={styles.modalContainer}>
-            <TouchableOpacity
-              style={styles.closeButton}
-              onPress={() => setModalVisible(false)}
-            >
-              <Text style={{ color: "#fff" }}>Close</Text>
-            </TouchableOpacity>
-
-            <WebView
-              source={{ uri: currentURL }}
-              style={{ flex: 1 }}
-              sharedCookiesEnabled={true}
-              onNavigationStateChange={(navState) => {
-                if (navState.url.includes("/callback")) {
-                  setModalVisible(false);
-
-                  setServices((prev) =>
-                    prev.map((s) =>
-                      s.id === currentURL.split("/").pop()
-                        ? { ...s, connected: true }
-                        : s,
-                    ),
-                  );
-                }
-              }}
-            />
-          </View>
-        </View>
-      </Modal>
     </View>
   );
 }
@@ -162,23 +160,6 @@ const styles = StyleSheet.create({
     padding: 3,
     borderRadius: 5,
     color: "#fff",
-  },
-  modalBackground: {
-    flex: 1,
-    backgroundColor: "rgba(0,0,0,0.5)",
-    justifyContent: "center",
-    padding: 20,
-  },
-  modalContainer: {
-    backgroundColor: "#fff",
-    borderRadius: 12,
-    height: "80%",
-    overflow: "hidden",
-  },
-  closeButton: {
-    backgroundColor: "#007bff",
-    padding: 10,
-    alignItems: "center",
   },
   searchInput: {
     borderColor: "#eff2f9",
