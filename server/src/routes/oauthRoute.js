@@ -117,10 +117,9 @@ router.get('/discord/callback',
 router.get('/spotify', verifyToken, (req, res, next) => {
   const redirectTo = req.body?.redirect_to || req.query?.redirect_to;
   const options = { ...spotifyAuthOptions };
-  const state = buildState({
-    redirect_to: redirectTo || '/',
-    token: req.query?.token
-  });
+  const token = req.cookies?.token;
+  const statePayload = token ? { redirect_to: redirectTo || '/', token } : (redirectTo ? redirectTo : undefined);
+  const state = statePayload ? buildState(statePayload) : undefined;
   if (state) options.state = state;
   passport.authenticate('spotify', options)(req, res, next);
 });
