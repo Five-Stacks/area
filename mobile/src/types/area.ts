@@ -23,7 +23,7 @@ export type Area = {
   id: number;
   user_id: number;
   action_id: number;
-  reaction_id: number;
+  reaction_ids: number[];
   config: AreaConfig;
   is_active: boolean;
   created_at: Date;
