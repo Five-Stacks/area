@@ -1,5 +1,5 @@
 import { globalColors } from "@/src/styles/global";
-import { router, Stack, Tabs } from "expo-router";
+import { router, Tabs } from "expo-router";
 import { Image, StyleSheet, Text } from "react-native";
 
 import ServiceIcon from "@/assets/images/serviceIcon.png";

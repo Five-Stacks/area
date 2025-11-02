@@ -9,7 +9,7 @@ export async function getAreas(): Promise<Area[]> {
 }
 
 export async function createArea(area: Area) {
-  const res = await fetch(`${API_BASE_URL}/area`, {
+  const res = await fetch(`${API_URL}/area`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

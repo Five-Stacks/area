@@ -8,7 +8,7 @@ import { Service } from '../../models/serviceModel.js';
 passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: "http://localhost:8080/api/oauth/github/callback",
+    callbackURL: "https://area.pintardware.dev/api/oauth/github/callback",
     passReqToCallback: true
   },
   async function(req, accessToken, refreshToken, profile, done) {

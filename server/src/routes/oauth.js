@@ -35,12 +35,9 @@ function extractRedirectFromState(req) {
     const parsed = JSON.parse(decodeURIComponent(state));
     if (parsed && typeof parsed.redirect_to === 'string') {
       const r = parsed.redirect_to;
-      if (r.startsWith('/') || r.includes('://')) {
-        return r;
-      }
+      if (r.startsWith('/')) return r;
     }
   } catch (e) {
-    console.error('Error extracting redirect from state:', e);
   }
   return '/';
 }
@@ -70,19 +67,16 @@ router.get('/', (req, res) => {
 
 // Google OAuth routes
 
-router.get('/google', (req, res, next) => {
-  console.log('Initiating Google OAuth flow');
+router.get('/google', verifyToken, (req, res, next) => {
   const redirectTo = req.body?.redirect_to || req.query?.redirect_to;
   const options = { ...googleAuthOptions };
-  const state = buildState({
-    redirect_to: redirectTo || '/',
-    token: req.query?.token
-  });
+  const state = redirectTo ? buildState(redirectTo) : undefined;
   if (state) options.state = state;
   passport.authenticate('google', options)(req, res, next);
 });
 
 router.get('/google/callback',
+  verifyToken,
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
     const redirectTo = extractRedirectFromState(req);
@@ -95,10 +89,7 @@ router.get('/google/callback',
 router.get('/discord', verifyToken, (req, res, next) => {
   const redirectTo = req.body?.redirect_to || req.query?.redirect_to;
   const options = { ...discordAuthOptions };
-  const state = buildState({
-    redirect_to: redirectTo || '/',
-    token: req.query?.token
-  });
+  const state = redirectTo ? buildState(redirectTo) : undefined;
   if (state) options.state = state;
   passport.authenticate('discord', options)(req, res, next);
 });
@@ -138,10 +129,7 @@ router.get('/spotify/callback',
 router.get('/microsoft', verifyToken, (req, res, next) => {
   const redirectTo = req.body?.redirect_to || req.query?.redirect_to;
   const options = { ...microsoftAuthOptions };
-  const state = buildState({
-    redirect_to: redirectTo || '/',
-    token: req.query?.token
-  });
+  const state = redirectTo ? buildState(redirectTo) : undefined;
   if (state) options.state = state;
   passport.authenticate('microsoft', options)(req, res, next);
 });
@@ -161,10 +149,7 @@ router.get('/microsoft/callback',
 router.get('/github', verifyToken, (req, res, next) => {
   const redirectTo = req.body?.redirect_to || req.query?.redirect_to;
   const options = { ...githubAuthOptions };
-  const state = buildState({
-    redirect_to: redirectTo || '/',
-    token: req.query?.token
-  });
+  const state = redirectTo ? buildState(redirectTo) : undefined;
   if (state) options.state = state;
   passport.authenticate('github', options)(req, res, next);
 });
@@ -178,15 +163,10 @@ router.get('/github/callback',
   }
 );
 
-// Twitter OAuth routes
-
 router.get('/twitter', verifyToken, (req, res, next) => {
   const redirectTo = req.body?.redirect_to || req.query?.redirect_to;
   const options = { ...twitterAuthOptions };
-  const state = buildState({
-    redirect_to: redirectTo || '/',
-    token: req.query?.token
-  });
+  const state = redirectTo ? buildState(redirectTo) : undefined;
   if (state) options.state = state;
   passport.authenticate('twitter', options)(req, res, next);
 });

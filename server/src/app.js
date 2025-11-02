@@ -1,5 +1,6 @@
 /* Import modules */
 import express from 'express';
+import './config/dotenv.js';
 import cookieParser from 'cookie-parser';
 import corsSetup from './config/cors.js';
 import passportSetup from './config/passport.js';
@@ -14,6 +15,7 @@ import userRouter from './routes/userRoute.js';
 import oauthRouter from './routes/oauthRoute.js';
 import aboutRouter from './routes/aboutRoute.js';
 import notFound from './middleware/notFound.js';
+import servicesSetup from './config/services.js';
 
 /* App initialization */
 const app = express();
@@ -46,6 +48,9 @@ app.use('/', aboutRouter);
 
 /* 404 Middleware */
 app.use(notFound);
+
+/* Initialize services */
+servicesSetup();
 
 /* Export application */
 export default app;

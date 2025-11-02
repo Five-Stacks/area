@@ -9,7 +9,7 @@ import { Service } from '../../models/serviceModel.js';
 passport.use(new MicrosoftStrategy({
   clientID: process.env.MICROSOFT_CLIENT_ID,
   clientSecret: process.env.MICROSOFT_CLIENT_SECRET,
-  callbackURL: process.env.MICROSOFT_CALLBACK_URL || 'http://localhost:8080/api/oauth/microsoft/callback',
+  callbackURL: "https://area.pintardware.dev/api/oauth/microsoft/callback",
   scope: ['user.read', 'openid', 'profile', 'email'],
   passReqToCallback: true
 }, async (req, accessToken, refreshToken, profile, done) => {

@@ -15,6 +15,8 @@ services:
   client_mobile:
     build:
       context: ./mobile
+    environment:
+      - EXPO_TOKEN=${TOKEN_EXPO}
     ports:
       - "8082:8082"
     volumes:
