@@ -78,6 +78,9 @@ passport.use(new GoogleStrategy({
                 oauth_account_id: oauthAccount.id
             });
 
+            const timerOauth = await OAuthAccount.create({ user_id: newUser.id, provider: 'Timer', provider_user_id: `timer-${newUser.id}` });
+            await UserService.create({ user_id: newUser.id, service_id: 1, oauth_account_id: timerOauth.id });
+
             const token = jwt.sign({ userId: newUser.id, role: 'user' }, process.env.JWT_SECRET, { expiresIn: '1h' });
             if (req && req.res && typeof req.res.cookie === 'function') {
                 req.res.cookie('token', token, { httpOnly: true, secure: true, maxAge: 60 * 60 * 1000 });
