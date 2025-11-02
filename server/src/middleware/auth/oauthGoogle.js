@@ -42,7 +42,7 @@ passport.use(new GoogleStrategy({
 
             const user = await User.findByPk(oauthAccount.user_id);
             if (user) {
-                const token = jwt.sign({ userIdx: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+                const token = jwt.sign({ userId: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
                     // use req.res.cookie when available (passport strategy doesn't receive res directly)
                     if (req && req.res && typeof req.res.cookie === 'function') {
                         req.res.cookie('token', token, { httpOnly: true, secure: true, maxAge: 60 * 60 * 1000 });
