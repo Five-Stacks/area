@@ -17,6 +17,13 @@ passport.use(new MicrosoftStrategy({
     const provider = 'Microsoft';
     const providerUserId = profile.id;
 
+    if (req.query?.state) {
+        const passedState = JSON.parse(decodeURIComponent(req.query.state));
+        token = passedState.token;
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = decoded;
+    }
+
     let oauthAccount = await OAuthAccount.findOne({ where: { provider, provider_user_id: providerUserId } });
 
     if (oauthAccount) {
