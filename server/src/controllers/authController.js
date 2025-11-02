@@ -23,7 +23,7 @@ const register = async (req, res) => {
     await UserService.create({ user_id: newUser.id, service_id: 1, oauth_account_id: timerOauth.id });
 
     const token = jwt.sign({ userId: newUser.id, role: 'user' }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    res.cookie('token', token, { httpOnly: true, secure: true, maxAge: 60 * 60 * 1000 });
+    res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'none', maxAge: 60 * 60 * 1000 });
 
     res.status(201).json({ success: true, message: 'User registered successfully', token });
 }
@@ -42,7 +42,7 @@ const login = async (req, res) => {
     }
 
     const token = jwt.sign({ userId: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    res.cookie('token', token, { httpOnly: true, secure: true, maxAge: 60 * 60 * 1000 });
+    res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'none', maxAge: 60 * 60 * 1000 });
 
     res.status(200).json({ success: true, message: 'User login successful', token });
 };
