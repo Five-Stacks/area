@@ -83,9 +83,10 @@ export default function OAuthPage() {
   const handleConnect = async (serviceId: string) => {
     try {
       // Use the deep link that points back to this service page
-      const redirectUri = Linking.createURL('(tabs)/service');
-      
+      const redirectUri = Linking.createURL('/services');
+      const testURI = `exp://192.168.9.28:8082/(tabs)/service`
       console.log("Redirect URI:", redirectUri);
+      console.log("Test URI:", testURI);
 
       const connectURL = await initiateOAuth(serviceId, redirectUri);
       console.log("Opening browser with URL:", connectURL);
