@@ -4,6 +4,7 @@ import { ButtonFullComponent } from '../../../components/Buttons/button-componen
 import { TextFieldComponent } from '../../../components/Forms/text-field-component/text-field-component';
 import { TextFieldHideComponent } from '../../../components/Forms/text-field-hide-component/text-field-hide-component';
 import { AdminAuthService } from '../../../services/admin-auth.service';
+import { ApiService } from '../../../services/api.service';
 
 @Component({
   selector: 'app-sign-up-page',
@@ -15,6 +16,7 @@ export class SignUpPage {
   private router = inject(Router);
   private adminAuthService = inject(AdminAuthService);
   private route = inject(ActivatedRoute);
+  private api = inject(ApiService);
 
   email = '';
   password = '';
@@ -77,8 +79,8 @@ export class SignUpPage {
     this.adminAuthService.register(this.email, this.password, this.name).subscribe({
       next: (success) => {
         this.isLoading = false;
-        if (success) {
-          // Registration successful, navigate to login or dashboard
+        if (success[0]) {
+          this.api.tokenSaved = success[1];
           this.router.navigate(['/dashboard']);
         } else {
           this.errorMessage = 'Registration failed. Please try again.';

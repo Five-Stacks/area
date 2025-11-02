@@ -7,6 +7,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ApiService {
+    tokenSaved = '';
     apiUrl = 'https://area.pintardware.dev/api'; // Adjust based on your server config
     private http: HttpClient = inject(HttpClient);
 

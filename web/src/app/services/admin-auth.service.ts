@@ -42,22 +42,22 @@ export class AdminAuthService {
     });
   }
 
-  login(email: string, password: string): Observable<boolean> {
-    return this.http.post<{ success: boolean }>(`${this.apiUrl}/auth/login`, { email, password }, { withCredentials: true }).pipe(
-      map(response => response.success),
+  login(email: string, password: string): Observable<[boolean, string]> {
+    return this.http.post<{ success: boolean; message?: string; token: string }>(`${this.apiUrl}/auth/login`, { email, password }, { withCredentials: true }).pipe(
+      map(response => [response.success, response.token] as [boolean, string]),
       catchError(error => {
         console.error('Login error:', error);
-        return of(false);
+        return of([false, 'Login failed'] as [boolean, string]);
       })
     );
   }
 
-  register(email: string, password: string, name: string): Observable<boolean> {
-    return this.http.post<{ success: boolean }>(`${this.apiUrl}/auth/register`, { email, password, name }, { withCredentials: true }).pipe(
-      map(response => response.success),
+  register(email: string, password: string, name: string): Observable<[boolean, string]> {
+    return this.http.post<{ success: boolean; message?: string;  token: string }>(`${this.apiUrl}/auth/register`, { email, password, name }, { withCredentials: true }).pipe(
+      map(response => [response.success, response.token] as [boolean, string]),
       catchError(error => {
         console.error('Registration error:', error);
-        return of(false);
+        return of([false, 'Registration failed'] as [boolean, string]);
       })
     );
   }
