@@ -25,6 +25,9 @@ passport.use(new GoogleStrategy({
             token = req.headers.authorization.split(' ')[1];
         } else if (req.query && req.query.token) {
             token = req.query.token;
+        } else if (req.query?.state) {
+            const passedState = JSON.parse(decodeURIComponent(req.query.state));
+            token = passedState.token;
         } else if (req.cookies && req.cookies.token) {
             token = req.cookies.token;
         }
