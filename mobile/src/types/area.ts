@@ -4,19 +4,23 @@ export type DataForm = {
   response: string;
 };
 
+export type action = {
+  service_name: string;
+  name: string;
+  datas_form: DataForm[];
+};
+
+export type trigger = {
+  reactionChosenId: number;
+  service_name: string;
+  name: string;
+  datas_form: DataForm[];
+};
+
 export type AreaConfig = {
   name: string;
-  trigger: {
-    reactionChosenId: number;
-    service_name: string;
-    name: string;
-    datas_form: DataForm[];
-  };
-  actions: {
-    service_name: string;
-    name: string;
-    datas_form: DataForm[];
-  }[];
+  trigger: trigger;
+  actions: action[];
 };
 
 export type Area = {

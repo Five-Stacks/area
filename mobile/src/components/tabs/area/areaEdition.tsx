@@ -1,8 +1,7 @@
 import React from "react";
-import { Area } from "@/src/types/area";
+import { action, Area } from "@/src/types/area";
 import {
   Button,
-  FlatList,
   Image,
   Pressable,
   StyleSheet,
@@ -10,11 +9,11 @@ import {
   View,
   Alert,
   ScrollView,
-  NativeMethods,
 } from "react-native";
 import { matchServiceToIcon } from "@/src/utils/matchServiceNameToIcon";
 import { globalColors, globalTextStyle } from "@/src/styles/global";
 import PlusIcon from "@/assets/images/plus.png";
+import { ActionEditorModal } from "./actionEditorModal";
 
 export type AreaEditionProps = {
   area: Area;
@@ -22,6 +21,7 @@ export type AreaEditionProps = {
 
 export default function AreaEdition({ area }: AreaEditionProps) {
   const [localArea, setLocalArea] = React.useState<Area>(area);
+  const [editingIndex, setEditingIndex] = React.useState<number | null>(null);
 
   function moveAction(position: number, direction: "up" | "down") {
     if (direction === "up" && position <= 0) return;
@@ -85,7 +85,11 @@ export default function AreaEdition({ area }: AreaEditionProps) {
   }
 
   function EditAction(id: number) {
-    // Open a popup to edit the action
+    setEditingIndex(id);
+  }
+
+  function CloseModal() {
+    setEditingIndex(null);
   }
 
   function DeleteAction(id: number) {
@@ -120,22 +124,41 @@ export default function AreaEdition({ area }: AreaEditionProps) {
   }
 
   return (
-    <ScrollView style={styles.container}>
-      <TriggerCard trigger={localArea.config.trigger} />
-      <Separator onPress={() => CreateAction(0)}/>
-      {localArea.config.actions.map((action, index) => (
-        <View key={index}>
-          <ActionCard
-            action={action}
-            id={index}
-            onPositionChange={(dir) => moveAction(index, dir)}
-            onEdit={() => EditAction(index)}
-            onDelete={() => DeleteAction(index)}
-          />
-          <Separator onPress={() => CreateAction(index + 1)} />
-        </View>
-      ))}
-    </ScrollView>
+    <>
+      <ScrollView style={styles.container}>
+        <TriggerCard trigger={localArea.config.trigger} />
+        <Separator onPress={() => CreateAction(0)} />
+        {localArea.config.actions.map((action, index) => (
+          <View key={index}>
+            <ActionCard
+              action={action}
+              id={index}
+              onPositionChange={(dir) => moveAction(index, dir)}
+              onEdit={() => EditAction(index)}
+              onDelete={() => DeleteAction(index)}
+            />
+            <Separator onPress={() => CreateAction(index + 1)} />
+          </View>
+        ))}
+      </ScrollView>
+      {editingIndex !== null && (
+        <ActionEditorModal
+          action={localArea.config.actions[editingIndex]}
+          onClose={CloseModal}
+          onSave={(updatedAction: action) => {
+            const newActions = [...localArea.config.actions];
+            newActions[editingIndex] = updatedAction;
+
+            setLocalArea({
+              ...localArea,
+              config: { ...localArea.config, actions: newActions },
+            });
+
+            CloseModal();
+          }}
+        />
+      )}
+    </>
   );
 }
 
